@@ -82,56 +82,71 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Abstract network background */}
+      {/* Particle Network Background */}
       <div className="absolute inset-0">
-        {/* Starfield effect */}
-        <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
+        <div className="relative w-full h-full">
+          {/* Large background particles */}
+          {[...Array(20)].map((_, i) => (
             <div
-              key={i}
-              className="absolute rounded-full bg-white"
+              key={`lg-${i}`}
+              className="absolute rounded-full"
               style={{
-                width: Math.random() * 3 + 'px',
-                height: Math.random() * 3 + 'px',
+                width: Math.random() * 80 + 40 + 'px',
+                height: Math.random() * 80 + 40 + 'px',
                 top: Math.random() * 100 + '%',
                 left: Math.random() * 100 + '%',
-                opacity: Math.random() * 0.8 + 0.2,
-                animation: `pulse ${Math.random() * 3 + 2}s infinite alternate`
+                background: `radial-gradient(circle, #62D4F9 0%, transparent 70%)`,
+                opacity: Math.random() * 0.15 + 0.05,
+                filter: 'blur(40px)',
               }}
             />
           ))}
-        </div>
-        
-        {/* Network lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-10">
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#62D4F9" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#2A50DF" stopOpacity="0.3" />
-            </linearGradient>
-          </defs>
-          {[...Array(15)].map((_, i) => (
-            <line
-              key={i}
-              x1={`${Math.random() * 100}%`}
-              y1={`${Math.random() * 100}%`}
-              x2={`${Math.random() * 100}%`}
-              y2={`${Math.random() * 100}%`}
-              stroke="url(#gradient1)"
-              strokeWidth="1"
-              opacity="0.3"
+          
+          {/* Small particles */}
+          {[...Array(100)].map((_, i) => (
+            <div
+              key={`sm-${i}`}
+              className="absolute rounded-full bg-[#62D4F9]"
+              style={{
+                width: Math.random() * 4 + 1 + 'px',
+                height: Math.random() * 4 + 1 + 'px',
+                top: Math.random() * 100 + '%',
+                left: Math.random() * 100 + '%',
+                opacity: Math.random() * 0.8 + 0.2,
+                boxShadow: `0 0 ${Math.random() * 10 + 5}px #62D4F9`,
+                animation: `float ${Math.random() * 10 + 10}s infinite ease-in-out`
+              }}
             />
           ))}
-        </svg>
-        
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#62D4F9]/5 via-transparent to-[#2A50DF]/5"></div>
+          
+          {/* Network connections */}
+          <svg className="absolute inset-0 w-full h-full">
+            {[...Array(30)].map((_, i) => {
+              const x1 = Math.random() * 100;
+              const y1 = Math.random() * 100;
+              const x2 = x1 + (Math.random() - 0.5) * 30;
+              const y2 = y1 + (Math.random() - 0.5) * 30;
+              return (
+                <line
+                  key={`line-${i}`}
+                  x1={`${x1}%`}
+                  y1={`${y1}%`}
+                  x2={`${x2}%`}
+                  y2={`${y2}%`}
+                  stroke="#62D4F9"
+                  strokeWidth="0.5"
+                  opacity="0.1"
+                />
+              );
+            })}
+          </svg>
+        </div>
       </div>
 
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-2xl">
           {/* Header */}
-          <div className="glass rounded-t-2xl p-8 border-b border-white/10">
+          <div className="bg-black/80 backdrop-blur-sm rounded-t-2xl p-8 border border-white/10">
             <h1 className="text-3xl font-bold gradient-text">coresentia ai consultation</h1>
             <p className="mt-3 text-gray-300">
               Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you
@@ -139,8 +154,8 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
           </div>
 
           {/* Chat Messages */}
-          <div className="glass rounded-b-2xl">
-            <div className="h-[500px] overflow-y-auto p-6 space-y-4">
+          <div className="bg-black/80 backdrop-blur-sm rounded-b-2xl border border-white/10 border-t-0">
+            <div className="h-[400px] md:h-[500px] overflow-y-auto p-4 md:p-6 space-y-4">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -155,7 +170,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
                     className={`max-w-xs lg:max-w-md px-5 py-3 rounded-2xl ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] text-white'
-                        : 'glass text-gray-200'
+                        : 'bg-white/5 border border-white/10 text-gray-200'
                     }`}
                   >
                     {message.content}
@@ -167,7 +182,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] flex items-center justify-center mr-3 animate-pulse">
                     <span className="text-white text-xs font-bold">A</span>
                   </div>
-                  <div className="glass text-gray-400 px-5 py-3 rounded-2xl">
+                  <div className="bg-white/5 border border-white/10 text-gray-400 px-5 py-3 rounded-2xl">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
@@ -179,28 +194,28 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
             </div>
 
             {/* Input */}
-            <div className="border-t border-white/10 p-6">
-              <div className="flex space-x-3">
+            <div className="border-t border-white/10 p-4 md:p-6">
+              <div className="flex space-x-2 md:space-x-3">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="Type your message..."
-                  className="flex-1 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#62D4F9] transition-colors"
+                  className="flex-1 px-4 md:px-5 py-2.5 md:py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#62D4F9] transition-colors text-sm md:text-base"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={loading}
-                  className="px-8 py-3 bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] text-white rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity font-semibold"
+                  className="px-6 md:px-8 py-2.5 md:py-3 bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] text-white rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity font-semibold text-sm md:text-base"
                 >
                   Send
                 </button>
               </div>
               
               {/* Tagline and Copyright */}
-              <div className="mt-6 text-center space-y-2">
-                <p className="text-sm text-gray-400 font-medium">
+              <div className="mt-4 md:mt-6 text-center space-y-2">
+                <p className="text-xs md:text-sm text-gray-400 font-medium">
                   Stop talking about AI. Start closing with it.
                 </p>
                 <p className="text-xs text-gray-500">
@@ -212,11 +227,11 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
         </div>
       </div>
 
-      {/* Add pulse animation */}
+      {/* Animation keyframes */}
       <style jsx>{`
-        @keyframes pulse {
-          0% { opacity: 0.2; }
-          100% { opacity: 0.8; }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
         }
       `}</style>
     </div>

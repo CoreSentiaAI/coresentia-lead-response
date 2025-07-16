@@ -21,7 +21,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
     // Add initial greeting
     setMessages([{
       role: 'assistant',
-      content: `Hi! I&apos;m Ava from CoreSentia. Thanks for taking the time to chat with me. I&apos;d love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
+      content: `Hi! I'm Ava from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
     }])
   }, [])
 
@@ -82,10 +82,50 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Animated background particles */}
+      {/* Abstract network background */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-[#62D4F9] rounded-full filter blur-[100px] opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#2A50DF] rounded-full filter blur-[120px] opacity-20 animate-pulse"></div>
+        {/* Starfield effect */}
+        <div className="absolute inset-0">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-white"
+              style={{
+                width: Math.random() * 3 + 'px',
+                height: Math.random() * 3 + 'px',
+                top: Math.random() * 100 + '%',
+                left: Math.random() * 100 + '%',
+                opacity: Math.random() * 0.8 + 0.2,
+                animation: `pulse ${Math.random() * 3 + 2}s infinite alternate`
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* Network lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-10">
+          <defs>
+            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#62D4F9" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#2A50DF" stopOpacity="0.3" />
+            </linearGradient>
+          </defs>
+          {[...Array(15)].map((_, i) => (
+            <line
+              key={i}
+              x1={`${Math.random() * 100}%`}
+              y1={`${Math.random() * 100}%`}
+              x2={`${Math.random() * 100}%`}
+              y2={`${Math.random() * 100}%`}
+              stroke="url(#gradient1)"
+              strokeWidth="1"
+              opacity="0.3"
+            />
+          ))}
+        </svg>
+        
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#62D4F9]/5 via-transparent to-[#2A50DF]/5"></div>
       </div>
 
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
@@ -157,15 +197,28 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
                   Send
                 </button>
               </div>
-              {!lead?.email && (
-                <p className="text-xs text-gray-500 mt-3">
-                  I&apos;m drowning in AI subscriptions - spending over $2k/month on different platforms but they don&apos;t talk to each other
+              
+              {/* Tagline and Copyright */}
+              <div className="mt-6 text-center space-y-2">
+                <p className="text-sm text-gray-400 font-medium">
+                  Stop talking about AI. Start closing with it.
                 </p>
-              )}
+                <p className="text-xs text-gray-500">
+                  Copyright © CoreSentia 2025
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Add pulse animation */}
+      <style jsx>{`
+        @keyframes pulse {
+          0% { opacity: 0.2; }
+          100% { opacity: 0.8; }
+        }
+      `}</style>
     </div>
   )
 }

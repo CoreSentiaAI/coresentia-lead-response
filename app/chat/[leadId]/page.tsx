@@ -86,7 +86,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
         {/* Header */}
         <div className="bg-blue-600 text-white p-6 rounded-t-lg">
           <h1 className="text-2xl font-bold">CoreSentia AI Consultation</h1>
-          <p className="mt-2">Hi {lead?.first_name}, let's explore how we can help you</p>
+          <p className="mt-2">Hi {lead?.first_name}, let&apos;s explore how we can help you</p>
         </div>
 
         {/* Chat Messages */}

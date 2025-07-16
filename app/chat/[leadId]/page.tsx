@@ -82,63 +82,62 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Particle Network Background */}
+      {/* Static Network Background */}
       <div className="absolute inset-0">
-        <div className="relative w-full h-full">
-          {/* Large background particles */}
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={`lg-${i}`}
-              className="absolute rounded-full"
-              style={{
-                width: Math.random() * 80 + 40 + 'px',
-                height: Math.random() * 80 + 40 + 'px',
-                top: Math.random() * 100 + '%',
-                left: Math.random() * 100 + '%',
-                background: `radial-gradient(circle, #62D4F9 0%, transparent 70%)`,
-                opacity: Math.random() * 0.15 + 0.05,
-                filter: 'blur(40px)',
-              }}
-            />
-          ))}
+        {/* Gradient mesh background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#62D4F9] rounded-full filter blur-[150px] opacity-10"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] bg-[#2A50DF] rounded-full filter blur-[200px] opacity-10"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#62D4F9] rounded-full filter blur-[250px] opacity-5"></div>
+        </div>
+
+        {/* Network grid pattern */}
+        <svg className="absolute inset-0 w-full h-full opacity-20">
+          <defs>
+            <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+              <circle cx="50" cy="50" r="1" fill="#62D4F9" opacity="0.5" />
+              <line x1="50" y1="0" x2="50" y2="100" stroke="#62D4F9" strokeWidth="0.25" opacity="0.3" />
+              <line x1="0" y1="50" x2="100" y2="50" stroke="#62D4F9" strokeWidth="0.25" opacity="0.3" />
+            </pattern>
+            
+            <radialGradient id="networkGradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#62D4F9" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#2A50DF" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="transparent" />
+            </radialGradient>
+          </defs>
           
-          {/* Small particles */}
-          {[...Array(100)].map((_, i) => (
-            <div
-              key={`sm-${i}`}
-              className="absolute rounded-full bg-[#62D4F9]"
-              style={{
-                width: Math.random() * 4 + 1 + 'px',
-                height: Math.random() * 4 + 1 + 'px',
-                top: Math.random() * 100 + '%',
-                left: Math.random() * 100 + '%',
-                opacity: Math.random() * 0.8 + 0.2,
-                boxShadow: `0 0 ${Math.random() * 10 + 5}px #62D4F9`,
-                animation: `float ${Math.random() * 10 + 10}s infinite ease-in-out`
-              }}
-            />
-          ))}
+          <rect width="100%" height="100%" fill="url(#grid)" />
           
-          {/* Network connections */}
-          <svg className="absolute inset-0 w-full h-full">
-            {[...Array(30)].map((_, i) => {
-              const x1 = Math.random() * 100;
-              const y1 = Math.random() * 100;
-              const x2 = x1 + (Math.random() - 0.5) * 30;
-              const y2 = y1 + (Math.random() - 0.5) * 30;
-              return (
-                <line
-                  key={`line-${i}`}
-                  x1={`${x1}%`}
-                  y1={`${y1}%`}
-                  x2={`${x2}%`}
-                  y2={`${y2}%`}
-                  stroke="#62D4F9"
-                  strokeWidth="0.5"
-                  opacity="0.1"
-                />
-              );
-            })}
+          {/* Static network connections */}
+          <g opacity="0.3">
+            <path d="M 20% 30% Q 50% 20% 80% 40%" stroke="url(#networkGradient)" strokeWidth="1" fill="none" />
+            <path d="M 10% 60% Q 40% 50% 70% 70%" stroke="url(#networkGradient)" strokeWidth="1" fill="none" />
+            <path d="M 30% 80% Q 60% 70% 90% 50%" stroke="url(#networkGradient)" strokeWidth="1" fill="none" />
+            <path d="M 5% 20% Q 35% 40% 65% 30%" stroke="url(#networkGradient)" strokeWidth="0.5" fill="none" />
+            <path d="M 40% 10% Q 60% 30% 85% 20%" stroke="url(#networkGradient)" strokeWidth="0.5" fill="none" />
+          </g>
+          
+          {/* Network nodes */}
+          <g opacity="0.4">
+            <circle cx="20%" cy="30%" r="3" fill="#62D4F9" />
+            <circle cx="80%" cy="40%" r="4" fill="#2A50DF" />
+            <circle cx="10%" cy="60%" r="2" fill="#62D4F9" />
+            <circle cx="70%" cy="70%" r="3" fill="#2A50DF" />
+            <circle cx="30%" cy="80%" r="2" fill="#62D4F9" />
+            <circle cx="90%" cy="50%" r="3" fill="#2A50DF" />
+            <circle cx="50%" cy="20%" r="4" fill="#62D4F9" />
+            <circle cx="60%" cy="90%" r="2" fill="#2A50DF" />
+          </g>
+        </svg>
+
+        {/* Noise texture overlay for depth */}
+        <div className="absolute inset-0 opacity-[0.02] mix-blend-screen">
+          <svg width="100%" height="100%">
+            <filter id="noise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noise)" />
           </svg>
         </div>
       </div>
@@ -226,14 +225,6 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
           </div>
         </div>
       </div>
-
-      {/* Animation keyframes */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-        }
-      `}</style>
     </div>
   )
 }

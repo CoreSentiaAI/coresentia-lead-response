@@ -21,7 +21,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
     // Add initial greeting
     setMessages([{
       role: 'assistant',
-      content: `Hi! I'm Ava from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
+      content: `Hi! I&apos;m Ava from CoreSentia. Thanks for taking the time to chat with me. I&apos;d love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
     }])
   }, [])
 
@@ -94,7 +94,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
           <div className="glass rounded-t-2xl p-8 border-b border-white/10">
             <h1 className="text-3xl font-bold gradient-text">coresentia ai consultation</h1>
             <p className="mt-3 text-gray-300">
-              Hi {lead?.first_name || 'there'}, let's explore how we can help you
+              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you
             </p>
           </div>
 
@@ -159,7 +159,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
               </div>
               {!lead?.email && (
                 <p className="text-xs text-gray-500 mt-3">
-                  I'm drowning in AI subscriptions - spending over $2k/month on different platforms but they don't talk to each other
+                  I&apos;m drowning in AI subscriptions - spending over $2k/month on different platforms but they don&apos;t talk to each other
                 </p>
               )}
             </div>

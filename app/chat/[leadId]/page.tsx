@@ -50,7 +50,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
       sender: 'lead'
     })
 
-    // Get AI response (we'll add this API route next)
+    // Get AI response
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -81,59 +81,88 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg">
-        {/* Header */}
-        <div className="bg-blue-600 text-white p-6 rounded-t-lg">
-          <h1 className="text-2xl font-bold">CoreSentia AI Consultation</h1>
-          <p className="mt-2">Hi {lead?.first_name}, let&apos;s explore how we can help you</p>
-        </div>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Animated background particles */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-64 h-64 bg-[#62D4F9] rounded-full filter blur-[100px] opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#2A50DF] rounded-full filter blur-[120px] opacity-20 animate-pulse"></div>
+      </div>
 
-        {/* Chat Messages */}
-        <div className="h-96 overflow-y-auto p-6 space-y-4">
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                  message.role === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-800'
-                }`}
-              >
-                {message.content}
-              </div>
-            </div>
-          ))}
-          {loading && (
-            <div className="flex justify-start">
-              <div className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">
-                Ava is typing...
-              </div>
-            </div>
-          )}
-        </div>
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div className="w-full max-w-2xl">
+          {/* Header */}
+          <div className="glass rounded-t-2xl p-8 border-b border-white/10">
+            <h1 className="text-3xl font-bold gradient-text">coresentia ai consultation</h1>
+            <p className="mt-3 text-gray-300">
+              Hi {lead?.first_name || 'there'}, let's explore how we can help you
+            </p>
+          </div>
 
-        {/* Input */}
-        <div className="border-t p-4">
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-              placeholder="Type your message..."
-              className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-            <button
-              onClick={sendMessage}
-              disabled={loading}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
-            >
-              Send
-            </button>
+          {/* Chat Messages */}
+          <div className="glass rounded-b-2xl">
+            <div className="h-[500px] overflow-y-auto p-6 space-y-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  {message.role === 'assistant' && (
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] flex items-center justify-center mr-3 flex-shrink-0">
+                      <span className="text-white text-xs font-bold">A</span>
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-xs lg:max-w-md px-5 py-3 rounded-2xl ${
+                      message.role === 'user'
+                        ? 'bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] text-white'
+                        : 'glass text-gray-200'
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] flex items-center justify-center mr-3 animate-pulse">
+                    <span className="text-white text-xs font-bold">A</span>
+                  </div>
+                  <div className="glass text-gray-400 px-5 py-3 rounded-2xl">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Input */}
+            <div className="border-t border-white/10 p-6">
+              <div className="flex space-x-3">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="Type your message..."
+                  className="flex-1 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#62D4F9] transition-colors"
+                />
+                <button
+                  onClick={sendMessage}
+                  disabled={loading}
+                  className="px-8 py-3 bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] text-white rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity font-semibold"
+                >
+                  Send
+                </button>
+              </div>
+              {!lead?.email && (
+                <p className="text-xs text-gray-500 mt-3">
+                  I'm drowning in AI subscriptions - spending over $2k/month on different platforms but they don't talk to each other
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>

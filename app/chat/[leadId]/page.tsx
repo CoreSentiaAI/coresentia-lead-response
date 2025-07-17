@@ -29,7 +29,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
     fetchLead()
     setMessages([{
       role: 'assistant',
-      content: `Hi! I'm Ava from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
+      content: `Hi! I'm Ivy, your AI assistant. My job is understand your nneeds and organise next steps to get you sorted. Firstly, what are you trying to solve, by contacting CoreSentia?`
     }])
   }, [fetchLead])
 
@@ -103,10 +103,10 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
         <div className="w-full max-w-2xl">
           <div className="bg-black/80 backdrop-blur-md rounded-t-2xl p-8 border border-white/20">
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#62D4F9] to-[#2A50DF]">
-              coresentia ai consultation
+              CoreSentia Lead Connect
             </h1>
             <p className="mt-3 text-gray-200">
-              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you
+              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you. Instant, human-like qualification and next steps — no forms, no delays.
             </p>
           </div>
 

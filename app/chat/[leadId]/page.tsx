@@ -9,38 +9,50 @@ const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhybmRmbW5kaXBhemp5cWxvemljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1NjgyNzgsImV4cCI6MjA2ODE0NDI3OH0.BhRjqnA06Kn0kOogjwW1DcwaHd5cHfbCnr_OdPzfKVw'
 )
 
-// Particle network background logic (vanilla, performant)
+// Particle network background
 function ParticleNetworkBG() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+
+    let ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     let dpr = window.devicePixelRatio || 1;
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
-    ctx.scale(dpr, dpr);
+    function setCanvasSize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx = canvas.getContext('2d');
+      if (ctx) ctx.scale(dpr, dpr);
+    }
+
+    setCanvasSize();
 
     // Settings
     const nodeCount = Math.floor((width * height) / 8000);
-    const nodes = Array.from({length: nodeCount}).map(() => ({
+    const nodes = Array.from({ length: nodeCount }).map(() => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.2,
-      vy: (Math.random() - 0.5) * 0.2,
-      r: Math.random() * 2 + 1,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.18,
+      r: Math.random() * 2 + 1.2,
       glow: Math.random() > 0.5,
     }));
 
     function draw() {
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
       ctx.clearRect(0, 0, width, height);
 
       // Lines between close nodes
@@ -49,7 +61,7 @@ function ParticleNetworkBG() {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140) {
+          if (dist < 135) {
             ctx.save();
             ctx.globalAlpha = 0.11 + (120 - dist) / 400;
             ctx.strokeStyle = '#62D4F9';
@@ -67,11 +79,10 @@ function ParticleNetworkBG() {
       for (let i = 0; i < nodeCount; i++) {
         ctx.save();
         if (nodes[i].glow) {
-          // Outer glow
           ctx.shadowColor = '#2A50DF';
-          ctx.shadowBlur = 18;
+          ctx.shadowBlur = 16;
         }
-        ctx.globalAlpha = 0.75;
+        ctx.globalAlpha = 0.78;
         ctx.beginPath();
         ctx.arc(nodes[i].x, nodes[i].y, nodes[i].r, 0, Math.PI * 2);
         ctx.fillStyle = nodes[i].glow ? '#2A50DF' : '#62D4F9';
@@ -102,13 +113,7 @@ function ParticleNetworkBG() {
 
     // Handle resize
     function handleResize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-      ctx.scale(dpr, dpr);
+      setCanvasSize();
     }
     window.addEventListener('resize', handleResize);
 
@@ -134,21 +139,23 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    // Fetch lead data
+    async function fetchLead() {
+      const { data } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('id', params.leadId)
+        .single()
+      if (data) setLead(data)
+    }
     fetchLead()
+
+    // Add initial greeting
     setMessages([{
       role: 'assistant',
       content: `Hi! I'm Ivy from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
     }])
-  }, [])
-
-  const fetchLead = async () => {
-    const { data } = await supabase
-      .from('leads')
-      .select('*')
-      .eq('id', params.leadId)
-      .single()
-    if (data) setLead(data)
-  }
+  }, [params.leadId])
 
   const sendMessage = async () => {
     if (!input.trim()) return

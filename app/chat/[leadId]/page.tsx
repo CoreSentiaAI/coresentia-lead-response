@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
 // Initialize Supabase client
@@ -8,129 +8,6 @@ const supabase = createClient(
   'https://xrndfmndipazjyqlozic.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhybmRmbW5kaXBhemp5cWxvemljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1NjgyNzgsImV4cCI6MjA2ODE0NDI3OH0.BhRjqnA06Kn0kOogjwW1DcwaHd5cHfbCnr_OdPzfKVw'
 )
-
-// Particle network background
-function ParticleNetworkBG() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    let ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let dpr = window.devicePixelRatio || 1;
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-
-    function setCanvasSize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-      ctx = canvas.getContext('2d');
-      if (ctx) ctx.scale(dpr, dpr);
-    }
-
-    setCanvasSize();
-
-    // Settings
-    const nodeCount = Math.floor((width * height) / 8000);
-    const nodes = Array.from({ length: nodeCount }).map(() => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.18,
-      vy: (Math.random() - 0.5) * 0.18,
-      r: Math.random() * 2 + 1.2,
-      glow: Math.random() > 0.5,
-    }));
-
-    function draw() {
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      ctx.clearRect(0, 0, width, height);
-
-      // Lines between close nodes
-      for (let i = 0; i < nodeCount; i++) {
-        for (let j = i + 1; j < nodeCount; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 135) {
-            ctx.save();
-            ctx.globalAlpha = 0.11 + (120 - dist) / 400;
-            ctx.strokeStyle = '#62D4F9';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.stroke();
-            ctx.restore();
-          }
-        }
-      }
-
-      // Nodes
-      for (let i = 0; i < nodeCount; i++) {
-        ctx.save();
-        if (nodes[i].glow) {
-          ctx.shadowColor = '#2A50DF';
-          ctx.shadowBlur = 16;
-        }
-        ctx.globalAlpha = 0.78;
-        ctx.beginPath();
-        ctx.arc(nodes[i].x, nodes[i].y, nodes[i].r, 0, Math.PI * 2);
-        ctx.fillStyle = nodes[i].glow ? '#2A50DF' : '#62D4F9';
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    function update() {
-      for (let node of nodes) {
-        node.x += node.vx;
-        node.y += node.vy;
-
-        // Bounce off edge
-        if (node.x < 0 || node.x > width) node.vx *= -1;
-        if (node.y < 0 || node.y > height) node.vy *= -1;
-      }
-    }
-
-    let frame: number;
-    function animate() {
-      update();
-      draw();
-      frame = requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Handle resize
-    function handleResize() {
-      setCanvasSize();
-    }
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full z-0"
-      style={{ background: 'radial-gradient(ellipse at 50% 40%, #1a2330 60%, #060B13 100%)' }}
-    />
-  );
-}
 
 export default function ChatPage({ params }: { params: { leadId: string } }) {
   const [messages, setMessages] = useState<Array<{ role: string; content: string }>>([])
@@ -140,37 +17,40 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
 
   useEffect(() => {
     // Fetch lead data
-    async function fetchLead() {
-      const { data } = await supabase
-        .from('leads')
-        .select('*')
-        .eq('id', params.leadId)
-        .single()
-      if (data) setLead(data)
-    }
     fetchLead()
-
     // Add initial greeting
     setMessages([{
       role: 'assistant',
-      content: `Hi! I'm Ivy from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
+      content: `Hi! I'm Ava from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
     }])
-  }, [params.leadId])
+  }, [])
+
+  const fetchLead = async () => {
+    const { data, error } = await supabase
+      .from('leads')
+      .select('*')
+      .eq('id', params.leadId)
+      .single()
+    
+    if (data) setLead(data)
+  }
 
   const sendMessage = async () => {
     if (!input.trim()) return
-
+    
     const userMessage = { role: 'user', content: input }
     setMessages(prev => [...prev, userMessage])
     setInput('')
     setLoading(true)
 
+    // Save to conversations table
     await supabase.from('conversations').insert({
       lead_id: params.leadId,
       message: input,
       sender: 'lead'
     })
 
+    // Get AI response
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -181,12 +61,13 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
           leadInfo: lead
         })
       })
-
+      
       const data = await response.json()
       const aiMessage = { role: 'assistant', content: data.message }
-
+      
       setMessages(prev => [...prev, aiMessage])
-
+      
+      // Save AI response
       await supabase.from('conversations').insert({
         lead_id: params.leadId,
         message: data.message,
@@ -195,27 +76,49 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
     } catch (error) {
       console.error('Error:', error)
     }
-
+    
     setLoading(false)
   }
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Modern animated particle network background */}
-      <ParticleNetworkBG />
+      {/* --- REFINED STATIC BACKGROUND --- */}
+      <div className="absolute inset-0 z-0">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0">
+          <defs>
+            <radialGradient id="aurora-grad-1" cx="20%" cy="30%" r="80%">
+              <stop offset="0%" stopColor="#2A50DF" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#2A50DF" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="aurora-grad-2" cx="80%" cy="70%" r="70%">
+              <stop offset="0%" stopColor="#62D4F9" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#62D4F9" stopOpacity="0" />
+            </radialGradient>
+            <pattern id="dot-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="0.5" fill="rgba(255, 255, 255, 0.1)"></circle>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="black" />
+          <rect width="100%" height="100%" fill="url(#aurora-grad-1)" />
+          <rect width="100%" height="100%" fill="url(#aurora-grad-2)" />
+          <rect width="100%" height="100%" fill="url(#dot-pattern)" />
+        </svg>
+      </div>
 
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-2xl">
           {/* Header */}
-          <div className="bg-black/90 backdrop-blur-sm rounded-t-2xl p-8 border border-white/30">
-            <h1 className="text-3xl font-bold gradient-text">coresentia ai consultation</h1>
+          <div className="bg-black/80 backdrop-blur-md rounded-t-2xl p-8 border border-white/20">
+            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#62D4F9] to-[#2A50DF]">
+              coresentia ai consultation
+            </h1>
             <p className="mt-3 text-gray-200">
-              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you
+              Hi {lead?.first_name || 'there'}, let's explore how we can help you
             </p>
           </div>
 
           {/* Chat Messages */}
-          <div className="bg-black/90 backdrop-blur-sm rounded-b-2xl border border-white/30 border-t-0">
+          <div className="bg-black/80 backdrop-blur-md rounded-b-2xl border border-white/20 border-t-0">
             <div className="h-[400px] md:h-[500px] overflow-y-auto p-4 md:p-6 space-y-4">
               {messages.map((message, index) => (
                 <div
@@ -224,14 +127,14 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
                 >
                   {message.role === 'assistant' && (
                     <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] flex items-center justify-center mr-3 flex-shrink-0">
-                      <span className="text-white text-xs font-bold">I</span>
+                      <span className="text-white text-xs font-bold">A</span>
                     </div>
                   )}
                   <div
                     className={`max-w-xs lg:max-w-md px-5 py-3 rounded-2xl ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] text-white'
-                        : 'bg-white/10 border border-white/30 text-gray-100'
+                        : 'bg-white/10 border border-white/20 text-gray-100'
                     }`}
                   >
                     {message.content}
@@ -241,9 +144,9 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
               {loading && (
                 <div className="flex justify-start">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#62D4F9] to-[#2A50DF] flex items-center justify-center mr-3 animate-pulse">
-                    <span className="text-white text-xs font-bold">I</span>
+                    <span className="text-white text-xs font-bold">A</span>
                   </div>
-                  <div className="bg-white/10 border border-white/30 text-gray-400 px-5 py-3 rounded-2xl">
+                  <div className="bg-white/10 border border-white/20 text-gray-400 px-5 py-3 rounded-2xl">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
@@ -255,7 +158,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
             </div>
 
             {/* Input */}
-            <div className="border-t border-white/30 p-4 md:p-6">
+            <div className="border-t border-white/20 p-4 md:p-6">
               <div className="flex space-x-2 md:space-x-3">
                 <input
                   type="text"
@@ -289,4 +192,4 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
       </div>
     </div>
   )
-}
+}```

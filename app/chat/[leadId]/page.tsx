@@ -107,7 +107,6 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#62D4F9] to-[#2A50DF]">
               coresentia ai consultation
             </h1>
-            {/* THIS IS THE FIX: "let's" is now "let's" */}
             <p className="mt-3 text-gray-200">
               Hi {lead?.first_name || 'there'}, let's explore how we can help you
             </p>

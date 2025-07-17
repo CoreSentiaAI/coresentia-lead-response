@@ -77,7 +77,6 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* --- REFINED STATIC BACKGROUND --- */}
       <div className="absolute inset-0 z-0">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0">
           <defs>
@@ -102,17 +101,15 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
 
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-2xl">
-          {/* Header */}
           <div className="bg-black/80 backdrop-blur-md rounded-t-2xl p-8 border border-white/20">
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#62D4F9] to-[#2A50DF]">
               coresentia ai consultation
             </h1>
             <p className="mt-3 text-gray-200">
-              Hi {lead?.first_name || 'there'}, let's explore how we can help you
+              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you
             </p>
           </div>
 
-          {/* Chat Messages */}
           <div className="bg-black/80 backdrop-blur-md rounded-b-2xl border border-white/20 border-t-0">
             <div className="h-[400px] md:h-[500px] overflow-y-auto p-4 md:p-6 space-y-4">
               {messages.map((message, index) => (
@@ -152,7 +149,6 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
               )}
             </div>
 
-            {/* Input */}
             <div className="border-t border-white/20 p-4 md:p-6">
               <div className="flex space-x-2 md:space-x-3">
                 <input
@@ -172,7 +168,6 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
                 </button>
               </div>
               
-              {/* Tagline and Copyright */}
               <div className="mt-4 md:mt-6 text-center space-y-2">
                 <p className="text-xs md:text-sm text-gray-300 font-medium">
                   Stop talking about AI. Start closing with it.

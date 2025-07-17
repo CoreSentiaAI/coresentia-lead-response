@@ -192,4 +192,4 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
       </div>
     </div>
   )
-}```
+}

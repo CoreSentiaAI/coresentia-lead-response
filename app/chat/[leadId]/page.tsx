@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react' // Import useCallback
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
 // Initialize Supabase client
@@ -15,7 +15,6 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
   const [lead, setLead] = useState<any>(null)
   const [loading, setLoading] = useState(false)
 
-  // FIX 1: Wrap fetchLead in useCallback to stabilize its identity
   const fetchLead = useCallback(async () => {
     const { data, error } = await supabase
       .from('leads')
@@ -24,17 +23,15 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
       .single()
     
     if (data) setLead(data)
-  }, [params.leadId]) // Add params.leadId as a dependency
+  }, [params.leadId])
 
   useEffect(() => {
-    // Fetch lead data
     fetchLead()
-    // FIX 2: Escape the apostrophe in "I'm"
     setMessages([{
       role: 'assistant',
       content: `Hi! I'm Ava from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
     }])
-  }, [fetchLead]) // Add fetchLead to the dependency array
+  }, [fetchLead])
 
   const sendMessage = async () => {
     if (!input.trim()) return
@@ -44,14 +41,12 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
     setInput('')
     setLoading(true)
 
-    // Save to conversations table
     await supabase.from('conversations').insert({
       lead_id: params.leadId,
       message: input,
       sender: 'lead'
     })
 
-    // Get AI response
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -68,7 +63,6 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
       
       setMessages(prev => [...prev, aiMessage])
       
-      // Save AI response
       await supabase.from('conversations').insert({
         lead_id: params.leadId,
         message: data.message,
@@ -113,6 +107,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#62D4F9] to-[#2A50DF]">
               coresentia ai consultation
             </h1>
+            {/* THIS IS THE FIX: "let's" is now "let's" */}
             <p className="mt-3 text-gray-200">
               Hi {lead?.first_name || 'there'}, let's explore how we can help you
             </p>

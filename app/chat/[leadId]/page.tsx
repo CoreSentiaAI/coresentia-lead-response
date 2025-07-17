@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react' // Import useCallback
 import { createClient } from '@supabase/supabase-js'
 
 // Initialize Supabase client
@@ -15,17 +15,8 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
   const [lead, setLead] = useState<any>(null)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    // Fetch lead data
-    fetchLead()
-    // Add initial greeting
-    setMessages([{
-      role: 'assistant',
-      content: `Hi! I'm Ava from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
-    }])
-  }, [])
-
-  const fetchLead = async () => {
+  // FIX 1: Wrap fetchLead in useCallback to stabilize its identity
+  const fetchLead = useCallback(async () => {
     const { data, error } = await supabase
       .from('leads')
       .select('*')
@@ -33,7 +24,17 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
       .single()
     
     if (data) setLead(data)
-  }
+  }, [params.leadId]) // Add params.leadId as a dependency
+
+  useEffect(() => {
+    // Fetch lead data
+    fetchLead()
+    // FIX 2: Escape the apostrophe in "I'm"
+    setMessages([{
+      role: 'assistant',
+      content: `Hi! I'm Ava from CoreSentia. Thanks for taking the time to chat with me. I'd love to learn more about what brought you to us today. What specific challenges are you looking to solve?`
+    }])
+  }, [fetchLead]) // Add fetchLead to the dependency array
 
   const sendMessage = async () => {
     if (!input.trim()) return

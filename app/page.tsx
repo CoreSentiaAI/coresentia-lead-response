@@ -3,6 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import { Montserrat } from 'next/font/google';
+const montserrat = Montserrat({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '600']
+});
 
 interface Lead {
   id: string;
@@ -118,15 +123,14 @@ export default function ChatPage() {
               <Image 
                 src="/CoreSentia_Transparent_Logo.png" 
                 alt="CoreSentia" 
-                width={40}
-                height={40}
-                className="h-10 w-auto"
+                width={150}
+                height={60}
+                className="h-12 w-auto"
               />
-              <span className="text-2xl font-light text-white">coresentia</span>
             </div>
-            <p className="mt-3 text-gray-200 text-lg">
-              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you.
-            </p>
+            <h5 className="mt-3 text-gray-200 text-lg font-['Montserrat'] font-normal">
+              Hi {lead?.first_name || 'there'}, thank you for visiting CoreSentia. Ivy can assist you further, below. 
+            </h5>
           </div>
 
           {/* Chat Messages */}

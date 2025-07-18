@@ -124,7 +124,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
               className="h-20 w-auto -ml-1"
             />
           </div>
-          <h5 className={`text-white text-lg font-normal ${montserrat.className}`}>
+          <h5 className={"text-white text-lg font-normal " + montserrat.className}>
             Hi {lead?.first_name || 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
           </h5>
         </div>

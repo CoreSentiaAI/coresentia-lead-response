@@ -123,13 +123,13 @@ export default function ChatPage() {
               <Image 
                 src="/CoreSentia_Transparent_Logo.png" 
                 alt="CoreSentia" 
-                width={150}
-                height={60}
+                width={300}
+                height={120}
                 className="h-12 w-auto"
               />
             </div>
-            <h5 className="mt-3 text-gray-200 text-lg font-['Montserrat'] font-normal">
-              Hi {lead?.first_name || 'there'}, thank you for visiting CoreSentia. Ivy can assist you further, below. 
+            <h5 className={`mt-3 text-gray-200 text-lg font-normal ${montserrat.className}`}>
+              Hi {lead?.first_name || 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started. 
             </h5>
           </div>
 

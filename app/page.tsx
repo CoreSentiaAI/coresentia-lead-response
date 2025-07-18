@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 
 interface Lead {
   id: string;
@@ -114,15 +115,17 @@ export default function ChatPage() {
           {/* Header */}
           <div className="bg-black/80 backdrop-blur-md rounded-t-2xl p-8 border border-white/20">
             <div className="flex items-center space-x-3 mb-4">
-              <img 
+              <Image 
                 src="/CoreSentia_Transparent_Logo.png" 
                 alt="CoreSentia" 
+                width={40}
+                height={40}
                 className="h-10 w-auto"
               />
               <span className="text-2xl font-light text-white">coresentia</span>
             </div>
             <p className="mt-3 text-gray-200 text-lg">
-              Hi {lead?.first_name || 'there'}, let's explore how we can help you.
+              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you.
             </p>
           </div>
 

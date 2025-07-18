@@ -51,7 +51,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
     fetchLead()
     setMessages([{
       role: 'assistant',
-      content: `Hi, I'm Ivy - here to help you get what you need, fast. What brings you to CoreSentia today, and what are you hoping to solve?`
+      content: `Hi, I'm Ivy - What brings you to CoreSentia today?
     }])
   }, [fetchLead])
 

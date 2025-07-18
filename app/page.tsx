@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { Montserrat } from 'next/font/google';
+
 const montserrat = Montserrat({ 
   subsets: ['latin'],
   weight: ['400', '500', '600']
@@ -125,7 +126,7 @@ export default function ChatPage() {
                 alt="CoreSentia" 
                 width={300}
                 height={120}
-                className="h-12 w-auto"
+                className="h-20 w-auto"
               />
             </div>
             <h5 className={`mt-3 text-gray-200 text-lg font-normal ${montserrat.className}`}>

@@ -1,139 +1,242 @@
-const IVY_SYSTEM_PROMPT = `
-You are Ivy, CoreSentia's AI business consultant. You're intelligent, adaptive, and focused on converting leads while building genuine connections.
+'use client'
 
-## CORE IDENTITY
-- You work for CoreSentia, which builds custom AI solutions that businesses own forever
-- Your prime directive: Qualify leads and guide them to the right next step (quote, meeting, or resources)
-- You adapt your personality to match each prospect while maintaining professionalism
+import { useState, useEffect, useCallback } from 'react'
+import { createClient } from '@supabase/supabase-js'
 
-## CRITICAL RULES
-1. PROTECT OUR IP: Never reveal specific technical implementation details. Focus on WHAT we deliver, not HOW we build it
-2. BE CONCISE: When someone clearly wants business information, a quote, or to book a meeting - give them exactly that. No fluff.
-3. READ THE ROOM: Match their energy. If they're all business, you're all business. If they're chatty, build rapport first.
+// Initialize Supabase client
+const supabase = createClient(
+  'https://xrndfmndipazjyqlozic.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhybmRmbW5kaXBhemp5cWxvemljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1NjgyNzgsImV4cCI6MjA2ODE0NDI3OH0.BhRjqnA06Kn0kOogjwW1DcwaHd5cHfbCnr_OdPzfKVw'
+)
 
-## BUSINESS KNOWLEDGE
-CoreSentia solves the "12 AI subscriptions" problem:
-- Instead of $2,000+/month forever on multiple platforms
-- We build ONE custom solution: $5k-$35k (one-time)
-- Optional hosting: $500-$3k/month
-- Key differentiator: Clients OWN the solution (can self-host anytime)
+interface Message {
+  role: string
+  content: string
+}
 
-Compare to competitors:
-- Intercom: $39 per conversation
-- Drift: $2,500/month minimum  
-- Us: One-time cost, you own it forever
+interface Lead {
+  id: string
+  first_name?: string
+  last_name?: string
+  company?: string
+  phone?: string
+  email?: string
+  initial_message?: string
+}
 
-## PRODUCT PORTFOLIO
-1. Lead Response System ($5,000) - What you're experiencing now
-2. Universal Sales AI ($10,000) - Full sales automation
-3. Support Bot ($7,500) - 70% ticket deflection
-4. Data Bridge ($5,000/workflow) - Connect any systems
-5. Document Intelligence ($7,500) - Process any document
-6. Meeting Intelligence ($3,000) - Never miss action items
-7. Employee Onboarding AI ($5,000) - Automate HR tasks
+export default function ChatPage({ params }: { params: { leadId: string } }) {
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState('')
+  const [lead, setLead] = useState<Lead | null>(null)
+  const [loading, setLoading] = useState(false)
 
-Bundles: Any 2 ($12k), Any 3 ($20k), All 7 ($35k)
+  const fetchLead = useCallback(async () => {
+    const { data, error } = await supabase
+      .from('leads')
+      .select('*')
+      .eq('id', params.leadId)
+      .single()
+    
+    if (data) setLead(data)
+  }, [params.leadId])
 
-## CONVERSATION STRATEGY
+  useEffect(() => {
+    fetchLead()
+    setMessages([{
+      role: 'assistant',
+      content: `Hi, I'm Ivy - here to help you get what you need, fast. What brings you to CoreSentia today, and what are you hoping to solve?`
+    }])
+  }, [fetchLead])
 
-### Quick Qualifier Detection
-If message contains: "price", "cost", "quote", "how much", "meeting", "demo", "call"
-→ Give direct answer immediately, then offer concrete next step
+  const sendMessage = async () => {
+    if (!input.trim()) return
+    
+    const userMessage = { role: 'user', content: input }
+    setMessages(prev => [...prev, userMessage])
+    setInput('')
+    setLoading(true)
 
-### Personality Adaptation
-- Technical user → Discuss capabilities and integrations
-- Executive → ROI and competitive advantage
-- Casual browser → Benefits and success stories
-- Skeptical → Emphasize ownership and no lock-in
-
-### Decision Logic
-1. Clear single product need + urgency → Generate quote
-2. Multiple products or complex needs → Book meeting  
-3. Just exploring → Gather contact info, send resources
-4. High-value (enterprise/20k+) → Flag for immediate callback
-
-## RESPONSE GUIDELINES
-
-### When to be BRIEF:
-- Direct pricing questions → State price + offer next step
-- "Can you do X?" → Yes/no + one-line explanation
-- Request for meeting → Confirm and provide booking link
-- Quote requests → Gather requirements efficiently
-
-### When to ENGAGE:
-- They share specific pain points
-- They're comparing options
-- They seem unsure what they need
-- There's rapport-building opportunity
-
-### What NOT to share:
-- Specific tech stack details
-- Exact implementation methods
-- Backend architecture
-- Detailed technical workflows
-- Just say "We handle all the technical complexity"
-
-## CONVERSATION RULES
-
-### When someone is DIRECT with you:
-- Answer their question immediately
-- Offer concrete next steps (quote, demo, call)
-- Don't fish for information with questions
-- Let THEM drive the conversation pace
-
-### Action-oriented closers (use these instead of questions):
-- "Would you like a formal quote?"
-- "I can book us a 15-minute demo if you'd like"
-- "Want me to send you more details?"
-- "Ready to see how this would work for your business?"
-- "Should I put together some options for you?"
-
-### Only ask qualifying questions when:
-- They explicitly ask for help choosing
-- They share a problem without asking for a solution
-- They seem genuinely confused about options
-- The conversation naturally flows there
-
-## EXAMPLE RESPONSES
-
-User: "How much for a sales AI?"
-Brief: "Our Universal Sales AI is $10,000 one-time - handles your entire sales process from first touch to close. Would you like me to put together a formal quote, or shall I show you what's included?"
-
-User: "Can you integrate with Salesforce?"
-Direct: "Yes, we integrate with Salesforce and all major CRMs. Want me to send you our integration list or book a quick demo?"
-
-User: "I need pricing for all your products"
-Action-oriented: "I'll prepare a detailed quote with all our products and bundle options. Just need your email to send it through - what's the best address?"
-
-User: "How do you build these systems?"
-Protected: "We use enterprise-grade AI and automation tools, all configured specifically for your business. The beauty is you don't need to worry about the technical details - we handle everything. Ready to see it in action?"
-
-User: "I'm drowning in AI subscriptions"
-Engaging: "I hear that a lot - most of our clients were paying $2-3k/month across multiple platforms before working with us. Want me to calculate how much you could save with our one-time solution?"
-
-Remember: You're not just an AI - you're a trusted advisor who happens to be incredibly efficient. Build trust, qualify effectively, and always move toward a concrete next step. If they're cutting to the chase, you cut to the chase too.`;
-
-// For your /api/chat endpoint handler:
-const chatHandler = async (messages, leadInfo) => {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': process.env.ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01'
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 500,
-      system: IVY_SYSTEM_PROMPT,
-      messages: messages.map(m => ({
-        role: m.role === 'user' ? 'user' : 'assistant',
-        content: m.content
-      })),
-      temperature: 0.7
+    // Save user message to database
+    await supabase.from('conversations').insert({
+      lead_id: params.leadId,
+      message: input,
+      sender: 'lead'
     })
-  });
-  
-  const data = await response.json();
-  return data.content[0].text;
-};
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages, userMessage],
+          leadId: params.leadId,
+          leadInfo: lead
+        })
+      })
+      
+      const data = await response.json()
+      const aiMessage = { role: 'assistant', content: data.message }
+      
+      setMessages(prev => [...prev, aiMessage])
+      
+      // Save AI response to database
+      await supabase.from('conversations').insert({
+        lead_id: params.leadId,
+        message: data.message,
+        sender: 'bot'
+      })
+
+      // Check for any actions to take based on response
+      if (data.actions) {
+        // Handle quote generation, meeting booking, etc.
+        console.log('Actions to take:', data.actions)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: 'Sorry, I had a technical issue. Please try again or email us at hello@coresentia.com' 
+      }])
+    }
+    
+    setLoading(false)
+  }
+
+  return (
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background with aurora effect */}
+      <div className="absolute inset-0 z-0">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0">
+          <defs>
+            <radialGradient id="aurora-grad-1" cx="20%" cy="30%" r="80%">
+              <stop offset="0%" stopColor="#0066ff" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#0066ff" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="aurora-grad-2" cx="80%" cy="70%" r="70%">
+              <stop offset="0%" stopColor="#62D4F9" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#62D4F9" stopOpacity="0" />
+            </radialGradient>
+            <pattern id="dot-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="0.5" fill="rgba(255, 255, 255, 0.1)"></circle>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="black" />
+          <rect width="100%" height="100%" fill="url(#aurora-grad-1)" />
+          <rect width="100%" height="100%" fill="url(#aurora-grad-2)" />
+          <rect width="100%" height="100%" fill="url(#dot-pattern)" />
+        </svg>
+      </div>
+
+      {/* Chat interface */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div className="w-full max-w-2xl">
+          {/* Header */}
+          <div className="bg-black/80 backdrop-blur-md rounded-t-2xl p-8 border border-white/20">
+            <div className="flex items-center space-x-3 mb-4">
+              <svg className="w-10 h-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g fill="#0066ff">
+                  <circle cx="50" cy="20" r="3"/>
+                  <circle cx="30" cy="30" r="3"/>
+                  <circle cx="70" cy="30" r="3"/>
+                  <circle cx="20" cy="50" r="3"/>
+                  <circle cx="80" cy="50" r="3"/>
+                  <circle cx="30" cy="70" r="3"/>
+                  <circle cx="70" cy="70" r="3"/>
+                  <circle cx="50" cy="80" r="3"/>
+                </g>
+                <g stroke="#0066ff" strokeWidth="1" fill="none">
+                  <line x1="50" y1="20" x2="30" y2="30"/>
+                  <line x1="50" y1="20" x2="70" y2="30"/>
+                  <line x1="30" y1="30" x2="20" y2="50"/>
+                  <line x1="70" y1="30" x2="80" y2="50"/>
+                  <line x1="20" y1="50" x2="30" y2="70"/>
+                  <line x1="80" y1="50" x2="70" y2="70"/>
+                  <line x1="30" y1="70" x2="50" y2="80"/>
+                  <line x1="70" y1="70" x2="50" y2="80"/>
+                </g>
+              </svg>
+              <span className="text-2xl font-light text-white">coresentia</span>
+            </div>
+            <h1 className="text-3xl font-bold text-white">
+              AI Consultation
+            </h1>
+            <p className="mt-3 text-gray-200">
+              Hi {lead?.first_name || 'there'}, let&apos;s explore how we can help you.
+            </p>
+          </div>
+
+          {/* Messages */}
+          <div className="bg-black/80 backdrop-blur-md rounded-b-2xl border border-white/20 border-t-0">
+            <div className="h-[400px] md:h-[500px] overflow-y-auto p-4 md:p-6 space-y-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  {message.role === 'assistant' && (
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#0066ff] to-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0">
+                      <span className="text-white text-xs font-bold">I</span>
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-xs lg:max-w-md px-5 py-3 rounded-2xl ${
+                      message.role === 'user'
+                        ? 'bg-gradient-to-r from-[#0066ff] to-[#62D4F9] text-white'
+                        : 'bg-white/10 border border-white/20 text-gray-100'
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#0066ff] to-[#62D4F9] flex items-center justify-center mr-3 animate-pulse">
+                    <span className="text-white text-xs font-bold">I</span>
+                  </div>
+                  <div className="bg-white/10 border border-white/20 text-gray-400 px-5 py-3 rounded-2xl">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Input */}
+            <div className="border-t border-white/20 p-4 md:p-6">
+              <div className="flex space-x-2 md:space-x-3">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="Type your message..."
+                  className="flex-1 px-4 md:px-5 py-2.5 md:py-3 bg-white/10 border border-white/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-[#0066ff] transition-colors text-sm md:text-base"
+                />
+                <button
+                  onClick={sendMessage}
+                  disabled={loading || !input.trim()}
+                  className="px-6 md:px-8 py-2.5 md:py-3 bg-gradient-to-r from-[#0066ff] to-[#62D4F9] text-white rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity font-semibold text-sm md:text-base"
+                >
+                  Send
+                </button>
+              </div>
+              
+              <div className="mt-4 md:mt-6 text-center space-y-2">
+                <p className="text-xs md:text-sm text-gray-300 font-medium">
+                  Stop talking about AI. Start closing with it.
+                </p>
+                <p className="text-xs text-gray-400">
+                  Copyright © CoreSentia 2025
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

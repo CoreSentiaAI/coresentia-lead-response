@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
         model: 'claude-sonnet-4-20250514',
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model:  'claude-sonnet-4-20250514',
         max_tokens: 500,
         system: IVY_SYSTEM_PROMPT + `\n\nLead Context: ${JSON.stringify(leadInfo || {})}`,
         messages: messages.map((m: any) => ({

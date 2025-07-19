@@ -135,7 +135,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={"flex " + (message.role === 'user' ? 'justify-end' : 'justify-start')}
               >
                 {message.role === 'assistant' && (
                   <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0">

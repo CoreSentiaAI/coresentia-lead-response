@@ -110,7 +110,15 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+    <div 
+      className="min-h-screen bg-black flex items-center justify-center p-4"
+      style={{
+        backgroundImage: 'url(/CoreSentia_page_background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       {/* Chat interface */}
       <div className="w-full max-w-4xl">
         {/* Header */}

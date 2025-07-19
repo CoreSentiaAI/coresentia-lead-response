@@ -55,10 +55,10 @@ Bundles: Any 2 ($12k), Any 3 ($20k), All 4 ($25k)
 
 ### Building Trust (Best Practice)
 - Reference their specific situation or problem, not generic pain points
-- Give honest observations from similar businesses, *without* “other companies tell me…”
-- Share industry or trend insight only if it’s actually relevant
+- Give honest observations from similar businesses, *without* "other companies tell me…"
+- Share industry or trend insight only if it's actually relevant
 - Ask for more detail to deepen your understanding—not just to keep them talking
-- Avoid flattery, excessive empathy, or anything that feels “canned”
+- Avoid flattery, excessive empathy, or anything that feels "canned"
 
 ### Natural Pivots to Solutions
 - "Have you considered..."
@@ -68,7 +68,7 @@ Bundles: Any 2 ($12k), Any 3 ($20k), All 4 ($25k)
 
 ### Direct-Action Path (Decisive Users)
 - If the user clearly states they want to purchase a specific product, skip further qualification and move directly to next steps:
-    - Politely confirm ("Great—let’s get you moving.")
+    - Politely confirm ("Great—let's get you moving.")
     - Collect any required info: name, company, email, phone.
     - Explain what happens next (e.g. "We'll prepare a quote for you right away.")
     - Maintain a warm, professional tone—be efficient, but never robotic.
@@ -85,28 +85,47 @@ User: "We're drowning in AI subscriptions"
 Empathetic: "I hear this constantly - one client showed me their credit card statement with 14 different AI tools. The costs are insane. What's your current monthly burn on these tools?"
 
 User: "I want to purchase the Lead Response bot"
-Decisive action: "Perfect. Let’s get a few quick details so we can get your Lead Response System underway. Can I grab your name, business, and best contact email? I’ll have your quote and next steps over to you in no time."
+Decisive action: "Perfect. Let's get a few quick details so we can get your Lead Response System underway. Can I grab your name, business, and best contact email? I'll have your quote and next steps over to you in no time."
 
 Remember: You're a trusted advisor who happens to be AI. Build the relationship, then the sale follows naturally—but always make it frictionless when the customer is ready to move.`
 
 export async function POST(request: NextRequest) {
   try {
-    const { messages, leadId, leadInfo } = await request.json()
+    const body = await request.json()
+    const { messages = [], leadId, leadInfo } = body // Default to empty array
+
+    // Add validation
+    if (!Array.isArray(messages)) {
+      console.error('Messages is not an array:', messages)
+      return NextResponse.json(
+        { error: 'Invalid messages format' },
+        { status: 400 }
+      )
+    }
+
+    // Ensure ANTHROPIC_API_KEY exists
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('ANTHROPIC_API_KEY is not configured')
+      return NextResponse.json(
+        { error: 'API configuration error' },
+        { status: 500 }
+      )
+    }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY!,
-        'anthropic-version': '2023-06-01'
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        model: 'claude-sonnet-4-20250514',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 500,
-        system: IVY_SYSTEM_PROMPT + `\n\nLead Context: ${JSON.stringify(leadInfo)}`,
+        system: IVY_SYSTEM_PROMPT + `\n\nLead Context: ${JSON.stringify(leadInfo || {})}`,
         messages: messages.map((m: any) => ({
           role: m.role === 'user' ? 'user' : 'assistant',
-          content: m.content
+          content: m.content || ''
         })),
         temperature: 0.7
       })
@@ -120,6 +139,11 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json()
     
+    // Ensure we have a valid response
+    if (!data.content || !data.content[0] || !data.content[0].text) {
+      throw new Error('Invalid response format from Anthropic API')
+    }
+    
     // Extract any actions from the response (quote, meeting, etc.)
     const actions = extractActions(data.content[0].text)
     
@@ -130,7 +154,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Chat API error:', error)
     return NextResponse.json(
-      { error: 'Failed to process chat message' },
+      { error: 'Failed to process chat message', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

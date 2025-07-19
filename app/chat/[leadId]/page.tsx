@@ -51,7 +51,7 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
     fetchLead()
     setMessages([{
       role: 'assistant',
-      content: `Hi, I'm Ivy - What brings you to CoreSentia today?
+      content: "Hi, I'm Ivy - What brings you to CoreSentia today?"
     }])
   }, [fetchLead])
 
@@ -143,11 +143,11 @@ export default function ChatPage({ params }: { params: { leadId: string } }) {
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] px-5 py-3 rounded-2xl ${
-                    message.role === 'user'
-                      ? 'bg-[#2A50DF] text-white'
-                      : 'bg-black border border-white/20 text-white'
-                  }`}
+                  className={"max-w-[80%] px-5 py-3 rounded-2xl " + 
+                    (message.role === 'user' 
+                      ? 'bg-[#2A50DF] text-white' 
+                      : 'bg-black border border-white/20 text-white')
+                  }
                 >
                   {message.content}
                 </div>

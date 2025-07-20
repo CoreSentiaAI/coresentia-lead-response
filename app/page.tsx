@@ -158,7 +158,7 @@ export default function HomePage() {
 
   return (
     <div 
-      className="min-h-screen bg-black flex items-center justify-center p-4"
+      className="min-h-screen bg-black flex items-center justify-center p-2 sm:p-4"
       style={{
         backgroundImage: 'url(/CoreSentia_page_background.jpg)',
         backgroundSize: 'cover',
@@ -169,36 +169,36 @@ export default function HomePage() {
       {/* Chat interface */}
       <div className="w-full max-w-4xl">
         {/* Header */}
-        <div className="bg-black rounded-t-2xl p-8 border border-white/10">
+        <div className="bg-black rounded-t-2xl p-4 sm:p-6 md:p-8 border border-white/10">
           <div className="mb-4">
             <Image 
               src="/CoreSentia_Transparent_Logo.png" 
               alt="CoreSentia" 
               width={300}
               height={120}
-              className="h-20 w-auto -ml-1"
+              className="h-16 sm:h-20 w-auto -ml-1"
             />
           </div>
-          <h5 className={"text-white text-lg font-normal " + montserrat.className}>
+          <h5 className={"text-white text-base sm:text-lg font-normal " + montserrat.className}>
             Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
           </h5>
         </div>
 
         {/* Messages */}
         <div className="bg-black rounded-b-2xl border border-white/10 border-t-0">
-          <div className="h-[600px] overflow-y-auto p-8 space-y-4">
+          <div className="h-[60vh] sm:h-[550px] md:h-[600px] max-h-[600px] overflow-y-auto p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4">
             {messages.map((message, index) => (
               <div
                 key={index}
                 className={"flex " + (message.role === 'user' ? 'justify-end' : 'justify-start')}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
                     <span className="text-black text-xs font-bold">I</span>
                   </div>
                 )}
                 <div
-                  className={"max-w-[80%] px-5 py-3 rounded-2xl " + 
+                  className={"max-w-[95%] sm:max-w-[85%] md:max-w-[80%] px-4 sm:px-5 py-3 rounded-2xl text-sm sm:text-base " + 
                     (message.role === 'user' 
                       ? 'bg-[#2A50DF] text-white' 
                       : 'bg-black border border-white/20 text-white')
@@ -210,10 +210,10 @@ export default function HomePage() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse">
+                <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 sm:mr-3 animate-pulse">
                   <span className="text-black text-xs font-bold">I</span>
                 </div>
-                <div className="bg-black border border-white/20 text-white px-5 py-3 rounded-2xl">
+                <div className="bg-black border border-white/20 text-white px-4 sm:px-5 py-3 rounded-2xl max-w-[95%] sm:max-w-[85%] md:max-w-[80%]">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
                     <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
@@ -225,20 +225,20 @@ export default function HomePage() {
           </div>
 
           {/* Input */}
-          <div className="border-t border-white/10 p-8">
-            <div className="flex space-x-3">
+          <div className="border-t border-white/10 p-4 sm:p-6 md:p-8">
+            <div className="flex space-x-2 sm:space-x-3">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Type your message..."
-                className="flex-1 px-5 py-3 bg-black border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-colors"
+                className="flex-1 px-4 sm:px-5 py-3 bg-black border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-colors text-sm sm:text-base"
               />
               <button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold"
+                className="px-6 sm:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-sm sm:text-base"
               >
                 Send
               </button>

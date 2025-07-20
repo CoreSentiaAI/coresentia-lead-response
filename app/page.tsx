@@ -163,11 +163,13 @@ export default function HomePage() {
         backgroundImage: 'url(/CoreSentia_page_background.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
+        backgroundRepeat: 'no-repeat',
+        WebkitTextSizeAdjust: '100%',
+        textSizeAdjust: '100%'
+      } as React.CSSProperties}
     >
       {/* Chat interface */}
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-black rounded-t-2xl p-4 sm:p-6 md:p-8 border border-white/10">
           <div className="mb-4">
@@ -186,7 +188,7 @@ export default function HomePage() {
 
         {/* Messages */}
         <div className="bg-black rounded-b-2xl border border-white/10 border-t-0">
-          <div className="h-[60vh] sm:h-[550px] md:h-[600px] max-h-[600px] overflow-y-auto p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4">
+          <div className="h-[60vh] sm:h-[65vh] md:h-[600px] lg:h-[600px] max-h-[700px] overflow-y-auto p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4" style={{ touchAction: 'pan-y' }}>
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -198,7 +200,7 @@ export default function HomePage() {
                   </div>
                 )}
                 <div
-                  className={"max-w-[95%] sm:max-w-[85%] md:max-w-[80%] px-4 sm:px-5 py-3 rounded-2xl text-sm sm:text-base " + 
+                  className={"max-w-[92%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[70%] px-4 sm:px-5 py-3 rounded-2xl text-base leading-relaxed " + 
                     (message.role === 'user' 
                       ? 'bg-[#2A50DF] text-white' 
                       : 'bg-black border border-white/20 text-white')
@@ -213,7 +215,7 @@ export default function HomePage() {
                 <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 sm:mr-3 animate-pulse">
                   <span className="text-black text-xs font-bold">I</span>
                 </div>
-                <div className="bg-black border border-white/20 text-white px-4 sm:px-5 py-3 rounded-2xl max-w-[95%] sm:max-w-[85%] md:max-w-[80%]">
+                <div className="bg-black border border-white/20 text-white px-4 sm:px-5 py-3 rounded-2xl max-w-[92%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[70%]">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
                     <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
@@ -233,12 +235,13 @@ export default function HomePage() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Type your message..."
-                className="flex-1 px-4 sm:px-5 py-3 bg-black border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-colors text-sm sm:text-base"
+                style={{ fontSize: '16px' }}
+                className="flex-1 px-4 sm:px-5 py-3 bg-black border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-colors text-base"
               />
               <button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="px-6 sm:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-sm sm:text-base"
+                className="px-5 sm:px-6 md:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base"
               >
                 Send
               </button>

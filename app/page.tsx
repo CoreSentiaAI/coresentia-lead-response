@@ -33,17 +33,25 @@ interface Lead {
 
 // Simple markdown-like formatter for messages
 const formatMessage = (text: string) => {
-  // Split by newlines first to handle line breaks
-  const lines = text.split('\n');
+  // First, handle bold text across the entire message
+  let processedText = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  
+  // Split by newlines to handle line breaks
+  const lines = processedText.split('\n');
   
   return lines.map((line, lineIndex) => {
+    // Skip empty lines but add spacing
+    if (!line.trim()) {
+      return <div key={lineIndex} className="mb-2" />;
+    }
+    
     // Check if line is a bullet point
-    if (line.trim().startsWith('•') || line.trim().startsWith('-') || line.trim().startsWith('*')) {
-      const bulletContent = line.trim().substring(1).trim();
+    if (line.trim().match(/^[•\-\*]\s/)) {
+      const bulletContent = line.trim().substring(2);
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
           <span className="mr-2 text-[#62D4F9]">•</span>
-          <span>{formatInlineText(bulletContent)}</span>
+          <span dangerouslySetInnerHTML={{ __html: bulletContent }} />
         </div>
       );
     }
@@ -54,7 +62,7 @@ const formatMessage = (text: string) => {
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
           <span className="mr-2 text-[#62D4F9]">{numberedMatch[1]}</span>
-          <span>{formatInlineText(numberedMatch[2])}</span>
+          <span dangerouslySetInnerHTML={{ __html: numberedMatch[2] }} />
         </div>
       );
     }
@@ -64,65 +72,114 @@ const formatMessage = (text: string) => {
       const headerContent = line.trim().substring(2).trim();
       return (
         <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]">
-          {formatInlineText(headerContent)}
+          <span dangerouslySetInnerHTML={{ __html: headerContent }} />
         </div>
       );
     }
     
-    // Regular line - only add margin if it has content
-    if (line.trim()) {
-      return (
-        <div key={lineIndex} className={lineIndex < lines.length - 1 ? "mb-2" : ""}>
-          {formatInlineText(line)}
-        </div>
-      );
-    }
-    
-    // Empty line - add spacing
-    return <div key={lineIndex} className="mb-2" />;
+    // Regular line with HTML parsing for bold tags
+    return (
+      <div key={lineIndex} className={lineIndex < lines.length - 1 ? "mb-2" : ""}>
+        <span dangerouslySetInnerHTML={{ __html: line }} />
+      </div>
+    );
   });
 };
 
-// Format inline text (bold, links, etc.)
-const formatInlineText = (text: string) => {
-  // First handle links [text](url)
-  const linkParts = text.split(/(\[([^\]]+)\]\(([^)]+)\))/g);
-  
-  const formattedParts = [];
-  for (let i = 0; i < linkParts.length; i++) {
-    if (i % 4 === 1) {
-      // This is a full link match
-      const linkText = linkParts[i + 1];
-      const linkUrl = linkParts[i + 2];
-      formattedParts.push(
-        <a 
-          key={i} 
-          href={linkUrl} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-[#62D4F9] underline hover:text-[#62D4F9]/80 transition-colors"
-        >
-          {linkText}
-        </a>
-      );
-      i += 3; // Skip the next 3 parts as we've already processed them
-    } else if (i % 4 === 0) {
-      // This is regular text, process it for bold
-      const boldParts = linkParts[i].split(/(\*\*[^*]+\*\*|__[^_]+__)/g);
+// Enhanced markdown formatter for messages
+const formatMessage = (text: string) => {
+  // Process the entire text for inline formatting first
+  const processInlineFormatting = (str: string) => {
+    const elements = [];
+    let lastIndex = 0;
+    
+    // Combined regex for bold (**text**), links [text](url)
+    const regex = /(\*\*([^*]+)\*\*)|(\[([^\]]+)\]\(([^)]+)\))/g;
+    let match;
+    
+    while ((match = regex.exec(str)) !== null) {
+      // Add text before the match
+      if (match.index > lastIndex) {
+        elements.push(str.substring(lastIndex, match.index));
+      }
       
-      boldParts.forEach((part, index) => {
-        if (part.startsWith('**') && part.endsWith('**')) {
-          formattedParts.push(<strong key={`${i}-${index}`}>{part.slice(2, -2)}</strong>);
-        } else if (part.startsWith('__') && part.endsWith('__')) {
-          formattedParts.push(<strong key={`${i}-${index}`}>{part.slice(2, -2)}</strong>);
-        } else if (part) {
-          formattedParts.push(<span key={`${i}-${index}`}>{part}</span>);
-        }
-      });
+      if (match[1]) {
+        // Bold text
+        elements.push(<strong key={`bold-${match.index}`}>{match[2]}</strong>);
+      } else if (match[3]) {
+        // Link
+        elements.push(
+          <a 
+            key={`link-${match.index}`}
+            href={match[5]} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-[#62D4F9] underline hover:text-[#62D4F9]/80 transition-colors"
+          >
+            {match[4]}
+          </a>
+        );
+      }
+      
+      lastIndex = regex.lastIndex;
     }
-  }
+    
+    // Add remaining text
+    if (lastIndex < str.length) {
+      elements.push(str.substring(lastIndex));
+    }
+    
+    return elements.length > 0 ? elements : str;
+  };
   
-  return formattedParts;
+  // Split by newlines to handle line structure
+  const lines = text.split('\n');
+  
+  return lines.map((line, lineIndex) => {
+    // Skip empty lines but add spacing
+    if (!line.trim()) {
+      return <div key={lineIndex} className="mb-2" />;
+    }
+    
+    // Check if line is a bullet point
+    if (line.trim().match(/^[•\-\*]\s/)) {
+      const bulletContent = line.trim().substring(2);
+      return (
+        <div key={lineIndex} className="flex items-start mb-2 ml-2">
+          <span className="mr-2 text-[#62D4F9]">•</span>
+          <span>{processInlineFormatting(bulletContent)}</span>
+        </div>
+      );
+    }
+    
+    // Check if line is a numbered list
+    const numberedMatch = line.trim().match(/^(\d+\.)\s(.+)/);
+    if (numberedMatch) {
+      return (
+        <div key={lineIndex} className="flex items-start mb-2 ml-2">
+          <span className="mr-2 text-[#62D4F9]">{numberedMatch[1]}</span>
+          <span>{processInlineFormatting(numberedMatch[2])}</span>
+        </div>
+      );
+    }
+    
+    // Check if line is a header (starts with ##)
+    if (line.trim().startsWith('##')) {
+      const headerContent = line.trim().substring(2).trim();
+      return (
+        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]">
+          {processInlineFormatting(headerContent)}
+        </div>
+      );
+    }
+    
+    // Regular line
+    return (
+      <div key={lineIndex} className={lineIndex < lines.length - 1 ? "mb-2" : ""}>
+        {processInlineFormatting(line)}
+      </div>
+    );
+  });
 };
 
 export default function HomePage() {

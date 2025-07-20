@@ -29,63 +29,6 @@ interface Lead {
   phone?: string
   email?: string
   initial_message?: string
-}
-
-// Simple markdown-like formatter for messages
-const formatMessage = (text: string) => {
-  // First, handle bold text across the entire message
-  let processedText = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  
-  // Split by newlines to handle line breaks
-  const lines = processedText.split('\n');
-  
-  return lines.map((line, lineIndex) => {
-    // Skip empty lines but add spacing
-    if (!line.trim()) {
-      return <div key={lineIndex} className="mb-2" />;
-    }
-    
-    // Check if line is a bullet point
-    if (line.trim().match(/^[•\-\*]\s/)) {
-      const bulletContent = line.trim().substring(2);
-      return (
-        <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]">•</span>
-          <span dangerouslySetInnerHTML={{ __html: bulletContent }} />
-        </div>
-      );
-    }
-    
-    // Check if line is a numbered list
-    const numberedMatch = line.trim().match(/^(\d+\.)\s(.+)/);
-    if (numberedMatch) {
-      return (
-        <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]">{numberedMatch[1]}</span>
-          <span dangerouslySetInnerHTML={{ __html: numberedMatch[2] }} />
-        </div>
-      );
-    }
-    
-    // Check if line is a header (starts with ##)
-    if (line.trim().startsWith('##')) {
-      const headerContent = line.trim().substring(2).trim();
-      return (
-        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]">
-          <span dangerouslySetInnerHTML={{ __html: headerContent }} />
-        </div>
-      );
-    }
-    
-    // Regular line with HTML parsing for bold tags
-    return (
-      <div key={lineIndex} className={lineIndex < lines.length - 1 ? "mb-2" : ""}>
-        <span dangerouslySetInnerHTML={{ __html: line }} />
-      </div>
-    );
-  });
-};
-
 // Enhanced markdown formatter for messages
 const formatMessage = (text: string) => {
   // Process the entire text for inline formatting first

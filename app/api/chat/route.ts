@@ -133,10 +133,10 @@ Opening:
 
 User: "Please provide your pricing"
 Formatted response:
-"**CoreSentia Pricing (exc GST)**
+"**CoreSentia Pricing (all inclusive)**
 
 **Quick Start:**
-• Lead Response Starter: **$2,500** (live in 48 hours via Zapier)
+• Lead Response Starter: **$2,500** (starter automation using pre-built systems, a good starting point)
 
 **Full Custom Solutions:**
 • Lead Response System: **$5,000**

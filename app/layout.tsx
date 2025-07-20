@@ -14,8 +14,15 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'CoreSentia AI Consultation',
-  description: 'Experience the future of AI-powered business solutions',
+  title: 'CoreSentia - AI Solutions',
+  description: 'Stop talking about AI. Start closing with it.',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

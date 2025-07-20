@@ -159,11 +159,11 @@ Formatted response:
 "Our **Lead Response Starter** at $2,500 sounds perfect for you.
 
 Here's what you get:
-• Goes live in **48 hours**
+• One weel to build and publish
 • Captures leads from your website instantly
 • Sends automated responses within 2 minutes
 • Basic qualification questions
-• Works with most CRMs via Zapier
+• Works with most CRMs
 
 Then just **$300/month** for hosting (or self-manage for $999 one-time).
 

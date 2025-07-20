@@ -1,201 +1,260 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
-import Image from 'next/image';
-import { Montserrat } from 'next/font/google';
+import { useState, useEffect, useCallback } from 'react'
+import { createClient } from '@supabase/supabase-js'
+import Image from 'next/image'
+import { Montserrat } from 'next/font/google'
 
 const montserrat = Montserrat({ 
   subsets: ['latin'],
   weight: ['400', '500', '600']
-});
+})
 
-interface Lead {
-  id: string;
-  first_name?: string;
-  name?: string;
-  company?: string;
-  email?: string;
-  phone?: string;
-}
+// Initialize Supabase client
+const supabase = createClient(
+  'https://xrndfmndipazjyqlozic.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhybmRmbW5kaXBhemp5cWxvemljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1NjgyNzgsImV4cCI6MjA2ODE0NDI3OH0.BhRjqnA06Kn0kOogjwW1DcwaHd5cHfbCnr_OdPzfKVw'
+)
 
 interface Message {
-  id: string;
-  content: string;
-  role: 'user' | 'assistant';
-  timestamp: Date;
+  role: string
+  content: string
 }
 
-export default function ChatPage() {
-  const params = useParams();
-  const leadId = params.leadId as string;
-  
-  const [lead, setLead] = useState<Lead | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+interface Lead {
+  id: string
+  first_name?: string
+  last_name?: string
+  company?: string
+  phone?: string
+  email?: string
+  initial_message?: string
+}
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+export default function HomePage() {
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState('')
+  const [lead, setLead] = useState<Lead | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [sessionId, setSessionId] = useState<string>('')
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    // Initialize with a welcome message
-    setMessages([
-      {
-        id: '1',
-        content: "Hi, I'm Ivy - here to help you get what you need, fast.",
-        role: 'assistant',
-        timestamp: new Date()
-      }
-    ]);
+    // Check URL parameters for leadId
+    const urlParams = new URLSearchParams(window.location.search)
+    const leadIdFromUrl = urlParams.get('id')
     
-    // In a real app, fetch lead data here
-    // For now, using mock data
-    setLead({
-      id: leadId,
-      first_name: '',
-      name: '',
-      company: '',
-      email: '',
-      phone: ''
-    });
-  }, [leadId]);
+    const initializeLead = async () => {
+      if (leadIdFromUrl) {
+        // If we have a leadId from the URL, fetch that specific lead
+        const { data, error } = await supabase
+          .from('leads')
+          .select('*')
+          .eq('id', leadIdFromUrl)
+          .single()
+        
+        if (data) {
+          setLead(data)
+          setSessionId(leadIdFromUrl)
+        } else {
+          // Fallback if lead not found
+          createNewSessionLead()
+        }
+      } else {
+        // No leadId in URL, create a new session
+        createNewSessionLead()
+      }
+    }
+    
+    const createNewSessionLead = async () => {
+      const newSessionId = `web-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+      setSessionId(newSessionId)
+      
+      const { data, error } = await supabase
+        .from('leads')
+        .insert({
+          id: newSessionId,
+          first_name: 'Web',
+          last_name: 'Visitor',
+          initial_message: 'Direct chat from ivy.coresentia.com',
+          status: 'new',
+          score: 0
+        })
+        .select()
+        .single()
+      
+      if (data) {
+        setLead(data)
+      } else {
+        // If insert fails, just use a mock lead
+        setLead({
+          id: newSessionId,
+          first_name: 'Web',
+          last_name: 'Visitor'
+        })
+      }
+    }
+    
+    initializeLead()
+    
+    setMessages([{
+      role: 'assistant',
+      content: "Hi, I'm Ivy - What brings you to CoreSentia today? If you already know what you want or just need pricing, say the word and I'll skip straight to it."
+    }])
+  }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  const sendMessage = async () => {
+    if (!input.trim()) return
+    
+    const userMessage = { role: 'user', content: input }
+    setMessages(prev => [...prev, userMessage])
+    setInput('')
+    setLoading(true)
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      content: input,
-      role: 'user',
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
+    // Save user message to database
+    await supabase.from('conversations').insert({
+      lead_id: sessionId,
+      message: input,
+      sender: 'lead'
+    })
 
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          leadId,
-          message: input,
-          conversationHistory: messages
+          messages: [...messages, userMessage],
+          leadId: sessionId,
+          leadInfo: lead
         })
-      });
-
-      if (!response.ok) throw new Error('Failed to send message');
-
-      const data = await response.json();
+      })
       
-      const assistantMessage: Message = {
-        id: Date.now().toString(),
-        content: data.response,
-        role: 'assistant',
-        timestamp: new Date()
-      };
+      const data = await response.json()
+      const aiMessage = { role: 'assistant', content: data.message }
+      
+      setMessages(prev => [...prev, aiMessage])
+      
+      // Save AI response to database
+      await supabase.from('conversations').insert({
+        lead_id: sessionId,
+        message: data.message,
+        sender: 'bot'
+      })
 
-      setMessages(prev => [...prev, assistantMessage]);
+      // Check for any actions to take based on response
+      if (data.actions) {
+        // Handle quote generation, meeting booking, etc.
+        console.log('Actions to take:', data.actions)
+      }
     } catch (error) {
-      console.error('Error:', error);
-      // Handle error appropriately
-    } finally {
-      setIsLoading(false);
+      console.error('Error:', error)
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: 'Sorry, I had a technical issue. Please try again or email us at hello@coresentia.com' 
+      }])
     }
-  };
+    
+    setLoading(false)
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
-        <div className="bg-black/40 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
-          
-          {/* Header */}
-          <div className="bg-black/80 backdrop-blur-md rounded-t-2xl p-8 border border-white/20">
-            <div className="flex items-center space-x-3 mb-4">
-              <Image 
-                src="/CoreSentia_Transparent_Logo.png" 
-                alt="CoreSentia" 
-                width={300}
-                height={120}
-                className="h-20 w-auto"
-              />
-            </div>
-            <h5 className={`mt-3 text-gray-200 text-lg font-normal ${montserrat.className}`}>
-              Hi {lead?.first_name || 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started. 
-            </h5>
+    <div 
+      className="min-h-screen bg-black flex items-center justify-center p-4"
+      style={{
+        backgroundImage: 'url(/CoreSentia_page_background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Chat interface */}
+      <div className="w-full max-w-4xl">
+        {/* Header */}
+        <div className="bg-black rounded-t-2xl p-8 border border-white/10">
+          <div className="mb-4">
+            <Image 
+              src="/CoreSentia_Transparent_Logo.png" 
+              alt="CoreSentia" 
+              width={300}
+              height={120}
+              className="h-20 w-auto -ml-1"
+            />
           </div>
+          <h5 className={"text-white text-lg font-normal " + montserrat.className}>
+            Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
+          </h5>
+        </div>
 
-          {/* Chat Messages */}
-          <div className="h-[400px] overflow-y-auto p-6 space-y-4">
-            {messages.map((message) => (
+        {/* Messages */}
+        <div className="bg-black rounded-b-2xl border border-white/10 border-t-0">
+          <div className="h-[600px] overflow-y-auto p-8 space-y-4">
+            {messages.map((message, index) => (
               <div
-                key={message.id}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                key={index}
+                className={"flex " + (message.role === 'user' ? 'justify-end' : 'justify-start')}
               >
+                {message.role === 'assistant' && (
+                  <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0">
+                    <span className="text-black text-xs font-bold">I</span>
+                  </div>
+                )}
                 <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                    message.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-800/80 text-gray-100 border border-gray-700'
-                  }`}
+                  className={"max-w-[80%] px-5 py-3 rounded-2xl " + 
+                    (message.role === 'user' 
+                      ? 'bg-[#2A50DF] text-white' 
+                      : 'bg-black border border-white/20 text-white')
+                  }
                 >
-                  {message.role === 'assistant' && (
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold">
-                        I
-                      </div>
-                      <span className="text-xs text-gray-400">Ivy</span>
-                    </div>
-                  )}
-                  <p className="text-sm">{message.content}</p>
+                  {message.content}
                 </div>
               </div>
             ))}
-            {isLoading && (
+            {loading && (
               <div className="flex justify-start">
-                <div className="bg-gray-800/80 rounded-2xl px-4 py-3 border border-gray-700">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse">
+                  <span className="text-black text-xs font-bold">I</span>
+                </div>
+                <div className="bg-black border border-white/20 text-white px-5 py-3 rounded-2xl">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
                   </div>
                 </div>
               </div>
             )}
-            <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Form */}
-          <form onSubmit={handleSubmit} className="p-6 border-t border-gray-800">
-            <div className="flex space-x-4">
+          {/* Input */}
+          <div className="border-t border-white/10 p-8">
+            <div className="flex space-x-3">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Type your message..."
-                className="flex-1 bg-gray-800/50 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
-                disabled={isLoading}
+                className="flex-1 px-5 py-3 bg-black border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-colors"
               />
               <button
-                type="submit"
-                disabled={isLoading || !input.trim()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 disabled:cursor-not-allowed text-white rounded-xl px-6 py-3 font-medium transition-colors"
+                onClick={sendMessage}
+                disabled={loading || !input.trim()}
+                className="px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold"
               >
                 Send
               </button>
             </div>
-          </form>
+            
+            <div className="mt-6 text-center space-y-2">
+              <p className="text-sm text-white/60 font-medium">
+                Stop talking about AI. Start closing with it.
+              </p>
+              <p className="text-xs text-white/40">
+                Copyright © CoreSentia 2025
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

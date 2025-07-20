@@ -29,6 +29,8 @@ interface Lead {
   phone?: string
   email?: string
   initial_message?: string
+}
+
 // Enhanced markdown formatter for messages
 const formatMessage = (text: string) => {
   // Process the entire text for inline formatting first
@@ -300,7 +302,7 @@ export default function HomePage() {
                       : 'bg-black border border-white/20 text-white')
                   }
                 >
-                  {message.content}
+                  {message.role === 'user' ? message.content : formatMessage(message.content)}
                 </div>
               </div>
             ))}

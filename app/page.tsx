@@ -31,6 +31,100 @@ interface Lead {
   initial_message?: string
 }
 
+// Simple markdown-like formatter for messages
+const formatMessage = (text: string) => {
+  // Split by newlines first to handle line breaks
+  const lines = text.split('\n');
+  
+  return lines.map((line, lineIndex) => {
+    // Check if line is a bullet point
+    if (line.trim().startsWith('•') || line.trim().startsWith('-') || line.trim().startsWith('*')) {
+      const bulletContent = line.trim().substring(1).trim();
+      return (
+        <div key={lineIndex} className="flex items-start mb-2 ml-2">
+          <span className="mr-2 text-[#62D4F9]">•</span>
+          <span>{formatInlineText(bulletContent)}</span>
+        </div>
+      );
+    }
+    
+    // Check if line is a numbered list
+    const numberedMatch = line.trim().match(/^(\d+\.)\s(.+)/);
+    if (numberedMatch) {
+      return (
+        <div key={lineIndex} className="flex items-start mb-2 ml-2">
+          <span className="mr-2 text-[#62D4F9]">{numberedMatch[1]}</span>
+          <span>{formatInlineText(numberedMatch[2])}</span>
+        </div>
+      );
+    }
+    
+    // Check if line is a header (starts with ##)
+    if (line.trim().startsWith('##')) {
+      const headerContent = line.trim().substring(2).trim();
+      return (
+        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]">
+          {formatInlineText(headerContent)}
+        </div>
+      );
+    }
+    
+    // Regular line - only add margin if it has content
+    if (line.trim()) {
+      return (
+        <div key={lineIndex} className={lineIndex < lines.length - 1 ? "mb-2" : ""}>
+          {formatInlineText(line)}
+        </div>
+      );
+    }
+    
+    // Empty line - add spacing
+    return <div key={lineIndex} className="mb-2" />;
+  });
+};
+
+// Format inline text (bold, links, etc.)
+const formatInlineText = (text: string) => {
+  // First handle links [text](url)
+  const linkParts = text.split(/(\[([^\]]+)\]\(([^)]+)\))/g);
+  
+  const formattedParts = [];
+  for (let i = 0; i < linkParts.length; i++) {
+    if (i % 4 === 1) {
+      // This is a full link match
+      const linkText = linkParts[i + 1];
+      const linkUrl = linkParts[i + 2];
+      formattedParts.push(
+        <a 
+          key={i} 
+          href={linkUrl} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-[#62D4F9] underline hover:text-[#62D4F9]/80 transition-colors"
+        >
+          {linkText}
+        </a>
+      );
+      i += 3; // Skip the next 3 parts as we've already processed them
+    } else if (i % 4 === 0) {
+      // This is regular text, process it for bold
+      const boldParts = linkParts[i].split(/(\*\*[^*]+\*\*|__[^_]+__)/g);
+      
+      boldParts.forEach((part, index) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          formattedParts.push(<strong key={`${i}-${index}`}>{part.slice(2, -2)}</strong>);
+        } else if (part.startsWith('__') && part.endsWith('__')) {
+          formattedParts.push(<strong key={`${i}-${index}`}>{part.slice(2, -2)}</strong>);
+        } else if (part) {
+          formattedParts.push(<span key={`${i}-${index}`}>{part}</span>);
+        }
+      });
+    }
+  }
+  
+  return formattedParts;
+};
+
 export default function HomePage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')

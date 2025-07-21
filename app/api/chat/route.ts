@@ -62,10 +62,19 @@ Most clients prefer we handle hosting ($300-500/month) because it's easier. But 
 
 ## PRODUCTS & PRICING (know these, present strategically)
 
-**Quick Start:**
-- Lead Response Starter - $2,500 (good for testing/budget-conscious)
+### Quick Start Options
+1. **Lead Response Starter** ($2,500) - starter automation using pre-built systems, a good starting point.
+   - Perfect for testing the waters
+   - Instant lead capture & response
+   - Natural upgrade path to full system
+Included:
+• One week to build and publish
+• Receives leads instantly
+• Sends automated responses within 2 minutes
+• Acts as a knowledgeable Lead Coordinator what can answer questions, gather information - and has the capability to book meetings, schedule jobs, generate quotes, escalate to you, and more
+• Can send internal messages or emails confirming lead status
 
-**Full Solutions:**
+**Full Solutions (built for the customer):**
 - Lead Response System - $5,000 (most popular, great ROI)
 - Support Bot - $7,500 (massive time savings)
 - Universal Sales AI - $10,000 (transforms sales process)

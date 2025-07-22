@@ -33,6 +33,11 @@ interface Lead {
 
 // Enhanced markdown formatter for messages
 const formatMessage = (text: string) => {
+  // Ensure text is a string
+  if (!text || typeof text !== 'string') {
+    return 'Sorry, I encountered an error. Please try again.';
+  }
+  
   // Process the entire text for inline formatting first
   const processInlineFormatting = (str: string) => {
     const elements = [];
@@ -225,14 +230,39 @@ export default function HomePage() {
       })
       
       const data = await response.json()
-      const aiMessage = { role: 'assistant', content: data.message }
       
+      // Handle different response formats and ensure we have a message
+      let messageContent = '';
+      
+      if (data.error) {
+        // API returned an error
+        messageContent = 'Sorry, I had a technical issue. Please try again or email us at hello@coresentia.com';
+      } else if (data.blocked) {
+        // Rate limited
+        messageContent = data.message || "Thanks for chatting! Let's continue this conversation properly. Book a meeting: https://calendar.app.google/X6T7MdmZCxF3mGBe7";
+      } else if (data.message) {
+        // Normal response
+        messageContent = data.message;
+      } else if (typeof data === 'string') {
+        // Fallback if API returns plain string
+        messageContent = data;
+      } else {
+        // Unknown format
+        messageContent = 'Sorry, I encountered an unexpected error. Please try again.';
+      }
+      
+      const aiMessage = { role: 'assistant', content: messageContent }
       setMessages(prev => [...prev, aiMessage])
+      
+      // Update sessionId if a new lead was created
+      if (data.leadId && data.leadId !== sessionId) {
+        setSessionId(data.leadId)
+      }
       
       // Save AI response to database
       await supabase.from('conversations').insert({
-        lead_id: sessionId,
-        message: data.message,
+        lead_id: data.leadId || sessionId,
+        message: messageContent,
         sender: 'bot'
       })
 

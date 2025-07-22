@@ -23,6 +23,13 @@ You are Ivy, CoreSentia's AI business consultant. Australian business - use UK/A
 - SOLVE PROBLEMS: Don't just present options - guide them to solutions
 - READ BETWEEN LINES: Understand what they're really asking
 
+## LEAD CAPTURE (for direct visitors)
+If no lead context provided and after initial rapport:
+- Naturally ask for their email to "send information" or "keep them updated"
+- Once email provided, you'll have their details tracked
+- Keep it conversational: "Where should I send the details?" or "What's the best email to reach you?"
+- Never mention forms or technical tracking
+
 ## FORMATTING GUIDELINES (use when it helps clarity)
 - **Bold** for emphasis when natural
 - Bullets for lists when appropriate
@@ -131,12 +138,50 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    let actualLeadId = leadId
+
+    // If no leadId, check if we need to collect details
+    if (!actualLeadId && messages.length > 2) { // After a couple messages
+      // Check if latest message might contain contact info
+      const lastUserMessage = messages.filter(m => m.role === 'user').pop()?.content || ''
+      
+      // Simple email detection
+      const emailMatch = lastUserMessage.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/)
+      
+      if (emailMatch) {
+        // Extract name if mentioned (simple pattern)
+        const nameMatch = lastUserMessage.match(/(?:name is|i'm|i am|call me)\s+([A-Z][a-z]+)/i)
+        const firstName = nameMatch ? nameMatch[1] : 'Direct Chat'
+        
+        // Extract company if mentioned
+        const companyMatch = lastUserMessage.match(/(?:from|at|work for|company is)\s+([A-Z][A-Za-z\s&]+)/i)
+        const company = companyMatch ? companyMatch[1].trim() : 'Via Ivy'
+        
+        // Create lead record
+        const { data: newLead } = await supabase
+          .from('leads')
+          .insert({
+            first_name: firstName,
+            company: company,
+            phone: 'Pending',
+            email: emailMatch[0],
+            initial_message: messages[0]?.content || 'Direct chat access',
+            status: 'new',
+            source: 'direct_chat'
+          })
+          .select('id')
+          .single()
+        
+        actualLeadId = newLead?.id
+      }
+    }
+
     // Check rate limits if leadId provided
-    if (leadId) {
+    if (actualLeadId) {
       const { data: lead } = await supabase
         .from('leads')
         .select('total_tokens, message_count, last_message_at')
-        .eq('id', leadId)
+        .eq('id', actualLeadId)
         .single()
 
       // Token limit: 10,000 tokens per lead
@@ -192,11 +237,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Update token usage and message count if leadId provided
-    if (leadId && data.usage) {
+    if (actualLeadId && data.usage) {
       const { data: currentLead } = await supabase
         .from('leads')
         .select('total_tokens, message_count')
-        .eq('id', leadId)
+        .eq('id', actualLeadId)
         .single()
 
       await supabase
@@ -206,7 +251,7 @@ export async function POST(request: NextRequest) {
           message_count: (currentLead?.message_count || 0) + 1,
           last_message_at: new Date().toISOString()
         })
-        .eq('id', leadId)
+        .eq('id', actualLeadId)
     }
     
     // Extract any actions from the response
@@ -214,7 +259,8 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json({ 
       message: data.content[0].text,
-      actions: actions
+      actions: actions,
+      leadId: actualLeadId // Return the leadId so frontend can track it
     })
   } catch (error) {
     console.error('Chat API error:', error)

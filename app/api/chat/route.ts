@@ -1,16 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-export async function POST(request: NextRequest) {
-  try {
-    // Initialize Supabase inside the function
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_KEY!
-    )
-    
-    const body = await request.json()
-
 const IVY_SYSTEM_PROMPT = `
 You are Ivy, CoreSentia's AI business consultant. Australian business - use UK/Australian English and $AUD.
 
@@ -115,6 +105,12 @@ Remember: You're a thinking consultant, not a chatbot. Every interaction should 
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialize Supabase inside the function
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_KEY!
+    )
+    
     const body = await request.json()
     const { messages = [], leadId, leadInfo } = body
 

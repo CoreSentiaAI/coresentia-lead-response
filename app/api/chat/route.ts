@@ -1,4 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
+
+// Initialize Supabase
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_KEY! // Add this to Vercel env vars
+)
 
 const IVY_SYSTEM_PROMPT = `
 You are Ivy, CoreSentia's AI business consultant. Australian business - use UK/Australian English and $AUD.
@@ -9,7 +16,7 @@ You are Ivy, CoreSentia's AI business consultant. Australian business - use UK/A
 - Besides product, pricing, formatting, and the critical abilities points - you can use these instructions as guidelines, NOT scripts to copy
 - Reason about each situation and craft natural, contextual responses
 - Draw insights, make connections, and adapt your approach dynamically
-- It's OK to make the odd dad joke
+- It's OK to make the odd dad joke and have a sense of humour
 - Philosophy: "Stop talking about AI. Start closing with it." (but express this naturally)
 - Be genuinely helpful while advancing CoreSentia's interests
 - Think like a top salesperson who truly understands both business and people
@@ -68,11 +75,11 @@ Most clients prefer we handle hosting ($300-500/month) because it's easier. But 
    - Instant lead capture & response
    - Natural upgrade path to full system
 Included:
-• One week to build and publish
-• Receives leads instantly
-• Sends automated responses within 2 minutes
-• Acts as a knowledgeable Lead Coordinator what can answer questions, gather information - and has the capability to book meetings, schedule jobs, generate quotes, escalate to you, and more
-• Can send internal messages or emails confirming lead status
+- One week to build and publish
+- Receives leads instantly
+- Sends automated responses within 2 minutes
+- Acts as a knowledgeable Lead Coordinator what can answer questions, gather information - and has the capability to book meetings, schedule jobs, generate quotes, escalate to you, and more
+- Can send internal messages or emails confirming lead status
 
 **Full Solutions (built for the customer):**
 - Lead Response System - $5,000 (most popular, great ROI)
@@ -107,9 +114,9 @@ Remember: You're a thinking consultant, not a chatbot. Every interaction should 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { messages = [], leadId, leadInfo } = body // Default to empty array
+    const { messages = [], leadId, leadInfo } = body
 
-    // Add validation
+    // Validate inputs
     if (!Array.isArray(messages)) {
       console.error('Messages is not an array:', messages)
       return NextResponse.json(
@@ -118,7 +125,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Ensure ANTHROPIC_API_KEY exists
     if (!process.env.ANTHROPIC_API_KEY) {
       console.error('ANTHROPIC_API_KEY is not configured')
       return NextResponse.json(
@@ -127,6 +133,35 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Check rate limits if leadId provided
+    if (leadId) {
+      const { data: lead } = await supabase
+        .from('leads')
+        .select('total_tokens, message_count, last_message_at')
+        .eq('id', leadId)
+        .single()
+
+      // Token limit: 10,000 tokens per lead
+      if (lead?.total_tokens && lead.total_tokens > 10000) {
+        return NextResponse.json({ 
+          message: "Thanks for the extensive chat! I'd love to continue our conversation properly. Let's book a meeting: https://calendar.app.google/X6T7MdmZCxF3mGBe7",
+          blocked: true 
+        })
+      }
+
+      // Rate limit: 20 messages in 10 minutes
+      if (lead?.message_count && lead?.last_message_at) {
+        const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString()
+        if (lead.message_count > 20 && lead.last_message_at > tenMinutesAgo) {
+          return NextResponse.json({ 
+            message: "Whoa, you're quick! Give me a moment to catch up. Try again in a few minutes, or better yet, let's chat properly: https://calendar.app.google/X6T7MdmZCxF3mGBe7",
+            blocked: true 
+          })
+        }
+      }
+    }
+
+    // Call Anthropic API
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -154,12 +189,29 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json()
     
-    // Ensure we have a valid response
     if (!data.content || !data.content[0] || !data.content[0].text) {
       throw new Error('Invalid response format from Anthropic API')
     }
+
+    // Update token usage and message count if leadId provided
+    if (leadId && data.usage) {
+      const { data: currentLead } = await supabase
+        .from('leads')
+        .select('total_tokens, message_count')
+        .eq('id', leadId)
+        .single()
+
+      await supabase
+        .from('leads')
+        .update({ 
+          total_tokens: (currentLead?.total_tokens || 0) + data.usage.total_tokens,
+          message_count: (currentLead?.message_count || 0) + 1,
+          last_message_at: new Date().toISOString()
+        })
+        .eq('id', leadId)
+    }
     
-    // Extract any actions from the response (quote, meeting, etc.)
+    // Extract any actions from the response
     const actions = extractActions(data.content[0].text)
     
     return NextResponse.json({ 
@@ -178,22 +230,18 @@ export async function POST(request: NextRequest) {
 function extractActions(message: string) {
   const actions = []
   
-  // Check for quote generation intent
   if (message.includes('formal quote') || message.includes('prepare a detailed quote') || message.includes("I'll have your quote") || message.includes('quote ready immediately')) {
     actions.push({ type: 'generate_quote', status: 'pending' })
   }
   
-  // Check for meeting booking intent
   if (message.includes('book') && (message.includes('demo') || message.includes('meeting') || message.includes('call') || message.includes('consultation'))) {
     actions.push({ type: 'book_meeting', status: 'pending' })
   }
   
-  // Check for calendar link offered
   if (message.includes('Book Your Consultation')) {
     actions.push({ type: 'calendar_link_offered', status: 'pending' })
   }
   
-  // Check for high-value lead
   if (message.includes('enterprise') || message.includes('immediate callback') || message.includes('urgent')) {
     actions.push({ type: 'high_value_alert', status: 'pending' })
   }

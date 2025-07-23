@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
     `;
 
     const { data: emailData, error: emailError } = await resend.emails.send({
-      from: 'CoreSentia <quotes@coresentia.com>',
+      from: 'CoreSentia <info@coresentia.com>',
       to: [email],
       subject: `Your CoreSentia Quote #${quoteNumber}`,
       html: emailHtml,

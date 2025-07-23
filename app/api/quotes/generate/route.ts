@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
       throw new Error('Failed to generate PDF');
     }
 
-    const pdfBuffer = await pdfResponse.arrayBuffer();
+    import { generatePDF } from '@/app/lib/pdf-generator';
 
     // Save quote to Supabase
     const { data: quote, error: quoteError } = await supabase

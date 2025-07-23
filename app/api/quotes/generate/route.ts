@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import QuoteTemplate from '@/app/templates/quote-template';
 import { renderToString } from 'react-dom/server';
+import { generatePDF } from '@/app/lib/pdf-generator';
 
 // Initialize services
 const supabase = createClient(
@@ -94,27 +95,8 @@ export async function POST(request: NextRequest) {
       })
     );
 
-    // Convert HTML to PDF using Puppeteer (if self-hosting) or external service
-    // Option 1: Use a service like DocRaptor or Documint
-    const pdfResponse = await fetch('https://docraptor.com/docs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Basic ${Buffer.from(process.env.DOCRAPTOR_API_KEY! + ':').toString('base64')}`
-      },
-      body: JSON.stringify({
-        test: process.env.NODE_ENV !== 'production',
-        document_type: 'pdf',
-        document_content: quoteHtml,
-        javascript: false
-      })
-    });
-
-    if (!pdfResponse.ok) {
-      throw new Error('Failed to generate PDF');
-    }
-
-    import { generatePDF } from '@/app/lib/pdf-generator';
+    // Convert HTML to PDF using Puppeteer
+    const pdfBuffer = await generatePDF(quoteHtml);
 
     // Save quote to Supabase
     const { data: quote, error: quoteError } = await supabase

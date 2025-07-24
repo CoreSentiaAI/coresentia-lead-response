@@ -1,6 +1,6 @@
+// app/api/quotes/generate/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { Resend } from 'resend';
 import { generateQuoteHTML } from '@/app/templates/quote-template';
 import { generatePDF } from '@/app/lib/pdf-generator';
 
@@ -9,8 +9,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_KEY!
 );
-
-const resend = new Resend(process.env.RESEND_API_KEY!);
 
 // Quote generation endpoint
 export async function POST(request: NextRequest) {
@@ -122,57 +120,10 @@ export async function POST(request: NextRequest) {
       throw new Error('Failed to save quote');
     }
 
-    // Send email with quote
-    const emailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Your CoreSentia Quote is Ready</h2>
-        <p>Hi ${clientName},</p>
-        <p>Thank you for your interest in CoreSentia's Lead-to-Deal System. Your custom quote is attached to this email.</p>
-        
-        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #2A50DF; margin-top: 0;">Quote Summary</h3>
-          <p><strong>Package:</strong> ${packageType}</p>
-          <p><strong>Total:</strong> $${total.toLocaleString()} AUD (inc. GST)</p>
-          <p><strong>Valid Until:</strong> ${validUntil}</p>
-        </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${stripePaymentLink}" style="background-color: #62D4F9; color: #000; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
-            Accept Quote & Pay Deposit
-          </a>
-        </div>
-        
-        <p>This quote is valid for 7 days. A 50% deposit is required to begin work.</p>
-        
-        <p>Questions? Just reply to this email or call us.</p>
-        
-        <p>Best regards,<br>
-        The CoreSentia Team</p>
-        
-        <p style="color: #666; font-size: 14px; margin-top: 30px;">
-          CoreSentia | info@coresentia.com | coresentia.com<br>
-          <em>"Stop talking about AI. Start closing with it."</em>
-        </p>
-      </div>
-    `;
-
-    const { data: emailData, error: emailError } = await resend.emails.send({
-      from: 'CoreSentia <info@coresentia.com>',
-      to: [email],
-      subject: `Your CoreSentia Quote #${quoteNumber}`,
-      html: emailHtml,
-      attachments: [
-        {
-          filename: `CoreSentia-Quote-${quoteNumber}.pdf`,
-          content: pdfBuffer
-        }
-      ]
-    });
-
-    if (emailError) {
-      console.error('Email send error:', emailError);
-      // Don't fail the whole request if email fails
-    }
+    // TODO: Add email sending back once Resend issue is resolved
+    // For now, just log that email would be sent
+    console.log('Quote generated successfully. Email would be sent to:', email);
+    console.log('PDF Buffer size:', pdfBuffer.length);
 
     // Update lead status
     await supabase
@@ -183,11 +134,14 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', leadId);
 
+    // Return success with PDF buffer as base64
     return NextResponse.json({
       success: true,
       quoteNumber,
       quoteId: quote.id,
-      message: 'Quote generated and sent successfully'
+      message: 'Quote generated successfully',
+      pdfBase64: pdfBuffer.toString('base64'),
+      htmlPreview: quoteHtml // Include HTML for preview
     });
 
   } catch (error) {

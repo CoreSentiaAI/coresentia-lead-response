@@ -2,13 +2,39 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { generateQuoteHTML } from '@/app/templates/quote-template';
-import { generatePDF } from '@/app/lib/pdf-generator';
 
 // Initialize services
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_KEY!
 );
+
+// DocRaptor PDF generation
+async function generatePDFWithDocRaptor(html: string, documentName: string): Promise<Buffer> {
+  const response = await fetch('https://api.docraptor.com/docs', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      user_credentials: process.env.DOCRAPTOR_API_KEY!,
+      doc: {
+        name: documentName,
+        document_type: 'pdf',
+        document_content: html,
+        test: false, // Set to true for testing (won't count against quota)
+      }
+    })
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`DocRaptor error: ${error}`);
+  }
+
+  const arrayBuffer = await response.arrayBuffer();
+  return Buffer.from(arrayBuffer);
+}
 
 // Quote generation endpoint
 export async function POST(request: NextRequest) {
@@ -90,8 +116,11 @@ export async function POST(request: NextRequest) {
       selfHostedPrice
     });
 
-    // Convert HTML to PDF using Puppeteer
-    const pdfBuffer = await generatePDF(quoteHtml);
+    // Generate PDF with DocRaptor
+    const pdfBuffer = await generatePDFWithDocRaptor(
+      quoteHtml,
+      `CoreSentia-Quote-${quoteNumber}.pdf`
+    );
 
     // Save quote to Supabase
     const { data: quote, error: quoteError } = await supabase
@@ -120,10 +149,9 @@ export async function POST(request: NextRequest) {
       throw new Error('Failed to save quote');
     }
 
-    // TODO: Add email sending back once Resend issue is resolved
-    // For now, just log that email would be sent
+    // TODO: Add email sending with Resend later
     console.log('Quote generated successfully. Email would be sent to:', email);
-    console.log('PDF Buffer size:', pdfBuffer.length);
+    console.log('PDF generated, size:', pdfBuffer.length);
 
     // Update lead status
     await supabase
@@ -134,14 +162,14 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', leadId);
 
-    // Return success with PDF buffer as base64
+    // Return success with PDF as base64
     return NextResponse.json({
       success: true,
       quoteNumber,
       quoteId: quote.id,
       message: 'Quote generated successfully',
       pdfBase64: pdfBuffer.toString('base64'),
-      htmlPreview: quoteHtml // Include HTML for preview
+      htmlPreview: quoteHtml
     });
 
   } catch (error) {

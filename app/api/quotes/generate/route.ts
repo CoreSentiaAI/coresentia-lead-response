@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import QuoteTemplate from '@/app/templates/quote-template';
-import { renderToString } from 'react-dom/server';
+import { generateQuoteHTML } from '@/app/templates/quote-template';
 import { generatePDF } from '@/app/lib/pdf-generator';
 
 // Initialize services
@@ -73,27 +72,25 @@ export async function POST(request: NextRequest) {
     });
 
     // Generate HTML from template
-    const quoteHtml = renderToString(
-      QuoteTemplate({
-        quoteNumber,
-        date,
-        validUntil,
-        clientName,
-        companyName,
-        clientABN,
-        email,
-        phone,
-        packageType,
-        description,
-        amount,
-        subtotal,
-        gst,
-        total,
-        timeline,
-        monthlyHosting,
-        selfHostedPrice
-      })
-    );
+    const quoteHtml = generateQuoteHTML({
+      quoteNumber,
+      date,
+      validUntil,
+      clientName,
+      companyName,
+      clientABN,
+      email,
+      phone,
+      packageType,
+      description,
+      amount,
+      subtotal,
+      gst,
+      total,
+      timeline,
+      monthlyHosting,
+      selfHostedPrice
+    });
 
     // Convert HTML to PDF using Puppeteer
     const pdfBuffer = await generatePDF(quoteHtml);
@@ -167,7 +164,7 @@ export async function POST(request: NextRequest) {
       attachments: [
         {
           filename: `CoreSentia-Quote-${quoteNumber}.pdf`,
-          content: Buffer.from(pdfBuffer)
+          content: pdfBuffer
         }
       ]
     });

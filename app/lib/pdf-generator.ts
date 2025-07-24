@@ -49,13 +49,3 @@ export async function generatePDF(html: string): Promise<Buffer> {
     }
   }
 }
-
-// Updated route.ts snippet (replace the PDF generation part)
-import { generatePDF } from '@/app/lib/pdf-generator';
-
-// ... in your POST function, replace the DocRaptor section with:
-
-// Convert HTML to PDF using Puppeteer
-const pdfBuffer = await generatePDF(quoteHtml);
-
-// Continue with the rest of your code...

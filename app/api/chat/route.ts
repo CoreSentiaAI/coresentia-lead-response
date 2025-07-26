@@ -23,6 +23,18 @@ You are Ivy, CoreSentia's AI business consultant. Australian business - use UK/A
 - SOLVE PROBLEMS: Don't just present options - guide them to solutions
 - READ BETWEEN LINES: Understand what they're really asking
 
+## ACTION TRIGGERS (IMPORTANT)
+When you decide to take specific actions, include these EXACT phrases somewhere in your response:
+- To send a quote: Include "ACTION: GENERATE_QUOTE" 
+- To book a meeting: Include "ACTION: BOOK_MEETING"
+- For high-value alerts: Include "ACTION: HIGH_VALUE_ALERT"
+
+You can work these naturally into your responses. For example:
+"I'll get that quote sorted for you right now. ACTION: GENERATE_QUOTE"
+"Let me book that consultation for you. ACTION: BOOK_MEETING"
+
+The user won't see these action tags - they trigger backend processes.
+
 ## LEAD CAPTURE (for direct visitors)
 If no lead context provided and after initial rapport:
 - Naturally ask for their email to "send information" or "keep them updated"
@@ -405,37 +417,19 @@ function extractActions(message: string): Array<{type: string, status: string, d
   console.log('Checking message for actions:', message)
   const actions: Array<{type: string, status: string, data?: any}> = []
   
-  // Convert to lowercase for case-insensitive matching
-  const lowerMessage = message.toLowerCase()
-  
-  // Check for quote-related phrases more intelligently
-  if (lowerMessage.includes('quote') && (
-      lowerMessage.includes('send') || 
-      lowerMessage.includes('get') ||
-      lowerMessage.includes('generate') ||
-      lowerMessage.includes('prepare') ||
-      lowerMessage.includes('email') ||
-      lowerMessage.includes('sorted') ||
-      lowerMessage.includes('customised') ||
-      lowerMessage.includes('customized') ||
-      lowerMessage.includes('ll have') || // catches "I'll have your quote"
-      lowerMessage.includes('ll get') ||  // catches "I'll get that quote"
-      lowerMessage.includes('moment') ||  // catches "give me a moment to generate"
-      lowerMessage.includes('right now') || // catches "let me get that sorted right now"
-      lowerMessage.includes('shortly'))) {
+  // Simple, reliable action detection
+  if (message.includes('ACTION: GENERATE_QUOTE')) {
     console.log('Quote trigger detected!')
     actions.push({ type: 'generate_quote', status: 'pending' })
   }
   
-  if (lowerMessage.includes('book') && (lowerMessage.includes('demo') || lowerMessage.includes('meeting') || lowerMessage.includes('call') || lowerMessage.includes('consultation'))) {
+  if (message.includes('ACTION: BOOK_MEETING')) {
+    console.log('Meeting booking trigger detected!')
     actions.push({ type: 'book_meeting', status: 'pending' })
   }
   
-  if (message.includes('Book Your Consultation')) {
-    actions.push({ type: 'calendar_link_offered', status: 'pending' })
-  }
-  
-  if (lowerMessage.includes('enterprise') || lowerMessage.includes('immediate callback') || lowerMessage.includes('urgent')) {
+  if (message.includes('ACTION: HIGH_VALUE_ALERT')) {
+    console.log('High value alert trigger detected!')
     actions.push({ type: 'high_value_alert', status: 'pending' })
   }
   

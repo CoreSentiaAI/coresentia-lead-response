@@ -158,31 +158,34 @@ export async function POST(request: NextRequest) {
         const company = companyMatch ? companyMatch[1].trim() : 'Via Ivy'
         
         // Create lead record
-   const { data: newLead, error: leadError } = await supabase
-     .from('leads')
-     .insert({
-       first_name: firstName,
-       company: company,
-       phone: 'Pending',
-       email: emailMatch[0],
-       initial_message: messages[0]?.content || 'Direct chat access',
-       status: 'new',
-       source: 'direct_chat'
-  })
-  .select('id')
-  .single()
+        const { data: newLead, error: leadError } = await supabase
+          .from('leads')
+          .insert({
+            first_name: firstName,
+            company: company,
+            phone: 'Pending',
+            email: emailMatch[0],
+            initial_message: messages[0]?.content || 'Direct chat access',
+            status: 'new',
+            source: 'direct_chat'
+          })
+          .select('id')
+          .single()
 
-   if (leadError) {
-     console.error('Failed to create lead:', leadError)
-     console.error('Lead data attempted:', {
-       first_name: firstName,
-       company: company,
-       email: emailMatch[0]
-  })
-} else {
-  console.log('Lead created successfully:', newLead)
-  actualLeadId = newLead?.id
-}
+        if (leadError) {
+          console.error('Failed to create lead:', leadError)
+          console.error('Lead data attempted:', {
+            first_name: firstName,
+            company: company,
+            email: emailMatch[0]
+          })
+        } else {
+          console.log('Lead created successfully:', newLead)
+          actualLeadId = newLead?.id
+        }
+      }
+    }
+
     // Check rate limits if leadId provided
     if (actualLeadId) {
       const { data: lead } = await supabase

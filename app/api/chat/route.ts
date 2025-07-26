@@ -121,6 +121,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { messages = [], leadId, leadInfo } = body
 
+    console.log('Chat API called with:', { messageCount: messages.length, leadId, hasLeadInfo: !!leadInfo })
+
     // Validate inputs
     if (!Array.isArray(messages)) {
       console.error('Messages is not an array:', messages)
@@ -142,42 +144,70 @@ export async function POST(request: NextRequest) {
 
     // If no leadId, check if we need to collect details
     if (!actualLeadId && messages.length > 2) { // After a couple messages
+      console.log('Checking for email in messages (no leadId yet)')
+      
       // Check if latest message might contain contact info
       const lastUserMessage = messages.filter(m => m.role === 'user').pop()?.content || ''
+      console.log('Last user message:', lastUserMessage)
       
       // Simple email detection
       const emailMatch = lastUserMessage.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/)
       
       if (emailMatch) {
+        console.log('Email detected:', emailMatch[0])
+        
         // Extract name if mentioned (simple pattern)
         const nameMatch = lastUserMessage.match(/(?:name is|i'm|i am|call me)\s+([A-Z][a-z]+)/i)
-        const firstName = nameMatch ? nameMatch[1] : 'Direct Chat'
+        const name = nameMatch ? nameMatch[1] : 'Direct Chat'
         
         // Extract company if mentioned
         const companyMatch = lastUserMessage.match(/(?:from|at|work for|company is)\s+([A-Z][A-Za-z\s&]+)/i)
         const company = companyMatch ? companyMatch[1].trim() : 'Via Ivy'
         
-        // Create lead record
-        const { data: newLead } = await supabase
+        console.log('Creating lead with:', { name, company, email: emailMatch[0] })
+        
+        // Create lead record - FIXED: using 'name' column instead of 'first_name'
+        const { data: newLead, error: leadError } = await supabase
           .from('leads')
           .insert({
-            first_name: firstName,
+            name: name,  // Changed from first_name to name
             company: company,
-            phone: 'Pending',
             email: emailMatch[0],
             initial_message: messages[0]?.content || 'Direct chat access',
             status: 'new',
-            source: 'direct_chat'
+            source: 'ivy_chat'
           })
           .select('id')
           .single()
         
-        actualLeadId = newLead?.id
+        if (leadError) {
+          console.error('Error creating lead:', leadError)
+        } else {
+          console.log('Lead created successfully:', newLead)
+          actualLeadId = newLead?.id
+          
+          // Save all previous messages to conversations table
+          if (actualLeadId) {
+            console.log('Saving conversation history for new lead')
+            for (const msg of messages) {
+              await supabase
+                .from('conversations')
+                .insert({
+                  lead_id: actualLeadId,
+                  message: msg.content,
+                  sender: msg.role,
+                  timestamp: new Date().toISOString()
+                })
+            }
+          }
+        }
+      } else {
+        console.log('No email found in message')
       }
     }
 
     // Check rate limits if leadId provided
-    if (actualLeadId) {
+    if (actualLeadId && actualLeadId !== 'test123') {
       const { data: lead } = await supabase
         .from('leads')
         .select('total_tokens, message_count, last_message_at')
@@ -203,6 +233,9 @@ export async function POST(request: NextRequest) {
         }
       }
     }
+
+    // Get last user message for saving
+    const lastUserMessage = messages.filter(m => m.role === 'user').pop()?.content || ''
 
     // Call Anthropic API
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -236,15 +269,52 @@ export async function POST(request: NextRequest) {
       throw new Error('Invalid response format from Anthropic API')
     }
 
+    const ivyResponse = data.content[0].text
+
+    // Save conversation to database if we have a leadId
+    if (actualLeadId && actualLeadId !== 'test123') {
+      console.log('Saving conversation for lead:', actualLeadId)
+      
+      // Save user message
+      const { error: userMsgError } = await supabase
+        .from('conversations')
+        .insert({
+          lead_id: actualLeadId,
+          message: lastUserMessage,
+          sender: 'user',
+          timestamp: new Date().toISOString()
+        })
+      
+      if (userMsgError) {
+        console.error('Error saving user message:', userMsgError)
+      }
+
+      // Save Ivy's response
+      const { error: ivyMsgError } = await supabase
+        .from('conversations')
+        .insert({
+          lead_id: actualLeadId,
+          message: ivyResponse,
+          sender: 'assistant',
+          timestamp: new Date().toISOString()
+        })
+      
+      if (ivyMsgError) {
+        console.error('Error saving Ivy message:', ivyMsgError)
+      }
+    }
+
     // Update token usage and message count if leadId provided
-    if (actualLeadId && data.usage) {
+    if (actualLeadId && actualLeadId !== 'test123' && data.usage) {
+      console.log('Updating lead metrics')
+      
       const { data: currentLead } = await supabase
         .from('leads')
         .select('total_tokens, message_count')
         .eq('id', actualLeadId)
         .single()
 
-      await supabase
+      const { error: updateError } = await supabase
         .from('leads')
         .update({ 
           total_tokens: (currentLead?.total_tokens || 0) + data.usage.total_tokens,
@@ -252,13 +322,60 @@ export async function POST(request: NextRequest) {
           last_message_at: new Date().toISOString()
         })
         .eq('id', actualLeadId)
+      
+      if (updateError) {
+        console.error('Error updating lead metrics:', updateError)
+      }
     }
     
     // Extract any actions from the response
-    const actions = extractActions(data.content[0].text)
+    const actions = extractActions(ivyResponse)
+    
+    // If quote generation action detected, trigger it
+    if (actualLeadId && actions.some(a => a.type === 'generate_quote')) {
+      console.log('Quote generation detected, preparing data')
+      
+      // Get lead details
+      const { data: leadData } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('id', actualLeadId)
+        .single()
+      
+      if (leadData) {
+        // Analyze conversation to determine package
+        const conversationText = messages.map(m => m.content).join(' ').toLowerCase()
+        let packageType = 'Lead Response System'
+        let amount = 5000
+        
+        if (conversationText.includes('starter') || conversationText.includes('$2,500') || conversationText.includes('2500')) {
+          packageType = 'Lead Response Starter'
+          amount = 2500
+        } else if (conversationText.includes('support bot')) {
+          packageType = 'Support Bot'
+          amount = 7500
+        } else if (conversationText.includes('sales ai')) {
+          packageType = 'Universal Sales AI'
+          amount = 10000
+        }
+        
+        console.log('Determined package:', { packageType, amount })
+        
+        // Store quote data for action
+        actions.find(a => a.type === 'generate_quote').data = {
+          leadId: actualLeadId,
+          clientName: leadData.name,
+          companyName: leadData.company,
+          email: leadData.email,
+          phone: leadData.phone,
+          packageType,
+          amount
+        }
+      }
+    }
     
     return NextResponse.json({ 
-      message: data.content[0].text,
+      message: ivyResponse,
       actions: actions,
       leadId: actualLeadId // Return the leadId so frontend can track it
     })

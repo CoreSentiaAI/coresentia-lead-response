@@ -238,9 +238,48 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       }
 
       // Check for any actions to take based on response
-      if (data.actions) {
-        // Handle quote generation, meeting booking, etc.
-        console.log('Actions to take:', data.actions)
+      if (data.actions && Array.isArray(data.actions)) {
+        for (const action of data.actions) {
+          console.log('Processing action:', action)
+          
+          // Handle quote generation
+          if (action.type === 'generate_quote' && action.data) {
+            console.log('Generating quote with data:', action.data)
+            
+            try {
+              const quoteResponse = await fetch('/api/quotes/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(action.data)
+              })
+              
+              const quoteResult = await quoteResponse.json()
+              
+              if (quoteResult.success) {
+                console.log('Quote generated successfully:', quoteResult.quoteNumber)
+                // Optionally add a system message about quote being sent
+                setMessages(prev => [...prev, {
+                  role: 'assistant',
+                  content: `✅ Quote #${quoteResult.quoteNumber} has been sent to your email!`
+                }])
+              } else {
+                console.error('Quote generation failed:', quoteResult.error)
+              }
+            } catch (quoteError) {
+              console.error('Error calling quote API:', quoteError)
+            }
+          }
+          
+          // Handle meeting booking (future implementation)
+          if (action.type === 'book_meeting') {
+            console.log('Meeting booking requested - implement calendar integration')
+          }
+          
+          // Handle high value alerts (future implementation)
+          if (action.type === 'high_value_alert') {
+            console.log('High value lead detected - send internal notification')
+          }
+        }
       }
     } catch (error) {
       console.error('Error:', error)

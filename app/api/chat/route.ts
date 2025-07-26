@@ -166,11 +166,11 @@ export async function POST(request: NextRequest) {
         
         console.log('Creating lead with:', { name, company, email: emailMatch[0] })
         
-        // Create lead record - FIXED: using 'name' column instead of 'first_name'
+        // Create lead record - using 'name' column
         const { data: newLead, error: leadError } = await supabase
           .from('leads')
           .insert({
-            name: name,  // Changed from first_name to name
+            name: name,
             company: company,
             email: emailMatch[0],
             initial_message: messages[0]?.content || 'Direct chat access',
@@ -363,18 +363,20 @@ export async function POST(request: NextRequest) {
         
         // Store quote data for action
         const quoteAction = actions.find(a => a.type === 'generate_quote')
-      if (quoteAction) {
-        quoteAction.data = {
-          leadId: actualLeadId,
-          clientName: leadData.name,
-          companyName: leadData.company,
-          email: leadData.email,
-          phone: leadData.phone,
-          packageType,
-          amount
+        if (quoteAction) {
+          quoteAction.data = {
+            leadId: actualLeadId,
+            clientName: leadData.name,
+            companyName: leadData.company,
+            email: leadData.email,
+            phone: leadData.phone,
+            packageType,
+            amount
+          }
         }
       }
-          
+    }
+    
     return NextResponse.json({ 
       message: ivyResponse,
       actions: actions,
@@ -387,7 +389,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
 }
 
 function extractActions(message: string) {

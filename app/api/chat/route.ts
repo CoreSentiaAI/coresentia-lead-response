@@ -405,7 +405,28 @@ function extractActions(message: string): Array<{type: string, status: string, d
   console.log('Checking message for actions:', message)
   const actions: Array<{type: string, status: string, data?: any}> = []
   
-  if (message.includes('formal quote') || message.includes('prepare a detailed quote') || message.includes("I'll have your quote") || message.includes('quote ready immediately')) {
+  // Check for various quote-related phrases
+  if (message.includes('formal quote') || 
+      message.includes('prepare a detailed quote') || 
+      message.includes("I'll have your quote") || 
+      message.includes('quote ready immediately') ||
+      message.includes('get that quote to you') ||
+      message.includes('send you the quote') ||
+      message.includes('prepare your quote') ||
+      message.includes('email you the quote') ||
+      message.includes('send over the quote') ||
+      message.includes('get started on that quote') ||
+      message.includes('send the quote') ||
+      message.includes('email the quote') ||
+      message.includes('put together a quote') ||
+      message.includes('generate a quote') ||
+      message.includes('create a quote') ||
+      message.includes('quote shortly') ||
+      message.includes('quote via email') ||
+      message.includes('detailed info in your inbox') ||
+      message.includes('formal proposal') ||
+      message.includes('send you all the details') ||
+      message.includes('email with all the information')) {
     console.log('Quote trigger detected!')
     actions.push({ type: 'generate_quote', status: 'pending' })
   }

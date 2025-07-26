@@ -142,9 +142,13 @@ export async function POST(request: NextRequest) {
 
     let actualLeadId = leadId
 
-    // If no leadId, check if we need to collect details
-    if (!actualLeadId && messages.length > 2) { // After a couple messages
-      console.log('Checking for email in messages (no leadId yet)')
+    // Handle special leadIds (don't treat them as UUIDs)
+    const specialLeadIds = ['homepage-visitor', 'test123']
+    const isSpecialLeadId = specialLeadIds.includes(leadId)
+
+    // If leadId is 'homepage-visitor' or no leadId, check if we need to create a lead
+    if ((leadId === 'homepage-visitor' || !leadId) && messages.length > 2) {
+      console.log('Checking for email in messages (homepage visitor or no leadId)')
       
       // Check if latest message might contain contact info
       const lastUserMessage = messages.filter(m => m.role === 'user').pop()?.content || ''
@@ -206,8 +210,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Check rate limits if leadId provided
-    if (actualLeadId && actualLeadId !== 'test123') {
+    // Check rate limits if we have a real UUID leadId (not special ones)
+    if (actualLeadId && !isSpecialLeadId && actualLeadId !== 'test123') {
       const { data: lead } = await supabase
         .from('leads')
         .select('total_tokens, message_count, last_message_at')
@@ -271,8 +275,8 @@ export async function POST(request: NextRequest) {
 
     const ivyResponse = data.content[0].text
 
-    // Save conversation to database if we have a leadId
-    if (actualLeadId && actualLeadId !== 'test123') {
+    // Save conversation to database if we have a real leadId (not special ones)
+    if (actualLeadId && !isSpecialLeadId && actualLeadId !== 'test123') {
       console.log('Saving conversation for lead:', actualLeadId)
       
       // Save user message
@@ -304,8 +308,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Update token usage and message count if leadId provided
-    if (actualLeadId && actualLeadId !== 'test123' && data.usage) {
+    // Update token usage and message count if we have a real leadId
+    if (actualLeadId && !isSpecialLeadId && actualLeadId !== 'test123' && data.usage) {
       console.log('Updating lead metrics')
       
       const { data: currentLead } = await supabase
@@ -331,8 +335,8 @@ export async function POST(request: NextRequest) {
     // Extract any actions from the response
     const actions = extractActions(ivyResponse)
     
-    // If quote generation action detected, trigger it
-    if (actualLeadId && actions.some(a => a.type === 'generate_quote')) {
+    // If quote generation action detected and we have a real lead, trigger it
+    if (actualLeadId && !isSpecialLeadId && actions.some(a => a.type === 'generate_quote')) {
       console.log('Quote generation detected, preparing data')
       
       // Get lead details

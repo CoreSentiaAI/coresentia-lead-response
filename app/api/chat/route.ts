@@ -334,6 +334,8 @@ export async function POST(request: NextRequest) {
     
     // Extract any actions from the response
     const actions = extractActions(ivyResponse)
+    console.log('Actions extracted:', JSON.stringify(actions, null, 2))
+    console.log('Ivy response was:', ivyResponse)
     
     // If quote generation action detected and we have a real lead, trigger it
     if (actualLeadId && !isSpecialLeadId && actions.some(a => a.type === 'generate_quote')) {
@@ -400,9 +402,11 @@ export async function POST(request: NextRequest) {
 }
 
 function extractActions(message: string): Array<{type: string, status: string, data?: any}> {
+  console.log('Checking message for actions:', message)
   const actions: Array<{type: string, status: string, data?: any}> = []
   
   if (message.includes('formal quote') || message.includes('prepare a detailed quote') || message.includes("I'll have your quote") || message.includes('quote ready immediately')) {
+    console.log('Quote trigger detected!')
     actions.push({ type: 'generate_quote', status: 'pending' })
   }
   

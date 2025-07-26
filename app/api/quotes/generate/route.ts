@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const isEssentials = packageType === 'Essentials' || amount === 2500
     const timeline = isEssentials ? 5 : 10
     const monthlyHosting = isEssentials ? 200 : 300
-    const selfHostedPrice = isEssentials ? null : 1500
+    const selfHostedPrice = isEssentials ? undefined : 1500
 
     // Generate quote HTML
     const quoteHTML = generateQuoteHTML({

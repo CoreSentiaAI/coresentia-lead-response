@@ -315,8 +315,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function extractActions(message: string) {
-  const actions = []
+function extractActions(message: string): Array<{ type: string; status: string; data?: any }> {
+  const actions: Array<{ type: string; status: string; data?: any }> = []
   
   if (message.includes('formal quote') || message.includes('prepare a detailed quote') || message.includes("I'll have your quote") || message.includes('quote ready immediately')) {
     actions.push({ type: 'generate_quote', status: 'pending' })

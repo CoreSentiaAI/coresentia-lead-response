@@ -362,7 +362,9 @@ export async function POST(request: NextRequest) {
         console.log('Determined package:', { packageType, amount })
         
         // Store quote data for action
-        actions.find(a => a.type === 'generate_quote').data = {
+        const quoteAction = actions.find(a => a.type === 'generate_quote')
+      if (quoteAction) {
+        quoteAction.data = {
           leadId: actualLeadId,
           clientName: leadData.name,
           companyName: leadData.company,
@@ -372,8 +374,7 @@ export async function POST(request: NextRequest) {
           amount
         }
       }
-    }
-    
+          
     return NextResponse.json({ 
       message: ivyResponse,
       actions: actions,

@@ -362,16 +362,20 @@ export async function POST(request: NextRequest) {
         console.log('Determined package:', { packageType, amount })
         
         // Store quote data for action
-        const quoteAction = actions.find(a => a.type === 'generate_quote')
-        if (quoteAction) {
-          quoteAction.data = {
-            leadId: actualLeadId,
-            clientName: leadData.name,
-            companyName: leadData.company,
-            email: leadData.email,
-            phone: leadData.phone,
-            packageType,
-            amount
+        const quoteActionIndex = actions.findIndex(a => a.type === 'generate_quote')
+        if (quoteActionIndex !== -1) {
+          // Create new action object with data property
+          actions[quoteActionIndex] = {
+            ...actions[quoteActionIndex],
+            data: {
+              leadId: actualLeadId,
+              clientName: leadData.name,
+              companyName: leadData.company,
+              email: leadData.email,
+              phone: leadData.phone,
+              packageType,
+              amount
+            }
           }
         }
       }
@@ -391,8 +395,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function extractActions(message: string) {
-  const actions = []
+function extractActions(message: string): Array<{type: string, status: string, data?: any}> {
+  const actions: Array<{type: string, status: string, data?: any}> = []
   
   if (message.includes('formal quote') || message.includes('prepare a detailed quote') || message.includes("I'll have your quote") || message.includes('quote ready immediately')) {
     actions.push({ type: 'generate_quote', status: 'pending' })

@@ -388,6 +388,7 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+}
 
 function extractActions(message: string) {
   const actions = []

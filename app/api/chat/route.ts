@@ -405,33 +405,29 @@ function extractActions(message: string): Array<{type: string, status: string, d
   console.log('Checking message for actions:', message)
   const actions: Array<{type: string, status: string, data?: any}> = []
   
-  // Check for various quote-related phrases
-  if (message.includes('formal quote') || 
-      message.includes('prepare a detailed quote') || 
-      message.includes("I'll have your quote") || 
-      message.includes('quote ready immediately') ||
-      message.includes('get that quote to you') ||
-      message.includes('send you the quote') ||
-      message.includes('prepare your quote') ||
-      message.includes('email you the quote') ||
-      message.includes('send over the quote') ||
-      message.includes('get started on that quote') ||
-      message.includes('send the quote') ||
-      message.includes('email the quote') ||
-      message.includes('put together a quote') ||
-      message.includes('generate a quote') ||
-      message.includes('create a quote') ||
-      message.includes('quote shortly') ||
-      message.includes('quote via email') ||
-      message.includes('detailed info in your inbox') ||
-      message.includes('formal proposal') ||
-      message.includes('send you all the details') ||
-      message.includes('email with all the information')) {
+  // Convert to lowercase for case-insensitive matching
+  const lowerMessage = message.toLowerCase()
+  
+  // Check for quote-related phrases more intelligently
+  if (lowerMessage.includes('quote') && (
+      lowerMessage.includes('send') || 
+      lowerMessage.includes('get') ||
+      lowerMessage.includes('generate') ||
+      lowerMessage.includes('prepare') ||
+      lowerMessage.includes('email') ||
+      lowerMessage.includes('sorted') ||
+      lowerMessage.includes('customised') ||
+      lowerMessage.includes('customized') ||
+      lowerMessage.includes('ll have') || // catches "I'll have your quote"
+      lowerMessage.includes('ll get') ||  // catches "I'll get that quote"
+      lowerMessage.includes('moment') ||  // catches "give me a moment to generate"
+      lowerMessage.includes('right now') || // catches "let me get that sorted right now"
+      lowerMessage.includes('shortly'))) {
     console.log('Quote trigger detected!')
     actions.push({ type: 'generate_quote', status: 'pending' })
   }
   
-  if (message.includes('book') && (message.includes('demo') || message.includes('meeting') || message.includes('call') || message.includes('consultation'))) {
+  if (lowerMessage.includes('book') && (lowerMessage.includes('demo') || lowerMessage.includes('meeting') || lowerMessage.includes('call') || lowerMessage.includes('consultation'))) {
     actions.push({ type: 'book_meeting', status: 'pending' })
   }
   
@@ -439,7 +435,7 @@ function extractActions(message: string): Array<{type: string, status: string, d
     actions.push({ type: 'calendar_link_offered', status: 'pending' })
   }
   
-  if (message.includes('enterprise') || message.includes('immediate callback') || message.includes('urgent')) {
+  if (lowerMessage.includes('enterprise') || lowerMessage.includes('immediate callback') || lowerMessage.includes('urgent')) {
     actions.push({ type: 'high_value_alert', status: 'pending' })
   }
   

@@ -136,15 +136,13 @@ export async function createXeroQuote(quoteData: any) {
     // Create or find contact
     const contact = {
       Name: quoteData.companyName || quoteData.clientName || 'Unknown Client',
-      EmailAddress: quoteData.email
-    }
-    
-    // Only add phone if provided
-    if (quoteData.phone) {
-      contact.Phones = [{
-        PhoneType: 'DEFAULT',
-        PhoneNumber: quoteData.phone
-      }]
+      EmailAddress: quoteData.email,
+      ...(quoteData.phone && {
+        Phones: [{
+          PhoneType: 'DEFAULT',
+          PhoneNumber: quoteData.phone
+        }]
+      })
     }
     
     console.log('Creating contact:', contact)

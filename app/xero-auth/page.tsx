@@ -1,7 +1,7 @@
 'use client'
 
 export default function XeroAuth() {
-  const clientId = 'C4A301AE7EAF486DB397F15E85E5FC78'
+  const clientId = '906A497A7E1D4ADA957A680322D5EA93'
   const redirectUri = encodeURIComponent('https://ivy.coresentia.com/api/xero/callback')
   const scope = 'accounting.transactions accounting.contacts accounting.settings openid profile email offline_access'
   

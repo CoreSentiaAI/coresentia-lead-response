@@ -153,6 +153,7 @@ export async function POST(request: NextRequest) {
     }
 
     let actualLeadId = leadId
+    let currentLeadData: any = null
 
     // Handle special leadIds (don't treat them as UUIDs)
     const specialLeadIds = ['homepage-visitor', 'test123']
@@ -193,7 +194,7 @@ export async function POST(request: NextRequest) {
             status: 'new',
             source: 'ivy_chat'
           })
-          .select('id')
+          .select('*')
           .single()
         
         if (leadError) {
@@ -201,6 +202,7 @@ export async function POST(request: NextRequest) {
         } else {
           console.log('Lead created successfully:', newLead)
           actualLeadId = newLead?.id
+          currentLeadData = newLead
           
           // Save all previous messages to conversations table
           if (actualLeadId) {
@@ -222,16 +224,21 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Check rate limits if we have a real UUID leadId (not special ones)
-    if (actualLeadId && !isSpecialLeadId && actualLeadId !== 'test123') {
+    // Get lead data if we don't have it yet
+    if (actualLeadId && !isSpecialLeadId && !currentLeadData) {
       const { data: lead } = await supabase
         .from('leads')
-        .select('total_tokens, message_count, last_message_at')
+        .select('*')
         .eq('id', actualLeadId)
         .single()
+      
+      currentLeadData = lead
+    }
 
+    // Check rate limits if we have a real UUID leadId (not special ones)
+    if (actualLeadId && !isSpecialLeadId && actualLeadId !== 'test123' && currentLeadData) {
       // Token limit: 10,000 tokens per lead
-      if (lead?.total_tokens && lead.total_tokens > 10000) {
+      if (currentLeadData?.total_tokens && currentLeadData.total_tokens > 10000) {
         return NextResponse.json({ 
           message: "Thanks for the extensive chat! I'd love to continue our conversation properly. Let's book a meeting: https://calendar.app.google/X6T7MdmZCxF3mGBe7",
           blocked: true 
@@ -239,9 +246,9 @@ export async function POST(request: NextRequest) {
       }
 
       // Rate limit: 20 messages in 10 minutes
-      if (lead?.message_count && lead?.last_message_at) {
+      if (currentLeadData?.message_count && currentLeadData?.last_message_at) {
         const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString()
-        if (lead.message_count > 20 && lead.last_message_at > tenMinutesAgo) {
+        if (currentLeadData.message_count > 20 && currentLeadData.last_message_at > tenMinutesAgo) {
           return NextResponse.json({ 
             message: "Whoa, you're quick! Give me a moment to catch up. Try again in a few minutes, or better yet, let's chat properly: https://calendar.app.google/X6T7MdmZCxF3mGBe7",
             blocked: true 
@@ -264,7 +271,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
-        system: IVY_SYSTEM_PROMPT + `\n\nLead Context: ${JSON.stringify(leadInfo || {})}`,
+        system: IVY_SYSTEM_PROMPT + `\n\nLead Context: ${JSON.stringify(leadInfo || currentLeadData || {})}`,
         messages: messages.map((m: any) => ({
           role: m.role === 'user' ? 'user' : 'assistant',
           content: m.content || ''
@@ -324,17 +331,11 @@ export async function POST(request: NextRequest) {
     if (actualLeadId && !isSpecialLeadId && actualLeadId !== 'test123' && data.usage) {
       console.log('Updating lead metrics')
       
-      const { data: currentLead } = await supabase
-        .from('leads')
-        .select('total_tokens, message_count')
-        .eq('id', actualLeadId)
-        .single()
-
       const { error: updateError } = await supabase
         .from('leads')
         .update({ 
-          total_tokens: (currentLead?.total_tokens || 0) + data.usage.total_tokens,
-          message_count: (currentLead?.message_count || 0) + 1,
+          total_tokens: (currentLeadData?.total_tokens || 0) + data.usage.total_tokens,
+          message_count: (currentLeadData?.message_count || 0) + 1,
           last_message_at: new Date().toISOString()
         })
         .eq('id', actualLeadId)
@@ -344,60 +345,9 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // Extract any actions from the response
-    const actions = extractActions(ivyResponse)
+    // Extract any actions from the response, passing current lead data
+    const actions = extractActions(ivyResponse, actualLeadId, currentLeadData, messages)
     console.log('Actions extracted:', JSON.stringify(actions, null, 2))
-    console.log('Ivy response was:', ivyResponse)
-    
-    // If quote generation action detected and we have a real lead, trigger it
-    if (actualLeadId && !isSpecialLeadId && actions.some(a => a.type === 'generate_quote')) {
-      console.log('Quote generation detected, preparing data')
-      
-      // Get lead details
-      const { data: leadData } = await supabase
-        .from('leads')
-        .select('*')
-        .eq('id', actualLeadId)
-        .single()
-      
-      if (leadData) {
-        // Analyze conversation to determine package
-        const conversationText = messages.map(m => m.content).join(' ').toLowerCase()
-        let packageType = 'Lead Response System'
-        let amount = 5000
-        
-        if (conversationText.includes('starter') || conversationText.includes('$2,500') || conversationText.includes('2500')) {
-          packageType = 'Lead Response Starter'
-          amount = 2500
-        } else if (conversationText.includes('support bot')) {
-          packageType = 'Support Bot'
-          amount = 7500
-        } else if (conversationText.includes('sales ai')) {
-          packageType = 'Universal Sales AI'
-          amount = 10000
-        }
-        
-        console.log('Determined package:', { packageType, amount })
-        
-        // Store quote data for action
-        const quoteActionIndex = actions.findIndex(a => a.type === 'generate_quote')
-        if (quoteActionIndex !== -1) {
-          // Create new action object with data property
-          actions[quoteActionIndex] = {
-            ...actions[quoteActionIndex],
-            data: {
-              leadId: actualLeadId,
-              clientName: leadData.name,
-              companyName: leadData.company,
-              email: leadData.email,
-              phone: leadData.phone,
-              packageType,
-              amount
-            }
-          }
-        }
-      }
-    }
     
     return NextResponse.json({ 
       message: ivyResponse,
@@ -413,24 +363,81 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function extractActions(message: string): Array<{type: string, status: string, data?: any}> {
+function extractActions(
+  message: string, 
+  leadId: string | null, 
+  leadData: any | null,
+  messages: any[]
+): Array<{type: string, status: string, data?: any}> {
   console.log('Checking message for actions:', message)
   const actions: Array<{type: string, status: string, data?: any}> = []
   
-  // Simple, reliable action detection
+  // Quote generation with data
   if (message.includes('ACTION: GENERATE_QUOTE')) {
     console.log('Quote trigger detected!')
-    actions.push({ type: 'generate_quote', status: 'pending' })
+    
+    // Analyze conversation to determine package
+    const conversationText = messages.map(m => m.content).join(' ').toLowerCase()
+    let packageType = 'Lead Response System'
+    let amount = 5000
+    
+    if (conversationText.includes('starter') || conversationText.includes('$2,500') || conversationText.includes('2500')) {
+      packageType = 'Lead Response Starter'
+      amount = 2500
+    } else if (conversationText.includes('support bot')) {
+      packageType = 'Support Bot'
+      amount = 7500
+    } else if (conversationText.includes('sales ai')) {
+      packageType = 'Universal Sales AI'
+      amount = 10000
+    }
+    
+    const quoteData = {
+      leadId: leadId,
+      clientName: leadData?.name || 'Valued Client',
+      companyName: leadData?.company || 'Your Company',
+      email: leadData?.email || '',
+      phone: leadData?.phone || '',
+      packageType,
+      amount
+    }
+    
+    console.log('Quote data prepared:', quoteData)
+    
+    actions.push({ 
+      type: 'generate_quote', 
+      status: 'pending',
+      data: quoteData
+    })
   }
   
+  // Meeting booking
   if (message.includes('ACTION: BOOK_MEETING')) {
     console.log('Meeting booking trigger detected!')
-    actions.push({ type: 'book_meeting', status: 'pending' })
+    actions.push({ 
+      type: 'book_meeting', 
+      status: 'pending',
+      data: {
+        leadId: leadId,
+        clientName: leadData?.name || '',
+        email: leadData?.email || '',
+        phone: leadData?.phone || ''
+      }
+    })
   }
   
+  // High value alert
   if (message.includes('ACTION: HIGH_VALUE_ALERT')) {
     console.log('High value alert trigger detected!')
-    actions.push({ type: 'high_value_alert', status: 'pending' })
+    actions.push({ 
+      type: 'high_value_alert', 
+      status: 'pending',
+      data: {
+        leadId: leadId,
+        leadData: leadData,
+        reason: 'High-value lead detected by Ivy'
+      }
+    })
   }
   
   return actions

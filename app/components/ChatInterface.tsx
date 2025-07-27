@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import Image from 'next/image'
 import { Montserrat } from 'next/font/google'
@@ -35,12 +35,24 @@ interface ChatInterfaceProps {
   leadId: string
 }
 
+// Helper function to strip ACTION: tags from messages
+const stripActionTags = (content: string): string => {
+  // Remove ACTION: tags and any surrounding parentheses, clean up extra whitespace
+  return content
+    .replace(/\(?\s*ACTION:\s*[A-Z_]+\s*\)?/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 // Enhanced markdown formatter for messages
 const formatMessage = (text: string) => {
   // Ensure text is a string
   if (!text || typeof text !== 'string') {
     return 'Sorry, I encountered an error. Please try again.';
   }
+  
+  // Strip ACTION: tags first
+  const cleanedText = stripActionTags(text);
   
   // Process the entire text for inline formatting first
   const processInlineFormatting = (str: string) => {
@@ -87,7 +99,7 @@ const formatMessage = (text: string) => {
   };
   
   // Split by newlines to handle line structure
-  const lines = text.split('\n');
+  const lines = cleanedText.split('\n');
   
   return lines.map((line, lineIndex) => {
     // Skip empty lines but add spacing
@@ -142,6 +154,24 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const [lead, setLead] = useState<Lead | null>(null)
   const [loading, setLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string>(leadId)
+  
+  // Ref for auto-scrolling
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+    
+    // Small delay to ensure DOM is updated
+    const timeoutId = setTimeout(scrollToBottom, 100)
+    
+    return () => clearTimeout(timeoutId)
+  }, [messages])
 
   useEffect(() => {
     const initializeLead = async () => {
@@ -259,11 +289,11 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         // Rate limited
         messageContent = data.message || "Thanks for chatting! Let's continue this conversation properly. Book a meeting: https://calendar.app.google/X6T7MdmZCxF3mGBe7";
       } else if (data.message) {
-        // Normal response
-        messageContent = data.message;
+        // Normal response - strip ACTION: tags before displaying
+        messageContent = stripActionTags(data.message);
       } else if (typeof data === 'string') {
         // Fallback if API returns plain string
-        messageContent = data;
+        messageContent = stripActionTags(data);
       } else {
         // Unknown format
         messageContent = 'Sorry, I encountered an unexpected error. Please try again.';
@@ -357,7 +387,11 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
         {/* Messages */}
         <div className="bg-black rounded-b-2xl border border-white/10 border-t-0">
-          <div className="h-[60vh] sm:h-[65vh] md:h-[600px] lg:h-[600px] max-h-[700px] overflow-y-auto p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4" style={{ touchAction: 'pan-y' }}>
+          <div 
+            ref={messagesContainerRef}
+            className="h-[60vh] sm:h-[65vh] md:h-[600px] lg:h-[600px] max-h-[700px] overflow-y-auto p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4" 
+            style={{ touchAction: 'pan-y' }}
+          >
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -393,6 +427,8 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 </div>
               </div>
             )}
+            {/* Invisible element to scroll to */}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}

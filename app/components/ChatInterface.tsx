@@ -37,10 +37,9 @@ interface ChatInterfaceProps {
 
 // Helper function to strip ACTION: tags from messages
 const stripActionTags = (content: string): string => {
-  // Remove ACTION: tags and any surrounding parentheses, clean up extra whitespace
+  // Remove ACTION: tags and any surrounding parentheses
   return content
     .replace(/\(?\s*ACTION:\s*[A-Z_]+\s*\)?/g, '')
-    .replace(/\s+/g, ' ')
     .trim()
 }
 

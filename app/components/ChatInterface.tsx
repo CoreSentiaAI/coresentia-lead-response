@@ -145,8 +145,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
   useEffect(() => {
     const initializeLead = async () => {
-      // Try to fetch existing lead
-      if (leadId && leadId !== 'new-visitor') {
+      const specialLeadIds = ['homepage-visitor', 'test123', 'new-visitor'];
+      
+      // Only fetch lead data if it's not a special leadId
+      if (leadId && !specialLeadIds.includes(leadId)) {
         const { data, error } = await supabase
           .from('leads')
           .select('*')
@@ -176,6 +178,54 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       content: "Hi, I'm Ivy - What brings you to CoreSentia today? If you already know what you want or just need pricing, say the word and I'll skip straight to it."
     }])
   }, [leadId])
+
+  // Extract quote generation into its own function
+  const handleGenerateQuote = async (actionData: any) => {
+    console.log('handleGenerateQuote called with data:', actionData);
+    
+    // Check if we have minimum required data
+    if (!actionData?.data?.email) {
+      console.log('Quote generation skipped - no email address yet');
+      // Don't show an error to the user since Ivy will handle asking for email
+      return;
+    }
+    
+    try {
+      console.log('Calling quote generation API with data:', actionData.data)
+      
+      const quoteResponse = await fetch('/api/quotes/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(actionData.data)
+      })
+      
+      console.log('Quote API response status:', quoteResponse.status)
+      
+      const quoteResult = await quoteResponse.json()
+      console.log('Quote API response:', quoteResult)
+      
+      if (quoteResult.success) {
+        console.log('Quote generated successfully:', quoteResult.quoteNumber)
+        // Add a system message about quote being sent
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: `✅ Quote #${quoteResult.quoteNumber} has been created in Xero!`
+        }])
+      } else {
+        console.error('Quote generation failed:', quoteResult.error || 'Unknown error')
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: `⚠️ There was an issue creating your quote. Please email us at hello@coresentia.com and we'll sort it out right away.`
+        }])
+      }
+    } catch (quoteError) {
+      console.error('Error calling quote API:', quoteError)
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `⚠️ I couldn't generate your quote automatically. Please email us at hello@coresentia.com and we'll send it right over.`
+      }])
+    }
+  };
 
   const sendMessage = async () => {
     if (!input.trim()) return
@@ -248,48 +298,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           // Handle quote generation
           if (action.type === 'generate_quote') {
             console.log('Quote generation action found')
-            console.log('Action data:', action.data)
-            
-            if (!action.data) {
-              console.error('No data provided for quote generation')
-              continue
-            }
-            
-            try {
-              console.log('Calling quote generation API with data:', action.data)
-              
-              const quoteResponse = await fetch('/api/quotes/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(action.data)
-              })
-              
-              console.log('Quote API response status:', quoteResponse.status)
-              
-              const quoteResult = await quoteResponse.json()
-              console.log('Quote API response:', quoteResult)
-              
-              if (quoteResult.success) {
-                console.log('Quote generated successfully:', quoteResult.quoteNumber)
-                // Add a system message about quote being sent
-                setMessages(prev => [...prev, {
-                  role: 'assistant',
-                  content: `✅ Quote #${quoteResult.quoteNumber} has been created in Xero!`
-                }])
-              } else {
-                console.error('Quote generation failed:', quoteResult.error || 'Unknown error')
-                setMessages(prev => [...prev, {
-                  role: 'assistant',
-                  content: `⚠️ There was an issue creating your quote. Please email us at hello@coresentia.com and we'll sort it out right away.`
-                }])
-              }
-            } catch (quoteError) {
-              console.error('Error calling quote API:', quoteError)
-              setMessages(prev => [...prev, {
-                role: 'assistant',
-                content: `⚠️ I couldn't generate your quote automatically. Please email us at hello@coresentia.com and we'll send it right over.`
-              }])
-            }
+            await handleGenerateQuote(action)
           }
           
           // Handle meeting booking (future implementation)

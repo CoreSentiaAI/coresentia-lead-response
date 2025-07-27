@@ -113,7 +113,8 @@ export async function createXeroQuote(quoteData: any) {
     const tenantResponse = await fetch('https://api.xero.com/connections', {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }
     })
     
@@ -152,7 +153,8 @@ export async function createXeroQuote(quoteData: any) {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'xero-tenant-id': tenantId,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({ Contacts: [contact] })
     })
@@ -196,7 +198,8 @@ export async function createXeroQuote(quoteData: any) {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'xero-tenant-id': tenantId,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({ Quotes: [quote] })
     })

@@ -197,6 +197,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       })
       
       const data = await response.json()
+      console.log('Full API response:', data) // Debug log
       
       // Handle different response formats and ensure we have a message
       let messageContent = '';
@@ -239,34 +240,55 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
       // Check for any actions to take based on response
       if (data.actions && Array.isArray(data.actions)) {
+        console.log('Actions found in response:', data.actions) // Debug log
+        
         for (const action of data.actions) {
-          console.log('Processing action:', action)
+          console.log('Processing action:', JSON.stringify(action, null, 2))
           
           // Handle quote generation
-          if (action.type === 'generate_quote' && action.data) {
-            console.log('Generating quote with data:', action.data)
+          if (action.type === 'generate_quote') {
+            console.log('Quote generation action found')
+            console.log('Action data:', action.data)
+            
+            if (!action.data) {
+              console.error('No data provided for quote generation')
+              continue
+            }
             
             try {
+              console.log('Calling quote generation API with data:', action.data)
+              
               const quoteResponse = await fetch('/api/quotes/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(action.data)
               })
               
+              console.log('Quote API response status:', quoteResponse.status)
+              
               const quoteResult = await quoteResponse.json()
+              console.log('Quote API response:', quoteResult)
               
               if (quoteResult.success) {
                 console.log('Quote generated successfully:', quoteResult.quoteNumber)
-                // Optionally add a system message about quote being sent
+                // Add a system message about quote being sent
                 setMessages(prev => [...prev, {
                   role: 'assistant',
-                  content: `✅ Quote #${quoteResult.quoteNumber} has been sent to your email!`
+                  content: `✅ Quote #${quoteResult.quoteNumber} has been created in Xero!`
                 }])
               } else {
-                console.error('Quote generation failed:', quoteResult.error)
+                console.error('Quote generation failed:', quoteResult.error || 'Unknown error')
+                setMessages(prev => [...prev, {
+                  role: 'assistant',
+                  content: `⚠️ There was an issue creating your quote. Please email us at hello@coresentia.com and we'll sort it out right away.`
+                }])
               }
             } catch (quoteError) {
               console.error('Error calling quote API:', quoteError)
+              setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: `⚠️ I couldn't generate your quote automatically. Please email us at hello@coresentia.com and we'll send it right over.`
+              }])
             }
           }
           
@@ -280,6 +302,8 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             console.log('High value lead detected - send internal notification')
           }
         }
+      } else {
+        console.log('No actions found in response')
       }
     } catch (error) {
       console.error('Error:', error)

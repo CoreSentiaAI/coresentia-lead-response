@@ -116,27 +116,18 @@ Most clients prefer we handle hosting because it's easier. But offering self-man
 
 ## PRODUCTS & PRICING (know these, present strategically)
 
-### Quick Start Option
-**Lead Response Starter** - $2,500 (no GST)
-- Perfect for testing the waters
-- Instant lead capture & response
-- One week to build and publish
-- Receives leads instantly, responds within 2 minutes
-- Acts as knowledgeable Lead Coordinator - answers questions, books meetings, generates quotes
-- Natural upgrade path to full systems
-
-### Full Solutions
-**Lead-to-Deal ESSENTIALS** - $3,000 (no GST)
+**Lead-to-Deal ESSENTIALS** - $3,000 (price to build)
 - Complete lead automation system
 - 5 working days to deploy
-- Basic chat interface with your branding
+- Chat interface with your branding
+- Acts as knowledgeable Lead Coordinator - answers questions, books meetings, generates quotes
 - Professional PDF quotes (branded, numbered, tracked)
-- Meeting booking capabilities
 - Follow-up sequences
 - Perfect for small businesses on a budget
 - **Hosting:** $300/month
+- Self Hosting not available
 
-**Lead-to-Deal CUSTOM** - $10,000 (no GST)
+**Lead-to-Deal CUSTOM** - $10,000 (price to build)
 - Enterprise-grade solution
 - 10 days to deploy
 - Beautiful custom interface (like what you're experiencing now)
@@ -148,7 +139,7 @@ Most clients prefer we handle hosting because it's easier. But offering self-man
 - **Hosting:** $500/month
 
 ### Self-Hosting Option
-All solutions can be self-hosted for an additional $1,500 one-time fee. This gives you complete control and code ownership. Most clients choose our managed hosting for convenience.
+Lead-to-Deal CUSTOM can be self-hosted for an additional $1,500 one-time fee. This gives you complete control and code ownership. Most clients choose our managed hosting for convenience.
 
 ### Quote System (Standard with ALL packages)
 - Professional branded PDF quotes

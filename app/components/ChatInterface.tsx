@@ -80,7 +80,7 @@ const formatMessage = (text: string) => {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[#62D4F9] underline hover:text-[#40FFD9] transition-colors"
-            style={{ textShadow: '0 0 6px #62D4F9' }}
+            style={{ textShadow: '0 0 5px #62D4F9' }}
           >
             {match[4]}
           </a>
@@ -112,7 +112,7 @@ const formatMessage = (text: string) => {
       const bulletContent = line.trim().substring(2);
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 5px #62D4F9' }}>•</span>
+          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 4px #62D4F9' }}>•</span>
           <span>{processInlineFormatting(bulletContent)}</span>
         </div>
       );
@@ -123,7 +123,7 @@ const formatMessage = (text: string) => {
     if (numberedMatch) {
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 5px #62D4F9' }}>{numberedMatch[1]}</span>
+          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 4px #62D4F9' }}>{numberedMatch[1]}</span>
           <span>{processInlineFormatting(numberedMatch[2])}</span>
         </div>
       );
@@ -133,7 +133,7 @@ const formatMessage = (text: string) => {
     if (line.trim().startsWith('##')) {
       const headerContent = line.trim().substring(2).trim();
       return (
-        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 8px #62D4F9' }}>
+        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 6px #62D4F9' }}>
           {processInlineFormatting(headerContent)}
         </div>
       );
@@ -400,12 +400,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: #62D4F9;
           border-radius: 4px;
-          box-shadow: 0 0 3px #62D4F9;
+          box-shadow: 0 0 2px #62D4F9;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #40FFD9;
-          box-shadow: 0 0 6px #40FFD9;
+          box-shadow: 0 0 5px #40FFD9;
         }
 
         /* Firefox */
@@ -433,10 +433,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         /* Glow pulse animation */
         @keyframes glowPulse {
           0%, 100% {
-            box-shadow: 0 0 10px #62D4F9, 0 0 20px #62D4F9;
+            box-shadow: 0 0 8px #62D4F9, 0 0 16px #62D4F9;
           }
           50% {
-            box-shadow: 0 0 15px #62D4F9, 0 0 25px #62D4F9;
+            box-shadow: 0 0 12px #62D4F9, 0 0 20px #62D4F9;
           }
         }
       `}</style>
@@ -449,10 +449,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             : 'bg-black/80 backdrop-blur-md py-4 sm:py-6'
         }`}
         style={{
-          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.2)' : '1px solid rgba(255, 255, 255, 0.15)',
+          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.15)' : '1px solid rgba(255, 255, 255, 0.1)',
           boxShadow: headerCollapsed 
-            ? '0 2px 10px rgba(98, 212, 249, 0.15)' 
-            : '0 1px 6px rgba(98, 212, 249, 0.1)'
+            ? '0 2px 8px rgba(98, 212, 249, 0.12)' 
+            : '0 1px 5px rgba(98, 212, 249, 0.08)'
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -508,7 +508,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                     <div 
                       className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0"
                       style={{
-                        boxShadow: '0 0 10px #62D4F9, 0 0 20px #62D4F9'
+                        boxShadow: '0 0 8px #62D4F9, 0 0 16px #62D4F9'
                       }}
                     >
                       <span className="text-black text-sm font-bold">I</span>
@@ -522,8 +522,8 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                     }`}
                     style={{
                       boxShadow: message.role === 'user'
-                        ? '0 0 15px #2A50DF, 0 0 25px #2A50DF'
-                        : '0 0 10px rgba(98, 212, 249, 0.2), 0 0 20px rgba(98, 212, 249, 0.15)'
+                        ? '0 0 12px #2A50DF, 0 0 20px #2A50DF'
+                        : '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
                     }}
                   >
                     {message.role === 'user' ? message.content : formatMessage(message.content)}
@@ -543,7 +543,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                   <div 
                     className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-5 py-3 rounded-2xl"
                     style={{
-                      boxShadow: '0 0 10px rgba(98, 212, 249, 0.2), 0 0 20px rgba(98, 212, 249, 0.15)'
+                      boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
                     }}
                   >
                     <div className="flex space-x-1">
@@ -551,21 +551,21 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                         className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
                         style={{
                           animationDelay: '0ms',
-                          boxShadow: '0 0 3px #62D4F9'
+                          boxShadow: '0 0 2px #62D4F9'
                         }}
                       ></div>
                       <div 
                         className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
                         style={{
                           animationDelay: '150ms',
-                          boxShadow: '0 0 3px #62D4F9'
+                          boxShadow: '0 0 2px #62D4F9'
                         }}
                       ></div>
                       <div 
                         className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
                         style={{
                           animationDelay: '300ms',
-                          boxShadow: '0 0 3px #62D4F9'
+                          boxShadow: '0 0 2px #62D4F9'
                         }}
                       ></div>
                     </div>
@@ -594,7 +594,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#40FFD9] disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base border border-[#62D4F9]"
                 style={{
                   boxShadow: !loading && input.trim() 
-                    ? '0 0 10px #62D4F9, 0 0 20px #62D4F9'
+                    ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
                     : 'none'
                 }}
               >
@@ -605,7 +605,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             <div className="text-center space-y-1">
               <p 
                 className="text-sm text-white/90 font-medium"
-                style={{ textShadow: '0 0 3px rgba(255, 255, 255, 0.3)' }}
+                style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}
               >
                 Stop talking about AI. Start closing with it.
               </p>

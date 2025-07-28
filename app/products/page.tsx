@@ -18,6 +18,13 @@ const openSans = Open_Sans({
 
 export default function ProductsPage() {
   const [selectedProduct, setSelectedProduct] = useState<'essentials' | 'custom' | null>(null)
+  
+  // Click outside handler
+  const handleContainerClick = (e: React.MouseEvent) => {
+    if (e.currentTarget === e.target) {
+      setSelectedProduct(null)
+    }
+  }
 
   return (
     <div 
@@ -29,6 +36,7 @@ export default function ProductsPage() {
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed'
       }}
+      onClick={handleContainerClick}
     >
       {/* Header */}
       <header className="bg-black/80 backdrop-blur-md border-b border-white/10">
@@ -96,7 +104,7 @@ export default function ProductsPage() {
                 INSTANT RESPONSE
               </h3>
               <p className={`text-white/80 ${openSans.className}`}>
-                Every lead gets a response in seconds, not hours
+                SMS & email responses in seconds, not hours
               </p>
             </div>
             
@@ -128,7 +136,7 @@ export default function ProductsPage() {
                 INSTANT QUOTES
               </h3>
               <p className={`text-white/80 ${openSans.className}`}>
-                Professional PDFs generated and sent automatically
+                Professional PDFs with payment links sent automatically
               </p>
             </div>
           </div>
@@ -161,7 +169,10 @@ export default function ProductsPage() {
                   ? '0 0 30px rgba(98, 212, 249, 0.4)'
                   : '0 0 15px rgba(98, 212, 249, 0.2)'
               }}
-              onClick={() => setSelectedProduct('essentials')}
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedProduct('essentials')
+              }}
             >
               <div className="mb-8">
                 <h3 className={`text-2xl font-normal text-[#62D4F9] mb-2 ${montserrat.className}`} style={{ letterSpacing: '0.1em' }}>
@@ -178,11 +189,11 @@ export default function ProductsPage() {
                     $3,000
                   </span>
                   <span className={`text-white/60 ml-3 ${openSans.className}`}>
-                    build cost
+                    AUD build cost
                   </span>
                 </div>
                 <p className={`text-white/90 ${openSans.className}`}>
-                  + $300/month hosting & maintenance
+                  + $300 AUD/month hosting & maintenance
                 </p>
               </div>
               
@@ -201,11 +212,11 @@ export default function ProductsPage() {
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
                   <span className="text-[#62D4F9] mr-3 text-xl">✓</span>
-                  <span className="text-white/90">Professional PDF quotes</span>
+                  <span className="text-white/90">Professional PDF quotes with payment links</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
                   <span className="text-[#62D4F9] mr-3 text-xl">✓</span>
-                  <span className="text-white/90">Meeting booking automation</span>
+                  <span className="text-white/90">Simple CRM database</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
                   <span className="text-[#62D4F9] mr-3 text-xl">✓</span>
@@ -213,9 +224,17 @@ export default function ProductsPage() {
                 </li>
               </ul>
               
-              <div className={`text-center py-3 px-6 rounded-xl bg-[#62D4F9]/20 border border-[#62D4F9]/50 ${openSans.className}`}>
-                <span className="text-[#62D4F9] font-medium">Ideal for 1-50 leads/month</span>
+              <div className={`text-center py-3 px-6 rounded-xl bg-[#62D4F9]/20 border border-[#62D4F9]/50 mb-6 ${openSans.className}`}>
+                <span className="text-[#62D4F9] font-medium">Ideal for 1-300 leads/month</span>
               </div>
+              
+              <Link 
+                href="/products/essentials"
+                className={`block text-center py-3 px-6 rounded-xl bg-[#62D4F9] text-black font-medium hover:bg-[#40FFD9] transition-all ${openSans.className}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Learn More
+              </Link>
               
               <p className={`text-xs text-white/50 mt-4 ${openSans.className}`}>
                 CoreSentia retains ownership. Non-exclusive licence to use.
@@ -237,7 +256,10 @@ export default function ProductsPage() {
                   ? '0 0 30px rgba(42, 80, 223, 0.4)'
                   : '0 0 15px rgba(42, 80, 223, 0.2)'
               }}
-              onClick={() => setSelectedProduct('custom')}
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedProduct('custom')
+              }}
             >
               <div className="absolute top-0 right-0 bg-[#40FFD9] text-black px-4 py-1 rounded-bl-xl rounded-tr-xl">
                 <span className={`text-sm font-medium ${montserrat.className}`}>POPULAR</span>
@@ -258,11 +280,11 @@ export default function ProductsPage() {
                     $10,000
                   </span>
                   <span className={`text-white/60 ml-3 ${openSans.className}`}>
-                    build cost
+                    AUD build cost
                   </span>
                 </div>
                 <p className={`text-white/90 ${openSans.className}`}>
-                  + $500/month hosting & maintenance
+                  + $500 AUD/month hosting & maintenance
                 </p>
               </div>
               
@@ -277,7 +299,11 @@ export default function ProductsPage() {
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
                   <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
-                  <span className="text-white/90">Admin & analytics dashboards</span>
+                  <span className="text-white/90">Full database with analytics</span>
+                </li>
+                <li className={`flex items-start ${openSans.className}`}>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
+                  <span className="text-white/90">Admin & lead management dashboards</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
                   <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
@@ -289,20 +315,24 @@ export default function ProductsPage() {
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
                   <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
-                  <span className="text-white/90">Unlimited customisation</span>
-                </li>
-                <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
                   <span className="text-white/90 font-semibold">You own the code</span>
                 </li>
               </ul>
               
-              <div className={`text-center py-3 px-6 rounded-xl bg-[#2A50DF]/20 border border-[#2A50DF]/50 ${openSans.className}`}>
+              <div className={`text-center py-3 px-6 rounded-xl bg-[#2A50DF]/20 border border-[#2A50DF]/50 mb-6 ${openSans.className}`}>
                 <span className="text-[#2A50DF] font-medium">Scales to 1000+ leads/month</span>
               </div>
               
+              <Link 
+                href="/products/custom"
+                className={`block text-center py-3 px-6 rounded-xl bg-[#2A50DF] text-white font-medium hover:bg-[#40FFD9] hover:text-black transition-all ${openSans.className}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Learn More
+              </Link>
+              
               <p className={`text-xs text-white/50 mt-4 ${openSans.className}`}>
-                Self-hosting option available (+$1,500 handover fee)
+                Self-hosting option available (+$1,500 AUD handover fee)
               </p>
             </div>
           </div>
@@ -340,6 +370,10 @@ export default function ProductsPage() {
                   </li>
                   <li className={`flex items-start ${openSans.className}`}>
                     <span className="text-[#62D4F9] mr-3">•</span>
+                    <span className="text-white/90">Payment links (Stripe, Square, etc.)</span>
+                  </li>
+                  <li className={`flex items-start ${openSans.className}`}>
+                    <span className="text-[#62D4F9] mr-3">•</span>
                     <span className="text-white/90">Automatic email delivery</span>
                   </li>
                   <li className={`flex items-start ${openSans.className}`}>
@@ -360,15 +394,15 @@ export default function ProductsPage() {
                 <ul className="space-y-3">
                   <li className={`flex items-start ${openSans.className}`}>
                     <span className="text-[#40FFD9] mr-3">•</span>
-                    <span className="text-white/90">Xero Integration (+$1,500)</span>
+                    <span className="text-white/90">Xero Integration (+$1,500 AUD)</span>
                   </li>
                   <li className={`flex items-start ${openSans.className}`}>
                     <span className="text-[#40FFD9] mr-3">•</span>
-                    <span className="text-white/90">Custom quote templates (+$500)</span>
+                    <span className="text-white/90">Custom quote templates (+$500 AUD)</span>
                   </li>
                   <li className={`flex items-start ${openSans.className}`}>
                     <span className="text-[#40FFD9] mr-3">•</span>
-                    <span className="text-white/90">Multi-currency support (+$1,000)</span>
+                    <span className="text-white/90">Multi-currency support (+$1,000 AUD)</span>
                   </li>
                   <li className={`flex items-start ${openSans.className}`}>
                     <span className="text-[#40FFD9] mr-3">•</span>
@@ -474,14 +508,7 @@ export default function ProductsPage() {
                 boxShadow: '0 0 20px #62D4F9, 0 0 30px #62D4F9'
               }}
             >
-              Chat with Ivy Now
-            </Link>
-            <Link 
-              href="https://calendar.app.google/X6T7MdmZCxF3mGBe7"
-              target="_blank"
-              className={`px-8 py-4 bg-transparent text-white rounded-xl font-medium hover:bg-white/10 transition-all text-lg border-2 border-white/30 hover:border-[#62D4F9] ${openSans.className}`}
-            >
-              Book a Demo
+              Want a demo? Chat with Ivy
             </Link>
           </div>
         </div>

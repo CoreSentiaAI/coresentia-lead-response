@@ -153,6 +153,8 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const [lead, setLead] = useState<Lead | null>(null)
   const [loading, setLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string>(leadId)
+  const [headerCollapsed, setHeaderCollapsed] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   
   // Ref for auto-scrolling
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -171,6 +173,26 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     
     return () => clearTimeout(timeoutId)
   }, [messages])
+
+  // Handle scroll for header collapse
+  useEffect(() => {
+    const handleScroll = () => {
+      if (messagesContainerRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current
+        const scrollPercentage = scrollTop / (scrollHeight - clientHeight)
+        setScrollProgress(scrollPercentage)
+        
+        // Collapse header after scrolling down a bit
+        setHeaderCollapsed(scrollTop > 50)
+      }
+    }
+
+    const container = messagesContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+      return () => container.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   useEffect(() => {
     const initializeLead = async () => {
@@ -356,68 +378,79 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
   return (
     <div 
-      className="min-h-screen bg-black flex items-center justify-center p-2 sm:p-4"
+      className="h-screen w-screen bg-black flex flex-col overflow-hidden relative"
       style={{
         backgroundImage: 'url(/CoreSentia_page_background.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        WebkitTextSizeAdjust: '100%',
-        textSizeAdjust: '100%'
-      } as React.CSSProperties}
+        backgroundAttachment: 'fixed'
+      }}
     >
-      {/* Chat interface */}
-      <div className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="bg-black rounded-t-2xl p-4 sm:p-6 md:p-8 border border-white/10">
-          <div className="mb-4">
+      {/* Header - Collapsible */}
+      <div 
+        className={`bg-black/80 backdrop-blur-sm border-b border-white/10 transition-all duration-500 ${
+          headerCollapsed ? 'py-2' : 'py-4 sm:py-6'
+        }`}
+        style={{
+          opacity: headerCollapsed ? 0.8 : 1
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`transition-all duration-500 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
             <Image 
               src="/CoreSentia_Transparent_Logo.png" 
               alt="CoreSentia" 
               width={300}
               height={120}
-              className="h-16 sm:h-20 w-auto -ml-1"
+              className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-500`}
             />
           </div>
-          <h5 className={"text-white text-base sm:text-lg font-normal " + montserrat.className}>
+          <h5 
+            className={`text-white font-normal transition-all duration-500 ${montserrat.className} ${
+              headerCollapsed ? 'opacity-0 h-0' : 'opacity-100 mt-2 text-base sm:text-lg'
+            }`}
+          >
             Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
           </h5>
         </div>
+      </div>
 
-        {/* Messages */}
-        <div className="bg-black rounded-b-2xl border border-white/10 border-t-0">
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col">
+          {/* Messages Container */}
           <div 
             ref={messagesContainerRef}
-            className="h-[60vh] sm:h-[65vh] md:h-[600px] lg:h-[600px] max-h-[700px] overflow-y-auto p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4" 
-            style={{ touchAction: 'pan-y' }}
+            className="flex-1 overflow-y-auto space-y-4 pb-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
           >
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={"flex " + (message.role === 'user' ? 'justify-end' : 'justify-start')}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
-                    <span className="text-black text-xs font-bold">I</span>
+                  <div className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0">
+                    <span className="text-black text-sm font-bold">I</span>
                   </div>
                 )}
                 <div
-                  className={"max-w-[92%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[70%] px-4 sm:px-5 py-3 rounded-2xl text-base leading-relaxed " + 
-                    (message.role === 'user' 
-                      ? 'bg-[#2A50DF] text-white' 
-                      : 'bg-black border border-white/20 text-white')
-                  }
+                  className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed ${
+                    message.role === 'user' 
+                      ? 'bg-[#2A50DF] text-white shadow-lg shadow-[#2A50DF]/20' 
+                      : 'bg-black/60 backdrop-blur-sm border border-white/20 text-white'
+                  }`}
                 >
                   {message.role === 'user' ? message.content : formatMessage(message.content)}
                 </div>
               </div>
             ))}
             {loading && (
-              <div className="flex justify-start">
-                <div className="w-8 h-8 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 sm:mr-3 animate-pulse">
-                  <span className="text-black text-xs font-bold">I</span>
+              <div className="flex justify-start animate-fadeIn">
+                <div className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse">
+                  <span className="text-black text-sm font-bold">I</span>
                 </div>
-                <div className="bg-black border border-white/20 text-white px-4 sm:px-5 py-3 rounded-2xl max-w-[92%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[70%]">
+                <div className="bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-3 rounded-2xl">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
                     <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
@@ -426,13 +459,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 </div>
               </div>
             )}
-            {/* Invisible element to scroll to */}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="border-t border-white/10 p-4 sm:p-6 md:p-8">
-            <div className="flex space-x-2 sm:space-x-3">
+          {/* Input Area */}
+          <div className="pt-4 border-t border-white/10">
+            <div className="flex space-x-3 mb-4">
               <input
                 type="text"
                 value={input}
@@ -440,18 +472,18 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Type your message..."
                 style={{ fontSize: '16px' }}
-                className="flex-1 px-4 sm:px-5 py-3 bg-black border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-colors text-base"
+                className="flex-1 px-5 py-3 bg-black/60 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-all text-base"
               />
               <button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="px-5 sm:px-6 md:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base"
+                className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 hover:shadow-lg hover:shadow-[#62D4F9]/20 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base"
               >
                 Send
               </button>
             </div>
             
-            <div className="mt-6 text-center space-y-2">
+            <div className="text-center space-y-1">
               <p className="text-sm text-white/60 font-medium">
                 Stop talking about AI. Start closing with it.
               </p>

@@ -80,7 +80,7 @@ const formatMessage = (text: string) => {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[#62D4F9] underline hover:text-[#40FFD9] transition-colors"
-            style={{ textShadow: '0 0 10px #62D4F9' }}
+            style={{ textShadow: '0 0 6px #62D4F9' }}
           >
             {match[4]}
           </a>
@@ -112,7 +112,7 @@ const formatMessage = (text: string) => {
       const bulletContent = line.trim().substring(2);
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 8px #62D4F9' }}>•</span>
+          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 5px #62D4F9' }}>•</span>
           <span>{processInlineFormatting(bulletContent)}</span>
         </div>
       );
@@ -123,7 +123,7 @@ const formatMessage = (text: string) => {
     if (numberedMatch) {
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 8px #62D4F9' }}>{numberedMatch[1]}</span>
+          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 5px #62D4F9' }}>{numberedMatch[1]}</span>
           <span>{processInlineFormatting(numberedMatch[2])}</span>
         </div>
       );
@@ -133,7 +133,7 @@ const formatMessage = (text: string) => {
     if (line.trim().startsWith('##')) {
       const headerContent = line.trim().substring(2).trim();
       return (
-        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 12px #62D4F9' }}>
+        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 8px #62D4F9' }}>
           {processInlineFormatting(headerContent)}
         </div>
       );
@@ -163,8 +163,8 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     const scrollToBottom = () => {
-      if (messagesEndRef.current) {
-        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
       }
     }
     
@@ -174,7 +174,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     return () => clearTimeout(timeoutId)
   }, [messages])
 
-  // Handle scroll for header collapse - FIXED VERSION
+  // Handle scroll for header collapse
   useEffect(() => {
     const handleScroll = () => {
       if (messagesContainerRef.current) {
@@ -185,17 +185,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
     const container = messagesContainerRef.current;
     if (container) {
-      // Use passive listener for better performance
       container.addEventListener('scroll', handleScroll, { passive: true });
-      
-      // Initial check
-      handleScroll();
-      
       return () => {
         container.removeEventListener('scroll', handleScroll);
       };
     }
-  }, [messagesContainerRef.current]); // Re-run if ref changes
+  }, []); // Empty dependency array
 
   useEffect(() => {
     const initializeLead = async () => {
@@ -381,7 +376,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
   return (
     <div 
-      className="h-screen w-screen bg-black flex flex-col overflow-hidden relative"
+      className="h-screen w-screen bg-black flex flex-col overflow-hidden"
       style={{
         backgroundImage: 'url(/CoreSentia_page_background.jpg)',
         backgroundSize: 'cover',
@@ -405,12 +400,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: #62D4F9;
           border-radius: 4px;
-          box-shadow: 0 0 5px #62D4F9;
+          box-shadow: 0 0 3px #62D4F9;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #40FFD9;
-          box-shadow: 0 0 10px #40FFD9;
+          box-shadow: 0 0 6px #40FFD9;
         }
 
         /* Firefox */
@@ -438,26 +433,26 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         /* Glow pulse animation */
         @keyframes glowPulse {
           0%, 100% {
-            box-shadow: 0 0 15px #62D4F9, 0 0 30px #62D4F9;
+            box-shadow: 0 0 10px #62D4F9, 0 0 20px #62D4F9;
           }
           50% {
-            box-shadow: 0 0 20px #62D4F9, 0 0 40px #62D4F9;
+            box-shadow: 0 0 15px #62D4F9, 0 0 25px #62D4F9;
           }
         }
       `}</style>
 
       {/* Header - Collapsible */}
       <div 
-        className={`transition-all duration-300 ease-out z-20 ${
+        className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
           headerCollapsed 
             ? 'bg-black/95 backdrop-blur-xl py-2' 
             : 'bg-black/80 backdrop-blur-md py-4 sm:py-6'
         }`}
         style={{
-          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.3)' : '1px solid rgba(255, 255, 255, 0.2)',
+          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.2)' : '1px solid rgba(255, 255, 255, 0.15)',
           boxShadow: headerCollapsed 
-            ? '0 2px 15px rgba(98, 212, 249, 0.2)' 
-            : '0 1px 10px rgba(98, 212, 249, 0.1)'
+            ? '0 2px 10px rgba(98, 212, 249, 0.15)' 
+            : '0 1px 6px rgba(98, 212, 249, 0.1)'
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -486,9 +481,9 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       </div>
 
       {/* Main Chat Area with Glass Container */}
-      <div className="flex-1 flex flex-col overflow-hidden relative p-4">
+      <div className="flex-1 p-4 overflow-hidden">
         <div 
-          className="flex-1 max-w-6xl w-full mx-auto flex flex-col relative"
+          className="h-full max-w-6xl w-full mx-auto flex flex-col"
           style={{
             background: 'rgba(0, 0, 0, 0.7)',
             backdropFilter: 'blur(20px)',
@@ -497,89 +492,92 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             borderRadius: '20px',
           }}
         >
-          {/* Messages Container */}
+          {/* Messages Container - Fixed height constraint */}
           <div 
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden space-y-4 p-6 custom-scrollbar"
+            className="flex-1 overflow-y-auto overflow-x-hidden p-6 custom-scrollbar"
+            style={{ minHeight: 0 }} // Important for flexbox overflow
           >
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
-              >
-                {message.role === 'assistant' && (
-                  <div 
-                    className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0"
+            <div className="space-y-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
+                >
+                  {message.role === 'assistant' && (
+                    <div 
+                      className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0"
+                      style={{
+                        boxShadow: '0 0 10px #62D4F9, 0 0 20px #62D4F9'
+                      }}
+                    >
+                      <span className="text-black text-sm font-bold">I</span>
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed ${
+                      message.role === 'user' 
+                        ? 'bg-[#2A50DF] text-white border border-[#2A50DF]' 
+                        : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white'
+                    }`}
                     style={{
-                      boxShadow: '0 0 15px #62D4F9, 0 0 30px #62D4F9'
+                      boxShadow: message.role === 'user'
+                        ? '0 0 15px #2A50DF, 0 0 25px #2A50DF'
+                        : '0 0 10px rgba(98, 212, 249, 0.2), 0 0 20px rgba(98, 212, 249, 0.15)'
+                    }}
+                  >
+                    {message.role === 'user' ? message.content : formatMessage(message.content)}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="flex justify-start animate-fadeIn">
+                  <div 
+                    className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse"
+                    style={{
+                      animation: 'glowPulse 2s ease-in-out infinite',
                     }}
                   >
                     <span className="text-black text-sm font-bold">I</span>
                   </div>
-                )}
-                <div
-                  className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed ${
-                    message.role === 'user' 
-                      ? 'bg-[#2A50DF] text-white border border-[#2A50DF]' 
-                      : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white'
-                  }`}
-                  style={{
-                    boxShadow: message.role === 'user'
-                      ? '0 0 20px #2A50DF, 0 0 40px #2A50DF'
-                      : '0 0 15px rgba(98, 212, 249, 0.3), 0 0 30px rgba(98, 212, 249, 0.2)'
-                  }}
-                >
-                  {message.role === 'user' ? message.content : formatMessage(message.content)}
-                </div>
-              </div>
-            ))}
-            {loading && (
-              <div className="flex justify-start animate-fadeIn">
-                <div 
-                  className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse"
-                  style={{
-                    animation: 'glowPulse 2s ease-in-out infinite',
-                  }}
-                >
-                  <span className="text-black text-sm font-bold">I</span>
-                </div>
-                <div 
-                  className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-5 py-3 rounded-2xl"
-                  style={{
-                    boxShadow: '0 0 15px rgba(98, 212, 249, 0.3), 0 0 30px rgba(98, 212, 249, 0.2)'
-                  }}
-                >
-                  <div className="flex space-x-1">
-                    <div 
-                      className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                      style={{
-                        animationDelay: '0ms',
-                        boxShadow: '0 0 5px #62D4F9'
-                      }}
-                    ></div>
-                    <div 
-                      className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                      style={{
-                        animationDelay: '150ms',
-                        boxShadow: '0 0 5px #62D4F9'
-                      }}
-                    ></div>
-                    <div 
-                      className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                      style={{
-                        animationDelay: '300ms',
-                        boxShadow: '0 0 5px #62D4F9'
-                      }}
-                    ></div>
+                  <div 
+                    className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-5 py-3 rounded-2xl"
+                    style={{
+                      boxShadow: '0 0 10px rgba(98, 212, 249, 0.2), 0 0 20px rgba(98, 212, 249, 0.15)'
+                    }}
+                  >
+                    <div className="flex space-x-1">
+                      <div 
+                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
+                        style={{
+                          animationDelay: '0ms',
+                          boxShadow: '0 0 3px #62D4F9'
+                        }}
+                      ></div>
+                      <div 
+                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
+                        style={{
+                          animationDelay: '150ms',
+                          boxShadow: '0 0 3px #62D4F9'
+                        }}
+                      ></div>
+                      <div 
+                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
+                        style={{
+                          animationDelay: '300ms',
+                          boxShadow: '0 0 3px #62D4F9'
+                        }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
+              )}
+              <div ref={messagesEndRef} />
+            </div>
           </div>
 
           {/* Input Area */}
-          <div className="p-6 border-t border-[#62D4F9]/30">
+          <div className="flex-shrink-0 p-6 border-t border-[#62D4F9]/30">
             <div className="flex space-x-3 mb-4">
               <input
                 type="text"
@@ -596,7 +594,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#40FFD9] disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base border border-[#62D4F9]"
                 style={{
                   boxShadow: !loading && input.trim() 
-                    ? '0 0 15px #62D4F9, 0 0 30px #62D4F9'
+                    ? '0 0 10px #62D4F9, 0 0 20px #62D4F9'
                     : 'none'
                 }}
               >
@@ -607,7 +605,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             <div className="text-center space-y-1">
               <p 
                 className="text-sm text-white/90 font-medium"
-                style={{ textShadow: '0 0 5px rgba(255, 255, 255, 0.3)' }}
+                style={{ textShadow: '0 0 3px rgba(255, 255, 255, 0.3)' }}
               >
                 Stop talking about AI. Start closing with it.
               </p>

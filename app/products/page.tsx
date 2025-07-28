@@ -156,7 +156,7 @@ export default function ProductsPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Essentials */}
             <div 
-              className={`relative rounded-3xl p-8 cursor-pointer transition-all ${
+              className={`relative rounded-3xl p-8 cursor-pointer transition-all flex flex-col ${
                 selectedProduct === 'essentials' ? 'scale-105' : 'hover:scale-102'
               }`}
               style={{
@@ -179,7 +179,7 @@ export default function ProductsPage() {
                   Lead-to-Deal ESSENTIALS
                 </h3>
                 <p className={`text-white/80 text-sm ${openSans.className}`}>
-                  Pre-built solution for quick deployment
+                  Pre-built solution on proven infrastructure
                 </p>
               </div>
               
@@ -189,7 +189,7 @@ export default function ProductsPage() {
                     $3,000
                   </span>
                   <span className={`text-white/60 ml-2 text-sm ${openSans.className}`}>
-                    AUD
+                    AUD build
                   </span>
                 </div>
                 <p className={`text-white/90 text-sm ${openSans.className}`}>
@@ -197,7 +197,7 @@ export default function ProductsPage() {
                 </p>
               </div>
               
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6 flex-grow">
                 <li className={`flex items-start text-sm ${openSans.className}`}>
                   <span className="text-[#62D4F9] mr-2">✓</span>
                   <span className="text-white/90">SMS & email responses</span>
@@ -227,11 +227,15 @@ export default function ProductsPage() {
               >
                 Learn More
               </Link>
+              
+              <p className={`text-xs text-white/50 mt-4 ${openSans.className}`}>
+                CoreSentia retains ownership. Non-exclusive licence to use.
+              </p>
             </div>
 
             {/* Custom */}
             <div 
-              className={`relative rounded-3xl p-8 cursor-pointer transition-all ${
+              className={`relative rounded-3xl p-8 cursor-pointer transition-all flex flex-col ${
                 selectedProduct === 'custom' ? 'scale-105' : 'hover:scale-102'
               }`}
               style={{
@@ -254,7 +258,7 @@ export default function ProductsPage() {
                   Lead-to-Deal CUSTOM
                 </h3>
                 <p className={`text-white/80 text-sm ${openSans.className}`}>
-                  Bespoke solution you own forever
+                  Bespoke solution built for your business
                 </p>
               </div>
               
@@ -264,7 +268,7 @@ export default function ProductsPage() {
                     $10,000
                   </span>
                   <span className={`text-white/60 ml-2 text-sm ${openSans.className}`}>
-                    AUD
+                    AUD build
                   </span>
                 </div>
                 <p className={`text-white/90 text-sm ${openSans.className}`}>
@@ -272,7 +276,7 @@ export default function ProductsPage() {
                 </p>
               </div>
               
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6 flex-grow">
                 <li className={`flex items-start text-sm ${openSans.className}`}>
                   <span className="text-[#2A50DF] mr-2">✓</span>
                   <span className="text-white/90">Everything in Essentials</span>
@@ -302,11 +306,15 @@ export default function ProductsPage() {
               >
                 Learn More
               </Link>
+              
+              <p className={`text-xs text-white/50 mt-4 ${openSans.className}`}>
+                Self-hosting option available (+$1,500 handover fee)
+              </p>
             </div>
 
             {/* Website + AI Bundle */}
             <div 
-              className={`relative rounded-3xl p-8 cursor-pointer transition-all ${
+              className={`relative rounded-3xl p-8 cursor-pointer transition-all flex flex-col ${
                 selectedProduct === 'bundle' ? 'scale-105' : 'hover:scale-102'
               }`}
               style={{
@@ -343,7 +351,7 @@ export default function ProductsPage() {
                     $15,000
                   </span>
                   <span className={`text-white/60 ml-2 text-sm ${openSans.className}`}>
-                    AUD
+                    AUD build
                   </span>
                 </div>
                 <p className={`text-white/90 text-sm ${openSans.className}`}>
@@ -351,7 +359,7 @@ export default function ProductsPage() {
                 </p>
               </div>
               
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6 flex-grow">
                 <li className={`flex items-start text-sm ${openSans.className}`}>
                   <span className="text-[#40FFD9] mr-2">✓</span>
                   <span className="text-white/90">Professional website</span>
@@ -366,7 +374,7 @@ export default function ProductsPage() {
                 </li>
                 <li className={`flex items-start text-sm ${openSans.className}`}>
                   <span className="text-[#40FFD9] mr-2">✓</span>
-                  <span className="text-white/90 font-semibold">All-in-one solution</span>
+                  <span className="text-white/90 font-semibold">You own everything</span>
                 </li>
               </ul>
               
@@ -381,6 +389,10 @@ export default function ProductsPage() {
               >
                 Learn More
               </Link>
+              
+              <p className={`text-xs text-white/50 mt-4 ${openSans.className}`}>
+                Self-hosting option available (+50% premium)
+              </p>
             </div>
           </div>
 

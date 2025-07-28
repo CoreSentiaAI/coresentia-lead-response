@@ -479,7 +479,7 @@ export default function ProductsPage() {
             Ready to Transform Your Business?
           </h2>
           <p className={`text-xl text-white/80 mb-10 ${openSans.className}`}>
-            Experience the difference with Ivy. She's qualifying leads while you read this.
+            Experience the difference with Ivy. She&apos;s qualifying leads while you read this.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">

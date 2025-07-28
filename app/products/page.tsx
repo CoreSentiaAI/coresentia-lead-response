@@ -8,7 +8,7 @@ import { Montserrat, Open_Sans } from 'next/font/google'
 
 const montserrat = Montserrat({ 
   subsets: ['latin'],
-  weight: ['400', '500', '600']
+  weight: ['300', '400', '500']
 })
 
 const openSans = Open_Sans({ 
@@ -48,7 +48,7 @@ export default function ProductsPage() {
             </Link>
             <Link 
               href="/chat/homepage-visitor"
-              className="px-6 py-3 bg-[#62D4F9] text-black rounded-xl font-semibold hover:bg-[#40FFD9] transition-all"
+              className="px-6 py-3 bg-[#62D4F9] text-black rounded-xl font-medium hover:bg-[#40FFD9] transition-all"
               style={{
                 boxShadow: '0 0 12px #62D4F9, 0 0 20px #62D4F9'
               }}
@@ -63,7 +63,7 @@ export default function ProductsPage() {
       <section className="relative py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h1 
-            className={`text-5xl md:text-6xl lg:text-7xl font-semibold mb-6 text-white ${montserrat.className}`}
+            className={`text-5xl md:text-6xl lg:text-7xl font-normal mb-6 text-white ${montserrat.className}`}
             style={{ 
               letterSpacing: '0.15em',
               textShadow: '0 0 40px rgba(98, 212, 249, 0.5)'
@@ -75,12 +75,12 @@ export default function ProductsPage() {
             Stop losing leads. Start closing deals automatically.
           </p>
           <p className={`text-lg text-[#62D4F9] font-medium ${openSans.className}`}>
-            Own your AI forever. No subscriptions. No lock-in.
+            Build once. Own forever. Host wherever.
           </p>
         </div>
       </section>
 
-      {/* Value Props */}
+      {/* Value Props - Professional without icons */}
       <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
@@ -92,9 +92,8 @@ export default function ProductsPage() {
                 border: '1px solid rgba(98, 212, 249, 0.3)'
               }}
             >
-              <div className="text-4xl mb-4">⚡</div>
-              <h3 className={`text-xl font-semibold text-white mb-3 ${montserrat.className}`}>
-                Instant Response
+              <h3 className={`text-xl font-normal text-[#62D4F9] mb-3 ${montserrat.className}`} style={{ letterSpacing: '0.15em' }}>
+                INSTANT RESPONSE
               </h3>
               <p className={`text-white/80 ${openSans.className}`}>
                 Every lead gets a response in seconds, not hours
@@ -109,9 +108,8 @@ export default function ProductsPage() {
                 border: '1px solid rgba(98, 212, 249, 0.3)'
               }}
             >
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className={`text-xl font-semibold text-white mb-3 ${montserrat.className}`}>
-                Smart Qualification
+              <h3 className={`text-xl font-normal text-[#62D4F9] mb-3 ${montserrat.className}`} style={{ letterSpacing: '0.15em' }}>
+                SMART QUALIFICATION
               </h3>
               <p className={`text-white/80 ${openSans.className}`}>
                 AI that understands intent and qualifies naturally
@@ -126,9 +124,8 @@ export default function ProductsPage() {
                 border: '1px solid rgba(98, 212, 249, 0.3)'
               }}
             >
-              <div className="text-4xl mb-4">💰</div>
-              <h3 className={`text-xl font-semibold text-white mb-3 ${montserrat.className}`}>
-                Instant Quotes
+              <h3 className={`text-xl font-normal text-[#62D4F9] mb-3 ${montserrat.className}`} style={{ letterSpacing: '0.15em' }}>
+                INSTANT QUOTES
               </h3>
               <p className={`text-white/80 ${openSans.className}`}>
                 Professional PDFs generated and sent automatically
@@ -142,8 +139,8 @@ export default function ProductsPage() {
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 
-            className={`text-4xl font-semibold text-center mb-16 text-white ${montserrat.className}`}
-            style={{ letterSpacing: '0.1em' }}
+            className={`text-4xl font-normal text-center mb-16 text-white ${montserrat.className}`}
+            style={{ letterSpacing: '0.15em' }}
           >
             Choose Your Solution
           </h2>
@@ -167,25 +164,25 @@ export default function ProductsPage() {
               onClick={() => setSelectedProduct('essentials')}
             >
               <div className="mb-8">
-                <h3 className={`text-2xl font-semibold text-[#62D4F9] mb-2 ${montserrat.className}`}>
+                <h3 className={`text-2xl font-normal text-[#62D4F9] mb-2 ${montserrat.className}`} style={{ letterSpacing: '0.1em' }}>
                   Lead-to-Deal ESSENTIALS
                 </h3>
                 <p className={`text-white/80 ${openSans.className}`}>
-                  Perfect for small businesses ready to automate
+                  Pre-built solution deployed on proven infrastructure
                 </p>
               </div>
               
               <div className="mb-8">
                 <div className="flex items-baseline mb-4">
-                  <span className={`text-5xl font-bold text-white ${montserrat.className}`}>
+                  <span className={`text-5xl font-light text-white ${montserrat.className}`}>
                     $3,000
                   </span>
                   <span className={`text-white/60 ml-3 ${openSans.className}`}>
-                    one-time
+                    build cost
                   </span>
                 </div>
                 <p className={`text-white/90 ${openSans.className}`}>
-                  + $300/month hosting
+                  + $300/month hosting & maintenance
                 </p>
               </div>
               
@@ -217,8 +214,12 @@ export default function ProductsPage() {
               </ul>
               
               <div className={`text-center py-3 px-6 rounded-xl bg-[#62D4F9]/20 border border-[#62D4F9]/50 ${openSans.className}`}>
-                <span className="text-[#62D4F9] font-semibold">Best for 1-50 leads/month</span>
+                <span className="text-[#62D4F9] font-medium">Ideal for 1-50 leads/month</span>
               </div>
+              
+              <p className={`text-xs text-white/50 mt-4 ${openSans.className}`}>
+                CoreSentia retains ownership. Non-exclusive licence to use.
+              </p>
             </div>
 
             {/* Custom */}
@@ -230,75 +231,79 @@ export default function ProductsPage() {
                 background: 'rgba(0, 0, 0, 0.8)',
                 backdropFilter: 'blur(20px)',
                 border: selectedProduct === 'custom' 
-                  ? '2px solid #40FFD9' 
-                  : '1px solid rgba(64, 255, 217, 0.3)',
+                  ? '2px solid #2A50DF' 
+                  : '1px solid rgba(42, 80, 223, 0.3)',
                 boxShadow: selectedProduct === 'custom'
-                  ? '0 0 30px rgba(64, 255, 217, 0.4)'
-                  : '0 0 15px rgba(64, 255, 217, 0.2)'
+                  ? '0 0 30px rgba(42, 80, 223, 0.4)'
+                  : '0 0 15px rgba(42, 80, 223, 0.2)'
               }}
               onClick={() => setSelectedProduct('custom')}
             >
               <div className="absolute top-0 right-0 bg-[#40FFD9] text-black px-4 py-1 rounded-bl-xl rounded-tr-xl">
-                <span className={`text-sm font-semibold ${montserrat.className}`}>POPULAR</span>
+                <span className={`text-sm font-medium ${montserrat.className}`}>POPULAR</span>
               </div>
               
               <div className="mb-8">
-                <h3 className={`text-2xl font-semibold text-[#40FFD9] mb-2 ${montserrat.className}`}>
+                <h3 className={`text-2xl font-normal text-[#2A50DF] mb-2 ${montserrat.className}`} style={{ letterSpacing: '0.1em' }}>
                   Lead-to-Deal CUSTOM
                 </h3>
                 <p className={`text-white/80 ${openSans.className}`}>
-                  Enterprise-grade with unlimited customization
+                  Bespoke solution built specifically for your business
                 </p>
               </div>
               
               <div className="mb-8">
                 <div className="flex items-baseline mb-4">
-                  <span className={`text-5xl font-bold text-white ${montserrat.className}`}>
+                  <span className={`text-5xl font-light text-white ${montserrat.className}`}>
                     $10,000
                   </span>
                   <span className={`text-white/60 ml-3 ${openSans.className}`}>
-                    one-time
+                    build cost
                   </span>
                 </div>
                 <p className={`text-white/90 ${openSans.className}`}>
-                  + $500/month hosting
+                  + $500/month hosting & maintenance
                 </p>
               </div>
               
               <ul className="space-y-4 mb-6">
                 <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#40FFD9] mr-3 text-xl">✓</span>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
                   <span className="text-white/90">Everything in Essentials, plus:</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#40FFD9] mr-3 text-xl">✓</span>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
                   <span className="text-white/90">Custom interface like Ivy</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#40FFD9] mr-3 text-xl">✓</span>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
                   <span className="text-white/90">Admin & analytics dashboards</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#40FFD9] mr-3 text-xl">✓</span>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
                   <span className="text-white/90">Advanced AI personality matching</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#40FFD9] mr-3 text-xl">✓</span>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
                   <span className="text-white/90">Smart lead scoring</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#40FFD9] mr-3 text-xl">✓</span>
-                  <span className="text-white/90">A/B testing capabilities</span>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
+                  <span className="text-white/90">Unlimited customisation</span>
                 </li>
                 <li className={`flex items-start ${openSans.className}`}>
-                  <span className="text-[#40FFD9] mr-3 text-xl">✓</span>
-                  <span className="text-white/90">Option to self-host (+$1,500)</span>
+                  <span className="text-[#2A50DF] mr-3 text-xl">✓</span>
+                  <span className="text-white/90 font-semibold">You own the code</span>
                 </li>
               </ul>
               
-              <div className={`text-center py-3 px-6 rounded-xl bg-[#40FFD9]/20 border border-[#40FFD9]/50 ${openSans.className}`}>
-                <span className="text-[#40FFD9] font-semibold">Scales to 1000+ leads/month</span>
+              <div className={`text-center py-3 px-6 rounded-xl bg-[#2A50DF]/20 border border-[#2A50DF]/50 ${openSans.className}`}>
+                <span className="text-[#2A50DF] font-medium">Scales to 1000+ leads/month</span>
               </div>
+              
+              <p className={`text-xs text-white/50 mt-4 ${openSans.className}`}>
+                Self-hosting option available (+$1,500 handover fee)
+              </p>
             </div>
           </div>
         </div>
@@ -315,13 +320,13 @@ export default function ProductsPage() {
               border: '1px solid rgba(98, 212, 249, 0.3)'
             }}
           >
-            <h3 className={`text-3xl font-semibold text-center text-white mb-8 ${montserrat.className}`}>
+            <h3 className={`text-3xl font-normal text-center text-white mb-8 ${montserrat.className}`} style={{ letterSpacing: '0.15em' }}>
               Professional Quote System Included
             </h3>
             
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h4 className={`text-xl font-semibold text-[#62D4F9] mb-4 ${montserrat.className}`}>
+                <h4 className={`text-xl font-normal text-[#62D4F9] mb-4 ${montserrat.className}`} style={{ letterSpacing: '0.1em' }}>
                   Standard Features (Both Packages)
                 </h4>
                 <ul className="space-y-3">
@@ -349,7 +354,7 @@ export default function ProductsPage() {
               </div>
               
               <div>
-                <h4 className={`text-xl font-semibold text-[#40FFD9] mb-4 ${montserrat.className}`}>
+                <h4 className={`text-xl font-normal text-[#40FFD9] mb-4 ${montserrat.className}`} style={{ letterSpacing: '0.1em' }}>
                   Optional Add-Ons
                 </h4>
                 <ul className="space-y-3">
@@ -376,11 +381,11 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Comparison */}
+      {/* Ownership Explanation */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <h3 className={`text-3xl font-semibold text-center text-white mb-12 ${montserrat.className}`}>
-            Why Choose CoreSentia?
+          <h3 className={`text-3xl font-normal text-center text-white mb-12 ${montserrat.className}`} style={{ letterSpacing: '0.15em' }}>
+            Understanding Ownership
           </h3>
           
           <div 
@@ -397,49 +402,49 @@ export default function ProductsPage() {
                   <th className={`text-left p-6 text-white/60 font-normal ${openSans.className}`}>
                     
                   </th>
-                  <th className={`text-center p-6 text-[#62D4F9] font-semibold ${montserrat.className}`}>
-                    CoreSentia
+                  <th className={`text-center p-6 text-[#62D4F9] font-medium ${montserrat.className}`}>
+                    ESSENTIALS
                   </th>
-                  <th className={`text-center p-6 text-white/60 font-normal ${openSans.className}`}>
-                    SaaS Platforms
+                  <th className={`text-center p-6 text-[#2A50DF] font-medium ${montserrat.className}`}>
+                    CUSTOM
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-white/5">
-                  <td className={`p-6 text-white/90 ${openSans.className}`}>Ownership</td>
+                  <td className={`p-6 text-white/90 ${openSans.className}`}>Code ownership</td>
                   <td className="text-center p-6">
-                    <span className="text-[#62D4F9] text-2xl">✓</span>
+                    <span className={`text-white/60 ${openSans.className}`}>CoreSentia</span>
                   </td>
                   <td className="text-center p-6">
-                    <span className="text-white/30 text-2xl">✗</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-white/5">
-                  <td className={`p-6 text-white/90 ${openSans.className}`}>One-time cost</td>
-                  <td className="text-center p-6">
-                    <span className="text-[#62D4F9] text-2xl">✓</span>
-                  </td>
-                  <td className="text-center p-6">
-                    <span className="text-white/30 text-2xl">✗</span>
+                    <span className={`text-[#2A50DF] font-medium ${openSans.className}`}>You</span>
                   </td>
                 </tr>
                 <tr className="border-b border-white/5">
-                  <td className={`p-6 text-white/90 ${openSans.className}`}>Custom built</td>
-                  <td className="text-center p-6">
-                    <span className="text-[#62D4F9] text-2xl">✓</span>
-                  </td>
+                  <td className={`p-6 text-white/90 ${openSans.className}`}>Self-hosting option</td>
                   <td className="text-center p-6">
                     <span className="text-white/30 text-2xl">✗</span>
+                  </td>
+                  <td className="text-center p-6">
+                    <span className="text-[#2A50DF] text-2xl">✓</span>
+                  </td>
+                </tr>
+                <tr className="border-b border-white/5">
+                  <td className={`p-6 text-white/90 ${openSans.className}`}>Infrastructure</td>
+                  <td className="text-center p-6">
+                    <span className={`text-white/60 ${openSans.className}`}>Pre-built</span>
+                  </td>
+                  <td className="text-center p-6">
+                    <span className={`text-white/60 ${openSans.className}`}>Bespoke</span>
                   </td>
                 </tr>
                 <tr>
-                  <td className={`p-6 text-white/90 ${openSans.className}`}>No vendor lock-in</td>
+                  <td className={`p-6 text-white/90 ${openSans.className}`}>Customisation</td>
                   <td className="text-center p-6">
-                    <span className="text-[#62D4F9] text-2xl">✓</span>
+                    <span className={`text-white/60 ${openSans.className}`}>Templates</span>
                   </td>
                   <td className="text-center p-6">
-                    <span className="text-white/30 text-2xl">✗</span>
+                    <span className={`text-white/60 ${openSans.className}`}>Unlimited</span>
                   </td>
                 </tr>
               </tbody>
@@ -452,19 +457,19 @@ export default function ProductsPage() {
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 
-            className={`text-4xl md:text-5xl font-semibold text-white mb-6 ${montserrat.className}`}
-            style={{ letterSpacing: '0.1em' }}
+            className={`text-4xl md:text-5xl font-normal text-white mb-6 ${montserrat.className}`}
+            style={{ letterSpacing: '0.15em' }}
           >
             Ready to Transform Your Lead Process?
           </h2>
           <p className={`text-xl text-white/80 mb-10 ${openSans.className}`}>
-            Experience the difference with Ivy. She&apos;s closing deals while you read this.
+            Experience the difference with Ivy. She&apos;s qualifying leads while you read this.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
               href="/chat/homepage-visitor"
-              className={`px-8 py-4 bg-[#62D4F9] text-black rounded-xl font-semibold hover:bg-[#40FFD9] transition-all text-lg ${openSans.className}`}
+              className={`px-8 py-4 bg-[#62D4F9] text-black rounded-xl font-medium hover:bg-[#40FFD9] transition-all text-lg ${openSans.className}`}
               style={{
                 boxShadow: '0 0 20px #62D4F9, 0 0 30px #62D4F9'
               }}
@@ -474,7 +479,7 @@ export default function ProductsPage() {
             <Link 
               href="https://calendar.app.google/X6T7MdmZCxF3mGBe7"
               target="_blank"
-              className={`px-8 py-4 bg-transparent text-white rounded-xl font-semibold hover:bg-white/10 transition-all text-lg border-2 border-white/30 hover:border-[#62D4F9] ${openSans.className}`}
+              className={`px-8 py-4 bg-transparent text-white rounded-xl font-medium hover:bg-white/10 transition-all text-lg border-2 border-white/30 hover:border-[#62D4F9] ${openSans.className}`}
             >
               Book a Demo
             </Link>
@@ -492,7 +497,7 @@ export default function ProductsPage() {
             Stop talking about AI. Start closing with it.
           </p>
           <p className={`text-sm text-white/60 ${openSans.className}`}>
-            Copyright © CoreSentia 2025 | ABN: [Your ABN]
+            Copyright © CoreSentia 2025
           </p>
         </div>
       </footer>

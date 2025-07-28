@@ -79,7 +79,7 @@ const formatMessage = (text: string) => {
             href={match[5]} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-[#62D4F9] underline hover:text-[#62D4F9]/80 transition-colors"
+            className="text-[#62D4F9] underline hover:text-[#40FFD9] transition-colors"
           >
             {match[4]}
           </a>
@@ -154,7 +154,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const [loading, setLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string>(leadId)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
-  const [scrollProgress, setScrollProgress] = useState(0)
   
   // Ref for auto-scrolling
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -178,18 +177,15 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   useEffect(() => {
     const handleScroll = () => {
       if (messagesContainerRef.current) {
-        const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current
-        const scrollPercentage = scrollTop / (scrollHeight - clientHeight)
-        setScrollProgress(scrollPercentage)
-        
-        // Collapse header after scrolling down a bit
+        const { scrollTop } = messagesContainerRef.current
+        // Collapse header after scrolling down 50px
         setHeaderCollapsed(scrollTop > 50)
       }
     }
 
     const container = messagesContainerRef.current
     if (container) {
-      container.addEventListener('scroll', handleScroll)
+      container.addEventListener('scroll', handleScroll, { passive: true })
       return () => container.removeEventListener('scroll', handleScroll)
     }
   }, [])
@@ -387,14 +383,58 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         backgroundAttachment: 'fixed'
       }}
     >
+      {/* Add custom scrollbar styles */}
+      <style jsx global>{`
+        /* Custom Scrollbar Styles */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(98, 212, 249, 0.6);
+          border-radius: 3px;
+          transition: all 0.3s ease;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(98, 212, 249, 0.8);
+        }
+
+        /* Firefox */
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(98, 212, 249, 0.6) rgba(255, 255, 255, 0.1);
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+      `}</style>
+
       {/* Header - Collapsible */}
       <div 
-        className={`bg-black/80 backdrop-blur-sm border-b border-white/10 transition-all duration-500 ${
-          headerCollapsed ? 'py-2' : 'py-4 sm:py-6'
-        }`}
-        style={{
-          opacity: headerCollapsed ? 0.8 : 1
-        }}
+        className={`transition-all duration-500 ease-in-out z-10 ${
+          headerCollapsed 
+            ? 'bg-black/90 backdrop-blur-md py-2 shadow-lg shadow-[#62D4F9]/10' 
+            : 'bg-black/70 backdrop-blur-sm py-4 sm:py-6'
+        } border-b ${headerCollapsed ? 'border-[#62D4F9]/30' : 'border-white/10'}`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`transition-all duration-500 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
@@ -408,7 +448,9 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           </div>
           <h5 
             className={`text-white font-normal transition-all duration-500 ${montserrat.className} ${
-              headerCollapsed ? 'opacity-0 h-0' : 'opacity-100 mt-2 text-base sm:text-lg'
+              headerCollapsed 
+                ? 'opacity-0 max-h-0 overflow-hidden' 
+                : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'
             }`}
           >
             Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
@@ -422,7 +464,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           {/* Messages Container */}
           <div 
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto space-y-4 pb-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+            className="flex-1 overflow-y-auto overflow-x-hidden space-y-4 pb-4 custom-scrollbar"
           >
             {messages.map((message, index) => (
               <div
@@ -430,15 +472,15 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0 shadow-lg shadow-[#62D4F9]/50">
                     <span className="text-black text-sm font-bold">I</span>
                   </div>
                 )}
                 <div
                   className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed ${
                     message.role === 'user' 
-                      ? 'bg-[#2A50DF] text-white shadow-lg shadow-[#2A50DF]/20' 
-                      : 'bg-black/60 backdrop-blur-sm border border-white/20 text-white'
+                      ? 'bg-[#2A50DF] text-white shadow-xl shadow-[#2A50DF]/30 border border-[#2A50DF]/50' 
+                      : 'bg-black/90 backdrop-blur-md border border-[#62D4F9]/30 text-white shadow-xl shadow-[#62D4F9]/10'
                   }`}
                 >
                   {message.role === 'user' ? message.content : formatMessage(message.content)}
@@ -447,14 +489,14 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             ))}
             {loading && (
               <div className="flex justify-start animate-fadeIn">
-                <div className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse">
+                <div className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse shadow-lg shadow-[#62D4F9]/50">
                   <span className="text-black text-sm font-bold">I</span>
                 </div>
-                <div className="bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-3 rounded-2xl">
+                <div className="bg-black/90 backdrop-blur-md border border-[#62D4F9]/30 text-white px-5 py-3 rounded-2xl shadow-xl shadow-[#62D4F9]/10">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
-                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
-                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce shadow-sm shadow-[#62D4F9]" style={{animationDelay: '0ms'}}></div>
+                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce shadow-sm shadow-[#62D4F9]" style={{animationDelay: '150ms'}}></div>
+                    <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce shadow-sm shadow-[#62D4F9]" style={{animationDelay: '300ms'}}></div>
                   </div>
                 </div>
               </div>
@@ -472,22 +514,22 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Type your message..."
                 style={{ fontSize: '16px' }}
-                className="flex-1 px-5 py-3 bg-black/60 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] transition-all text-base"
+                className="flex-1 px-5 py-3 bg-black/80 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] focus:shadow-lg focus:shadow-[#62D4F9]/20 transition-all text-base"
               />
               <button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#62D4F9]/90 hover:shadow-lg hover:shadow-[#62D4F9]/20 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base"
+                className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#40FFD9] hover:shadow-xl hover:shadow-[#62D4F9]/30 disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base border border-[#62D4F9]/50"
               >
                 Send
               </button>
             </div>
             
             <div className="text-center space-y-1">
-              <p className="text-sm text-white/60 font-medium">
+              <p className="text-sm text-white/80 font-medium">
                 Stop talking about AI. Start closing with it.
               </p>
-              <p className="text-xs text-white/40">
+              <p className="text-xs text-white/50">
                 Copyright © CoreSentia 2025
               </p>
             </div>

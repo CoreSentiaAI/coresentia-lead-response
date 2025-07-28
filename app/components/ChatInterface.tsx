@@ -80,7 +80,7 @@ const formatMessage = (text: string) => {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[#62D4F9] underline hover:text-[#40FFD9] transition-colors"
-            style={{ textShadow: '0 0 20px #62D4F9' }}
+            style={{ textShadow: '0 0 10px #62D4F9' }}
           >
             {match[4]}
           </a>
@@ -112,7 +112,7 @@ const formatMessage = (text: string) => {
       const bulletContent = line.trim().substring(2);
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 15px #62D4F9' }}>•</span>
+          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 8px #62D4F9' }}>•</span>
           <span>{processInlineFormatting(bulletContent)}</span>
         </div>
       );
@@ -123,7 +123,7 @@ const formatMessage = (text: string) => {
     if (numberedMatch) {
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 15px #62D4F9' }}>{numberedMatch[1]}</span>
+          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 8px #62D4F9' }}>{numberedMatch[1]}</span>
           <span>{processInlineFormatting(numberedMatch[2])}</span>
         </div>
       );
@@ -133,7 +133,7 @@ const formatMessage = (text: string) => {
     if (line.trim().startsWith('##')) {
       const headerContent = line.trim().substring(2).trim();
       return (
-        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 25px #62D4F9' }}>
+        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 12px #62D4F9' }}>
           {processInlineFormatting(headerContent)}
         </div>
       );
@@ -154,7 +154,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const [lead, setLead] = useState<Lead | null>(null)
   const [loading, setLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string>(leadId)
-  const [scrollY, setScrollY] = useState(0)
+  const [headerCollapsed, setHeaderCollapsed] = useState(false)
   
   // Ref for auto-scrolling
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -174,21 +174,28 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     return () => clearTimeout(timeoutId)
   }, [messages])
 
-  // Handle scroll for header collapse
+  // Handle scroll for header collapse - FIXED VERSION
   useEffect(() => {
     const handleScroll = () => {
-      const container = messagesContainerRef.current;
-      if (container) {
-        setScrollY(container.scrollTop);
+      if (messagesContainerRef.current) {
+        const scrollTop = messagesContainerRef.current.scrollTop;
+        setHeaderCollapsed(scrollTop > 50);
       }
     };
 
     const container = messagesContainerRef.current;
     if (container) {
-      container.addEventListener('scroll', handleScroll);
-      return () => container.removeEventListener('scroll', handleScroll);
+      // Use passive listener for better performance
+      container.addEventListener('scroll', handleScroll, { passive: true });
+      
+      // Initial check
+      handleScroll();
+      
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+      };
     }
-  }, []);
+  }, [messagesContainerRef.current]); // Re-run if ref changes
 
   useEffect(() => {
     const initializeLead = async () => {
@@ -372,8 +379,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     setLoading(false)
   }
 
-  const headerCollapsed = scrollY > 50;
-
   return (
     <div 
       className="h-screen w-screen bg-black flex flex-col overflow-hidden relative"
@@ -400,12 +405,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: #62D4F9;
           border-radius: 4px;
-          box-shadow: 0 0 10px #62D4F9;
+          box-shadow: 0 0 5px #62D4F9;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #40FFD9;
-          box-shadow: 0 0 20px #40FFD9;
+          box-shadow: 0 0 10px #40FFD9;
         }
 
         /* Firefox */
@@ -433,43 +438,43 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         /* Glow pulse animation */
         @keyframes glowPulse {
           0%, 100% {
-            box-shadow: 0 0 30px #62D4F9, 0 0 60px #62D4F9, 0 0 90px #62D4F9;
+            box-shadow: 0 0 15px #62D4F9, 0 0 30px #62D4F9;
           }
           50% {
-            box-shadow: 0 0 40px #62D4F9, 0 0 80px #62D4F9, 0 0 120px #62D4F9;
+            box-shadow: 0 0 20px #62D4F9, 0 0 40px #62D4F9;
           }
         }
       `}</style>
 
       {/* Header - Collapsible */}
       <div 
-        className={`transition-all duration-500 ease-out z-20 ${
+        className={`transition-all duration-300 ease-out z-20 ${
           headerCollapsed 
             ? 'bg-black/95 backdrop-blur-xl py-2' 
             : 'bg-black/80 backdrop-blur-md py-4 sm:py-6'
         }`}
         style={{
-          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.5)' : '1px solid rgba(255, 255, 255, 0.2)',
+          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.3)' : '1px solid rgba(255, 255, 255, 0.2)',
           boxShadow: headerCollapsed 
-            ? '0 4px 30px rgba(98, 212, 249, 0.4), 0 0 60px rgba(98, 212, 249, 0.2)' 
-            : '0 2px 20px rgba(98, 212, 249, 0.2)'
+            ? '0 2px 15px rgba(98, 212, 249, 0.2)' 
+            : '0 1px 10px rgba(98, 212, 249, 0.1)'
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-500 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
+          <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
             <Image 
               src="/CoreSentia_Transparent_Logo.png" 
               alt="CoreSentia" 
               width={300}
               height={120}
-              className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-500`}
+              className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
               style={{
                 filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
               }}
             />
           </div>
           <h5 
-            className={`text-white font-normal transition-all duration-500 ${montserrat.className} ${
+            className={`text-white font-normal transition-all duration-300 ${montserrat.className} ${
               headerCollapsed 
                 ? 'opacity-0 max-h-0 overflow-hidden' 
                 : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'
@@ -490,7 +495,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             WebkitBackdropFilter: 'blur(20px)',
             border: '1px solid rgba(98, 212, 249, 0.3)',
             borderRadius: '20px',
-            boxShadow: '0 0 60px rgba(98, 212, 249, 0.3), inset 0 0 30px rgba(98, 212, 249, 0.1)',
           }}
         >
           {/* Messages Container */}
@@ -507,7 +511,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                   <div 
                     className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0"
                     style={{
-                      boxShadow: '0 0 30px #62D4F9, 0 0 60px #62D4F9, inset 0 0 20px rgba(255, 255, 255, 0.5)'
+                      boxShadow: '0 0 15px #62D4F9, 0 0 30px #62D4F9'
                     }}
                   >
                     <span className="text-black text-sm font-bold">I</span>
@@ -516,13 +520,13 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 <div
                   className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed ${
                     message.role === 'user' 
-                      ? 'bg-[#2A50DF] text-white border-2 border-[#2A50DF]' 
-                      : 'bg-black/95 backdrop-blur-xl border border-[#62D4F9]/50 text-white'
+                      ? 'bg-[#2A50DF] text-white border border-[#2A50DF]' 
+                      : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white'
                   }`}
                   style={{
                     boxShadow: message.role === 'user'
-                      ? '0 0 40px #2A50DF, 0 0 80px #2A50DF, inset 0 0 20px rgba(255, 255, 255, 0.1)'
-                      : '0 0 30px rgba(98, 212, 249, 0.5), 0 0 60px rgba(98, 212, 249, 0.3), inset 0 0 20px rgba(98, 212, 249, 0.1)'
+                      ? '0 0 20px #2A50DF, 0 0 40px #2A50DF'
+                      : '0 0 15px rgba(98, 212, 249, 0.3), 0 0 30px rgba(98, 212, 249, 0.2)'
                   }}
                 >
                   {message.role === 'user' ? message.content : formatMessage(message.content)}
@@ -540,9 +544,9 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                   <span className="text-black text-sm font-bold">I</span>
                 </div>
                 <div 
-                  className="bg-black/95 backdrop-blur-xl border border-[#62D4F9]/50 text-white px-5 py-3 rounded-2xl"
+                  className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-5 py-3 rounded-2xl"
                   style={{
-                    boxShadow: '0 0 30px rgba(98, 212, 249, 0.5), 0 0 60px rgba(98, 212, 249, 0.3)'
+                    boxShadow: '0 0 15px rgba(98, 212, 249, 0.3), 0 0 30px rgba(98, 212, 249, 0.2)'
                   }}
                 >
                   <div className="flex space-x-1">
@@ -550,21 +554,21 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                       className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
                       style={{
                         animationDelay: '0ms',
-                        boxShadow: '0 0 10px #62D4F9, 0 0 20px #62D4F9'
+                        boxShadow: '0 0 5px #62D4F9'
                       }}
                     ></div>
                     <div 
                       className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
                       style={{
                         animationDelay: '150ms',
-                        boxShadow: '0 0 10px #62D4F9, 0 0 20px #62D4F9'
+                        boxShadow: '0 0 5px #62D4F9'
                       }}
                     ></div>
                     <div 
                       className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
                       style={{
                         animationDelay: '300ms',
-                        boxShadow: '0 0 10px #62D4F9, 0 0 20px #62D4F9'
+                        boxShadow: '0 0 5px #62D4F9'
                       }}
                     ></div>
                   </div>
@@ -589,10 +593,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               <button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#40FFD9] disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base border-2 border-[#62D4F9]"
+                className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#40FFD9] disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base border border-[#62D4F9]"
                 style={{
                   boxShadow: !loading && input.trim() 
-                    ? '0 0 30px #62D4F9, 0 0 60px #62D4F9, inset 0 0 20px rgba(255, 255, 255, 0.3)'
+                    ? '0 0 15px #62D4F9, 0 0 30px #62D4F9'
                     : 'none'
                 }}
               >
@@ -603,7 +607,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             <div className="text-center space-y-1">
               <p 
                 className="text-sm text-white/90 font-medium"
-                style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.5)' }}
+                style={{ textShadow: '0 0 5px rgba(255, 255, 255, 0.3)' }}
               >
                 Stop talking about AI. Start closing with it.
               </p>

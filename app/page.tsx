@@ -22,9 +22,9 @@ export default function HomePage() {
             <Image 
               src="/CoreSentia_Transparent_Logo.png" 
               alt="CoreSentia" 
-              width={180} 
-              height={60}
-              className="drop-shadow-[0_0_10px_#62D4F9]"
+              width={300} 
+              height={120}
+              className=""
             />
           </Link>
           <nav className="hidden md:flex items-center gap-8">

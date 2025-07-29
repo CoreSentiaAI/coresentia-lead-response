@@ -7,7 +7,7 @@ export default function HomePage() {
       {/* Background with subtle particle effect */}
       <div className="fixed inset-0 z-0">
         <Image
-          src="/background.png"
+          src="/CoreSentia_page_background.jpg"
           alt="Background"
           fill
           className="object-cover opacity-50"
@@ -20,7 +20,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <Image 
-              src="/coresentia-logo.png" 
+              src="/CoreSentia_Transparent_Logo.png"
               alt="CoreSentia" 
               width={40} 
               height={40}

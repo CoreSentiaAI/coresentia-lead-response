@@ -18,17 +18,14 @@ export default function HomePage() {
       {/* Header */}
       <header className="relative z-10 border-b border-white/10 backdrop-blur-xl bg-black/70">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center">
             <Image 
-              src="/CoreSentia_Transparent_Logo.png"
+              src="/CoreSentia_Transparent_Logo.png" 
               alt="CoreSentia" 
-              width={40} 
-              height={40}
+              width={180} 
+              height={60}
               className="drop-shadow-[0_0_10px_#62D4F9]"
             />
-            <span className="text-xl font-light tracking-wider text-white font-montserrat">
-              coresentia
-            </span>
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/products" className="text-white/80 hover:text-[#62D4F9] transition-colors">

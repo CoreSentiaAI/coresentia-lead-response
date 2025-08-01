@@ -29,25 +29,28 @@ const NetworkCanvas: React.FC = () => {
       vy: number
       radius: number
       opacity: number
+      isBright: boolean
     }[] = []
 
     const numParticles = Math.floor((width * height) / 6000)
 
     for (let i = 0; i < numParticles; i++) {
+      const isBright = Math.random() < 0.2 // ~20% are bright/sharp
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3, // slower
-        vy: (Math.random() - 0.5) * 0.3, // slower
-        radius: Math.random() * 1.5 + 0.5, // varied sizes
-        opacity: Math.random() * 0.5 + 0.3, // varied brightness
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        radius: isBright ? Math.random() * 1.8 + 1.5 : Math.random() * 1.2 + 0.5,
+        opacity: isBright ? Math.random() * 0.4 + 0.6 : Math.random() * 0.3 + 0.2,
+        isBright,
       })
     }
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height)
 
-      // Glassy background
+      // Glassy gradient background
       const gradient = ctx.createRadialGradient(
         mouse.current.x,
         mouse.current.y,
@@ -57,7 +60,7 @@ const NetworkCanvas: React.FC = () => {
         Math.max(width, height)
       )
       gradient.addColorStop(0, 'rgba(30,30,60,0.2)')
-      gradient.addColorStop(1, 'rgba(0,0,0,0.9)')
+      gradient.addColorStop(1, 'rgba(0,0,0,0.95)')
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, width, height)
 
@@ -69,18 +72,21 @@ const NetworkCanvas: React.FC = () => {
         if (p.x < 0 || p.x > width) p.vx *= -1
         if (p.y < 0 || p.y > height) p.vy *= -1
 
+        const color = p.isBright ? 'rgba(255,255,255' : 'rgba(0,170,255'
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI)
-        ctx.fillStyle = `rgba(0, 170, 255, ${p.opacity})`
+        ctx.fillStyle = `${color},${p.opacity})`
+        ctx.shadowColor = `${color},${p.opacity})`
+        ctx.shadowBlur = p.isBright ? 10 : 3
         ctx.fill()
+        ctx.shadowBlur = 0
 
-        // Connect nearby particles
+        // Connect to other particles
         for (let j = idx + 1; j < particles.length; j++) {
           const p2 = particles[j]
           const dx = p.x - p2.x
           const dy = p.y - p2.y
           const dist = Math.sqrt(dx * dx + dy * dy)
-
           if (dist < 100) {
             const lineOpacity = 0.2 - dist / 500
             ctx.beginPath()
@@ -92,7 +98,7 @@ const NetworkCanvas: React.FC = () => {
           }
         }
 
-        // Pointer interaction
+        // Interaction
         const dx = p.x - mouse.current.x
         const dy = p.y - mouse.current.y
         const dist = Math.sqrt(dx * dx + dy * dy)

@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import Particles from 'react-tsparticles'
-import { loadFull } from 'tsparticles'
-import { useCallback } from 'react'
-import type { Engine } from 'tsparticles-engine'
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
+import { useCallback } from 'react';
+import type { Engine } from 'tsparticles-engine';
 
 export default function NetworkCanvas() {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine)
-  }, [])
+    await loadFull(engine);
+  }, []);
 
   return (
     <Particles
@@ -17,63 +17,76 @@ export default function NetworkCanvas() {
       options={{
         background: {
           color: {
-            value: '#000000'
-          }
+            value: '#000000',
+          },
         },
         fullScreen: {
           enable: true,
-          zIndex: -1
+          zIndex: -1,
         },
         particles: {
           number: {
             value: 80,
             density: {
               enable: true,
-              area: 800
-            }
+              area: 1200,
+            },
           },
           color: {
-            value: '#62D4F9'
+            value: '#60ccff',
+          },
+          shape: {
+            type: 'circle',
+          },
+          opacity: {
+            value: 1,
+            random: false,
+          },
+          size: {
+            value: 2.5,
+            random: true,
           },
           links: {
             enable: true,
-            distance: 150,
-            color: '#62D4F9',
-            opacity: 0.3,
-            width: 1
+            distance: 140,
+            color: '#60ccff',
+            opacity: 0.4,
+            width: 1.2,
           },
           move: {
             enable: true,
-            speed: 1.2,
+            speed: 0.4,
             direction: 'none',
-            outModes: 'bounce'
+            random: false,
+            straight: false,
+            outModes: {
+              default: 'bounce',
+            },
+            attract: {
+              enable: false,
+            },
           },
-          size: {
-            value: { min: 1, max: 3 }
-          },
-          opacity: {
-            value: 0.5
-          }
         },
         interactivity: {
+          detectsOn: 'canvas',
           events: {
             onHover: {
               enable: true,
-              mode: 'grab'
+              mode: 'grab',
             },
-            resize: true
+            resize: true,
           },
           modes: {
             grab: {
-              distance: 140,
+              distance: 200,
               links: {
-                opacity: 0.5
-              }
-            }
-          }
+                opacity: 0.6,
+              },
+            },
+          },
         },
-        detectRetina: true
+        detectRetina: true,
       }}
     />
-  )
+  );
 }

@@ -67,7 +67,7 @@ export default function HomePage() {
               <br />
               Host wherever
             </h1>
-            <p className="text-xl md:text-2xl text-white/80 mb-12 font-light max-w-2xl mx-auto font-opensans">
+            <p className="text-xl md:text-2xl text-white/80 mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
               Custom AI, built for you. Host it with us or take it anywhere. 
               No lock-ins, total transparency.
             </p>

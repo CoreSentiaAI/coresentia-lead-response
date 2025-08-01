@@ -59,16 +59,14 @@ export default function HomePage() {
 
         {/* Hero Section */}
         <section className="min-h-[90vh] flex items-center justify-center px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-light mb-8 leading-tight font-montserrat tracking-[0.15em]">
-              Build once
-              <br />
-              <span className="text-[#62D4F9]">Own forever</span>
-              <br />
+          <div className="w-full max-w-7xl mx-auto text-center">
+            <h1 className="text-[clamp(2.75rem,7vw,5rem)] font-light mb-6 leading-tight font-montserrat tracking-wider">
+              Build once <span className="inline-block md:block" />
+              <span className="text-[#62D4F9]">Own forever</span><span className="inline-block md:block" />
               Host wherever
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
-              Custom AI, built for you. Host it with us or take it anywhere.<br />
+            <p className="text-[clamp(1.125rem,2vw,1.5rem)] text-white mb-10 font-light max-w-4xl mx-auto font-montserrat tracking-wide">
+              Custom AI, built for you. Host it with us or take it anywhere.<br className="hidden md:block" />
               No lock-ins, total transparency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

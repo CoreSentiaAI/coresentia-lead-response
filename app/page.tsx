@@ -7,7 +7,7 @@ const NetworkCanvas = dynamic(() => import('./components/NetworkCanvas'), { ssr:
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-opensans">
       {/* Synapse canvas background */}
       <div className="absolute inset-0 z-0">
         <NetworkCanvas />
@@ -60,14 +60,14 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="min-h-[90vh] flex items-center justify-center px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-light mb-8 leading-tight font-montserrat tracking-wider">
+            <h1 className="text-5xl md:text-7xl font-light mb-8 leading-tight font-montserrat tracking-[0.15em]">
               Build once
               <br />
               <span className="text-[#62D4F9]">Own forever</span>
               <br />
               Host wherever
             </h1>
-            <p className="text-xl md:text-2xl text-white/80 mb-12 font-light max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-white/80 mb-12 font-light max-w-2xl mx-auto font-opensans">
               Custom AI, built for you. Host it with us or take it anywhere. 
               No lock-ins, total transparency.
             </p>
@@ -112,12 +112,8 @@ export default function HomePage() {
         {/* Problem/Solution */}
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-light mb-8 font-montserrat">
-              Stop juggling 12 AI subscriptions
-            </h2>
-            <p className="text-xl text-white/60 mb-12">
-              Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-light mb-8 font-montserrat">Stop juggling 12 AI subscriptions</h2>
+            <p className="text-xl text-white/60 mb-12">Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
               <div className="bg-red-900/10 border border-red-500/20 rounded-2xl p-8">
                 <h3 className="text-xl font-semibold mb-4 text-red-400">The Old Way</h3>

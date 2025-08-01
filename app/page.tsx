@@ -3,7 +3,7 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
-const NetworkCanvas = dynamic(() => import('@/components/NetworkCanvas'), { ssr: false })
+const NetworkCanvas = dynamic(() => import('./components/NetworkCanvas'), { ssr: false })
 
 export default function HomePage() {
   return (

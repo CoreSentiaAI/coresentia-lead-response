@@ -1,92 +1,141 @@
-'use client';
+'use client'
 
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
-import { useCallback } from 'react';
-import type { Engine } from 'tsparticles-engine';
+import React, { useRef, useEffect } from 'react'
 
-export default function NetworkCanvas() {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
-  }, []);
+const NetworkCanvas: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const mouse = useRef({ x: 0, y: 0, radius: 100 })
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let width = (canvas.width = window.innerWidth)
+    let height = (canvas.height = window.innerHeight)
+
+    const resizeCanvas = () => {
+      width = canvas.width = window.innerWidth
+      height = canvas.height = window.innerHeight
+    }
+    window.addEventListener('resize', resizeCanvas)
+
+    const particles: {
+      x: number
+      y: number
+      vx: number
+      vy: number
+      radius: number
+      opacity: number
+    }[] = []
+
+    const numParticles = Math.floor((width * height) / 6000)
+
+    for (let i = 0; i < numParticles; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3, // slower
+        vy: (Math.random() - 0.5) * 0.3, // slower
+        radius: Math.random() * 1.5 + 0.5, // varied sizes
+        opacity: Math.random() * 0.5 + 0.3, // varied brightness
+      })
+    }
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height)
+
+      // Glassy background
+      const gradient = ctx.createRadialGradient(
+        mouse.current.x,
+        mouse.current.y,
+        100,
+        width / 2,
+        height / 2,
+        Math.max(width, height)
+      )
+      gradient.addColorStop(0, 'rgba(30,30,60,0.2)')
+      gradient.addColorStop(1, 'rgba(0,0,0,0.9)')
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, width, height)
+
+      // Draw & update particles
+      particles.forEach((p, idx) => {
+        p.x += p.vx
+        p.y += p.vy
+
+        if (p.x < 0 || p.x > width) p.vx *= -1
+        if (p.y < 0 || p.y > height) p.vy *= -1
+
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI)
+        ctx.fillStyle = `rgba(0, 170, 255, ${p.opacity})`
+        ctx.fill()
+
+        // Connect nearby particles
+        for (let j = idx + 1; j < particles.length; j++) {
+          const p2 = particles[j]
+          const dx = p.x - p2.x
+          const dy = p.y - p2.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+
+          if (dist < 100) {
+            const lineOpacity = 0.2 - dist / 500
+            ctx.beginPath()
+            ctx.moveTo(p.x, p.y)
+            ctx.lineTo(p2.x, p2.y)
+            ctx.strokeStyle = `rgba(0, 200, 255, ${lineOpacity})`
+            ctx.lineWidth = 0.5
+            ctx.stroke()
+          }
+        }
+
+        // Pointer interaction
+        const dx = p.x - mouse.current.x
+        const dy = p.y - mouse.current.y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist < mouse.current.radius) {
+          const force = (mouse.current.radius - dist) / mouse.current.radius
+          const angle = Math.atan2(dy, dx)
+          p.vx += Math.cos(angle) * force * 0.02
+          p.vy += Math.sin(angle) * force * 0.02
+        }
+      })
+
+      requestAnimationFrame(draw)
+    }
+
+    draw()
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.current.x = e.clientX
+      mouse.current.y = e.clientY
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', resizeCanvas)
+    }
+  }, [])
 
   return (
-    <Particles
-      id="tsparticles"
-      init={particlesInit}
-      options={{
-        background: {
-          color: {
-            value: '#000000',
-          },
-        },
-        fullScreen: {
-          enable: true,
-          zIndex: -1,
-        },
-        particles: {
-          number: {
-            value: 80,
-            density: {
-              enable: true,
-              area: 1200,
-            },
-          },
-          color: {
-            value: '#60ccff',
-          },
-          shape: {
-            type: 'circle',
-          },
-          opacity: {
-            value: 1,
-            random: false,
-          },
-          size: {
-            value: 2.5,
-            random: true,
-          },
-          links: {
-            enable: true,
-            distance: 140,
-            color: '#60ccff',
-            opacity: 0.4,
-            width: 1.2,
-          },
-          move: {
-            enable: true,
-            speed: 0.4,
-            direction: 'none',
-            random: false,
-            straight: false,
-            outModes: {
-              default: 'bounce',
-            },
-            attract: {
-              enable: false,
-            },
-          },
-        },
-        interactivity: {
-          detectsOn: 'canvas',
-          events: {
-            onHover: {
-              enable: true,
-              mode: 'grab',
-            },
-            resize: true,
-          },
-          modes: {
-            grab: {
-              distance: 200,
-              links: {
-                opacity: 0.6,
-              },
-            },
-          },
-        },
-        detectRetina: true,
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: -1,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'black',
       }}
     />
-  );
+  )
 }
+
+export default NetworkCanvas

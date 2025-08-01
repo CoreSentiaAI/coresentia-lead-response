@@ -72,12 +72,20 @@ const NetworkCanvas: React.FC = () => {
         if (p.x < 0 || p.x > width) p.vx *= -1
         if (p.y < 0 || p.y > height) p.vy *= -1
 
-        const color = p.isBright ? 'rgba(255,255,255' : 'rgba(0,170,255'
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI)
-        ctx.fillStyle = `${color},${p.opacity})`
-        ctx.shadowColor = `${color},${p.opacity})`
-        ctx.shadowBlur = p.isBright ? 10 : 3
+        
+        if (p.isBright) {
+          ctx.fillStyle = '#FFFFFF'
+          ctx.shadowColor = '#FFFFFF'
+          ctx.shadowBlur = 12
+        } else {
+          const blue = `rgba(0,170,255,${p.opacity})`
+          ctx.fillStyle = blue
+          ctx.shadowColor = blue
+          ctx.shadowBlur = 4
+        }
+        
         ctx.fill()
         ctx.shadowBlur = 0
 

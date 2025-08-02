@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { Zap, Brain, Unlock } from 'lucide-react'
+import { Zap, Brain, Unlock, DollarSign } from 'lucide-react'
 import Header from './components/Header'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
@@ -21,7 +21,7 @@ export default function HomePage() {
           src="/CoreSentia_page_background.jpg"
           alt=""
           fill
-          className="object-cover opacity-3"
+          className="object-cover opacity-06"
           priority
         />
       </div>
@@ -89,34 +89,78 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Problem/Solution */}
-        <section className="py-20 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-light mb-8 font-montserrat">Stop juggling 12 AI subscriptions</h2>
-            <p className="text-xl text-white/60 mb-12">Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-              <div className="bg-red-900/10 border border-red-500/20 rounded-2xl p-8">
-                <h3 className="text-xl font-semibold mb-4 text-red-400">The Old Way</h3>
-                <ul className="space-y-3 text-white/60">
-                  <li>❌ ChatGPT Pro: $20/month</li>
-                  <li>❌ Zapier: $69/month</li>
-                  <li>❌ Intercom: $500/month</li>
-                  <li>❌ Drift: $2,500/month</li>
-                  <li>❌ Plus 8 more tools...</li>
+        {/* Improved Subscription Comparison Section */}
+        <section className="py-24 px-4 md:px-8 relative overflow-hidden">
+          {/* Subtle particle background effect */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-20 left-10 w-2 h-2 bg-white/30 rounded-full animate-pulse" />
+            <div className="absolute bottom-40 right-20 w-1 h-1 bg-white/20 rounded-full animate-pulse delay-300" />
+            <div className="absolute top-1/2 left-1/3 w-1.5 h-1.5 bg-cyan-400/30 rounded-full animate-pulse delay-700" />
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10">
+            <h2 className="text-4xl md:text-5xl font-montserrat font-medium text-white text-center mb-4 tracking-[0.15em]">
+              Stop juggling 12 AI subscriptions
+            </h2>
+            <p className="text-white/60 text-center text-lg mb-16 max-w-3xl mx-auto">
+              Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* The Old Way */}
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-red-500/30 transition-all duration-300 hover:-translate-y-1">
+                <DollarSign className="w-12 h-12 text-red-500 mb-6" />
+                <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.1em]">The Old Way</h3>
+                <ul className="space-y-4">
+                  {[
+                    'ChatGPT Pro: $20/month',
+                    'Zapier: $69/month',
+                    'Intercom: $500/month',
+                    'Drift: $2,500/month',
+                    'Plus 8 more tools...'
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center text-white/60">
+                      <span className="text-red-500 mr-3">✕</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
-                <p className="mt-4 text-2xl font-bold text-red-400">$2,000+/month forever</p>
+                <div className="mt-8 pt-6 border-t border-white/10">
+                  <p className="text-3xl font-bold text-red-500">$2,000+/month forever</p>
+                </div>
               </div>
-              <div className="bg-green-900/10 border border-green-500/20 rounded-2xl p-8">
-                <h3 className="text-xl font-semibold mb-4 text-green-400">The CoreSentia Way</h3>
-                <ul className="space-y-3 text-white/60">
-                  <li>✅ One custom solution</li>
-                  <li>✅ Built for YOUR process</li>
-                  <li>✅ You own the code</li>
-                  <li>✅ Host anywhere</li>
-                  <li>✅ No subscriptions</li>
+
+              {/* The CoreSentia Way */}
+              <div className="bg-black/50 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-8 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(98,212,249,0.2)]">
+                <Zap className="w-12 h-12 text-cyan-400 mb-6 drop-shadow-[0_0_8px_#62D4F9]" />
+                <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.1em]">The CoreSentia Way</h3>
+                <ul className="space-y-4">
+                  {[
+                    'One custom solution',
+                    'Built for YOUR process',
+                    'You own the code',
+                    'Host anywhere',
+                    'No subscriptions'
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center text-white/90">
+                      <span className="text-cyan-400 mr-3 drop-shadow-[0_0_4px_#62D4F9]">✓</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
-                <p className="mt-4 text-2xl font-bold text-green-400">$5k–$25k once + hosting</p>
+                <div className="mt-8 pt-6 border-t border-white/10">
+                  <p className="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_8px_#62D4F9]">$5k-$25k once + hosting</p>
+                </div>
               </div>
+            </div>
+
+            <div className="text-center mt-16">
+              <Link
+                href="/products"
+                className="inline-block bg-cyan-400 text-black px-8 py-4 rounded-full font-semibold hover:bg-cyan-300 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_#62D4F9]"
+              >
+                See how much you'll save
+              </Link>
             </div>
           </div>
         </section>

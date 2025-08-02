@@ -65,7 +65,7 @@ export default function HomePage() {
                 All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings.
               </p>
               <p className="text-base md:text-lg text-white font-light font-montserrat tracking-[0.1em]">
-                The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and own the code.
+                The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and you own the code.
               </p>
             </div>
 

@@ -24,9 +24,11 @@ export default function HomePage() {
         <section className="min-h-[100vh] flex items-center justify-center px-6 pt-24">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-light mb-8 font-montserrat tracking-[0.15em] leading-[1.1]">
-              Stop talking about AI <span className="text-[#62D4F9]">Start closing with it</span>
+              Stop talking about AI
+              <br />
+              <span className="text-[#62D4F9]">Start closing with it</span>
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-4 font-bold font-montserrat tracking-[0.1em]">
+            <p className="text-xl md:text-2xl text-white mb-4 font-light font-montserrat tracking-[0.1em]">
               Build once. Own forever. Host wherever.
             </p>
             <p className="text-base md:text-lg text-[#62D4F9] mb-12 font-light font-montserrat tracking-[0.1em]">
@@ -56,7 +58,7 @@ export default function HomePage() {
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
                 Choose your path
               </h2>
-              <p className="text-xl md:text-2xl text-white mb-2 font-bold font-montserrat tracking-[0.1em]">
+              <p className="text-xl md:text-2xl text-white mb-2 font-light font-montserrat tracking-[0.1em]">
                 Three ways to deploy your 24/7 AI sales assistant.
               </p>
               <p className="text-base md:text-lg text-white mb-2 font-light font-montserrat tracking-[0.1em]">

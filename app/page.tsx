@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { Zap, Brain, Unlock } from 'lucide-react'
+import Header from './components/Header'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
 const NetworkCanvas = dynamic(() => import('./components/NetworkCanvas'), { ssr: false })
@@ -27,39 +28,11 @@ export default function HomePage() {
 
       {/* Main content wrapper */}
       <div className="relative z-10">
-        {/* Header */}
-        <header className="border-b border-white/10 backdrop-blur-xl bg-black/70">
-          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center">
-              <Image 
-                src="/CoreSentia_Transparent_Logo.png" 
-                alt="CoreSentia" 
-                width={300} 
-                height={120}
-              />
-            </Link>
-            <nav className="hidden md:flex items-center gap-8">
-              <Link href="/products" className="text-white/80 hover:text-[#62D4F9] transition-colors">
-                Products
-              </Link>
-              <Link href="/about" className="text-white/80 hover:text-[#62D4F9] transition-colors">
-                About
-              </Link>
-              <Link href="/contact" className="text-white/80 hover:text-[#62D4F9] transition-colors">
-                Contact
-              </Link>
-              <Link 
-                href="/chat/homepage-visitor" 
-                className="px-6 py-2 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105"
-              >
-                Chat with Ivy
-              </Link>
-            </nav>
-          </div>
-        </header>
+        {/* Header Component */}
+        <Header />
 
-        {/* Hero Section */}
-        <section className="min-h-[90vh] flex items-center justify-center px-6">
+        {/* Hero Section - Added pt-24 to account for fixed header */}
+        <section className="min-h-[100vh] flex items-center justify-center px-6 pt-24">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-light mb-8 leading-tight font-montserrat tracking-[0.15em]">
               Build once

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { Zap, Brain, Unlock, DollarSign, Check, X, Calendar, Package, Globe } from 'lucide-react'
+import { Zap, Brain, Unlock, DollarSign, Check, X, Calendar, Package, Globe, FileText, Phone } from 'lucide-react'
 import Header from './components/Header'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
@@ -24,24 +24,24 @@ export default function HomePage() {
         <section className="min-h-[100vh] flex items-center justify-center px-6 pt-24">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-light mb-8 font-montserrat tracking-[0.15em] leading-[1.1]">
-              Build once <span className="text-[#62D4F9]">Own forever</span> Host wherever
+              Stop talking about AI <span className="text-[#62D4F9]">Start closing with it</span>
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-4 font-light font-montserrat tracking-[0.1em]">
-              From fast, CoreSentia-hosted bots, to fully custom AI you can own
+            <p className="text-xl md:text-2xl text-white mb-4 font-bold font-montserrat tracking-[0.1em]">
+              Build once. Own forever. Host wherever.
             </p>
             <p className="text-base md:text-lg text-[#62D4F9] mb-12 font-light font-montserrat tracking-[0.1em]">
-              AI automation systems for businesses of any size
+              From fast, CoreSentia-hosted bots, to fully custom AI you can own
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
                 href="#packages" 
-                className="px-8 py-3 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg"
+                className="inline-block px-8 py-3 bg-transparent border border-[#62D4F9] text-[#62D4F9] font-semibold rounded-full hover:bg-[#62D4F9] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
               >
                 Explore our solutions →
               </a>
               <Link 
                 href="/chat/demo" 
-                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 hover:border-[#62D4F9] transition-all text-lg"
+                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-[#40FFD9] hover:text-black hover:border-[#40FFD9] transition-all text-lg"
               >
                 Meet Ivy – Our Custom AI Bot
               </Link>
@@ -56,11 +56,14 @@ export default function HomePage() {
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
                 Choose your path
               </h2>
-              <p className="text-xl md:text-2xl text-white mb-2 font-light font-montserrat tracking-[0.1em]">
-                One platform. Three ways to launch.
+              <p className="text-xl md:text-2xl text-white mb-2 font-bold font-montserrat tracking-[0.1em]">
+                Three ways to deploy your 24/7 AI sales assistant.
+              </p>
+              <p className="text-base md:text-lg text-white mb-2 font-light font-montserrat tracking-[0.1em]">
+                All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings.
               </p>
               <p className="text-base md:text-lg text-white font-light font-montserrat tracking-[0.1em]">
-                From fast, budget-friendly bots to complete digital transformation.
+                The difference? Speed, branding, and code ownership.
               </p>
             </div>
 
@@ -199,29 +202,61 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Value Props */}
+        {/* Feature Tiles */}
         <section className="py-20 px-6">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-              <div className="text-[#62D4F9] mb-4">
-                <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-montserrat font-light text-white text-center mb-12 tracking-[0.15em]">
+              What your AI sales assistant does
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
+                <div className="text-[#62D4F9] mb-4">
+                  <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Response</h3>
+                <p className="text-white font-bold mb-2">Reply to leads in seconds — not hours.</p>
+                <p className="text-white text-sm">SMS, email, and chat responses are sent instantly when a lead contacts you, day or night.</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Response</h3>
-              <p className="text-white">SMS & email responses in seconds, not hours. Your leads get answers immediately.</p>
-            </div>
-            <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-              <div className="text-[#62D4F9] mb-4">
-                <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
+                <div className="text-[#62D4F9] mb-4">
+                  <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Smart Qualification</h3>
+                <p className="text-white font-bold mb-2">Understands, questions, and qualifies automatically.</p>
+                <p className="text-white text-sm">Your bot uses natural conversation to identify intent, filter tyre-kickers, and escalate hot leads.</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Smart Qualification</h3>
-              <p className="text-white">AI that understands intent and qualifies naturally through conversation.</p>
-            </div>
-            <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-              <div className="text-[#62D4F9] mb-4">
-                <Unlock size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
+                <div className="text-[#62D4F9] mb-4">
+                  <FileText size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Quotes</h3>
+                <p className="text-white font-bold mb-2">Sends branded quotes within minutes.</p>
+                <p className="text-white text-sm">Qualified leads receive a professional PDF quote instantly. Optional Xero integration available.</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Complete Ownership</h3>
-              <p className="text-white">Your AI, your code, your choice. No vendor lock-in, ever.</p>
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
+                <div className="text-[#62D4F9] mb-4">
+                  <Calendar size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Seamless Booking</h3>
+                <p className="text-white font-bold mb-2">Never chase a meeting again.</p>
+                <p className="text-white text-sm">Your bot books leads directly into your calendar. Supports Google Calendar or Cal.com.</p>
+              </div>
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
+                <div className="text-[#62D4F9] mb-4">
+                  <Unlock size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Complete Ownership</h3>
+                <p className="text-white font-bold mb-2">Your AI, your code, your choice.</p>
+                <p className="text-white text-sm">No vendor lock-in. Choose our managed hosting or take it in-house anytime (+50% for self-hosting).</p>
+              </div>
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
+                <div className="text-[#62D4F9] mb-4">
+                  <Phone size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Voice Capable <span className="text-sm font-normal">(Coming Soon)</span></h3>
+                <p className="text-white font-bold mb-2">Talk to your AI via phone or chat.</p>
+                <p className="text-white text-sm">Enable voice-to-text AI follow-ups and outbound calls. Beta testing available on request.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -306,16 +341,16 @@ export default function HomePage() {
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-light mb-8 font-montserrat tracking-[0.15em]">
-              Stop talking about AI.
+              Build once
               <br />
-              <span className="text-[#62D4F9]">Start closing with it.</span>
+              <span className="text-[#62D4F9]">Own forever</span>
             </h2>
             <p className="text-xl md:text-2xl text-white mb-12 font-light font-montserrat tracking-[0.1em]">
               Experience our AI before you buy. Talk to Ivy and see how she qualifies, quotes, and converts.
             </p>
             <Link 
               href="/chat/homepage-visitor" 
-              className="inline-block px-10 py-4 bg-[#62D4F9] text-black font-bold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-xl"
+              className="inline-block px-10 py-4 border border-white/30 text-white font-bold rounded-full hover:bg-[#40FFD9] hover:text-black hover:border-[#40FFD9] transition-all transform hover:scale-105 text-xl"
             >
               Chat with Ivy →
             </Link>

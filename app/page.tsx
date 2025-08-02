@@ -43,7 +43,7 @@ export default function HomePage() {
               </a>
               <Link 
                 href="/chat/demo" 
-                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-[#40FFD9] hover:text-black hover:border-[#40FFD9] transition-all text-lg"
+                className="px-8 py-3 border border-[#62D4F9] text-white font-semibold rounded-full hover:bg-[#40FFD9] hover:text-black hover:border-[#40FFD9] transition-all text-lg"
               >
                 Meet Ivy – Our Custom AI Bot
               </Link>

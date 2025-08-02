@@ -21,7 +21,7 @@ export default function HomePage() {
           src="/CoreSentia_page_background.jpg"
           alt=""
           fill
-          className="object-cover opacity-30"
+          className="object-cover opacity-20"
           priority
         />
       </div>

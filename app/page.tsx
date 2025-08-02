@@ -29,7 +29,7 @@ export default function HomePage() {
               <span className="text-[#62D4F9]">Start closing with it</span>
             </h1>
             <p className="text-xl md:text-2xl text-white mb-4 font-light font-montserrat tracking-[0.1em]">
-              Build once  Own forever  Host wherever
+              Build once   Own forever   Host wherever
             </p>
             <p className="text-base md:text-lg text-[#62D4F9] mb-12 font-light font-montserrat tracking-[0.1em]">
               From fast, CoreSentia-hosted bots, to fully custom AI you own
@@ -43,7 +43,7 @@ export default function HomePage() {
               </a>
               <Link 
                 href="/chat/demo" 
-                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-[#40FFD9] hover:text-black hover:border-[#40FFD9] transition-all text-lg"
+                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-[#2A50DF] hover:text-black hover:border-[#40FFD9] transition-all text-lg"
               >
                 Meet Ivy – Our Custom AI Bot
               </Link>
@@ -55,17 +55,17 @@ export default function HomePage() {
         <section id="packages" className="py-20 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
-                Choose your AI Sales Assistant or bundle with a website build
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
+               Choose your AI Sales Assistant or bundle with a website build
               </h2>
               <p className="text-xl md:text-2xl text-white mb-2 font-light font-montserrat tracking-[0.1em]">
                 Three ways to deploy your 24/7 AI sales assistant
               </p>
               <p className="text-base md:text-lg text-white mb-2 font-light font-montserrat tracking-[0.1em]">
-                All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings.
+                All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings
               </p>
               <p className="text-base md:text-lg text-white font-light font-montserrat tracking-[0.1em]">
-                The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and you own the code.
+                The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and you own the code
               </p>
             </div>
 

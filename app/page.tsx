@@ -21,7 +21,7 @@ export default function HomePage() {
           src="/CoreSentia_page_background.jpg"
           alt=""
           fill
-          className="object-cover opacity-06"
+          className="object-cover opacity-10"
           priority
         />
       </div>
@@ -159,7 +159,7 @@ export default function HomePage() {
                 href="/products"
                 className="inline-block bg-cyan-400 text-black px-8 py-4 rounded-full font-semibold hover:bg-cyan-300 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_#62D4F9]"
               >
-                See how much you'll save
+                See how much you&apos;ll save
               </Link>
             </div>
           </div>

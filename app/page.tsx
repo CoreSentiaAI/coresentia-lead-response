@@ -29,10 +29,10 @@ export default function HomePage() {
               <span className="text-[#62D4F9]">Start closing with it</span>
             </h1>
             <p className="text-xl md:text-2xl text-white mb-4 font-light font-montserrat tracking-[0.1em]">
-              Build once. Own forever. Host wherever.
+              Build once  Own forever  Host wherever
             </p>
             <p className="text-base md:text-lg text-[#62D4F9] mb-12 font-light font-montserrat tracking-[0.1em]">
-              From fast, CoreSentia-hosted bots, to fully custom AI you can own
+              From fast, CoreSentia-hosted bots, to fully custom AI you own
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
@@ -56,16 +56,16 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
-                Choose your path
+                Choose your AI Sales Assistant or bundle with a website build
               </h2>
               <p className="text-xl md:text-2xl text-white mb-2 font-light font-montserrat tracking-[0.1em]">
-                Three ways to deploy your 24/7 AI sales assistant.
+                Three ways to deploy your 24/7 AI sales assistant
               </p>
               <p className="text-base md:text-lg text-white mb-2 font-light font-montserrat tracking-[0.1em]">
                 All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings.
               </p>
               <p className="text-base md:text-lg text-white font-light font-montserrat tracking-[0.1em]">
-                The difference? Speed, branding, and code ownership.
+                The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and own the code.
               </p>
             </div>
 
@@ -80,16 +80,16 @@ export default function HomePage() {
                   <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Essentials</h3>
-                <p className="text-3xl font-bold text-white mb-6">$3,000 <span className="text-lg font-normal text-white">+ $300/m</span></p>
+                <p className="text-3xl font-bold text-white mb-6">$2,500 <span className="text-lg font-normal text-white">+ $200/m</span></p>
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center gap-3">
                     <Calendar className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white">5 working days delivery</span>
+                    <span className="text-white"> Delivered in 2 weeks</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <X className="w-5 h-5 text-red-500" />
-                    <span className="text-white">CoreSentia hosting only</span>
+                    <span className="text-white">Hosted by CoreSentia</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <X className="w-5 h-5 text-red-500" />
@@ -109,7 +109,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <p className="text-white text-sm">Best for: Budget-conscious, testing the concept</p>
+                <p className="text-white text-sm">Best for: low hassle, it just works, we take care of the details</p>
               </div>
 
               {/* Custom Package */}
@@ -118,20 +118,20 @@ export default function HomePage() {
                   <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Custom</h3>
-                <p className="text-3xl font-bold text-white mb-6">$10,000 <span className="text-lg font-normal text-white">+ $500/m</span></p>
+                <p className="text-3xl font-bold text-white mb-6">$8,000 <span className="text-lg font-normal text-white">+ $300/m</span></p>
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center gap-3">
                     <Calendar className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white">10 working days delivery</span>
+                    <span className="text-white">Delivered in 1 month</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white">You or us host (+50% for self-host)</span>
+                    <span className="text-white">We host for you, or take control anytime (one off $1500 transfer fee)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white">Optional code ownership</span>
+                    <span className="text-white">You own the code, we retain the IP and the right to sell the bot</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
@@ -143,11 +143,11 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white">Advanced Cal.com booking</span>
+                    <span className="text-white">Advanced booking options - Cal.com, google. Microsoft etc</span>
                   </div>
                 </div>
                 
-                <p className="text-white text-sm">Best for: Scaling brands</p>
+                <p className="text-white text-sm">Best for: SMEs, brands that are scaling, businesses that want more control</p>
               </div>
 
               {/* Website + AI Bundle Package */}
@@ -164,19 +164,19 @@ export default function HomePage() {
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center gap-3">
                     <Calendar className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white">2-week sprint delivery</span>
+                    <span className="text-white">2-month sprint delivery</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white">You or us host (+50% for self-host)</span>
+                    <span className="text-white">We host for you, or take control anytime (one off $1500 transfer fee)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white">Full code ownership</span>
+                    <span className="text-white">You own the bot and website code, we retain the IP and the right to sell the bot</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white">Full custom branding</span>
+                    <span className="text-white">Full custom branding and web design</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
@@ -188,7 +188,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <p className="text-white text-sm">Best for: Full digital upgrade</p>
+                <p className="text-white text-sm">Best for: Full digital upgrade, the best solution to get into the game</p>
               </div>
             </div>
 

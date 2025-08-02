@@ -17,7 +17,7 @@ export default function Header() {
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
       ${scrolled 
         ? 'bg-black/70 backdrop-blur-lg shadow-[0_4px_30px_rgba(98,212,249,0.1)] border-b border-[#62D4F9]/20' 
-        : 'bg-transparent border-b border-white/10'}`}
+        : 'bg-transparent'}`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">

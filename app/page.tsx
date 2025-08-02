@@ -52,7 +52,7 @@ export default function HomePage() {
         </section>
 
         {/* Value Props */}
-        <section className="py-20 px-6 border-t border-white/10">
+        <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
               <div className="text-[#62D4F9] mb-4">
@@ -155,7 +155,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6 border-t border-white/10">
+        <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-light mb-8 font-montserrat">
               Stop talking about AI.
@@ -175,7 +175,7 @@ export default function HomePage() {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-white/10 py-12 px-6">
+        <footer className="py-12 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
@@ -213,7 +213,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="mt-12 pt-8 border-t border-white/10 text-center text-white">
+            <div className="mt-12 pt-8 text-center text-white">
               <p>&copy; 2025 CoreSentia. Build once. Own forever.</p>
             </div>
           </div>

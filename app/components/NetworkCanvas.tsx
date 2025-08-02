@@ -60,7 +60,7 @@ const NetworkCanvas: React.FC = () => {
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
-        radius: isBright ? Math.random() * 2 + 1.5 : Math.random() * 1.2 + 0.8,
+        radius: isBright ? Math.random() * 2.5 + 2 : Math.random() * 1.2 + 0.8,
         opacity: 1,
         isBright,
       })
@@ -68,7 +68,7 @@ const NetworkCanvas: React.FC = () => {
 
     const draw = () => {
       // Update background occasionally for mouse movement effect
-      if (Math.random() < 0.1) { // Update ~10% of frames for performance
+      if (Math.random() < 0.1) {
         drawBackground()
       }
 
@@ -83,23 +83,52 @@ const NetworkCanvas: React.FC = () => {
         if (p.x < 0 || p.x > width) p.vx *= -1
         if (p.y < 0 || p.y > height) p.vy *= -1
 
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI)
-        
         if (p.isBright) {
+          // Multiple layers for bright white particles
+          
+          // Outer glow
+          ctx.globalCompositeOperation = 'screen'
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, p.radius * 4, 0, 2 * Math.PI)
+          const grd1 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 4)
+          grd1.addColorStop(0, 'rgba(255, 255, 255, 0.3)')
+          grd1.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)')
+          grd1.addColorStop(1, 'rgba(255, 255, 255, 0)')
+          ctx.fillStyle = grd1
+          ctx.fill()
+
+          // Middle glow
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, p.radius * 2, 0, 2 * Math.PI)
+          const grd2 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2)
+          grd2.addColorStop(0, 'rgba(255, 255, 255, 0.6)')
+          grd2.addColorStop(1, 'rgba(255, 255, 255, 0)')
+          ctx.fillStyle = grd2
+          ctx.fill()
+
+          // Core
+          ctx.globalCompositeOperation = 'source-over'
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI)
           ctx.fillStyle = '#FFFFFF'
           ctx.shadowColor = '#FFFFFF'
-          ctx.shadowBlur = 15
+          ctx.shadowBlur = 20
+          ctx.fill()
+          ctx.shadowBlur = 0
         } else {
+          // Blue particles
+          ctx.globalCompositeOperation = 'source-over'
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI)
           ctx.fillStyle = '#62D4F9'
           ctx.shadowColor = '#62D4F9'
           ctx.shadowBlur = 8
+          ctx.fill()
+          ctx.shadowBlur = 0
         }
-        
-        ctx.fill()
-        ctx.shadowBlur = 0
 
         // Connect to other particles
+        ctx.globalCompositeOperation = 'source-over'
         for (let j = idx + 1; j < particles.length; j++) {
           const p2 = particles[j]
           const dx = p.x - p2.x

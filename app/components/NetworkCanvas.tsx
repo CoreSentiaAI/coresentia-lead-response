@@ -49,6 +49,8 @@ const NetworkCanvas: React.FC = () => {
       radius: number
       opacity: number
       isBright: boolean
+      glowIntensity: number
+      pulsePhase: number
     }[] = []
 
     const numParticles = Math.floor((width * height) / 6000)
@@ -63,10 +65,16 @@ const NetworkCanvas: React.FC = () => {
         radius: isBright ? Math.random() * 2.5 + 2 : Math.random() * 1.2 + 0.8,
         opacity: 1,
         isBright,
+        glowIntensity: Math.random() * 0.6 + 0.4, // Random between 0.4 and 1.0
+        pulsePhase: Math.random() * Math.PI * 2, // Random start phase for pulsing
       })
     }
 
+    let frame = 0
+
     const draw = () => {
+      frame++
+      
       // Update background occasionally for mouse movement effect
       if (Math.random() < 0.1) {
         drawBackground()
@@ -84,24 +92,28 @@ const NetworkCanvas: React.FC = () => {
         if (p.y < 0 || p.y > height) p.vy *= -1
 
         if (p.isBright) {
+          // Calculate dynamic glow with subtle pulsing
+          const pulseFactor = 0.8 + Math.sin(frame * 0.02 + p.pulsePhase) * 0.2
+          const currentGlow = p.glowIntensity * pulseFactor
+          
           // Multiple layers for bright white particles
           
-          // Outer glow
+          // Outer glow (varies most)
           ctx.globalCompositeOperation = 'screen'
           ctx.beginPath()
-          ctx.arc(p.x, p.y, p.radius * 4, 0, 2 * Math.PI)
-          const grd1 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 4)
-          grd1.addColorStop(0, 'rgba(255, 255, 255, 0.3)')
-          grd1.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)')
+          ctx.arc(p.x, p.y, p.radius * 4 * currentGlow, 0, 2 * Math.PI)
+          const grd1 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 4 * currentGlow)
+          grd1.addColorStop(0, `rgba(255, 255, 255, ${0.3 * currentGlow})`)
+          grd1.addColorStop(0.5, `rgba(255, 255, 255, ${0.1 * currentGlow})`)
           grd1.addColorStop(1, 'rgba(255, 255, 255, 0)')
           ctx.fillStyle = grd1
           ctx.fill()
 
           // Middle glow
           ctx.beginPath()
-          ctx.arc(p.x, p.y, p.radius * 2, 0, 2 * Math.PI)
-          const grd2 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2)
-          grd2.addColorStop(0, 'rgba(255, 255, 255, 0.6)')
+          ctx.arc(p.x, p.y, p.radius * 2.5 * currentGlow, 0, 2 * Math.PI)
+          const grd2 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2.5 * currentGlow)
+          grd2.addColorStop(0, `rgba(255, 255, 255, ${0.6 * currentGlow})`)
           grd2.addColorStop(1, 'rgba(255, 255, 255, 0)')
           ctx.fillStyle = grd2
           ctx.fill()
@@ -112,7 +124,7 @@ const NetworkCanvas: React.FC = () => {
           ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI)
           ctx.fillStyle = '#FFFFFF'
           ctx.shadowColor = '#FFFFFF'
-          ctx.shadowBlur = 20
+          ctx.shadowBlur = 15 + (currentGlow * 10)
           ctx.fill()
           ctx.shadowBlur = 0
         } else {

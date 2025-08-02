@@ -90,9 +90,9 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto relative z-10">
             <h2 className="text-4xl md:text-5xl font-montserrat font-medium text-white text-center mb-4 tracking-[0.15em]">
               Stop juggling 12 AI subscriptions
-            </h2>
-            <p className="text-white/60 text-center text-lg mb-16 max-w-3xl mx-auto">
-              Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.
+             <p className="text-xl md:text-2xl text-white mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
+              Custom AI, built for you. Host it with us or take it anywhere.<br />
+              No lock-ins, total transparency.
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">

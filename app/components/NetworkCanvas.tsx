@@ -35,8 +35,8 @@ const NetworkCanvas: React.FC = () => {
         height / 2,
         Math.max(width, height)
       )
-      gradient.addColorStop(0, 'rgba(30,30,60,0.2)')
-      gradient.addColorStop(1, 'rgba(0,0,0,0.95)')
+      gradient.addColorStop(0, 'rgba(10,10,20,0.1)')
+      gradient.addColorStop(1, 'rgba(0,0,0,1)')
       bgCtx.fillStyle = gradient
       bgCtx.fillRect(0, 0, width, height)
     }

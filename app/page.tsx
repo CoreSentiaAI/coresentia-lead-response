@@ -15,17 +15,6 @@ export default function HomePage() {
         <NetworkCanvas />
       </div>
 
-      {/* Static image overlay with subtle opacity */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/CoreSentia_page_background.jpg"
-          alt=""
-          fill
-          className="object-cover opacity-90"
-          priority
-        />
-      </div>
-
       {/* Main content wrapper */}
       <div className="relative z-10">
         {/* Header Component */}

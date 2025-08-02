@@ -90,9 +90,9 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto relative z-10">
             <h2 className="text-4xl md:text-5xl font-montserrat font-medium text-white text-center mb-4 tracking-[0.15em]">
               Stop juggling 12 AI subscriptions
-             <p className="text-xl md:text-2xl text-white mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
-              Custom AI, built for you. Host it with us or take it anywhere.<br />
-              No lock-ins, total transparency.
+            </h2>
+            <p className="text-xl md:text-2xl text-white text-center mb-16 font-light max-w-3xl mx-auto font-montserrat tracking-[0.15em]">
+              Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -162,7 +162,7 @@ export default function HomePage() {
               <br />
               <span className="text-[#62D4F9]">Start closing with it.</span>
             </h2>
-            <p className="text-xl text-white/60 mb-12">
+            <p className="text-xl md:text-2xl text-white mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
               Experience our AI before you buy. Talk to Ivy and see how she qualifies, quotes, and converts.
             </p>
             <Link 
@@ -180,7 +180,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
                 <h4 className="font-semibold mb-4">Products</h4>
-                <ul className="space-y-2 text-white/60">
+                <ul className="space-y-2 text-white">
                   <li><Link href="/products#essentials" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Essentials</Link></li>
                   <li><Link href="/products#custom" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Custom</Link></li>
                   <li><Link href="/products#bundle" className="hover:text-[#62D4F9] transition-colors">Website + AI Bundle</Link></li>
@@ -188,7 +188,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h4 className="font-semibold mb-4">Company</h4>
-                <ul className="space-y-2 text-white/60">
+                <ul className="space-y-2 text-white">
                   <li><Link href="/about" className="hover:text-[#62D4F9] transition-colors">About</Link></li>
                   <li><Link href="/contact" className="hover:text-[#62D4F9] transition-colors">Contact</Link></li>
                   <li><Link href="/terms" className="hover:text-[#62D4F9] transition-colors">Terms</Link></li>
@@ -196,7 +196,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h4 className="font-semibold mb-4">Resources</h4>
-                <ul className="space-y-2 text-white/60">
+                <ul className="space-y-2 text-white">
                   <li><Link href="/demo" className="hover:text-[#62D4F9] transition-colors">Live Demo</Link></li>
                   <li><Link href="/case-studies" className="hover:text-[#62D4F9] transition-colors">Case Studies</Link></li>
                   <li><Link href="/faq" className="hover:text-[#62D4F9] transition-colors">FAQ</Link></li>
@@ -204,7 +204,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h4 className="font-semibold mb-4">Connect</h4>
-                <p className="text-white/60 mb-4">Brisbane, Australia</p>
+                <p className="text-white mb-4">Brisbane, Australia</p>
                 <Link 
                   href="mailto:info@coresentia.com" 
                   className="text-[#62D4F9] hover:text-[#40FFD9] transition-colors"
@@ -213,7 +213,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="mt-12 pt-8 border-t border-white/10 text-center text-white/40">
+            <div className="mt-12 pt-8 border-t border-white/10 text-center text-white">
               <p>&copy; 2025 CoreSentia. Build once. Own forever.</p>
             </div>
           </div>

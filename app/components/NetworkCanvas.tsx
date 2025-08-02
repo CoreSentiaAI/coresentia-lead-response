@@ -3,24 +3,43 @@
 import React, { useRef, useEffect } from 'react'
 
 const NetworkCanvas: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const bgCanvasRef = useRef<HTMLCanvasElement>(null)
+  const particleCanvasRef = useRef<HTMLCanvasElement>(null)
   const mouse = useRef({ x: 0, y: 0, radius: 100 })
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const bgCanvas = bgCanvasRef.current
+    const particleCanvas = particleCanvasRef.current
+    if (!bgCanvas || !particleCanvas) return
 
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+    const bgCtx = bgCanvas.getContext('2d')
+    const ctx = particleCanvas.getContext('2d')
+    if (!bgCtx || !ctx) return
 
-    let width = (canvas.width = window.innerWidth)
-    let height = (canvas.height = window.innerHeight)
+    let width = (bgCanvas.width = particleCanvas.width = window.innerWidth)
+    let height = (bgCanvas.height = particleCanvas.height = window.innerHeight)
 
     const resizeCanvas = () => {
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
+      width = bgCanvas.width = particleCanvas.width = window.innerWidth
+      height = bgCanvas.height = particleCanvas.height = window.innerHeight
     }
     window.addEventListener('resize', resizeCanvas)
+
+    // Draw background once (or update occasionally)
+    const drawBackground = () => {
+      const gradient = bgCtx.createRadialGradient(
+        mouse.current.x,
+        mouse.current.y,
+        100,
+        width / 2,
+        height / 2,
+        Math.max(width, height)
+      )
+      gradient.addColorStop(0, 'rgba(30,30,60,0.2)')
+      gradient.addColorStop(1, 'rgba(0,0,0,0.95)')
+      bgCtx.fillStyle = gradient
+      bgCtx.fillRect(0, 0, width, height)
+    }
 
     const particles: {
       x: number
@@ -35,36 +54,28 @@ const NetworkCanvas: React.FC = () => {
     const numParticles = Math.floor((width * height) / 6000)
 
     for (let i = 0; i < numParticles; i++) {
-      const isBright = Math.random() < 0.2 // ~20% are bright/sharp
+      const isBright = Math.random() < 0.3
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
-        radius: isBright ? Math.random() * 1.8 + 1.5 : Math.random() * 1.2 + 0.5,
-        opacity: isBright ? Math.random() * 0.4 + 0.6 : Math.random() * 0.3 + 0.2,
+        radius: isBright ? Math.random() * 2 + 1.5 : Math.random() * 1.2 + 0.8,
+        opacity: 1,
         isBright,
       })
     }
 
     const draw = () => {
+      // Update background occasionally for mouse movement effect
+      if (Math.random() < 0.1) { // Update ~10% of frames for performance
+        drawBackground()
+      }
+
+      // Clear particle canvas
       ctx.clearRect(0, 0, width, height)
 
-      // Glassy gradient background
-      const gradient = ctx.createRadialGradient(
-        mouse.current.x,
-        mouse.current.y,
-        100,
-        width / 2,
-        height / 2,
-        Math.max(width, height)
-      )
-      gradient.addColorStop(0, 'rgba(30,30,60,0.2)')
-      gradient.addColorStop(1, 'rgba(0,0,0,0.95)')
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, width, height)
-
-      // Draw & update particles
+      // Draw particles with no background interference
       particles.forEach((p, idx) => {
         p.x += p.vx
         p.y += p.vy
@@ -78,12 +89,11 @@ const NetworkCanvas: React.FC = () => {
         if (p.isBright) {
           ctx.fillStyle = '#FFFFFF'
           ctx.shadowColor = '#FFFFFF'
-          ctx.shadowBlur = 12
+          ctx.shadowBlur = 15
         } else {
-          const blue = `rgba(0,170,255,${p.opacity})`
-          ctx.fillStyle = blue
-          ctx.shadowColor = blue
-          ctx.shadowBlur = 4
+          ctx.fillStyle = '#62D4F9'
+          ctx.shadowColor = '#62D4F9'
+          ctx.shadowBlur = 8
         }
         
         ctx.fill()
@@ -96,12 +106,12 @@ const NetworkCanvas: React.FC = () => {
           const dy = p.y - p2.y
           const dist = Math.sqrt(dx * dx + dy * dy)
           if (dist < 100) {
-            const lineOpacity = 0.2 - dist / 500
+            const lineOpacity = 0.3 - dist / 300
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
-            ctx.strokeStyle = `rgba(0, 200, 255, ${lineOpacity})`
-            ctx.lineWidth = 0.5
+            ctx.strokeStyle = `rgba(98, 212, 249, ${lineOpacity})`
+            ctx.lineWidth = 0.6
             ctx.stroke()
           }
         }
@@ -121,6 +131,8 @@ const NetworkCanvas: React.FC = () => {
       requestAnimationFrame(draw)
     }
 
+    // Initial background draw
+    drawBackground()
     draw()
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -137,18 +149,33 @@ const NetworkCanvas: React.FC = () => {
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: -1,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'black',
-      }}
-    />
+    <>
+      {/* Background canvas with gradient */}
+      <canvas
+        ref={bgCanvasRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          zIndex: -2,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'black',
+        }}
+      />
+      {/* Particle canvas on top */}
+      <canvas
+        ref={particleCanvasRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          zIndex: -1,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    </>
   )
 }
 

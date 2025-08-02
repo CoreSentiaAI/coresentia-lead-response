@@ -31,8 +31,7 @@ export default function HomePage() {
               Host wherever
             </h1>
             <p className="text-xl md:text-2xl text-white mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
-              Custom AI, built for you. Host it with us or take it anywhere.<br />
-              No lock-ins, total transparency.
+              From fast, CoreSentia-hosted bots to fully custom AI you can own — we build automation systems for businesses of every size..<br />
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link 

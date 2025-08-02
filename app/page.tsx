@@ -22,16 +22,15 @@ export default function HomePage() {
 
         {/* Hero Section - Added pt-24 to account for fixed header */}
         <section className="min-h-[100vh] flex items-center justify-center px-6 pt-24">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-light mb-8 leading-tight font-montserrat tracking-[0.15em]">
-              Build once
-              <br />
-              <span className="text-[#62D4F9]">Own forever</span>
-              <br />
-              Host wherever
+          <div className="max-w-6xl mx-auto text-center">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light mb-8 font-montserrat tracking-[0.15em] leading-[1.1]">
+              Build once <span className="text-[#62D4F9]">Own forever</span> Host wherever
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
-              From fast, CoreSentia-hosted bots, to fully custom AI you can own - automation systems for businesses of any size<br /><br /> 
+            <p className="text-xl md:text-2xl text-white mb-4 font-light font-montserrat tracking-[0.1em]">
+              From fast, CoreSentia-hosted bots, to fully custom AI you can own
+            </p>
+            <p className="text-base md:text-lg text-[#62D4F9] mb-12 font-light font-montserrat tracking-[0.1em]">
+              AI automation systems for businesses of any size
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
@@ -54,11 +53,13 @@ export default function HomePage() {
         <section id="packages" className="py-20 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-montserrat font-medium text-white mb-6 tracking-[0.15em]">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
                 Choose your path
               </h2>
-              <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto font-light font-montserrat tracking-[0.1em]">
-                One platform. Three ways to launch.<br />
+              <p className="text-xl md:text-2xl text-white mb-2 font-light font-montserrat tracking-[0.1em]">
+                One platform. Three ways to launch.
+              </p>
+              <p className="text-base md:text-lg text-white font-light font-montserrat tracking-[0.1em]">
                 From fast, budget-friendly bots to complete digital transformation.
               </p>
             </div>
@@ -73,37 +74,37 @@ export default function HomePage() {
                 <div className="text-[#62D4F9] mb-4">
                   <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
                 </div>
-                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.1em]">Essentials</h3>
-                <p className="text-3xl font-bold text-white mb-6">$3,000 <span className="text-lg font-normal text-white/60">+ $300/m</span></p>
+                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Essentials</h3>
+                <p className="text-3xl font-bold text-white mb-6">$3,000 <span className="text-lg font-normal text-white">+ $300/m</span></p>
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center gap-3">
                     <Calendar className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white/80">5 working days delivery</span>
+                    <span className="text-white">5 working days delivery</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <X className="w-5 h-5 text-red-500" />
-                    <span className="text-white/80">CoreSentia hosting only</span>
+                    <span className="text-white">CoreSentia hosting only</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <X className="w-5 h-5 text-red-500" />
-                    <span className="text-white/80">No code ownership</span>
+                    <span className="text-white">No code ownership</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white/80">Basic branding</span>
+                    <span className="text-white">Basic branding</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white/80">PDF quotes via template</span>
+                    <span className="text-white">PDF quotes via template</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white/80">Standard meeting booking</span>
+                    <span className="text-white">Standard meeting booking</span>
                   </div>
                 </div>
                 
-                <p className="text-white/60 text-sm">Best for: Budget-conscious, testing the concept</p>
+                <p className="text-white text-sm">Best for: Budget-conscious, testing the concept</p>
               </div>
 
               {/* Custom Package */}
@@ -111,37 +112,37 @@ export default function HomePage() {
                 <div className="text-[#62D4F9] mb-4">
                   <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
                 </div>
-                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.1em]">Custom</h3>
-                <p className="text-3xl font-bold text-white mb-6">$10,000 <span className="text-lg font-normal text-white/60">+ $500/m</span></p>
+                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Custom</h3>
+                <p className="text-3xl font-bold text-white mb-6">$10,000 <span className="text-lg font-normal text-white">+ $500/m</span></p>
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center gap-3">
                     <Calendar className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white/80">10 working days delivery</span>
+                    <span className="text-white">10 working days delivery</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">You or us host (+50% for self-host)</span>
+                    <span className="text-white">You or us host (+50% for self-host)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Optional code ownership</span>
+                    <span className="text-white">Optional code ownership</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Full custom branding</span>
+                    <span className="text-white">Full custom branding</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Smart PDF + Xero optional</span>
+                    <span className="text-white">Smart PDF + Xero optional</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Advanced Cal.com booking</span>
+                    <span className="text-white">Advanced Cal.com booking</span>
                   </div>
                 </div>
                 
-                <p className="text-white/60 text-sm">Best for: Scaling brands</p>
+                <p className="text-white text-sm">Best for: Scaling brands</p>
               </div>
 
               {/* Website + AI Bundle Package */}
@@ -152,37 +153,37 @@ export default function HomePage() {
                 <div className="text-[#62D4F9] mb-4">
                   <Globe size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
                 </div>
-                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.1em]">Website + AI Bundle</h3>
-                <p className="text-3xl font-bold text-white mb-6">$15,000 <span className="text-lg font-normal text-white/60">+ $500/m</span></p>
+                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Website + AI Bundle</h3>
+                <p className="text-3xl font-bold text-white mb-6">$15,000 <span className="text-lg font-normal text-white">+ $500/m</span></p>
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center gap-3">
                     <Calendar className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white/80">2-week sprint delivery</span>
+                    <span className="text-white">2-week sprint delivery</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">You or us host (+50% for self-host)</span>
+                    <span className="text-white">You or us host (+50% for self-host)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Full code ownership</span>
+                    <span className="text-white">Full code ownership</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Full custom branding</span>
+                    <span className="text-white">Full custom branding</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Smart PDF + Xero optional</span>
+                    <span className="text-white">Smart PDF + Xero optional</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
-                    <span className="text-white/80">Integrated booking system</span>
+                    <span className="text-white">Integrated booking system</span>
                   </div>
                 </div>
                 
-                <p className="text-white/60 text-sm">Best for: Full digital upgrade</p>
+                <p className="text-white text-sm">Best for: Full digital upgrade</p>
               </div>
             </div>
 
@@ -205,22 +206,22 @@ export default function HomePage() {
               <div className="text-[#62D4F9] mb-4">
                 <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Instant Response</h3>
-              <p className="text-white/60">SMS & email responses in seconds, not hours. Your leads get answers immediately.</p>
+              <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Response</h3>
+              <p className="text-white">SMS & email responses in seconds, not hours. Your leads get answers immediately.</p>
             </div>
             <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
               <div className="text-[#62D4F9] mb-4">
                 <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Smart Qualification</h3>
-              <p className="text-white/60">AI that understands intent and qualifies naturally through conversation.</p>
+              <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Smart Qualification</h3>
+              <p className="text-white">AI that understands intent and qualifies naturally through conversation.</p>
             </div>
             <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
               <div className="text-[#62D4F9] mb-4">
                 <Unlock size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Complete Ownership</h3>
-              <p className="text-white/60">Your AI, your code, your choice. No vendor lock-in, ever.</p>
+              <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Complete Ownership</h3>
+              <p className="text-white">Your AI, your code, your choice. No vendor lock-in, ever.</p>
             </div>
           </div>
         </section>
@@ -235,10 +236,10 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-6xl mx-auto relative z-10">
-            <h2 className="text-4xl md:text-5xl font-montserrat font-medium text-white text-center mb-4 tracking-[0.15em]">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white text-center mb-6 tracking-[0.15em]">
               Stop juggling 12 AI subscriptions
             </h2>
-            <p className="text-xl md:text-2xl text-white text-center mb-16 font-light max-w-3xl mx-auto font-montserrat tracking-[0.15em]">
+            <p className="text-xl md:text-2xl text-white text-center mb-16 font-light font-montserrat tracking-[0.1em]">
               Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.
             </p>
 
@@ -246,7 +247,7 @@ export default function HomePage() {
               {/* The Old Way */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-red-500/30 transition-all duration-300 hover:-translate-y-1">
                 <DollarSign className="w-12 h-12 text-red-500 mb-6" />
-                <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.1em]">The Old Way</h3>
+                <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.15em]">The Old Way</h3>
                 <ul className="space-y-4">
                   {[
                     'ChatGPT Pro: $20/month',
@@ -255,7 +256,7 @@ export default function HomePage() {
                     'Drift: $2,500/month',
                     'Plus 8 more tools...'
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center text-white/60">
+                    <li key={i} className="flex items-center text-white">
                       <span className="text-red-500 mr-3">✕</span>
                       {item}
                     </li>
@@ -269,7 +270,7 @@ export default function HomePage() {
               {/* The CoreSentia Way */}
               <div className="bg-black/50 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-8 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(98,212,249,0.2)]">
                 <Zap className="w-12 h-12 text-cyan-400 mb-6 drop-shadow-[0_0_8px_#62D4F9]" />
-                <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.1em]">The CoreSentia Way</h3>
+                <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.15em]">The CoreSentia Way</h3>
                 <ul className="space-y-4">
                   {[
                     'One custom solution',
@@ -278,7 +279,7 @@ export default function HomePage() {
                     'Host anywhere',
                     'No subscriptions'
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center text-white/90">
+                    <li key={i} className="flex items-center text-white">
                       <span className="text-cyan-400 mr-3 drop-shadow-[0_0_4px_#62D4F9]">✓</span>
                       {item}
                     </li>
@@ -304,12 +305,12 @@ export default function HomePage() {
         {/* CTA Section */}
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-light mb-8 font-montserrat">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-light mb-8 font-montserrat tracking-[0.15em]">
               Stop talking about AI.
               <br />
               <span className="text-[#62D4F9]">Start closing with it.</span>
             </h2>
-            <p className="text-xl md:text-2xl text-white mb-12 font-light max-w-2xl mx-auto font-montserrat tracking-[0.15em]">
+            <p className="text-xl md:text-2xl text-white mb-12 font-light font-montserrat tracking-[0.1em]">
               Experience our AI before you buy. Talk to Ivy and see how she qualifies, quotes, and converts.
             </p>
             <Link 
@@ -326,7 +327,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
-                <h4 className="font-semibold mb-4">Products</h4>
+                <h4 className="font-semibold mb-4 font-montserrat tracking-[0.15em]">Products</h4>
                 <ul className="space-y-2 text-white">
                   <li><Link href="/products#essentials" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Essentials</Link></li>
                   <li><Link href="/products#custom" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Custom</Link></li>
@@ -334,7 +335,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4">Company</h4>
+                <h4 className="font-semibold mb-4 font-montserrat tracking-[0.15em]">Company</h4>
                 <ul className="space-y-2 text-white">
                   <li><Link href="/about" className="hover:text-[#62D4F9] transition-colors">About</Link></li>
                   <li><Link href="/contact" className="hover:text-[#62D4F9] transition-colors">Contact</Link></li>
@@ -342,7 +343,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4">Resources</h4>
+                <h4 className="font-semibold mb-4 font-montserrat tracking-[0.15em]">Resources</h4>
                 <ul className="space-y-2 text-white">
                   <li><Link href="/demo" className="hover:text-[#62D4F9] transition-colors">Live Demo</Link></li>
                   <li><Link href="/case-studies" className="hover:text-[#62D4F9] transition-colors">Case Studies</Link></li>
@@ -350,7 +351,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4">Connect</h4>
+                <h4 className="font-semibold mb-4 font-montserrat tracking-[0.15em]">Connect</h4>
                 <p className="text-white mb-4">Brisbane, Australia</p>
                 <Link 
                   href="mailto:info@coresentia.com" 

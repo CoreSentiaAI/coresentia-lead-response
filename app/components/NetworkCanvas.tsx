@@ -53,7 +53,7 @@ const NetworkCanvas: React.FC = () => {
       pulsePhase: number
     }[] = []
 
-    const numParticles = Math.floor((width * height) / 6000)
+    const numParticles = Math.floor((width * height) / 12000)
 
     for (let i = 0; i < numParticles; i++) {
       const isBright = Math.random() < 0.3

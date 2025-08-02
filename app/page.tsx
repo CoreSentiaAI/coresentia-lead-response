@@ -37,7 +37,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
                 href="#packages" 
-                className="inline-block px-8 py-3 bg-transparent border border-[#2A50DF] text-[#62D4F9] font-semibold rounded-full hover:bg-[#62D4F9] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
+                className="inline-block px-8 py-3 bg-transparent border border-[#62D4F9] text-[#62D4F9] font-semibold rounded-full hover:bg-[#2A50DF] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
               >
                 Explore our solutions →
               </a>

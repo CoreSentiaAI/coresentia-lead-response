@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { Zap, Brain, Unlock } from 'lucide-react'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
 const NetworkCanvas = dynamic(() => import('./components/NetworkCanvas'), { ssr: false })
@@ -92,17 +93,23 @@ export default function HomePage() {
         <section className="py-20 px-6 border-t border-white/10">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-              <div className="text-[#62D4F9] text-4xl mb-4">⚡</div>
+              <div className="text-[#62D4F9] mb-4">
+                <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+              </div>
               <h3 className="text-xl font-semibold mb-3">Instant Response</h3>
               <p className="text-white/60">SMS & email responses in seconds, not hours. Your leads get answers immediately.</p>
             </div>
             <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-              <div className="text-[#62D4F9] text-4xl mb-4">🧠</div>
+              <div className="text-[#62D4F9] mb-4">
+                <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+              </div>
               <h3 className="text-xl font-semibold mb-3">Smart Qualification</h3>
               <p className="text-white/60">AI that understands intent and qualifies naturally through conversation.</p>
             </div>
             <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-              <div className="text-[#62D4F9] text-4xl mb-4">🔓</div>
+              <div className="text-[#62D4F9] mb-4">
+                <Unlock size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+              </div>
               <h3 className="text-xl font-semibold mb-3">Complete Ownership</h3>
               <p className="text-white/60">Your AI, your code, your choice. No vendor lock-in, ever.</p>
             </div>

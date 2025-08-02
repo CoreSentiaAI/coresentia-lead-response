@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { Zap, Brain, Unlock, DollarSign } from 'lucide-react'
+import { Zap, Brain, Unlock, DollarSign, Check, X, Calendar, Package, Globe } from 'lucide-react'
 import Header from './components/Header'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
@@ -34,17 +34,165 @@ export default function HomePage() {
               From fast, CoreSentia-hosted bots, to fully custom AI you can own - automation systems for businesses of any size<br /><br /> 
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link 
-                href="/products" 
+              <a 
+                href="#packages" 
                 className="px-8 py-3 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg"
               >
                 Explore our solutions →
-              </Link>
+              </a>
               <Link 
                 href="/chat/demo" 
                 className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 hover:border-[#62D4F9] transition-all text-lg"
               >
-                Try Ivy Demo
+                Meet Ivy – Our Custom AI Bot
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Choose Your Path Section */}
+        <section id="packages" className="py-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-montserrat font-medium text-white mb-6 tracking-[0.15em]">
+                Choose your path
+              </h2>
+              <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto font-light font-montserrat tracking-[0.1em]">
+                One platform. Three ways to launch.<br />
+                From fast, budget-friendly bots to complete digital transformation.
+              </p>
+            </div>
+
+            {/* Package Comparison Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Essentials Package */}
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all relative">
+                <div className="absolute -top-3 left-8 bg-[#62D4F9] text-black px-4 py-1 rounded-full text-sm font-semibold">
+                  ⚡ Fastest Launch
+                </div>
+                <div className="text-[#62D4F9] mb-4">
+                  <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.1em]">Essentials</h3>
+                <p className="text-3xl font-bold text-white mb-6">$3,000 <span className="text-lg font-normal text-white/60">+ $300/m</span></p>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-[#62D4F9]" />
+                    <span className="text-white/80">5 working days delivery</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <X className="w-5 h-5 text-red-500" />
+                    <span className="text-white/80">CoreSentia hosting only</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <X className="w-5 h-5 text-red-500" />
+                    <span className="text-white/80">No code ownership</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9]" />
+                    <span className="text-white/80">Basic branding</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9]" />
+                    <span className="text-white/80">PDF quotes via template</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9]" />
+                    <span className="text-white/80">Standard meeting booking</span>
+                  </div>
+                </div>
+                
+                <p className="text-white/60 text-sm">Best for: Budget-conscious, testing the concept</p>
+              </div>
+
+              {/* Custom Package */}
+              <div className="bg-black/50 backdrop-blur-xl border border-[#62D4F9]/30 rounded-2xl p-8 hover:border-[#62D4F9]/50 transition-all relative shadow-[0_0_30px_rgba(98,212,249,0.1)]">
+                <div className="text-[#62D4F9] mb-4">
+                  <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.1em]">Custom</h3>
+                <p className="text-3xl font-bold text-white mb-6">$10,000 <span className="text-lg font-normal text-white/60">+ $500/m</span></p>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-[#62D4F9]" />
+                    <span className="text-white/80">10 working days delivery</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">You or us host (+50% for self-host)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Optional code ownership</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Full custom branding</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Smart PDF + Xero optional</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Advanced Cal.com booking</span>
+                  </div>
+                </div>
+                
+                <p className="text-white/60 text-sm">Best for: Scaling brands</p>
+              </div>
+
+              {/* Website + AI Bundle Package */}
+              <div className="bg-black/50 backdrop-blur-xl border border-[#62D4F9]/30 rounded-2xl p-8 hover:border-[#62D4F9]/50 transition-all relative shadow-[0_0_30px_rgba(98,212,249,0.1)]">
+                <div className="absolute -top-3 left-8 bg-[#40FFD9] text-black px-4 py-1 rounded-full text-sm font-semibold">
+                  💡 Most Popular
+                </div>
+                <div className="text-[#62D4F9] mb-4">
+                  <Globe size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                </div>
+                <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.1em]">Website + AI Bundle</h3>
+                <p className="text-3xl font-bold text-white mb-6">$15,000 <span className="text-lg font-normal text-white/60">+ $500/m</span></p>
+                
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-[#62D4F9]" />
+                    <span className="text-white/80">2-week sprint delivery</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">You or us host (+50% for self-host)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Full code ownership</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Full custom branding</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Smart PDF + Xero optional</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9]" />
+                    <span className="text-white/80">Integrated booking system</span>
+                  </div>
+                </div>
+                
+                <p className="text-white/60 text-sm">Best for: Full digital upgrade</p>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center mt-12">
+              <Link 
+                href="/products" 
+                className="inline-block px-8 py-3 bg-transparent border border-[#62D4F9] text-[#62D4F9] font-semibold rounded-full hover:bg-[#62D4F9] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
+              >
+                → Compare packages in detail
               </Link>
             </div>
           </div>

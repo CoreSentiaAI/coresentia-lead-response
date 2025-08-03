@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,7 +18,7 @@ export default function Header() {
         ? 'bg-black/70 backdrop-blur-lg shadow-[0_4px_30px_rgba(98,212,249,0.1)] border-b border-[#62D4F9]/20' 
         : 'bg-transparent'}`}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
         <Link href="/" className="flex items-center">
           <Image 
             src="/CoreSentia_Transparent_Logo.png" 
@@ -31,6 +30,7 @@ export default function Header() {
             }`}
           />
         </Link>
+        
         <nav className="hidden md:flex items-center gap-2">
           <Link 
             href="/products" 

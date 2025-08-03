@@ -23,27 +23,27 @@ export default function HomePage() {
         {/* Hero Section - Added pt-24 to account for fixed header */}
         <section className="min-h-[100vh] flex items-center justify-center px-6 pt-24">
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light mb-8 font-montserrat tracking-[0.15em] leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light mb-6 md:mb-8 font-montserrat tracking-[0.15em] leading-[1.2] md:leading-[1.1]">
               Stop talking about AI
               <br />
               <span className="text-[#62D4F9]">Start closing with it</span>
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-4 font-light font-montserrat tracking-[0.1em]">
-              Build once   Own forever   Host wherever
+            <p className="text-lg sm:text-xl md:text-2xl text-white mb-3 md:mb-4 font-light font-montserrat tracking-[0.1em]">
+              Build once  Own forever  Host wherever
             </p>
-            <p className="text-base md:text-lg text-[#62D4F9] mb-12 font-light font-montserrat tracking-[0.1em]">
+            <p className="text-sm sm:text-base md:text-lg text-[#62D4F9] mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em]">
               From fast, CoreSentia-hosted bots, to fully custom AI you own
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
                 href="#packages" 
-                className="inline-block px-8 py-3 bg-transparent border border-[#62D4F9] text-[#62D4F9] font-semibold rounded-full hover:bg-[#2A50DF] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
+                className="inline-block px-8 py-3 bg-transparent border border-[#62D4F9] text-[#62D4F9] font-semibold rounded-full hover:bg-[#62D4F9] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
               >
                 Explore our solutions →
               </a>
               <Link 
                 href="/chat/demo" 
-                className="px-8 py-3 border border-[#62D4F9] text-white font-semibold rounded-full hover:bg-[#40FFD9] hover:text-black hover:border-[#40FFD9] transition-all text-lg"
+                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-[#40FFD9] hover:text-black hover:border-[#40FFD9] transition-all text-lg"
               >
                 Meet Ivy – Our Custom AI Bot
               </Link>
@@ -56,13 +56,13 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
-               Choose your AI Sales Assistant or bundle with a website build
+                Choose your AI Sales Assistant or bundle with a website build
               </h2>
               <p className="text-xl md:text-2xl text-white mb-2 font-light font-montserrat tracking-[0.1em]">
                 Three ways to deploy your 24/7 AI sales assistant
               </p>
               <p className="text-base md:text-lg text-white mb-2 font-light font-montserrat tracking-[0.1em]">
-                All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings
+                All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings.
               </p>
               <p className="text-base md:text-lg text-white font-light font-montserrat tracking-[0.1em]">
                 The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and you own the code
@@ -118,7 +118,7 @@ export default function HomePage() {
                   <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Custom</h3>
-                <p className="text-3xl font-bold text-white mb-6">$8,000 <span className="text-lg font-normal text-white">+ $300/m while we host</span></p>
+                <p className="text-3xl font-bold text-white mb-6">$8,000 <span className="text-lg font-normal text-white">+ $300/m</span></p>
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center gap-3">

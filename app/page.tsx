@@ -21,20 +21,22 @@ export default function HomePage() {
         <Header />
 
         {/* Hero Section - Added pt-24 to account for fixed header */}
-        <section className="min-h-[100vh] flex items-center justify-center px-6 pt-24">
-          <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light mb-6 md:mb-8 font-montserrat tracking-[0.15em] leading-[1.2] md:leading-[1.1]">
-              Stop talking about AI
-              <br />
-              <span className="text-[#62D4F9]">Start closing with it</span>
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-white mb-3 md:mb-4 font-light font-montserrat tracking-[0.1em]">
-              Build once  Own forever  Host wherever
-            </p>
-            <p className="text-sm sm:text-base md:text-lg text-[#62D4F9] mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em]">
-              From fast, CoreSentia-hosted bots, to fully custom AI you own
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <section className="min-h-[100vh] flex items-center justify-center px-6 pt-24 md:pt-24">
+          <div className="max-w-6xl mx-auto text-center flex flex-col justify-between h-[calc(100vh-6rem)] md:h-auto md:block">
+            <div className="mt-8 md:mt-0">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light mb-6 md:mb-8 font-montserrat tracking-[0.15em] leading-[1.2] md:leading-[1.1]">
+                Stop talking about AI
+                <br />
+                <span className="text-[#62D4F9]">Start closing with it</span>
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-white mb-3 md:mb-4 font-light font-montserrat tracking-[0.1em]">
+                Build once  Own forever  Host wherever
+              </p>
+              <p className="text-sm sm:text-base md:text-lg text-[#62D4F9] mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em]">
+                From fast, CoreSentia-hosted bots, to fully custom AI you own
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 md:mb-0">
               <a 
                 href="#packages" 
                 className="inline-block px-8 py-3 bg-transparent border border-[#62D4F9] text-[#62D4F9] font-semibold rounded-full hover:bg-[#62D4F9] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
@@ -65,7 +67,7 @@ export default function HomePage() {
                 All bots reply instantly to leads, qualify them through conversation, send quotes, and book meetings.
               </p>
               <p className="text-base md:text-lg text-white font-light font-montserrat tracking-[0.1em]">
-                The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and you own the code
+                The difference? We&apos;ll run Essentials for you - Custom is bespoke to your business and own the code.
               </p>
             </div>
 
@@ -205,7 +207,7 @@ export default function HomePage() {
         </section>
 
         {/* Feature Tiles */}
-        <section className="py-20 px-6">
+        <section className="py-12 md:py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-montserrat font-light text-white text-center mb-12 tracking-[0.15em]">
               What your AI sales assistant does

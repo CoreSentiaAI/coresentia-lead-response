@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { Zap, Brain, Unlock, DollarSign, Check, X, Calendar, Package, Globe, FileText, Phone } from 'lucide-react'
+import { Zap, Brain, Unlock, DollarSign, Check, X, Calendar, Package, Globe, FileText, Phone, Tool, Shield } from 'lucide-react'
 import Header from './components/Header'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
@@ -85,28 +85,28 @@ export default function HomePage() {
                 <p className="text-3xl font-bold text-white mb-6">$2,500 <span className="text-lg font-normal text-white">+ $200/m</span></p>
                 
                 <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-[#62D4F9]" />
-                    <span className="text-white"> Delivered in 2 weeks</span>
+                  <div className="flex items-center gap-3 group">
+                    <Calendar className="w-5 h-5 text-[#62D4F9] group-hover:scale-110 transition-transform" />
+                    <span className="text-white">Delivered in 2 weeks</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <X className="w-5 h-5 text-red-500" />
-                    <span className="text-white">Hosted by CoreSentia</span>
+                  <div className="flex items-center gap-3 group">
+                    <Tool className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9] group-hover:scale-110 transition-transform" />
+                    <span className="text-white">Fully managed by CoreSentia</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <X className="w-5 h-5 text-red-500" />
-                    <span className="text-white">No code ownership</span>
+                  <div className="flex items-center gap-3 group">
+                    <Shield className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9] group-hover:scale-110 transition-transform" />
+                    <span className="text-white">Platform-licensed build</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9]" />
+                  <div className="flex items-center gap-3 group">
+                    <Check className="w-5 h-5 text-[#62D4F9] group-hover:scale-110 transition-transform" />
                     <span className="text-white">Basic branding</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9]" />
+                  <div className="flex items-center gap-3 group">
+                    <Check className="w-5 h-5 text-[#62D4F9] group-hover:scale-110 transition-transform" />
                     <span className="text-white">PDF quotes via template</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9]" />
+                  <div className="flex items-center gap-3 group">
+                    <Check className="w-5 h-5 text-[#62D4F9] group-hover:scale-110 transition-transform" />
                     <span className="text-white">Standard meeting booking</span>
                   </div>
                 </div>

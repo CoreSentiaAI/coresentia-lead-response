@@ -5,8 +5,8 @@ import ChatInterface from '@/app/components/ChatInterface'
 import dynamic from 'next/dynamic'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
-const NetworkCanvas = dynamic(() => import('../../components/NetworkCanvas'), { 
-  ssr: false,
+const NetworkCanvas = dynamic(() => import('@/app/components/NetworkCanvas'), { 
+  ssr: false 
   loading: () => <div>Loading background...</div> // Add this to see if it's loading
 })
 

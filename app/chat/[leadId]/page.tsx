@@ -6,8 +6,8 @@ import dynamic from 'next/dynamic'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
 const NetworkCanvas = dynamic(() => import('@/app/components/NetworkCanvas'), { 
-  ssr: false 
-  loading: () => <div>Loading background...</div> // Add this to see if it's loading
+  ssr: false,  // <- Added comma here
+  loading: () => <div>Loading background...</div>
 })
 
 export default function ChatPage() {
@@ -22,7 +22,7 @@ export default function ChatPage() {
       </div>
 
       {/* Main content wrapper */}
-      <div className="relative z-10 min-h-screen"> {/* Added min-h-screen here too */}
+      <div className="relative z-10 min-h-screen">
         <ChatInterface leadId={leadId} />
       </div>
     </div>

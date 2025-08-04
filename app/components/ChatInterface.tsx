@@ -375,16 +375,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   }
 
   return (
-    <div 
-      className="h-screen w-screen bg-black flex flex-col overflow-hidden"
-      style={{
-        backgroundImage: 'url(/CoreSentia_page_background.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
-    >
+    <div className="h-screen w-screen flex flex-col overflow-hidden">
       {/* Add custom scrollbar styles */}
       <style jsx global>{`
         /* Custom Scrollbar Styles */

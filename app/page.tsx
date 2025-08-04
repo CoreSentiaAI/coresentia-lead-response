@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { Zap, Brain, Unlock, DollarSign, Check, X, Calendar, Package, Globe, FileText, Phone, Tool, Shield } from 'lucide-react'
+import { Zap, Brain, Unlock, DollarSign, Check, X, Calendar, Package, Globe, FileText, Phone, Wrench, Shield } from 'lucide-react'
 import Header from './components/Header'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
@@ -90,7 +90,7 @@ export default function HomePage() {
                     <span className="text-white">Delivered in 2 weeks</span>
                   </div>
                   <div className="flex items-center gap-3 group">
-                    <Tool className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9] group-hover:scale-110 transition-transform" />
+                    <Wrench className="w-5 h-5 text-[#62D4F9] drop-shadow-[0_0_4px_#62D4F9] group-hover:scale-110 transition-transform" />
                     <span className="text-white">Fully managed by CoreSentia</span>
                   </div>
                   <div className="flex items-center gap-3 group">

@@ -330,18 +330,18 @@ export default function HomePage() {
                 <Zap className="w-12 h-12 text-cyan-400 mb-6 drop-shadow-[0_0_8px_#62D4F9]" />
                 <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.15em]">The CoreSentia Way</h3>
                 <ul className="space-y-4">
-                 {[
-                  'One custom solution',
-                  'Built for YOUR process',
-                  'Designed for your brand',
-                  'You own the code',
-                  'We&apos;ll host for a monthly fee, or take control at anytime - no more subscriptions'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center text-white">
-                    <span className="text-cyan-400 mr-3 drop-shadow-[0_0_4px_#62D4F9]">✓</span>
-                    {item}
-                  </li>
-                ))}
+                  {[
+                    'One custom solution',
+                    'Built for YOUR process',
+                    'Designed for your brand',
+                    'You own the code',
+                    "We'll host for a monthly fee, or take control at anytime - no more subscriptions"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center text-white">
+                      <span className="text-cyan-400 mr-3 drop-shadow-[0_0_4px_#62D4F9]">✓</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
                 <div className="mt-8 pt-6 border-t border-white/10">
                   <p className="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_6px_#62D4F9]">$3k-$15k once + hosting, or we hand over the code</p>

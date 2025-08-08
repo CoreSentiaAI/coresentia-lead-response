@@ -335,7 +335,7 @@ export default function HomePage() {
                     'Built for YOUR process',
                     'Designed for your brand',
                     'You own the code',
-                    'We\'ll host for a monthly fee, or take control at anytime - no more subscriptions'
+                    'We&apos;ll host for a monthly fee, or take control at anytime - no more subscriptions'
                   
                 
                   ].map((item, i) => (

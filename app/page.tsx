@@ -201,7 +201,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Custom</h3>
                 <p className="text-3xl font-bold text-white mb-2">$10,000</p>
-                <p className="text-lg text-white mb-6">+ $500/month hosting</p>
+                <p className="text-lg text-white mb-6">+ $400/month hosting</p>
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-start gap-3">
@@ -226,7 +226,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Unlock className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
-                    <span className="text-white text-sm">You own the code - we'll hand it over anytime</span>
+                    <span className="text-white text-sm">You own the code - we&apos;ll hand it over anytime</span>
                   </div>
                 </div>
                 
@@ -335,7 +335,7 @@ export default function HomePage() {
                     'Built for YOUR process',
                     'Designed for your brand',
                     'You own the code',
-                    "We'll host for a monthly fee, or take control at anytime - no more subscriptions"
+                    'We&apos;ll host for a monthly fee, or take control at anytime - no more subscriptions'
                   ].map((item, i) => (
                     <li key={i} className="flex items-center text-white">
                       <span className="text-cyan-400 mr-3 drop-shadow-[0_0_4px_#62D4F9]">✓</span>

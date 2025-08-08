@@ -33,7 +33,7 @@ export default function HomePage() {
                 Stop renting AI. Start owning it.
               </p>
               <p className="text-sm sm:text-base md:text-lg text-[#62D4F9] mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em]">
-                From managed solutions to fully custom AI you own forever
+                From managed lead responder solutions, to custom AI and websites you own forever
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -67,10 +67,10 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">The Economics Are Insane</h3>
                 <p className="text-white mb-3">
-                  <span className="font-bold">Their way:</span> Intercom charges $39 PER conversation. Drift wants $2,500/month. Total: $2,000-3,000/month forever.
+                  <span className="font-bold">Their way:</span> Intercom charges $39 per conversation. Drift: $2,500/month. Endless reoccuring costs, forever.
                 </p>
                 <p className="text-white">
-                  <span className="font-bold">Our way:</span> We run unlimited conversations for ~$50/month in infrastructure. You pay once, save $24,000+ yearly.
+                  <span className="font-bold">Our way:</span> We charge one fee to build, plus a monthly hosting subscription. Or we can handover the code and you take control - nothing else to pay.
                 </p>
               </div>
 
@@ -81,7 +81,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">You OWN It</h3>
                 <p className="text-white">
-                  Not renting. Not subscribing. OWNING. We&apos;re the only AI agency offering true ownership with optional self-hosting. Your AI, your rules, your asset.
+                  Not renting. Not subscribing. OWNING. CoreSentia offers true ownership with optional self-hosting. Your AI, your rules, your asset.
                 </p>
               </div>
 
@@ -92,7 +92,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Unlimited Everything</h3>
                 <p className="text-white">
-                  No conversation caps. No usage tiers. No overage charges. While competitors nickel-and-dime you per chat, our Custom solutions handle infinite scale at the same price.
+                  No conversation caps. No usage tiers. No overage charges. Others track each chat and cut you off or make you pay more, our Custom solutions handle infinite scale at the same price.
                 </p>
               </div>
 
@@ -103,7 +103,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">100% Australian</h3>
                 <p className="text-white">
-                  Brisbane-based team. Australian-hosted infrastructure. Local phone support. We understand Australian businesses, compliance, and what actually works here.
+                  Brisbane-based team. Local support. We understand Australian businesses, compliance, and what actually works here.
                 </p>
               </div>
 
@@ -112,9 +112,9 @@ export default function HomePage() {
                 <div className="text-[#62D4F9] mb-4">
                   <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Live in Days, Not Months</h3>
+                <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Have you bot live in weeks</h3>
                 <p className="text-white">
-                  2 weeks to 2 months deployment vs industry standard 3-4 weeks minimum. We&apos;ve pre-built the frameworks. We just customise for you.
+                  2 weeks to 2 months deployment, depending on your project complexity.
                 </p>
               </div>
 
@@ -125,7 +125,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Break-Even in 4-5 Months</h3>
                 <p className="text-white">
-                  Most clients see positive ROI within 6-8 weeks through increased lead conversion. After 4-5 months, you&apos;re saving pure profit.
+                  Most clients see positive ROI within 6-8 weeks through increased lead conversion. After 4-5 months, you&apos;re saving pure profit with no downside.
                 </p>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <p className="text-white text-sm italic">Perfect for: Small businesses wanting quick deployment without technical hassle</p>
+                <p className="text-white text-sm italic">Perfect for: Small businesses wanting quick deployment without technical hassle. If you dont want the hassle and just want it to work.</p>
               </div>
 
               {/* Custom Package */}
@@ -210,7 +210,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
-                    <span className="text-white text-sm">Beautiful custom UI matching your brand</span>
+                    <span className="text-white text-sm">Custom UI matching your brand</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
@@ -218,7 +218,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
-                    <span className="text-white text-sm">Multi-channel (Web, SMS, WhatsApp, Email)</span>
+                    <span className="text-white text-sm">Multi-channel (Web, SMS, WhatsApp, Telegram, Email)</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
@@ -226,11 +226,11 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Unlock className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
-                    <span className="text-white text-sm">You own the code (+50% for self-hosting)</span>
+                    <span className="text-white text-sm">You own the code - we'll hand it over anytime</span>
                   </div>
                 </div>
                 
-                <p className="text-white text-sm italic">Perfect for: Growing businesses wanting ownership and unlimited scale</p>
+                <p className="text-white text-sm italic">Perfect for: Growing businesses, SMEs wanting more control, the option of ownership, and unlimited scale</p>
               </div>
 
               {/* Website + AI Bundle Package */}
@@ -265,11 +265,11 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Unlock className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
-                    <span className="text-white text-sm">Own everything forever</span>
+                    <span className="text-white text-sm">Own the code forever</span>
                   </div>
                 </div>
                 
-                <p className="text-white text-sm italic">Perfect for: Complete digital transformation - website + AI in one</p>
+                <p className="text-white text-sm italic">Perfect for: Complete digital transformation - website + AI in one. Trying to get your business launched? This gets you up, online, and closing deals.</p>
               </div>
             </div>
 
@@ -292,10 +292,10 @@ export default function HomePage() {
         <section className="py-24 px-4 md:px-8 border-t border-white/10">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white text-center mb-6 tracking-[0.15em]">
-              Stop juggling 12 AI subscriptions
+              Stop juggling 5, 10, 12 AI subscriptions
             </h2>
             <p className="text-xl md:text-2xl text-white text-center mb-16 font-light font-montserrat tracking-[0.1em]">
-              Businesses waste $2,000+/month on overlapping AI tools. We build you ONE system that does it all.
+              Businesses waste $2,000+/month on overlapping AI tools. We build you ONE lead managementsystem that can lock in your leads 24/7.
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -305,8 +305,11 @@ export default function HomePage() {
                 <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.15em]">The Old Way</h3>
                 <ul className="space-y-4">
                   {[
-                    'ChatGPT Pro: $20/month',
-                    'Zapier: $69/month',
+                    'Typeform: $59/month',
+                    'Calendly: $20/month',
+                    'Wix: $15/month',
+                    'Squarespace: $20/month',
+                    'Klaviyo: $50/month',
                     'Intercom: $500/month',
                     'Drift: $2,500/month',
                     'Plus 8 more tools...'
@@ -330,9 +333,11 @@ export default function HomePage() {
                   {[
                     'One custom solution',
                     'Built for YOUR process',
+                    'Designed for your brand',
                     'You own the code',
-                    'Host anywhere',
-                    'No subscriptions'
+                    'We\'ll host for a monthly fee, or take control at anytime - no more subscriptions'
+                  
+                
                   ].map((item, i) => (
                     <li key={i} className="flex items-center text-white">
                       <span className="text-cyan-400 mr-3 drop-shadow-[0_0_4px_#62D4F9]">✓</span>
@@ -341,14 +346,14 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <div className="mt-8 pt-6 border-t border-white/10">
-                  <p className="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_8px_#62D4F9]">$3k-$15k once + hosting</p>
+                  <p className="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_6px_#62D4F9]">$3k-$15k once + hosting, or we hand over the code</p>
                 </div>
               </div>
             </div>
 
             <div className="text-center mt-16">
               <p className="text-white text-xl mb-8">
-                Break-even in 4-5 months. Save $24,000+ every year after.
+                Break-even in 4-5 months - no more subscriptions
               </p>
               <Link
                 href="/chat/homepage-visitor"

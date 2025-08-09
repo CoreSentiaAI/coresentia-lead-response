@@ -1,83 +1,77 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 
+interface Node {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+  baseRadius: number;
+  glow: number;
+  color: string;
+}
+
 export default function NetworkCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const mouse = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const resizeHandler = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-    window.addEventListener("resize", resizeHandler);
+    const colors = ["#4FC3F7", "#81D4FA", "#0288D1", "#00B8A9"];
+    const nodes: Node[] = [];
 
-    // Node settings
-    const numNodes = Math.floor((width * height) / 12000); // keeps density consistent
-    const nodes: {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      brightness: number;
-    }[] = [];
-
-    for (let i = 0; i < numNodes; i++) {
-      const radius = Math.random() * 2.5 + 0.5; // varied size
-      const brightness = Math.random() * 0.8 + 0.2; // varied HDR brightness
+    // Create nodes
+    for (let i = 0; i < 60; i++) {
+      const radius = Math.random() * 3 + 1;
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.15, // slow drift
-        vy: (Math.random() - 0.5) * 0.15,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
         radius,
-        brightness,
+        baseRadius: radius,
+        glow: Math.random() * 15 + 5,
+        color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
 
     function draw() {
+      if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
-      // Draw nodes
-      nodes.forEach((node) => {
-        const gradient = ctx.createRadialGradient(
-          node.x,
-          node.y,
-          0,
-          node.x,
-          node.y,
-          node.radius * 3
-        );
-        gradient.addColorStop(0, `rgba(0, 180, 255, ${node.brightness})`); // cyan core
-        gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // Draw connection lines
-      const maxDist = 160;
-      ctx.lineWidth = 0.6;
+      // Draw lines
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < maxDist) {
-            const alpha = 1 - dist / maxDist; // fade with distance
-            ctx.strokeStyle = `rgba(0, 200, 255, ${alpha * 0.6})`; // brighter & visible
+          if (dist < 150) {
+            let alpha = 1 - dist / 150;
+            let lineColor = "rgba(100,150,255," + alpha.toFixed(2) + ")";
+
+            // Hover colour shift
+            const mx = mouse.current.x;
+            const my = mouse.current.y;
+            const midX = (nodes[i].x + nodes[j].x) / 2;
+            const midY = (nodes[i].y + nodes[j].y) / 2;
+            const hoverDist = Math.sqrt((mx - midX) ** 2 + (my - midY) ** 2);
+
+            if (hoverDist < 120) {
+              lineColor = `rgba(${50 + Math.random() * 50}, ${200 + Math.random() * 40}, ${180 + Math.random() * 50}, ${alpha})`;
+              alpha = Math.min(1, alpha + 0.2);
+            }
+
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -86,38 +80,43 @@ export default function NetworkCanvas() {
         }
       }
 
-      update();
-      requestAnimationFrame(draw);
-    }
-
-    function update() {
+      // Draw nodes
       nodes.forEach((node) => {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = node.color;
+        ctx.shadowColor = node.color;
+        ctx.shadowBlur = node.glow;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
         node.x += node.vx;
         node.y += node.vy;
 
         if (node.x < 0 || node.x > width) node.vx *= -1;
         if (node.y < 0 || node.y > height) node.vy *= -1;
       });
+
+      requestAnimationFrame(draw);
     }
 
     draw();
+
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      mouse.current.x = e.clientX;
+      mouse.current.y = e.clientY;
+    });
+
     return () => {
-      window.removeEventListener("resize", resizeHandler);
+      window.removeEventListener("resize", () => {});
+      window.removeEventListener("mousemove", () => {});
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        background: "black",
-        zIndex: -1,
-      }}
-    />
-  );
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
 }

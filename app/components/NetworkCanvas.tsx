@@ -35,12 +35,16 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
     const fg = fgRef.current
     if (!bg || !fg) return
 
-    const bgCtx = bg.getContext('2d')
-    const ctx = fg.getContext('2d')
-    if (!bgCtx || !ctx) {
+    const bgCtxTemp = bg.getContext('2d')
+    const ctxTemp = fg.getContext('2d')
+    if (!bgCtxTemp || !ctxTemp) {
       console.error('Failed to get canvas context')
       return
     }
+
+    // Store in constants that TypeScript knows are non-null
+    const bgCtx: CanvasRenderingContext2D = bgCtxTemp
+    const ctx: CanvasRenderingContext2D = ctxTemp
 
     const reduceMotion =
       window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches === true

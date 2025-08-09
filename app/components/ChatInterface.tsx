@@ -444,7 +444,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       `}</style>
 
-      {/* Header - Collapsible HDR style */}
+      {/* Header - Collapsible HDR style with conditional homepage button */}
       <div 
         className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
           headerCollapsed 
@@ -459,18 +459,41 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
-            <Image 
-              src="/CoreSentia_Transparent_Logo.png" 
-              alt="CoreSentia" 
-              width={300}
-              height={120}
-              className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
-              style={{
-                filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
-              }}
-            />
+          <div className="flex items-center justify-between">
+            <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
+              <Image 
+                src="/CoreSentia_Transparent_Logo.png" 
+                alt="CoreSentia" 
+                width={300}
+                height={120}
+                className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
+                style={{
+                  filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
+                }}
+              />
+            </div>
+            
+            {/* Homepage Button - Only show when NOT on homepage */}
+            {leadId !== 'homepage-visitor' && (
+              
+                href="/"
+                className="px-4 py-2 bg-transparent border border-white/30 text-white text-sm rounded-full hover:bg-[#62D4F9]/20 hover:border-[#62D4F9] hover:scale-105 transition-all duration-300 montserrat-header"
+                style={{
+                  letterSpacing: '0.1em',
+                  textShadow: '0 0 2px rgba(255, 255, 255, 0.25)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 8px rgba(98, 212, 249, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                Visit Homepage
+              </a>
+            )}
           </div>
+          
           <h5 
             className={`text-white font-normal transition-all duration-300 montserrat-header ${
               headerCollapsed 

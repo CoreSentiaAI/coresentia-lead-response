@@ -451,4 +451,193 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             ? 'bg-black/90 backdrop-blur-2xl py-2' 
             : 'bg-black/70 backdrop-blur-xl py-4 sm:py-6'
         }`}
-        st
+        style={{
+          borderBottom: headerCollapsed 
+            ? '2px solid rgba(98, 212, 249, 0.3)' 
+            : '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: headerCollapsed 
+            ? '0 4px 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(98, 212, 249, 0.15)' 
+            : '0 2px 10px rgba(0, 0, 0, 0.5)'
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
+            <Image 
+              src="/CoreSentia_Transparent_Logo.png" 
+              alt="CoreSentia" 
+              width={300}
+              height={120}
+              className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
+              style={{
+                filter: 'drop-shadow(0 0 25px rgba(98, 212, 249, 0.9)) drop-shadow(0 0 50px rgba(98, 212, 249, 0.4))'
+              }}
+            />
+          </div>
+          <h5 
+            className={`text-white font-normal transition-all duration-300 montserrat-header ${
+              headerCollapsed 
+                ? 'opacity-0 max-h-0 overflow-hidden' 
+                : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'
+            }`}
+            style={{
+              textShadow: '0 0 10px rgba(255, 255, 255, 0.3)'
+            }}
+          >
+            Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
+          </h5>
+        </div>
+      </div>
+
+      {/* Main Chat Area with Enhanced Glass Container */}
+      <div className="flex-1 p-4 overflow-hidden">
+        <div 
+          className="h-full max-w-6xl w-full mx-auto flex flex-col"
+          style={{
+            background: 'rgba(0, 0, 0, 0.4)',
+            backdropFilter: 'blur(40px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+            border: '1px solid rgba(98, 212, 249, 0.15)',
+            borderRadius: '24px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.8), 0 0 80px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(98, 212, 249, 0.03)'
+          }}
+        >
+          {/* Messages Container - Fixed height constraint */}
+          <div 
+            ref={messagesContainerRef}
+            className="flex-1 overflow-y-auto overflow-x-hidden p-6 custom-scrollbar"
+            style={{ minHeight: 0 }} // Important for flexbox overflow
+          >
+            <div className="space-y-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
+                >
+                  {message.role === 'assistant' && (
+                    <div 
+                      className="w-10 h-10 rounded-full bg-gradient-to-br from-[#62D4F9] to-[#2A50DF] flex items-center justify-center mr-3 flex-shrink-0"
+                      style={{
+                        boxShadow: '0 0 20px #62D4F9, 0 0 40px rgba(98, 212, 249, 0.5), 0 4px 15px rgba(0, 0, 0, 0.4)'
+                      }}
+                    >
+                      <span className="text-black text-sm font-bold">I</span>
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed text-white ${
+                      message.role === 'user' 
+                        ? 'bg-gradient-to-r from-[#2A50DF] to-[#2A50DF]/90' 
+                        : ''
+                    }`}
+                    style={{
+                      ...(message.role === 'assistant' ? {
+                        background: 'rgba(0, 0, 0, 0.6)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(98, 212, 249, 0.2)',
+                        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(98, 212, 249, 0.08), inset 0 0 20px rgba(98, 212, 249, 0.02)'
+                      } : {
+                        border: '1px solid rgba(42, 80, 223, 0.3)',
+                        boxShadow: '0 4px 24px rgba(42, 80, 223, 0.5), 0 0 30px rgba(42, 80, 223, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05)'
+                      })
+                    }}
+                  >
+                    {message.role === 'user' ? message.content : formatMessage(message.content)}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="flex justify-start animate-fadeIn">
+                  <div 
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#62D4F9] to-[#2A50DF] flex items-center justify-center mr-3"
+                    style={{
+                      animation: 'glowPulse 2s ease-in-out infinite',
+                    }}
+                  >
+                    <span className="text-black text-sm font-bold">I</span>
+                  </div>
+                  <div 
+                    className="text-white px-5 py-3 rounded-2xl"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.6)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(98, 212, 249, 0.2)',
+                      boxShadow: '0 4px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(98, 212, 249, 0.08)'
+                    }}
+                  >
+                    <div className="flex space-x-1">
+                      <div 
+                        className="w-2 h-2 bg-gradient-to-br from-[#40FFD9] to-[#62D4F9] rounded-full animate-bounce"
+                        style={{
+                          animationDelay: '0ms',
+                          boxShadow: '0 0 6px #40FFD9'
+                        }}
+                      ></div>
+                      <div 
+                        className="w-2 h-2 bg-gradient-to-br from-[#40FFD9] to-[#62D4F9] rounded-full animate-bounce"
+                        style={{
+                          animationDelay: '150ms',
+                          boxShadow: '0 0 6px #40FFD9'
+                        }}
+                      ></div>
+                      <div 
+                        className="w-2 h-2 bg-gradient-to-br from-[#40FFD9] to-[#62D4F9] rounded-full animate-bounce"
+                        style={{
+                          animationDelay: '300ms',
+                          boxShadow: '0 0 6px #40FFD9'
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          </div>
+
+          {/* Input Area with HDR styling */}
+          <div className="flex-shrink-0 p-6 border-t border-white/10">
+            <div className="flex space-x-3 mb-4">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                placeholder="Type your message..."
+                style={{ fontSize: '16px' }}
+                className="flex-1 px-5 py-3 bg-black/50 backdrop-blur-xl border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#62D4F9] focus:shadow-[0_0_20px_rgba(98,212,249,0.3)] transition-all text-base"
+              />
+              <button
+                onClick={sendMessage}
+                disabled={loading || !input.trim()}
+                className="px-6 lg:px-8 py-3 bg-gradient-to-r from-[#62D4F9] to-[#40FFD9] text-black rounded-xl hover:from-[#40FFD9] hover:to-[#62D4F9] disabled:from-white/10 disabled:to-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base"
+                style={{
+                  boxShadow: !loading && input.trim() 
+                    ? '0 4px 20px rgba(98, 212, 249, 0.4), 0 0 30px rgba(64, 255, 217, 0.3)'
+                    : 'none'
+                }}
+              >
+                Send
+              </button>
+            </div>
+            
+            <div className="text-center space-y-1">
+              <p 
+                className="text-sm text-white font-medium montserrat-header"
+                style={{ 
+                  textShadow: '0 0 8px rgba(98, 212, 249, 0.5)',
+                  letterSpacing: '0.1em'
+                }}
+              >
+                Stop talking about AI. Start closing with it.
+              </p>
+              <p className="text-xs text-white/60">
+                Copyright © CoreSentia 2025
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

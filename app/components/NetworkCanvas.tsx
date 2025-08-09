@@ -31,20 +31,33 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
   const mouse = useRef({ x: -9999, y: -9999, r: 110 })
 
   useEffect(() => {
+    // Check if we're in the browser
+    if (typeof window === 'undefined') return
+
     const bg = bgRef.current
     const fg = fgRef.current
     if (!bg || !fg) return
 
-    const bgCtxTemp = bg.getContext('2d')
-    const ctxTemp = fg.getContext('2d')
-    if (!bgCtxTemp || !ctxTemp) {
-      console.error('Failed to get canvas context')
+    // Try to get context with error handling
+    let bgCtx: CanvasRenderingContext2D | null = null
+    let ctx: CanvasRenderingContext2D | null = null
+    
+    try {
+      bgCtx = bg.getContext('2d')
+      ctx = fg.getContext('2d')
+    } catch (e) {
+      console.error('Failed to get canvas context:', e)
       return
     }
 
-    // Store in constants that TypeScript knows are non-null
-    const bgCtx: CanvasRenderingContext2D = bgCtxTemp
-    const ctx: CanvasRenderingContext2D = ctxTemp
+    if (!bgCtx || !ctx) {
+      console.error('Canvas context is null')
+      return
+    }
+
+    // Now TypeScript knows these are non-null
+    const bgContext = bgCtx
+    const context = ctx
 
     const reduceMotion =
       window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches === true
@@ -54,8 +67,8 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
     let h = window.innerHeight
 
     const drawBackground = () => {
-      bgCtx.fillStyle = COLORS.BLACK
-      bgCtx.fillRect(0, 0, w, h)
+      bgContext.fillStyle = COLORS.BLACK
+      bgContext.fillRect(0, 0, w, h)
     }
 
     const setSize = () => {
@@ -69,8 +82,8 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
       bg.style.height = `${h}px`
       fg.style.width = `${w}px`
       fg.style.height = `${h}px`
-      bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      bgContext.setTransform(dpr, 0, 0, dpr, 0, 0)
+      context.setTransform(dpr, 0, 0, dpr, 0, 0)
       drawBackground()
       rebuild()
     }
@@ -144,7 +157,7 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
     }
 
     function drawFrame(t: number) {
-      ctx.clearRect(0, 0, w, h)
+      context.clearRect(0, 0, w, h)
 
       // Update particles
       for (let p of particles) {
@@ -175,7 +188,7 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
       indexGrid()
 
       // Lines
-      ctx.lineCap = 'round'
+      context.lineCap = 'round'
       for (let c = 0; c < cols; c++) {
         for (let r = 0; r < rows; r++) {
           const ids = grid[c][r]
@@ -204,12 +217,12 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
                     const nearMouse = mDist < mouse.current.r * 1.1
                     const color = nearMouse ? chooseAccent(a.seed + b.seed) : COLORS.WHITE
 
-                    ctx.lineWidth = lineWidth * (0.6 + 1.6 * tight)
-                    ctx.strokeStyle = rgba(color, 0.9 - 0.5 * (d / maxDist))
-                    ctx.beginPath()
-                    ctx.moveTo(a.x, a.y)
-                    ctx.lineTo(b.x, b.y)
-                    ctx.stroke()
+                    context.lineWidth = lineWidth * (0.6 + 1.6 * tight)
+                    context.strokeStyle = rgba(color, 0.9 - 0.5 * (d / maxDist))
+                    context.beginPath()
+                    context.moveTo(a.x, a.y)
+                    context.lineTo(b.x, b.y)
+                    context.stroke()
                   }
                 }
               }
@@ -224,10 +237,10 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
           const useAccent = Math.abs(Math.sin(p.seed * 5.7)) > 0.92
           const color =
             useAccent && accentMode !== 'cyan' ? chooseAccent(p.seed) : COLORS.WHITE
-          ctx.fillStyle = rgba(color, 0.9 * nodeEmphasis)
-          ctx.beginPath()
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-          ctx.fill()
+          context.fillStyle = rgba(color, 0.9 * nodeEmphasis)
+          context.beginPath()
+          context.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+          context.fill()
         }
       }
     }
@@ -235,8 +248,12 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
     function start() {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       const loop = (t: number) => {
-        drawFrame(t)
-        rafRef.current = requestAnimationFrame(loop)
+        try {
+          drawFrame(t)
+          rafRef.current = requestAnimationFrame(loop)
+        } catch (e) {
+          console.error('Error in animation loop:', e)
+        }
       }
       rafRef.current = requestAnimationFrame(loop)
     }
@@ -263,6 +280,11 @@ const NetworkCanvas: React.FC<NetworkCanvasProps> = ({
       window.removeEventListener('mouseleave', onLeave)
     }
   }, [density, maxDist, lineWidth, nodeEmphasis, accentMode])
+
+  // Don't render anything if we're not in the browser
+  if (typeof window === 'undefined') {
+    return null
+  }
 
   return (
     <>

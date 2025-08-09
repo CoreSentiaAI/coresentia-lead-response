@@ -3,12 +3,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import Image from 'next/image'
-import { Montserrat } from 'next/font/google'
-
-const montserrat = Montserrat({ 
-  subsets: ['latin'],
-  weight: ['400', '500', '600']
-})
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -160,6 +154,14 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
 
+  // Load Montserrat font
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }, []);
+
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     const scrollToBottom = () => {
@@ -190,7 +192,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         container.removeEventListener('scroll', handleScroll);
       };
     }
-  }, []); // Empty dependency array
+  }, [lead]); // Add lead as dependency to satisfy ESLint
 
   useEffect(() => {
     const initializeLead = async () => {
@@ -376,7 +378,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden">
-      {/* Add custom scrollbar styles */}
+      {/* Add custom scrollbar styles and font */}
       <style jsx global>{`
         /* Custom Scrollbar Styles */
         .custom-scrollbar::-webkit-scrollbar {
@@ -430,6 +432,11 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             box-shadow: 0 0 12px #62D4F9, 0 0 20px #62D4F9;
           }
         }
+
+        .montserrat-header {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 400;
+        }
       `}</style>
 
       {/* Header - Collapsible */}
@@ -460,7 +467,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             />
           </div>
           <h5 
-            className={`text-white font-normal transition-all duration-300 ${montserrat.className} ${
+            className={`text-white font-normal transition-all duration-300 montserrat-header ${
               headerCollapsed 
                 ? 'opacity-0 max-h-0 overflow-hidden' 
                 : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'

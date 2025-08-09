@@ -54,7 +54,7 @@ export default function HomePage() {
         </section>
 
         {/* Why CoreSentia Wins Section */}
-        <section className="py-20 px-6 border-t border-white/10">
+        <section className="py-20 px-6">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-montserrat font-light text-white text-center mb-16 tracking-[0.15em]">
               Why businesses choose CoreSentia
@@ -133,7 +133,7 @@ export default function HomePage() {
         </section>
 
         {/* Choose Your Path Section */}
-        <section id="packages" className="py-20 px-6 border-t border-white/10">
+        <section id="packages" className="py-20 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-montserrat font-light text-white mb-6 tracking-[0.15em]">
@@ -289,7 +289,7 @@ export default function HomePage() {
         </section>
 
         {/* Subscription Comparison Section */}
-        <section className="py-24 px-4 md:px-8 border-t border-white/10">
+        <section className="py-24 px-4 md:px-8">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-montserrat font-light text-white text-center mb-6 tracking-[0.15em]">
               Stop juggling 5, 10, 12 AI subscriptions
@@ -364,7 +364,7 @@ export default function HomePage() {
         </section>
 
         {/* What Your AI Does Section */}
-        <section className="py-20 px-6 border-t border-white/10">
+        <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-montserrat font-light text-white text-center mb-12 tracking-[0.15em]">
               What your AI sales assistant actually does
@@ -423,7 +423,7 @@ export default function HomePage() {
         </section>
 
         {/* Industry Solutions Section */}
-        <section className="py-20 px-6 border-t border-white/10">
+        <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-montserrat font-light text-white text-center mb-4 tracking-[0.15em]">
               Pre-configured for your industry
@@ -473,7 +473,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6 border-t border-white/10">
+        <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-light mb-8 font-montserrat tracking-[0.15em]">
               Experience AI that actually
@@ -496,7 +496,7 @@ export default function HomePage() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 px-6 border-t border-white/10">
+        <footer className="py-12 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
@@ -534,7 +534,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="mt-12 pt-8 border-t border-white/10 text-center text-white">
+            <div className="mt-12 pt-8 text-center text-white">
               <p className="font-montserrat tracking-[0.15em]">&copy; 2025 CoreSentia. Stop renting AI. Start owning it.</p>
             </div>
           </div>

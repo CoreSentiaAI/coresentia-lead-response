@@ -64,7 +64,7 @@ const formatMessage = (text: string) => {
       
       if (match[1]) {
         // Bold text
-        elements.push(<strong key={`bold-${match.index}`}>{match[2]}</strong>);
+        elements.push(<strong key={`bold-${match.index}`} className="font-semibold text-[#40FFD9]">{match[2]}</strong>);
       } else if (match[3]) {
         // Link
         elements.push(
@@ -74,7 +74,7 @@ const formatMessage = (text: string) => {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[#62D4F9] underline hover:text-[#40FFD9] transition-colors"
-            style={{ textShadow: '0 0 5px #62D4F9' }}
+            style={{ textShadow: '0 0 8px #62D4F9' }}
           >
             {match[4]}
           </a>
@@ -106,7 +106,7 @@ const formatMessage = (text: string) => {
       const bulletContent = line.trim().substring(2);
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 4px #62D4F9' }}>•</span>
+          <span className="mr-2 text-[#40FFD9]" style={{ textShadow: '0 0 6px #40FFD9' }}>•</span>
           <span>{processInlineFormatting(bulletContent)}</span>
         </div>
       );
@@ -117,7 +117,7 @@ const formatMessage = (text: string) => {
     if (numberedMatch) {
       return (
         <div key={lineIndex} className="flex items-start mb-2 ml-2">
-          <span className="mr-2 text-[#62D4F9]" style={{ textShadow: '0 0 4px #62D4F9' }}>{numberedMatch[1]}</span>
+          <span className="mr-2 text-[#40FFD9]" style={{ textShadow: '0 0 6px #40FFD9' }}>{numberedMatch[1]}</span>
           <span>{processInlineFormatting(numberedMatch[2])}</span>
         </div>
       );
@@ -127,7 +127,7 @@ const formatMessage = (text: string) => {
     if (line.trim().startsWith('##')) {
       const headerContent = line.trim().substring(2).trim();
       return (
-        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 6px #62D4F9' }}>
+        <div key={lineIndex} className="font-semibold text-lg mb-3 mt-4 text-[#62D4F9]" style={{ textShadow: '0 0 10px #62D4F9' }}>
           {processInlineFormatting(headerContent)}
         </div>
       );
@@ -157,7 +157,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   // Load Montserrat font
   useEffect(() => {
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Open+Sans:wght@400;600&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
   }, []);
@@ -382,29 +382,29 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       <style jsx global>{`
         /* Custom Scrollbar Styles */
         .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
+          width: 10px;
         }
         
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 4px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 5px;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #62D4F9;
-          border-radius: 4px;
-          box-shadow: 0 0 2px #62D4F9;
+          background: linear-gradient(180deg, #62D4F9, #2A50DF);
+          border-radius: 5px;
+          box-shadow: 0 0 6px #62D4F9;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #40FFD9;
-          box-shadow: 0 0 5px #40FFD9;
+          background: linear-gradient(180deg, #40FFD9, #62D4F9);
+          box-shadow: 0 0 10px #40FFD9;
         }
 
         /* Firefox */
         .custom-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: #62D4F9 rgba(255, 255, 255, 0.05);
+          scrollbar-color: #62D4F9 rgba(0, 0, 0, 0.3);
         }
 
         /* Fade in animation */
@@ -426,194 +426,29 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         /* Glow pulse animation */
         @keyframes glowPulse {
           0%, 100% {
-            box-shadow: 0 0 8px #62D4F9, 0 0 16px #62D4F9;
+            box-shadow: 0 0 10px #62D4F9, 0 0 20px #62D4F9, 0 0 30px rgba(98, 212, 249, 0.4);
           }
           50% {
-            box-shadow: 0 0 12px #62D4F9, 0 0 20px #62D4F9;
+            box-shadow: 0 0 15px #62D4F9, 0 0 25px #62D4F9, 0 0 40px rgba(98, 212, 249, 0.6);
           }
         }
 
         .montserrat-header {
           font-family: 'Montserrat', sans-serif;
           font-weight: 400;
+          letter-spacing: 0.15em;
+        }
+        
+        body {
+          font-family: 'Open Sans', system-ui, sans-serif;
         }
       `}</style>
 
-      {/* Header - Collapsible */}
+      {/* Header - Collapsible with HDR effect */}
       <div 
         className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
           headerCollapsed 
-            ? 'bg-black/95 backdrop-blur-xl py-2' 
-            : 'bg-black/80 backdrop-blur-md py-4 sm:py-6'
+            ? 'bg-black/90 backdrop-blur-2xl py-2' 
+            : 'bg-black/70 backdrop-blur-xl py-4 sm:py-6'
         }`}
-        style={{
-          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.15)' : '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: headerCollapsed 
-            ? '0 2px 8px rgba(98, 212, 249, 0.12)' 
-            : '0 1px 5px rgba(98, 212, 249, 0.08)'
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
-            <Image 
-              src="/CoreSentia_Transparent_Logo.png" 
-              alt="CoreSentia" 
-              width={300}
-              height={120}
-              className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
-              style={{
-                filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
-              }}
-            />
-          </div>
-          <h5 
-            className={`text-white font-normal transition-all duration-300 montserrat-header ${
-              headerCollapsed 
-                ? 'opacity-0 max-h-0 overflow-hidden' 
-                : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'
-            }`}
-          >
-            Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
-          </h5>
-        </div>
-      </div>
-
-      {/* Main Chat Area with Glass Container */}
-      <div className="flex-1 p-4 overflow-hidden">
-        <div 
-          className="h-full max-w-6xl w-full mx-auto flex flex-col"
-          style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(98, 212, 249, 0.3)',
-            borderRadius: '20px',
-          }}
-        >
-          {/* Messages Container - Fixed height constraint */}
-          <div 
-            ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden p-6 custom-scrollbar"
-            style={{ minHeight: 0 }} // Important for flexbox overflow
-          >
-            <div className="space-y-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
-                >
-                  {message.role === 'assistant' && (
-                    <div 
-                      className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0"
-                      style={{
-                        boxShadow: '0 0 8px #62D4F9, 0 0 16px #62D4F9'
-                      }}
-                    >
-                      <span className="text-black text-sm font-bold">I</span>
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed ${
-                      message.role === 'user' 
-                        ? 'bg-[#2A50DF] text-white border border-[#2A50DF]' 
-                        : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white'
-                    }`}
-                    style={{
-                      boxShadow: message.role === 'user'
-                        ? '0 0 12px #2A50DF, 0 0 20px #2A50DF'
-                        : '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
-                    }}
-                  >
-                    {message.role === 'user' ? message.content : formatMessage(message.content)}
-                  </div>
-                </div>
-              ))}
-              {loading && (
-                <div className="flex justify-start animate-fadeIn">
-                  <div 
-                    className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse"
-                    style={{
-                      animation: 'glowPulse 2s ease-in-out infinite',
-                    }}
-                  >
-                    <span className="text-black text-sm font-bold">I</span>
-                  </div>
-                  <div 
-                    className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-5 py-3 rounded-2xl"
-                    style={{
-                      boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
-                    }}
-                  >
-                    <div className="flex space-x-1">
-                      <div 
-                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                        style={{
-                          animationDelay: '0ms',
-                          boxShadow: '0 0 2px #62D4F9'
-                        }}
-                      ></div>
-                      <div 
-                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                        style={{
-                          animationDelay: '150ms',
-                          boxShadow: '0 0 2px #62D4F9'
-                        }}
-                      ></div>
-                      <div 
-                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                        style={{
-                          animationDelay: '300ms',
-                          boxShadow: '0 0 2px #62D4F9'
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-          </div>
-
-          {/* Input Area */}
-          <div className="flex-shrink-0 p-6 border-t border-[#62D4F9]/30">
-            <div className="flex space-x-3 mb-4">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                placeholder="Type your message..."
-                style={{ fontSize: '16px' }}
-                className="flex-1 px-5 py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all text-base"
-              />
-              <button
-                onClick={sendMessage}
-                disabled={loading || !input.trim()}
-                className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-xl hover:bg-[#40FFD9] disabled:bg-white/10 disabled:cursor-not-allowed transition-all font-semibold text-base border border-[#62D4F9]"
-                style={{
-                  boxShadow: !loading && input.trim() 
-                    ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
-                    : 'none'
-                }}
-              >
-                Send
-              </button>
-            </div>
-            
-            <div className="text-center space-y-1">
-              <p 
-                className="text-sm text-white/90 font-medium"
-                style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}
-              >
-                Stop talking about AI. Start closing with it.
-              </p>
-              <p className="text-xs text-white/60">
-                Copyright © CoreSentia 2025
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+        st

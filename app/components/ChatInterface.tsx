@@ -485,32 +485,28 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               </h5>
             </div>
             
-            {/* Back to Homepage Button */}
+            {/* Back to Homepage Button - Primary Button Style */}
             <Link 
               href="/"
               className={`
                 ml-4 px-4 sm:px-6 py-2 sm:py-2.5 
-                text-white text-sm sm:text-base font-medium montserrat-header
-                border border-white/30 rounded-full
-                hover:border-[#62D4F9] hover:text-[#62D4F9]
+                text-black text-sm sm:text-base font-semibold montserrat-header
+                bg-[#62D4F9] border border-[#62D4F9] rounded-full
+                hover:bg-[#40FFD9] hover:border-[#40FFD9]
                 transition-all duration-300 ease-out
-                backdrop-blur-md bg-black/30
                 hover:scale-105
                 flex items-center gap-2
                 whitespace-nowrap
                 ${headerCollapsed ? 'scale-90' : ''}
               `}
               style={{
-                textShadow: '0 0 2px rgba(255, 255, 255, 0.25)',
-                boxShadow: '0 0 8px rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 0 8px #62D4F9, 0 0 16px #62D4F9',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.textShadow = '0 0 8px #62D4F9';
-                e.currentTarget.style.boxShadow = '0 0 12px rgba(98, 212, 249, 0.5)';
+                e.currentTarget.style.boxShadow = '0 0 12px #40FFD9, 0 0 20px #40FFD9';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.textShadow = '0 0 2px rgba(255, 255, 255, 0.25)';
-                e.currentTarget.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.boxShadow = '0 0 8px #62D4F9, 0 0 16px #62D4F9';
               }}
             >
               <svg 

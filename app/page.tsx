@@ -32,7 +32,7 @@ export default function HomePage() {
               <p className="text-lg sm:text-xl md:text-2xl text-white mb-3 md:mb-4 font-light font-montserrat tracking-[0.1em]">
                 Stop renting AI. Start owning it.
               </p>
-              <p className="text-sm sm:text-base md:text-lg text-[#2A50DF] mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em] drop-shadow-[0_0_4px_#40FFD9]">
+              <p className="text-sm sm:text-base md:text-lg text-white/90 mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em]">
                 From managed lead responder solutions, to custom AI and websites you own forever
               </p>
             </div>
@@ -55,8 +55,8 @@ export default function HomePage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Economics Card */}
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-                <div className="text-[#62D4F9] mb-4">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#2A50DF]/30 transition-all">
+                <div className="text-[#2A50DF] mb-4">
                   <TrendingUp size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">The Economics Are Insane</h3>
@@ -80,8 +80,8 @@ export default function HomePage() {
               </div>
 
               {/* Unlimited Card */}
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-                <div className="text-[#62D4F9] mb-4">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#2A50DF]/30 transition-all">
+                <div className="text-[#2A50DF] mb-4">
                   <MessageSquare size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Unlimited Everything</h3>
@@ -102,8 +102,8 @@ export default function HomePage() {
               </div>
 
               {/* Speed Card */}
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-                <div className="text-[#62D4F9] mb-4">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#2A50DF]/30 transition-all">
+                <div className="text-[#2A50DF] mb-4">
                   <Zap size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Have you bot live in weeks</h3>
@@ -145,10 +145,10 @@ export default function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Essentials Package */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all relative">
-                <div className="absolute -top-3 left-8 bg-[#62D4F9] text-black px-4 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute -top-3 left-8 bg-[#2A50DF] text-white px-4 py-1 rounded-full text-sm font-semibold">
                   ⚡ 2-Week Delivery
                 </div>
-                <div className="text-[#62D4F9] mb-4">
+                <div className="text-[#2A50DF] mb-4">
                   <Zap size={48} />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Essentials</h3>
@@ -157,27 +157,27 @@ export default function HomePage() {
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Intelligent chat bot trained on your FAQs</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">SMS & email follow-up cascade</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">PDF quote generation</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Up to 1,000 conversations/month</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Wrench className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Wrench className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Fully managed by CoreSentia</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Shield className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Shield className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Industry-proven templates</span>
                   </div>
                 </div>
@@ -187,7 +187,7 @@ export default function HomePage() {
 
               {/* Custom Package */}
               <div className="bg-black/50 backdrop-blur-xl border border-[#62D4F9]/30 rounded-2xl p-8 hover:border-[#62D4F9]/50 transition-all relative shadow-[0_0_30px_rgba(98,212,249,0.1)]">
-                <div className="absolute -top-3 left-8 bg-[#40FFD9] text-black px-4 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute -top-3 left-8 bg-[#62D4F9] text-black px-4 py-1 rounded-full text-sm font-semibold">
                   💡 Most Popular
                 </div>
                 <div className="text-[#62D4F9] mb-4">
@@ -229,7 +229,10 @@ export default function HomePage() {
 
               {/* Website + AI Bundle Package */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all relative">
-                <div className="text-[#62D4F9] mb-4">
+                <div className="absolute -top-3 left-8 bg-[#2A50DF] text-white px-4 py-1 rounded-full text-sm font-semibold">
+                  🌐 Complete Solution
+                </div>
+                <div className="text-[#2A50DF] mb-4">
                   <Globe size={48} />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Website + AI Bundle</h3>
@@ -238,27 +241,27 @@ export default function HomePage() {
                 
                 <div className="space-y-3 mb-8">
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm font-bold">UNLIMITED conversations</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Professional Next.js website (5-10 pages)</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Custom AI bot fully integrated</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">SEO optimisation from launch</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Unified analytics across site and bot</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Unlock className="w-5 h-5 text-[#62D4F9] mt-0.5 flex-shrink-0" />
+                    <Unlock className="w-5 h-5 text-[#2A50DF] mt-0.5 flex-shrink-0" />
                     <span className="text-white text-sm">Own the code forever</span>
                   </div>
                 </div>
@@ -320,8 +323,8 @@ export default function HomePage() {
               </div>
 
               {/* The CoreSentia Way */}
-              <div className="bg-black/50 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-8 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(98,212,249,0.2)]">
-                <Zap className="w-12 h-12 text-cyan-400 mb-6" />
+              <div className="bg-black/50 backdrop-blur-xl border border-[#2A50DF]/30 rounded-2xl p-8 hover:border-[#2A50DF]/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(42,80,223,0.2)]">
+                <Zap className="w-12 h-12 text-[#62D4F9] mb-6" />
                 <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.15em]">The CoreSentia Way</h3>
                 <ul className="space-y-4">
                   {[
@@ -332,13 +335,13 @@ export default function HomePage() {
                     'We&apos;ll host for a monthly fee, or take control at anytime - no more subscriptions'
                   ].map((item, i) => (
                     <li key={i} className="flex items-center text-white">
-                      <span className="text-cyan-400 mr-3">✓</span>
+                      <span className="text-[#62D4F9] mr-3">✓</span>
                       {item}
                     </li>
                   ))}
                 </ul>
                 <div className="mt-8 pt-6 border-t border-white/10">
-                  <p className="text-3xl font-bold text-cyan-400">$3k-$15k once + hosting, or we hand over the code</p>
+                  <p className="text-3xl font-bold text-[#62D4F9]">$3k-$15k once + hosting, or we hand over the code</p>
                 </div>
               </div>
             </div>
@@ -352,7 +355,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/chat/homepage-visitor"
-                className="inline-block bg-[#40FFD9] text-white px-8 py-4 rounded-full font-semibold border border-[#40FFD9] hover:bg-[#62D4F9] hover:border-[#62D4F9] hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_8px_#62D4F9]"
+                className="inline-block bg-[#2A50DF] text-white px-8 py-4 rounded-full font-semibold border border-[#2A50DF] hover:bg-[#62D4F9] hover:border-[#62D4F9] hover:text-black transition-all duration-300 hover:scale-105"
               >
                 Book your AI Reality Check™
               </Link>
@@ -367,8 +370,8 @@ export default function HomePage() {
               What your AI sales assistant actually does
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-                <div className="text-[#62D4F9] mb-4">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#2A50DF]/30 transition-all">
+                <div className="text-[#2A50DF] mb-4">
                   <Zap size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Response</h3>
@@ -383,8 +386,8 @@ export default function HomePage() {
                 <p className="text-white font-bold mb-2">Filters tyre-kickers automatically</p>
                 <p className="text-white text-sm">Natural conversation to identify intent, budget, timeline, and authority level.</p>
               </div>
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-                <div className="text-[#62D4F9] mb-4">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#2A50DF]/30 transition-all">
+                <div className="text-[#2A50DF] mb-4">
                   <FileText size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Quotes</h3>
@@ -399,8 +402,8 @@ export default function HomePage() {
                 <p className="text-white font-bold mb-2">Meetings booked automatically</p>
                 <p className="text-white text-sm">Direct calendar integration. No back-and-forth emails ever again.</p>
               </div>
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
-                <div className="text-[#62D4F9] mb-4">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#2A50DF]/30 transition-all">
+                <div className="text-[#2A50DF] mb-4">
                   <MessageSquare size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Multi-Channel</h3>
@@ -429,7 +432,7 @@ export default function HomePage() {
               Same pricing, industry-specific workflows included
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-[#62D4F9]/30 transition-all">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-[#2A50DF]/30 transition-all">
                 <h3 className="text-lg font-semibold mb-3 text-[#62D4F9]">🏥 Healthcare</h3>
                 <ul className="text-sm text-white space-y-2">
                   <li>• Medicare/private FAQs</li>
@@ -447,7 +450,7 @@ export default function HomePage() {
                   <li>• Market appraisals</li>
                 </ul>
               </div>
-              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-[#62D4F9]/30 transition-all">
+              <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-[#2A50DF]/30 transition-all">
                 <h3 className="text-lg font-semibold mb-3 text-[#62D4F9]">🔧 Trades</h3>
                 <ul className="text-sm text-white space-y-2">
                   <li>• Job qualification</li>

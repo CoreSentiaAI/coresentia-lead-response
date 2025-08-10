@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import Image from 'next/image'
+import Link from 'next/link'
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -444,7 +445,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       `}</style>
 
-      {/* Header - Collapsible HDR style with conditional homepage button */}
+      {/* Header - Collapsible HDR style with Back to Homepage button */}
       <div 
         className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
           headerCollapsed 
@@ -460,49 +461,75 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
-              <Image 
-                src="/CoreSentia_Transparent_Logo.png" 
-                alt="CoreSentia" 
-                width={300}
-                height={120}
-                className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
-                style={{
-                  filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
-                }}
-              />
+            <div className="flex-1">
+              <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
+                <Image 
+                  src="/CoreSentia_Transparent_Logo.png" 
+                  alt="CoreSentia" 
+                  width={300}
+                  height={120}
+                  className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
+                  style={{
+                    filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
+                  }}
+                />
+              </div>
+              <h5 
+                className={`text-white font-normal transition-all duration-300 montserrat-header ${
+                  headerCollapsed 
+                    ? 'opacity-0 max-h-0 overflow-hidden' 
+                    : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'
+                }`}
+              >
+                Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
+              </h5>
             </div>
             
-            {/* Homepage Button - Only show when NOT on homepage */}
-            {leadId !== 'homepage-visitor' && (
-              
-                href="/"
-                className="px-4 py-2 bg-transparent border border-white/30 text-white text-sm rounded-full hover:bg-[#62D4F9]/20 hover:border-[#62D4F9] hover:scale-105 transition-all duration-300 montserrat-header"
-                style={{
-                  letterSpacing: '0.1em',
-                  textShadow: '0 0 2px rgba(255, 255, 255, 0.25)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 8px rgba(98, 212, 249, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
+            {/* Back to Homepage Button */}
+            <Link 
+              href="/"
+              className={`
+                ml-4 px-4 sm:px-6 py-2 sm:py-2.5 
+                text-white text-sm sm:text-base font-medium montserrat-header
+                border border-white/30 rounded-full
+                hover:border-[#62D4F9] hover:text-[#62D4F9]
+                transition-all duration-300 ease-out
+                backdrop-blur-md bg-black/30
+                hover:scale-105
+                flex items-center gap-2
+                whitespace-nowrap
+                ${headerCollapsed ? 'scale-90' : ''}
+              `}
+              style={{
+                textShadow: '0 0 2px rgba(255, 255, 255, 0.25)',
+                boxShadow: '0 0 8px rgba(255, 255, 255, 0.1)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.textShadow = '0 0 8px #62D4F9';
+                e.currentTarget.style.boxShadow = '0 0 12px rgba(98, 212, 249, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.textShadow = '0 0 2px rgba(255, 255, 255, 0.25)';
+                e.currentTarget.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              <svg 
+                className="w-4 h-4" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
               >
-                Visit Homepage
-              </a>
-            )}
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18" 
+                />
+              </svg>
+              <span className="hidden sm:inline">Back to Homepage</span>
+              <span className="sm:hidden">Back</span>
+            </Link>
           </div>
-          
-          <h5 
-            className={`text-white font-normal transition-all duration-300 montserrat-header ${
-              headerCollapsed 
-                ? 'opacity-0 max-h-0 overflow-hidden' 
-                : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'
-            }`}
-          >
-            Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
-          </h5>
         </div>
       </div>
 

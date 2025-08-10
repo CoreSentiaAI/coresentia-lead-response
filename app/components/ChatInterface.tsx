@@ -485,45 +485,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               </h5>
             </div>
             
-            {/* Back to Homepage Button - Primary Button Style */}
+            {/* Back to Homepage Button - Matching homepage Chat with Ivy style */}
             <Link 
               href="/"
-              className={`
-                ml-4 px-4 sm:px-6 py-2 sm:py-2.5 
-                text-black text-sm sm:text-base font-semibold montserrat-header
-                bg-[#62D4F9] border border-[#62D4F9] rounded-full
-                hover:bg-[#40FFD9] hover:border-[#40FFD9]
-                transition-all duration-300 ease-out
-                hover:scale-105
-                flex items-center gap-2
-                whitespace-nowrap
-                ${headerCollapsed ? 'scale-90' : ''}
-              `}
-              style={{
-                boxShadow: '0 0 8px #62D4F9, 0 0 16px #62D4F9',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 12px #40FFD9, 0 0 20px #40FFD9';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 8px #62D4F9, 0 0 16px #62D4F9';
-              }}
+              className="inline-block px-8 py-3 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
             >
-              <svg 
-                className="w-4 h-4" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18" 
-                />
-              </svg>
-              <span className="hidden sm:inline">Back to Homepage</span>
-              <span className="sm:hidden">Back</span>
+              ← Back to Homepage
             </Link>
           </div>
         </div>

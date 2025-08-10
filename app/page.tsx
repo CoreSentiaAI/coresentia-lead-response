@@ -32,23 +32,17 @@ export default function HomePage() {
               <p className="text-lg sm:text-xl md:text-2xl text-white mb-3 md:mb-4 font-light font-montserrat tracking-[0.1em]">
                 Stop renting AI. Start owning it.
               </p>
-              <p className="text-sm sm:text-base md:text-lg text-[#62D4F9] mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em]">
+              <p className="text-sm sm:text-base md:text-lg text-[#2A50DF] mb-8 md:mb-12 font-light font-montserrat tracking-[0.1em] drop-shadow-[0_0_4px_#40FFD9]">
                 From managed lead responder solutions, to custom AI and websites you own forever
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex justify-center">
               <Link 
                 href="/chat/homepage-visitor" 
-                className="inline-block px-8 py-3 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
+                className="inline-block px-12 py-4 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9] w-full sm:w-auto max-w-xs"
               >
                 Chat with Ivy →
               </Link>
-              <a 
-                href="#packages" 
-                className="px-8 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-all text-lg"
-              >
-                View our solutions
-              </a>
             </div>
           </div>
         </section>
@@ -63,7 +57,7 @@ export default function HomePage() {
               {/* Economics Card */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <TrendingUp size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <TrendingUp size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">The Economics Are Insane</h3>
                 <p className="text-white mb-3">
@@ -77,7 +71,7 @@ export default function HomePage() {
               {/* Ownership Card */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <Unlock size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Unlock size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">You OWN It</h3>
                 <p className="text-white">
@@ -88,7 +82,7 @@ export default function HomePage() {
               {/* Unlimited Card */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <MessageSquare size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <MessageSquare size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Unlimited Everything</h3>
                 <p className="text-white">
@@ -99,7 +93,7 @@ export default function HomePage() {
               {/* Australian Card */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <Users size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Users size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">100% Australian</h3>
                 <p className="text-white">
@@ -110,7 +104,7 @@ export default function HomePage() {
               {/* Speed Card */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Zap size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Have you bot live in weeks</h3>
                 <p className="text-white">
@@ -121,7 +115,7 @@ export default function HomePage() {
               {/* ROI Card */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <DollarSign size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <DollarSign size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Break-Even in 4-5 Months</h3>
                 <p className="text-white">
@@ -155,7 +149,7 @@ export default function HomePage() {
                   ⚡ 2-Week Delivery
                 </div>
                 <div className="text-[#62D4F9] mb-4">
-                  <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Zap size={48} />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Essentials</h3>
                 <p className="text-3xl font-bold text-white mb-2">$3,000</p>
@@ -197,7 +191,7 @@ export default function HomePage() {
                   💡 Most Popular
                 </div>
                 <div className="text-[#62D4F9] mb-4">
-                  <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Brain size={48} />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Custom</h3>
                 <p className="text-3xl font-bold text-white mb-2">$10,000</p>
@@ -236,7 +230,7 @@ export default function HomePage() {
               {/* Website + AI Bundle Package */}
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all relative">
                 <div className="text-[#62D4F9] mb-4">
-                  <Globe size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Globe size={48} />
                 </div>
                 <h3 className="text-2xl font-montserrat font-semibold mb-2 tracking-[0.15em]">Website + AI Bundle</h3>
                 <p className="text-3xl font-bold text-white mb-2">$15,000</p>
@@ -279,10 +273,10 @@ export default function HomePage() {
                 <span className="font-semibold">Delivery:</span> Essentials (2 weeks) • Custom (1 month) • Bundle (2-month sprint)
               </p>
               <Link 
-                href="/products" 
-                className="inline-block px-8 py-3 bg-transparent border border-[#62D4F9] text-[#62D4F9] font-semibold rounded-full hover:bg-[#62D4F9] hover:text-black transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
+                href="/chat/homepage-visitor" 
+                className="inline-block px-12 py-4 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
               >
-                View detailed comparison →
+                Chat with Ivy →
               </Link>
             </div>
           </div>
@@ -327,7 +321,7 @@ export default function HomePage() {
 
               {/* The CoreSentia Way */}
               <div className="bg-black/50 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-8 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(98,212,249,0.2)]">
-                <Zap className="w-12 h-12 text-cyan-400 mb-6 drop-shadow-[0_0_8px_#62D4F9]" />
+                <Zap className="w-12 h-12 text-cyan-400 mb-6" />
                 <h3 className="text-2xl font-montserrat text-white mb-6 tracking-[0.15em]">The CoreSentia Way</h3>
                 <ul className="space-y-4">
                   {[
@@ -338,13 +332,13 @@ export default function HomePage() {
                     'We&apos;ll host for a monthly fee, or take control at anytime - no more subscriptions'
                   ].map((item, i) => (
                     <li key={i} className="flex items-center text-white">
-                      <span className="text-cyan-400 mr-3 drop-shadow-[0_0_4px_#62D4F9]">✓</span>
+                      <span className="text-cyan-400 mr-3">✓</span>
                       {item}
                     </li>
                   ))}
                 </ul>
                 <div className="mt-8 pt-6 border-t border-white/10">
-                  <p className="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_6px_#62D4F9]">$3k-$15k once + hosting, or we hand over the code</p>
+                  <p className="text-3xl font-bold text-cyan-400">$3k-$15k once + hosting, or we hand over the code</p>
                 </div>
               </div>
             </div>
@@ -353,9 +347,12 @@ export default function HomePage() {
               <p className="text-white text-xl mb-8">
                 Break-even in 4-5 months - no more subscriptions
               </p>
+              <p className="text-white text-base mb-6 max-w-2xl mx-auto">
+                AI Reality Check™ is a no-obligation 40-minute session to give you insights into how AI may be able to help your business
+              </p>
               <Link
                 href="/chat/homepage-visitor"
-                className="inline-block bg-cyan-400 text-black px-8 py-4 rounded-full font-semibold hover:bg-cyan-300 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_#62D4F9]"
+                className="inline-block bg-[#40FFD9] text-white px-8 py-4 rounded-full font-semibold border border-[#40FFD9] hover:bg-[#62D4F9] hover:border-[#62D4F9] hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_8px_#62D4F9]"
               >
                 Book your AI Reality Check™
               </Link>
@@ -372,7 +369,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <Zap size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Zap size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Response</h3>
                 <p className="text-white font-bold mb-2">Reply in seconds — not hours</p>
@@ -380,7 +377,7 @@ export default function HomePage() {
               </div>
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <Brain size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Brain size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Smart Qualification</h3>
                 <p className="text-white font-bold mb-2">Filters tyre-kickers automatically</p>
@@ -388,7 +385,7 @@ export default function HomePage() {
               </div>
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <FileText size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <FileText size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Instant Quotes</h3>
                 <p className="text-white font-bold mb-2">Professional PDFs in minutes</p>
@@ -396,7 +393,7 @@ export default function HomePage() {
               </div>
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <Calendar size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Calendar size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Seamless Booking</h3>
                 <p className="text-white font-bold mb-2">Meetings booked automatically</p>
@@ -404,7 +401,7 @@ export default function HomePage() {
               </div>
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <MessageSquare size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <MessageSquare size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Multi-Channel</h3>
                 <p className="text-white font-bold mb-2">Meet leads where they are</p>
@@ -412,7 +409,7 @@ export default function HomePage() {
               </div>
               <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-[#62D4F9]/30 transition-all">
                 <div className="text-[#62D4F9] mb-4">
-                  <Phone size={48} className="drop-shadow-[0_0_8px_#62D4F9]" />
+                  <Phone size={48} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 font-montserrat tracking-[0.15em]">Voice AI <span className="text-sm font-normal">(Coming Q2 2025)</span></h3>
                 <p className="text-white font-bold mb-2">Natural phone conversations</p>
@@ -500,11 +497,11 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat tracking-[0.15em]">Products</h4>
+                <h4 className="font-semibold mb-4 font-montserrat tracking-[0.15em]">Solutions</h4>
                 <ul className="space-y-2 text-white">
-                  <li><Link href="/products#essentials" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Essentials</Link></li>
-                  <li><Link href="/products#custom" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Custom</Link></li>
-                  <li><Link href="/products#bundle" className="hover:text-[#62D4F9] transition-colors">Website + AI Bundle</Link></li>
+                  <li><a href="#packages" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Essentials</a></li>
+                  <li><a href="#packages" className="hover:text-[#62D4F9] transition-colors">Lead-to-Deal Custom</a></li>
+                  <li><a href="#packages" className="hover:text-[#62D4F9] transition-colors">Website + AI Bundle</a></li>
                 </ul>
               </div>
               <div>

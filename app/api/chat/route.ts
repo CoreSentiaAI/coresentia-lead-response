@@ -36,12 +36,15 @@ When you decide to take specific actions, include these EXACT phrases somewhere 
 - To send a quote: Include "ACTION: GENERATE_QUOTE" 
 - To book a meeting: Include "ACTION: BOOK_MEETING"
 - For high-value alerts: Include "ACTION: HIGH_VALUE_ALERT"
+- To show AI Reality Check card: Include "ACTION: SHOW_REALITY_CHECK"
+- To show product cards: Include "ACTION: SHOW_PRODUCTS"
 
 **CRITICAL**: If an action fails because you're missing information (like email), you MUST include the action trigger again in your response after getting that information.
 
 You can work these naturally into your responses. For example:
 "I'll get that quote sorted for you right now (ACTION: GENERATE_QUOTE)"
 "Let me book that consultation for you (ACTION: BOOK_MEETING)"
+"Let me show you our AI Reality Check offer (ACTION: SHOW_REALITY_CHECK)"
 
 The user won't see these action tags - they trigger backend processes.
 
@@ -159,6 +162,13 @@ Most clients prefer we handle hosting because it's easier. But offering self-man
 - All features from Essentials PLUS unlimited customization
 - **Hosting:** $500/month
 - **Self-hosting option:** Additional $1,500 one-time fee for complete code ownership
+
+### AI Reality Check™
+- 40-minute strategy session
+- Free consultation to analyze current AI spend
+- Shows exactly how CoreSentia can replace multiple subscriptions
+- Personal attention from the founder
+- Evening slots available for focused discussion
 
 ### Positioning the Products
 - Essentials = "Get started quickly and prove the ROI"
@@ -410,6 +420,63 @@ export async function POST(request: NextRequest) {
 
     const ivyResponse = data.content[0].text
 
+    // Check for persistent card triggers
+    const persistentCards: string[] = []
+    
+    // Check if Ivy included the ACTION trigger for Reality Check
+    if (ivyResponse.includes('ACTION: SHOW_REALITY_CHECK')) {
+      persistentCards.push('reality_check')
+    }
+    
+    // Also check for natural mentions of booking or strategy session
+    const lowerResponse = ivyResponse.toLowerCase()
+    const hasBookingMention = lowerResponse.includes('reality check') || 
+                              lowerResponse.includes('40-minute') ||
+                              lowerResponse.includes('40 minute') ||
+                              lowerResponse.includes('strategy session') ||
+                              lowerResponse.includes('book a meeting') ||
+                              lowerResponse.includes('book your session')
+    
+    // Check if user asked about meetings/consultations
+    const userAskedAboutMeeting = messages.some(m => 
+      m.role === 'user' && (
+        m.content.toLowerCase().includes('meeting') ||
+        m.content.toLowerCase().includes('consultation') ||
+        m.content.toLowerCase().includes('chat') ||
+        m.content.toLowerCase().includes('discuss')
+      )
+    )
+    
+    if ((hasBookingMention || userAskedAboutMeeting) && !persistentCards.includes('reality_check')) {
+      persistentCards.push('reality_check')
+    }
+    
+    // Check for product card triggers
+    if (ivyResponse.includes('ACTION: SHOW_PRODUCTS')) {
+      persistentCards.push('product_cards')
+    }
+    
+    // Also check for natural product mentions
+    const hasProductMention = lowerResponse.includes('essentials') ||
+                              lowerResponse.includes('custom') ||
+                              lowerResponse.includes('$3,000') ||
+                              lowerResponse.includes('$10,000') ||
+                              lowerResponse.includes('lead-to-deal')
+    
+    const userAskedAboutProducts = messages.some(m => 
+      m.role === 'user' && (
+        m.content.toLowerCase().includes('product') ||
+        m.content.toLowerCase().includes('pricing') ||
+        m.content.toLowerCase().includes('packages') ||
+        m.content.toLowerCase().includes('options')
+      )
+    )
+    
+    if ((hasProductMention || userAskedAboutProducts) && !persistentCards.includes('product_cards')) {
+      // We'll add product_cards when implemented
+      // persistentCards.push('product_cards')
+    }
+
     // Save conversation to database if we have a real leadId (not special ones)
     if (actualLeadId && !isSpecialLeadId && actualLeadId !== 'test123') {
       console.log('Saving conversation for lead:', actualLeadId)
@@ -464,11 +531,13 @@ export async function POST(request: NextRequest) {
     // Extract any actions from the response, passing current lead data
     const actions = extractActions(ivyResponse, actualLeadId, currentLeadData, messages)
     console.log('Actions extracted:', JSON.stringify(actions, null, 2))
+    console.log('Persistent cards:', persistentCards)
     
     return NextResponse.json({ 
       message: ivyResponse,
       actions: actions,
-      leadId: actualLeadId // Return the leadId so frontend can track it
+      leadId: actualLeadId,
+      persistentCards: persistentCards // Add persistent cards to response
     })
   } catch (error) {
     console.error('Chat API error:', error)

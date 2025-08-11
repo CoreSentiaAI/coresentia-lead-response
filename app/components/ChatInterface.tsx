@@ -30,44 +30,74 @@ interface ChatInterfaceProps {
   leadId: string
 }
 
+// Persistent container components
+const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
+  return (
+    <div className="bg-gradient-to-r from-[#2A50DF]/10 to-[#62D4F9]/10 backdrop-blur-xl border border-[#62D4F9]/50 rounded-xl p-6 animate-fadeIn">
+      <div className="flex items-start gap-4">
+        <div className="flex-shrink-0">
+          <div className="w-12 h-12 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
+            <span className="text-2xl">🎯</span>
+          </div>
+        </div>
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-[#62D4F9] mb-2 font-montserrat tracking-[0.1em]">
+            AI Reality Check™ - Free 40-min Strategy Session
+          </h3>
+          <p className="text-white/80 text-sm mb-4">
+            Let's analyze your current AI spend and show you exactly how CoreSentia can replace multiple subscriptions with one solution you own forever.
+          </p>
+          <button 
+            onClick={onBook}
+            className="bg-[#62D4F9] text-black font-bold px-6 py-2 rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm"
+            style={{
+              boxShadow: '0 0 15px rgba(98, 212, 249, 0.5)'
+            }}
+          >
+            Book Your Session →
+          </button>
+        </div>
+        <button 
+          className="text-white/40 hover:text-white/60 transition-colors text-xl"
+          onClick={() => {/* Will implement dismissal */}}
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // Helper function to strip ACTION: tags from messages
 const stripActionTags = (content: string): string => {
-  // Remove ACTION: tags and any surrounding parentheses
   return content
     .replace(/\(?\s*ACTION:\s*[A-Z_]+\s*\)?/g, '')
     .trim()
 }
 
-// Enhanced markdown formatter for messages
+// Enhanced markdown formatter (keeping your existing one)
 const formatMessage = (text: string) => {
-  // Ensure text is a string
   if (!text || typeof text !== 'string') {
     return 'Sorry, I encountered an error. Please try again.';
   }
   
-  // Strip ACTION: tags first
   const cleanedText = stripActionTags(text);
   
-  // Process the entire text for inline formatting first
   const processInlineFormatting = (str: string) => {
     const elements = [];
     let lastIndex = 0;
     
-    // Combined regex for bold (**text**), links [text](url)
     const regex = /(\*\*([^*]+)\*\*)|(\[([^\]]+)\]\(([^)]+)\))/g;
     let match;
     
     while ((match = regex.exec(str)) !== null) {
-      // Add text before the match
       if (match.index > lastIndex) {
         elements.push(str.substring(lastIndex, match.index));
       }
       
       if (match[1]) {
-        // Bold text - using accent aqua-green for emphasis
         elements.push(<strong key={`bold-${match.index}`} className="font-semibold text-[#40FFD9]">{match[2]}</strong>);
       } else if (match[3]) {
-        // Link
         elements.push(
           <a 
             key={`link-${match.index}`}
@@ -85,7 +115,6 @@ const formatMessage = (text: string) => {
       lastIndex = regex.lastIndex;
     }
     
-    // Add remaining text
     if (lastIndex < str.length) {
       elements.push(str.substring(lastIndex));
     }
@@ -93,16 +122,13 @@ const formatMessage = (text: string) => {
     return elements.length > 0 ? elements : str;
   };
   
-  // Split by newlines to handle line structure
   const lines = cleanedText.split('\n');
   
   return lines.map((line, lineIndex) => {
-    // Skip empty lines but add spacing
     if (!line.trim()) {
       return <div key={lineIndex} className="mb-2" />;
     }
     
-    // Check if line is a bullet point
     if (line.trim().match(/^[•\-\*]\s/)) {
       const bulletContent = line.trim().substring(2);
       return (
@@ -113,7 +139,6 @@ const formatMessage = (text: string) => {
       );
     }
     
-    // Check if line is a numbered list
     const numberedMatch = line.trim().match(/^(\d+\.)\s(.+)/);
     if (numberedMatch) {
       return (
@@ -124,7 +149,6 @@ const formatMessage = (text: string) => {
       );
     }
     
-    // Check if line is a header (starts with ##)
     if (line.trim().startsWith('##')) {
       const headerContent = line.trim().substring(2).trim();
       return (
@@ -134,7 +158,6 @@ const formatMessage = (text: string) => {
       );
     }
     
-    // Regular line
     return (
       <div key={lineIndex} className={lineIndex < lines.length - 1 ? "mb-2" : ""}>
         {processInlineFormatting(line)}
@@ -150,12 +173,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const [loading, setLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string>(leadId)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
+  const [persistentCards, setPersistentCards] = useState<string[]>([])
   
-  // Ref for auto-scrolling
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
 
-  // Load Montserrat and Open Sans fonts
+  // Load fonts
   useEffect(() => {
     const link = document.createElement('link');
     link.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Open+Sans:wght@400;600&display=swap';
@@ -163,17 +186,14 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     document.head.appendChild(link);
   }, []);
 
-  // Auto-scroll to bottom when messages change
+  // Auto-scroll to bottom
   useEffect(() => {
     const scrollToBottom = () => {
       if (messagesContainerRef.current) {
         messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
       }
     }
-    
-    // Small delay to ensure DOM is updated
     const timeoutId = setTimeout(scrollToBottom, 100)
-    
     return () => clearTimeout(timeoutId)
   }, [messages])
 
@@ -195,11 +215,11 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     }
   }, [lead]);
 
+  // Initialize lead
   useEffect(() => {
     const initializeLead = async () => {
       const specialLeadIds = ['homepage-visitor', 'test123', 'new-visitor'];
       
-      // Only fetch lead data if it's not a special leadId
       if (leadId && !specialLeadIds.includes(leadId)) {
         const { data, error } = await supabase
           .from('leads')
@@ -213,7 +233,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       }
       
-      // If no lead found or new visitor, we'll let the backend create it when email is provided
       if (!lead) {
         setLead({
           id: leadId,
@@ -231,40 +250,37 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     }])
   }, [leadId])
 
-  // Extract quote generation into its own function
+  // Handle booking Reality Check
+  const handleBookRealityCheck = () => {
+    window.open('https://calendar.app.google/X6T7MdmZCxF3mGBe7', '_blank')
+    // Remove the card after booking
+    setPersistentCards(prev => prev.filter(card => card !== 'reality_check'))
+  }
+
+  // Handle quote generation
   const handleGenerateQuote = async (actionData: any) => {
     console.log('handleGenerateQuote called with data:', actionData);
     
-    // Check if we have minimum required data
     if (!actionData?.data?.email) {
       console.log('Quote generation skipped - no email address yet');
-      // Don't show an error to the user since Ivy will handle asking for email
       return;
     }
     
     try {
-      console.log('Calling quote generation API with data:', actionData.data)
-      
       const quoteResponse = await fetch('/api/quotes/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(actionData.data)
       })
       
-      console.log('Quote API response status:', quoteResponse.status)
-      
       const quoteResult = await quoteResponse.json()
-      console.log('Quote API response:', quoteResult)
       
       if (quoteResult.success) {
-        console.log('Quote generated successfully:', quoteResult.quoteNumber)
-        // Add a system message about quote being sent
         setMessages(prev => [...prev, {
           role: 'assistant',
-          content: `✅ Quote #${quoteResult.quoteNumber} has been created in Xero!`
+          content: `✅ Quote #${quoteResult.quoteNumber} has been created!`
         }])
       } else {
-        console.error('Quote generation failed:', quoteResult.error || 'Unknown error')
         setMessages(prev => [...prev, {
           role: 'assistant',
           content: `⚠️ There was an issue creating your quote. Please email us at hello@coresentia.com and we'll sort it out right away.`
@@ -272,10 +288,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       }
     } catch (quoteError) {
       console.error('Error calling quote API:', quoteError)
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: `⚠️ I couldn't generate your quote automatically. Please email us at hello@coresentia.com and we'll send it right over.`
-      }])
     }
   };
 
@@ -299,36 +311,32 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       })
       
       const data = await response.json()
-      console.log('Full API response:', data) // Debug log
+      console.log('Full API response:', data)
       
-      // Handle different response formats and ensure we have a message
       let messageContent = '';
       
       if (data.error) {
-        // API returned an error
         messageContent = 'Sorry, I had a technical issue. Please try again or email us at hello@coresentia.com';
       } else if (data.blocked) {
-        // Rate limited
         messageContent = data.message || "Thanks for chatting! Let's continue this conversation properly. Book a meeting: https://calendar.app.google/X6T7MdmZCxF3mGBe7";
       } else if (data.message) {
-        // Normal response - strip ACTION: tags before displaying
         messageContent = stripActionTags(data.message);
-      } else if (typeof data === 'string') {
-        // Fallback if API returns plain string
-        messageContent = stripActionTags(data);
       } else {
-        // Unknown format
         messageContent = 'Sorry, I encountered an unexpected error. Please try again.';
       }
       
       const aiMessage = { role: 'assistant', content: messageContent }
       setMessages(prev => [...prev, aiMessage])
       
+      // Handle persistent cards
+      if (data.persistentCards) {
+        setPersistentCards(data.persistentCards)
+      }
+      
       // Update sessionId if a new lead was created
       if (data.leadId && data.leadId !== sessionId) {
         setSessionId(data.leadId)
         
-        // Fetch the new lead data
         const { data: newLead } = await supabase
           .from('leads')
           .select('*')
@@ -340,31 +348,13 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       }
 
-      // Check for any actions to take based on response
+      // Check for actions
       if (data.actions && Array.isArray(data.actions)) {
-        console.log('Actions found in response:', data.actions) // Debug log
-        
         for (const action of data.actions) {
-          console.log('Processing action:', JSON.stringify(action, null, 2))
-          
-          // Handle quote generation
           if (action.type === 'generate_quote') {
-            console.log('Quote generation action found')
             await handleGenerateQuote(action)
           }
-          
-          // Handle meeting booking (future implementation)
-          if (action.type === 'book_meeting') {
-            console.log('Meeting booking requested - implement calendar integration')
-          }
-          
-          // Handle high value alerts (future implementation)
-          if (action.type === 'high_value_alert') {
-            console.log('High value lead detected - send internal notification')
-          }
         }
-      } else {
-        console.log('No actions found in response')
       }
     } catch (error) {
       console.error('Error:', error)
@@ -379,7 +369,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden">
-      {/* Add custom scrollbar styles and font */}
       <style jsx global>{`
         /* Custom Scrollbar Styles */
         .custom-scrollbar::-webkit-scrollbar {
@@ -402,13 +391,11 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           box-shadow: 0 0 5px #40FFD9;
         }
 
-        /* Firefox */
         .custom-scrollbar {
           scrollbar-width: thin;
           scrollbar-color: #62D4F9 rgba(255, 255, 255, 0.05);
         }
 
-        /* Fade in animation */
         @keyframes fadeIn {
           from {
             opacity: 0;
@@ -424,7 +411,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           animation: fadeIn 0.3s ease-out;
         }
 
-        /* Glow pulse animation */
         @keyframes glowPulse {
           0%, 100% {
             box-shadow: 0 0 8px #62D4F9, 0 0 16px #62D4F9;
@@ -445,7 +431,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       `}</style>
 
-      {/* Header - Collapsible HDR style with Back to Homepage button */}
+      {/* Header */}
       <div 
         className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
           headerCollapsed 
@@ -485,7 +471,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               </h5>
             </div>
             
-            {/* Back to Homepage Button - Matching homepage Chat with Ivy style */}
             <Link 
               href="/"
               className="inline-block px-8 py-3 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
@@ -508,6 +493,15 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             borderRadius: '20px',
           }}
         >
+          {/* Persistent Cards Area */}
+          {persistentCards.length > 0 && (
+            <div className="flex-shrink-0 p-6 border-b border-[#62D4F9]/20 space-y-3">
+              {persistentCards.includes('reality_check') && (
+                <AIRealityCheckCard onBook={handleBookRealityCheck} />
+              )}
+            </div>
+          )}
+
           {/* Messages Container */}
           <div 
             ref={messagesContainerRef}
@@ -563,27 +557,9 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                     }}
                   >
                     <div className="flex space-x-1">
-                      <div 
-                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                        style={{
-                          animationDelay: '0ms',
-                          boxShadow: '0 0 2px #62D4F9'
-                        }}
-                      ></div>
-                      <div 
-                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                        style={{
-                          animationDelay: '150ms',
-                          boxShadow: '0 0 2px #62D4F9'
-                        }}
-                      ></div>
-                      <div 
-                        className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce"
-                        style={{
-                          animationDelay: '300ms',
-                          boxShadow: '0 0 2px #62D4F9'
-                        }}
-                      ></div>
+                      <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '0ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                      <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '150ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                      <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '300ms', boxShadow: '0 0 2px #62D4F9' }}></div>
                     </div>
                   </div>
                 </div>
@@ -619,10 +595,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             </div>
             
             <div className="text-center space-y-1">
-              <p 
-                className="text-sm text-white font-medium montserrat-header"
-                style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}
-              >
+              <p className="text-sm text-white font-medium montserrat-header" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
                 Stop talking about AI. Start closing with it.
               </p>
               <p className="text-xs text-white/60">

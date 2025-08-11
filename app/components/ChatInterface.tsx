@@ -243,11 +243,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     }
     
     initializeLead()
-    
     setMessages([{
-      role: 'assistant',
-      content: "Hi, I'm Ivy - What brings you to CoreSentia today? If you already know what you want or just need pricing, say the word and I'll skip straight to it."
-    }])
+  role: 'assistant',
+  content: "Hi, I&apos;m Ivy - What brings you to CoreSentia today? If you already know what you want or just need pricing, say the word and I&apos;ll skip straight to it."
+}]) }])
   }, [leadId])
 
   // Handle booking Reality Check

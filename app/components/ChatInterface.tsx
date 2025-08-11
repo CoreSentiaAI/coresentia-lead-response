@@ -30,40 +30,61 @@ interface ChatInterfaceProps {
   leadId: string
 }
 
-// Persistent container components
+// Always-visible Reality Check Card
 const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
   return (
-    <div className="bg-gradient-to-r from-[#2A50DF]/10 to-[#62D4F9]/10 backdrop-blur-xl border border-[#62D4F9]/50 rounded-xl p-6 animate-fadeIn">
-      <div className="flex items-start gap-4">
+    <div className="bg-gradient-to-r from-[#2A50DF]/10 to-[#62D4F9]/10 backdrop-blur-xl border border-[#62D4F9]/50 rounded-xl p-4 flex items-center justify-between">
+      <div className="flex items-center gap-3">
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
-            <span className="text-2xl">🎯</span>
+          <div className="w-10 h-10 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
+            <span className="text-xl">🎯</span>
           </div>
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-[#62D4F9] mb-2 font-montserrat tracking-[0.1em]">
+          <h3 className="text-base font-bold text-[#62D4F9] font-montserrat tracking-[0.1em]">
             AI Reality Check™ - Free 40-min Strategy Session
           </h3>
-          <p className="text-white/80 text-sm mb-4">
+          <p className="text-white/80 text-sm">
             Let's analyze your current AI spend and show you exactly how CoreSentia can replace multiple subscriptions with one solution you own forever.
           </p>
-          <button 
-            onClick={onBook}
-            className="bg-[#62D4F9] text-black font-bold px-6 py-2 rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm"
-            style={{
-              boxShadow: '0 0 15px rgba(98, 212, 249, 0.5)'
-            }}
-          >
-            Book Your Session →
-          </button>
         </div>
-        <button 
-          className="text-white/40 hover:text-white/60 transition-colors text-xl"
-          onClick={() => {/* Will implement dismissal */}}
-        >
-          ×
-        </button>
       </div>
+      <button 
+        onClick={onBook}
+        className="bg-[#62D4F9] text-black font-bold px-6 py-2 rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm whitespace-nowrap ml-4"
+        style={{
+          boxShadow: '0 0 15px rgba(98, 212, 249, 0.5)'
+        }}
+      >
+        Book Your Session →
+      </button>
+    </div>
+  )
+}
+
+// Quick Actions Component
+const QuickActions = ({ onProductClick }: { onProductClick: (product: string) => void }) => {
+  return (
+    <div className="flex items-center gap-2 py-3 px-4 bg-black/50 backdrop-blur border-t border-[#62D4F9]/20">
+      <span className="text-white/80 text-sm mr-2">💡 Quick Start:</span>
+      <button 
+        onClick={() => onProductClick('essentials')}
+        className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
+      >
+        Essentials $3k
+      </button>
+      <button 
+        onClick={() => onProductClick('custom')}
+        className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
+      >
+        Custom $10k
+      </button>
+      <button 
+        onClick={() => onProductClick('core')}
+        className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
+      >
+        Core™ $25k
+      </button>
     </div>
   )
 }
@@ -75,7 +96,7 @@ const stripActionTags = (content: string): string => {
     .trim()
 }
 
-// Enhanced markdown formatter (keeping your existing one)
+// Enhanced markdown formatter
 const formatMessage = (text: string) => {
   if (!text || typeof text !== 'string') {
     return 'Sorry, I encountered an error. Please try again.';
@@ -173,7 +194,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const [loading, setLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string>(leadId)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
-  const [persistentCards, setPersistentCards] = useState<string[]>([])
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
@@ -213,7 +233,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         container.removeEventListener('scroll', handleScroll);
       };
     }
-  }, [lead]);
+  }, []);
 
   // Initialize lead
   useEffect(() => {
@@ -243,17 +263,38 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     }
     
     initializeLead()
+    
     setMessages([{
-  role: 'assistant',
-  content: "Hi, I&apos;m Ivy - What brings you to CoreSentia today? If you already know what you want or just need pricing, say the word and I&apos;ll skip straight to it."
-}])
+      role: 'assistant',
+      content: "Hi, I'm Ivy - What brings you to CoreSentia today? If you already know what you want or just need pricing, say the word and I'll skip straight to it."
+    }])
   }, [leadId])
 
   // Handle booking Reality Check
   const handleBookRealityCheck = () => {
     window.open('https://calendar.app.google/X6T7MdmZCxF3mGBe7', '_blank')
-    // Remove the card after booking
-    setPersistentCards(prev => prev.filter(card => card !== 'reality_check'))
+  }
+
+  // Handle product click
+  const handleProductClick = (product: string) => {
+    let message = '';
+    switch(product) {
+      case 'essentials':
+        message = 'Tell me about the Essentials package';
+        break;
+      case 'custom':
+        message = 'I want to know about the Custom solution';
+        break;
+      case 'core':
+        message = 'What is Core™?';
+        break;
+    }
+    setInput(message);
+    // Trigger send
+    setTimeout(() => {
+      const sendButton = document.querySelector('[data-send-button]') as HTMLButtonElement;
+      if (sendButton) sendButton.click();
+    }, 100);
   }
 
   // Handle quote generation
@@ -326,11 +367,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       
       const aiMessage = { role: 'assistant', content: messageContent }
       setMessages(prev => [...prev, aiMessage])
-      
-      // Handle persistent cards
-      if (data.persistentCards) {
-        setPersistentCards(data.persistentCards)
-      }
       
       // Update sessionId if a new lead was created
       if (data.leadId && data.leadId !== sessionId) {
@@ -430,49 +466,36 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       `}</style>
 
-      {/* Header */}
+      {/* Slim Header */}
       <div 
         className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
           headerCollapsed 
             ? 'bg-black/95 backdrop-blur-xl py-2' 
-            : 'bg-black/80 backdrop-blur-md py-4 sm:py-6'
+            : 'bg-black/80 backdrop-blur-md py-3'
         }`}
         style={{
           borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.15)' : '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: headerCollapsed 
-            ? '0 2px 8px rgba(98, 212, 249, 0.12)' 
-            : '0 1px 5px rgba(98, 212, 249, 0.08)'
         }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <div className={`transition-all duration-300 ${headerCollapsed ? 'scale-75 origin-left' : ''}`}>
-                <Image 
-                  src="/CoreSentia_Transparent_Logo.png" 
-                  alt="CoreSentia" 
-                  width={300}
-                  height={120}
-                  className={`${headerCollapsed ? 'h-10' : 'h-16 sm:h-20'} w-auto transition-all duration-300`}
-                  style={{
-                    filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
-                  }}
-                />
-              </div>
-              <h5 
-                className={`text-white font-normal transition-all duration-300 montserrat-header ${
-                  headerCollapsed 
-                    ? 'opacity-0 max-h-0 overflow-hidden' 
-                    : 'opacity-100 max-h-20 mt-2 text-base sm:text-lg'
-                }`}
-              >
-                Hi {lead?.first_name && lead.first_name !== 'Web' ? lead.first_name : 'there'}, thank you for visiting CoreSentia. Chat with Ivy below to get started.
-              </h5>
+            <div className="flex items-center gap-4">
+              <Image 
+                src="/CoreSentia_Transparent_Logo.png" 
+                alt="CoreSentia" 
+                width={200}
+                height={80}
+                className={`${headerCollapsed ? 'h-8' : 'h-12'} w-auto transition-all duration-300`}
+                style={{
+                  filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
+                }}
+              />
+              <span className="text-white/80 text-lg montserrat-header">Welcome to Ivy</span>
             </div>
             
             <Link 
               href="/"
-              className="inline-block px-8 py-3 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-lg hover:shadow-[0_0_20px_#62D4F9]"
+              className="inline-block px-6 py-2 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm hover:shadow-[0_0_20px_#62D4F9]"
             >
               ← Back to Homepage
             </Link>
@@ -483,23 +506,24 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       {/* Main Chat Area with Glass Container */}
       <div className="flex-1 p-4 overflow-hidden">
         <div 
-          className="h-full max-w-6xl w-full mx-auto flex flex-col"
+          className="h-full max-w-7xl w-full mx-auto flex flex-col"
           style={{
             background: 'rgba(0, 0, 0, 0.7)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             border: '1px solid rgba(98, 212, 249, 0.3)',
             borderRadius: '20px',
+            position: 'relative',
+            zIndex: 1
           }}
         >
-          {/* Persistent Cards Area */}
-          {persistentCards.length > 0 && (
-            <div className="flex-shrink-0 p-6 border-b border-[#62D4F9]/20 space-y-3">
-              {persistentCards.includes('reality_check') && (
-                <AIRealityCheckCard onBook={handleBookRealityCheck} />
-              )}
-            </div>
-          )}
+          {/* Always Visible Reality Check Card */}
+          <div className="flex-shrink-0 p-4 border-b border-[#62D4F9]/20">
+            <AIRealityCheckCard onBook={handleBookRealityCheck} />
+          </div>
+
+          {/* Quick Actions Bar */}
+          <QuickActions onProductClick={handleProductClick} />
 
           {/* Messages Container */}
           <div 
@@ -580,6 +604,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 className="flex-1 px-5 py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-base"
               />
               <button
+                data-send-button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
                 className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/50 disabled:cursor-not-allowed transition-all duration-300 font-semibold text-base"

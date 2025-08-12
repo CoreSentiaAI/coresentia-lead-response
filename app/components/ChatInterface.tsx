@@ -469,7 +469,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden">
+    <div className="h-screen w-screen flex flex-col overflow-hidden bg-black">
       <style jsx global>{`
         /* Hide scrollbar for horizontal scroll */
         .no-scrollbar {
@@ -579,8 +579,8 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         </div>
       </div>
 
-      {/* Main Chat Area */}
-      <div className="flex-1 p-2 md:p-4 overflow-hidden">
+      {/* Main Chat Area - Adjusted padding for mobile */}
+      <div className="flex-1 p-2 md:p-4 overflow-hidden min-h-0">
         <div 
           className="h-full max-w-7xl w-full mx-auto flex flex-col"
           style={{
@@ -601,11 +601,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           {/* Quick Actions Bar */}
           <QuickActions onProductClick={handleProductClick} />
 
-          {/* Messages Container */}
+          {/* Messages Container - Adjusted for better mobile view */}
           <div 
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 custom-scrollbar"
-            style={{ minHeight: 0 }}
+            className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 custom-scrollbar min-h-0"
           >
             <div className="space-y-3 md:space-y-4">
               {messages.map((message, index) => (
@@ -667,9 +666,9 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             </div>
           </div>
 
-          {/* Mobile-optimized Input Area */}
-          <div className="flex-shrink-0 p-3 md:p-6 border-t border-[#62D4F9]/30">
-            <div className="flex space-x-2 md:space-x-3 mb-3 md:mb-4">
+          {/* Mobile-optimized Input Area - More compact */}
+          <div className="flex-shrink-0 px-3 pb-2 pt-3 md:p-6 border-t border-[#62D4F9]/30">
+            <div className="flex space-x-2 md:space-x-3 mb-2 md:mb-4">
               <input
                 type="text"
                 value={input}
@@ -694,12 +693,13 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               </button>
             </div>
             
-            <div className="text-center space-y-1">
-              <p className="text-xs md:text-sm text-white font-medium montserrat-header" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
+            {/* More compact footer for mobile */}
+            <div className="text-center">
+              <p className="text-[10px] md:text-sm text-white font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
                 Stop talking about AI. Start closing with it.
               </p>
-              <p className="text-xs text-white/60">
-                Copyright © CoreSentia 2025
+              <p className="text-[10px] md:text-xs text-white/60">
+                © CoreSentia 2025
               </p>
             </div>
           </div>

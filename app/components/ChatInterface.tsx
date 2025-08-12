@@ -4,6 +4,22 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import Image from 'next/image'
 import Link from 'next/link'
+import { 
+  Target, 
+  Sparkles, 
+  FileText, 
+  Calendar,
+  MessageSquare,
+  Zap,
+  Brain,
+  DollarSign,
+  Briefcase,
+  ChevronDown,
+  HelpCircle,
+  Send,
+  Mic,
+  PaletteIcon
+} from 'lucide-react'
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -30,7 +46,51 @@ interface ChatInterfaceProps {
   leadId: string
 }
 
-// Mobile-optimized Reality Check Card
+// Interactive Palette Tools
+const PaletteTools = ({ onToolClick }: { onToolClick: (tool: string) => void }) => {
+  const [showHelp, setShowHelp] = useState(false)
+  
+  return (
+    <div className="absolute top-1/2 -translate-y-1/2 left-4 lg:left-8 z-20">
+      <div className="flex flex-col gap-3">
+        <button
+          onClick={() => onToolClick('quote')}
+          className="group relative w-12 h-12 lg:w-14 lg:h-14 bg-black/60 backdrop-blur-xl border border-[#62D4F9]/30 rounded-xl flex items-center justify-center hover:border-[#62D4F9] hover:bg-[#62D4F9]/10 transition-all hover:scale-110"
+          title="Get a quote"
+        >
+          <FileText className="w-5 h-5 lg:w-6 lg:h-6 text-[#62D4F9]" />
+          <span className="absolute left-16 opacity-0 group-hover:opacity-100 bg-black/90 text-white px-3 py-1 rounded-lg text-sm whitespace-nowrap transition-opacity pointer-events-none">
+            Get instant quote
+          </span>
+        </button>
+        
+        <button
+          onClick={() => onToolClick('meeting')}
+          className="group relative w-12 h-12 lg:w-14 lg:h-14 bg-black/60 backdrop-blur-xl border border-[#2A50DF]/30 rounded-xl flex items-center justify-center hover:border-[#2A50DF] hover:bg-[#2A50DF]/10 transition-all hover:scale-110"
+          title="Book meeting"
+        >
+          <Calendar className="w-5 h-5 lg:w-6 lg:h-6 text-[#2A50DF]" />
+          <span className="absolute left-16 opacity-0 group-hover:opacity-100 bg-black/90 text-white px-3 py-1 rounded-lg text-sm whitespace-nowrap transition-opacity pointer-events-none">
+            Book consultation
+          </span>
+        </button>
+        
+        <button
+          onClick={() => onToolClick('products')}
+          className="group relative w-12 h-12 lg:w-14 lg:h-14 bg-black/60 backdrop-blur-xl border border-[#40FFD9]/30 rounded-xl flex items-center justify-center hover:border-[#40FFD9] hover:bg-[#40FFD9]/10 transition-all hover:scale-110"
+          title="Explore products"
+        >
+          <Briefcase className="w-5 h-5 lg:w-6 lg:h-6 text-[#40FFD9]" />
+          <span className="absolute left-16 opacity-0 group-hover:opacity-100 bg-black/90 text-white px-3 py-1 rounded-lg text-sm whitespace-nowrap transition-opacity pointer-events-none">
+            Explore solutions
+          </span>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Enhanced Reality Check Card with Lucide icons
 const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
   const [expanded, setExpanded] = useState(false)
   
@@ -43,17 +103,12 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
           className="w-full p-3 flex items-center justify-between"
         >
           <div className="flex items-center gap-2">
-            <span className="text-xl">🎯</span>
+            <Target className="w-5 h-5 text-[#62D4F9]" />
             <span className="text-sm font-bold text-[#62D4F9]">AI Reality Check™</span>
           </div>
-          <svg 
+          <ChevronDown 
             className={`w-5 h-5 text-[#62D4F9] transform transition-transform ${expanded ? 'rotate-180' : ''}`}
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+          />
         </button>
         {expanded && (
           <div className="px-3 pb-3 space-y-3 animate-fadeIn">
@@ -76,7 +131,7 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
         <div className="flex items-center gap-3">
           <div className="flex-shrink-0">
             <div className="w-10 h-10 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
-              <span className="text-xl">🎯</span>
+              <Target className="w-6 h-6 text-[#62D4F9]" />
             </div>
           </div>
           <div className="flex-1">
@@ -100,56 +155,55 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
   )
 }
 
-// Mobile-optimized Quick Actions
+// Enhanced Quick Actions with more context
 const QuickActions = ({ onProductClick }: { onProductClick: (product: string) => void }) => {
+  const [showHelp, setShowHelp] = useState(false)
+  
   return (
     <div className="bg-black/50 backdrop-blur border-t border-[#62D4F9]/20">
-      {/* Mobile - horizontal scroll */}
-      <div className="md:hidden px-3 py-2">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
-          <span className="text-white/80 text-xs whitespace-nowrap mr-1">💡 Quick:</span>
-          <button 
-            onClick={() => onProductClick('essentials')}
-            className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs whitespace-nowrap"
-          >
-            Essentials $3k
-          </button>
-          <button 
-            onClick={() => onProductClick('custom')}
-            className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs whitespace-nowrap"
-          >
-            Custom $10k
-          </button>
-          <button 
-            onClick={() => onProductClick('core')}
-            className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs whitespace-nowrap"
-          >
-            Core™ $25k
-          </button>
+      <div className="px-3 py-2 md:px-4 md:py-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#62D4F9]" />
+            <span className="text-white/80 text-xs md:text-sm">Quick Start</span>
+            <button
+              onClick={() => setShowHelp(!showHelp)}
+              className="ml-1 text-white/40 hover:text-white/80 transition-colors"
+            >
+              <HelpCircle className="w-3 h-3" />
+            </button>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => onProductClick('essentials')}
+              className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs md:text-sm whitespace-nowrap flex items-center gap-1"
+            >
+              <Zap className="w-3 h-3" />
+              Essentials $3k
+            </button>
+            <button 
+              onClick={() => onProductClick('custom')}
+              className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs md:text-sm whitespace-nowrap flex items-center gap-1"
+            >
+              <Brain className="w-3 h-3" />
+              Custom $10k
+            </button>
+            <button 
+              onClick={() => onProductClick('core')}
+              className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs md:text-sm whitespace-nowrap flex items-center gap-1"
+            >
+              <DollarSign className="w-3 h-3" />
+              Core™ $25k
+            </button>
+          </div>
         </div>
-      </div>
-      
-      {/* Desktop */}
-      <div className="hidden md:flex items-center gap-2 py-3 px-4">
-        <span className="text-white/80 text-sm mr-2">💡 Quick Start:</span>
-        <button 
-          onClick={() => onProductClick('essentials')}
-          className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
-        >
-          Essentials $3k
-        </button>
-        <button 
-          onClick={() => onProductClick('custom')}
-          className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
-        >
-          Custom $10k
-        </button>
-        <button 
-          onClick={() => onProductClick('core')}
-          className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
-        >
-          Core™ $25k
-        </button>
+        
+        {showHelp && (
+          <div className="mt-2 pt-2 border-t border-white/10 text-white/60 text-xs">
+            Click any product to explore • Type to chat • Use tools on the left • Ivy can generate quotes, book meetings, and more
+          </div>
+        )}
       </div>
     </div>
   )
@@ -259,7 +313,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const [lead, setLead] = useState<Lead | null>(null)
   const [loading, setLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string>(leadId)
-  const [headerCollapsed, setHeaderCollapsed] = useState(false)
+  const [isThinking, setIsThinking] = useState(false)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
@@ -282,24 +336,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     const timeoutId = setTimeout(scrollToBottom, 100)
     return () => clearTimeout(timeoutId)
   }, [messages])
-
-  // Handle scroll for header collapse
-  useEffect(() => {
-    const handleScroll = () => {
-      if (messagesContainerRef.current) {
-        const scrollTop = messagesContainerRef.current.scrollTop;
-        setHeaderCollapsed(scrollTop > 50);
-      }
-    };
-
-    const container = messagesContainerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll, { passive: true });
-      return () => {
-        container.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, []);
 
   // Initialize lead
   useEffect(() => {
@@ -332,13 +368,34 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     
     setMessages([{
       role: 'assistant',
-      content: "Hi, I'm Ivy - What brings you to CoreSentia today? If you already know what you want or just need pricing, say the word and I'll skip straight to it."
+      content: "Hi, I'm Ivy - your AI business partner. I can chat, generate quotes, book meetings, and more. What brings you to CoreSentia today?"
     }])
   }, [leadId])
 
   // Handle booking Reality Check
   const handleBookRealityCheck = () => {
     window.open('https://calendar.app.google/X6T7MdmZCxF3mGBe7', '_blank')
+  }
+
+  // Handle tool clicks
+  const handleToolClick = (tool: string) => {
+    let message = '';
+    switch(tool) {
+      case 'quote':
+        message = 'I need a quote';
+        break;
+      case 'meeting':
+        message = 'I want to book a consultation';
+        break;
+      case 'products':
+        message = 'Show me your solutions';
+        break;
+    }
+    setInput(message);
+    setTimeout(() => {
+      const sendButton = document.querySelector('[data-send-button]') as HTMLButtonElement;
+      if (sendButton) sendButton.click();
+    }, 100);
   }
 
   // Handle product click
@@ -356,7 +413,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         break;
     }
     setInput(message);
-    // Trigger send
     setTimeout(() => {
       const sendButton = document.querySelector('[data-send-button]') as HTMLButtonElement;
       if (sendButton) sendButton.click();
@@ -404,6 +460,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     setMessages(prev => [...prev, userMessage])
     setInput('')
     setLoading(true)
+    setIsThinking(true)
 
     try {
       const response = await fetch('/api/chat', {
@@ -466,10 +523,19 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     }
     
     setLoading(false)
+    setIsThinking(false)
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden bg-black">
+    <div className="h-screen w-screen flex flex-col overflow-hidden bg-black relative">
+      {/* Network canvas background effect */}
+      <div 
+        className={`absolute inset-0 z-0 transition-opacity duration-1000 ${isThinking ? 'opacity-100' : 'opacity-30'}`}
+        style={{
+          background: `radial-gradient(circle at center, rgba(98, 212, 249, ${isThinking ? '0.15' : '0.05'}), transparent 70%)`,
+        }}
+      />
+      
       <style jsx global>{`
         /* Hide scrollbar for horizontal scroll */
         .no-scrollbar {
@@ -541,31 +607,28 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       `}</style>
 
-      {/* Mobile-optimized Header */}
-      <div 
-        className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
-          headerCollapsed 
-            ? 'bg-black/95 backdrop-blur-xl py-1.5 md:py-2' 
-            : 'bg-black/80 backdrop-blur-md py-2 md:py-3'
-        }`}
-        style={{
-          borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.15)' : '1px solid rgba(255, 255, 255, 0.1)',
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-8">
+      {/* Interactive Palette Tools */}
+      <PaletteTools onToolClick={handleToolClick} />
+
+      {/* Enhanced Header */}
+      <div className="bg-black/80 backdrop-blur-md py-2 md:py-3 z-20 flex-shrink-0 border-b border-white/10">
+        <div className="max-w-full px-3 md:px-6 lg:px-20">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-3 md:gap-4">
               <Image 
                 src="/CoreSentia_Transparent_Logo.png" 
                 alt="CoreSentia" 
                 width={200}
                 height={80}
-                className={`${headerCollapsed ? 'h-6 md:h-8' : 'h-8 md:h-12'} w-auto transition-all duration-300`}
+                className="h-6 md:h-8 w-auto"
                 style={{
                   filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
                 }}
               />
-              <span className="hidden md:block text-white/80 text-lg montserrat-header">Welcome to Ivy</span>
+              <div className="hidden md:flex items-center gap-2">
+                <PaletteIcon className="w-5 h-5 text-[#62D4F9]" />
+                <span className="text-white/80 text-lg montserrat-header">Ivy • Where conversation becomes action</span>
+              </div>
             </div>
             
             <Link 
@@ -579,10 +642,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         </div>
       </div>
 
-      {/* Main Chat Area - Adjusted padding for mobile */}
-      <div className="flex-1 p-2 md:p-4 overflow-hidden min-h-0">
+      {/* Main Ivy Palette Area - Now using full screen width */}
+      <div className="flex-1 p-2 md:p-4 lg:px-20 overflow-hidden min-h-0 relative z-10">
         <div 
-          className="h-full max-w-7xl w-full mx-auto flex flex-col"
+          className="h-full w-full flex flex-col"
           style={{
             background: 'rgba(0, 0, 0, 0.7)',
             backdropFilter: 'blur(20px)',
@@ -590,7 +653,6 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             border: '1px solid rgba(98, 212, 249, 0.3)',
             borderRadius: '16px',
             position: 'relative',
-            zIndex: 1
           }}
         >
           {/* Reality Check Card */}
@@ -601,12 +663,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           {/* Quick Actions Bar */}
           <QuickActions onProductClick={handleProductClick} />
 
-          {/* Messages Container - Adjusted for better mobile view */}
+          {/* Messages Container - The Core Interaction Area */}
           <div 
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 custom-scrollbar min-h-0"
+            className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 lg:p-8 custom-scrollbar min-h-0"
           >
-            <div className="space-y-3 md:space-y-4">
+            <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -614,16 +676,20 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 >
                   {message.role === 'assistant' && (
                     <div 
-                      className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 flex-shrink-0"
+                      className={`w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 flex-shrink-0 ${
+                        loading && index === messages.length - 1 ? 'animate-pulse' : ''
+                      }`}
                       style={{
-                        boxShadow: '0 0 8px #62D4F9, 0 0 16px #62D4F9'
+                        boxShadow: isThinking && index === messages.length - 1 
+                          ? '0 0 20px #62D4F9, 0 0 40px #62D4F9' 
+                          : '0 0 8px #62D4F9, 0 0 16px #62D4F9'
                       }}
                     >
                       <span className="text-black text-xs md:text-sm font-bold">I</span>
                     </div>
                   )}
                   <div
-                    className={`max-w-[90%] md:max-w-[85%] lg:max-w-[65%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
+                    className={`max-w-[90%] md:max-w-[85%] lg:max-w-[75%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
                       message.role === 'user' 
                         ? 'bg-[#2A50DF] border border-[#2A50DF]' 
                         : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30'
@@ -641,7 +707,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               {loading && (
                 <div className="flex justify-start animate-fadeIn">
                   <div 
-                    className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 animate-pulse"
+                    className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3"
                     style={{
                       animation: 'glowPulse 2s ease-in-out infinite',
                     }}
@@ -666,15 +732,21 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             </div>
           </div>
 
-          {/* Mobile-optimized Input Area - More compact */}
+          {/* Enhanced Input Area with Voice Option */}
           <div className="flex-shrink-0 px-3 pb-2 pt-3 md:p-6 border-t border-[#62D4F9]/30">
             <div className="flex space-x-2 md:space-x-3 mb-2 md:mb-4">
+              <button
+                className="p-2 md:p-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl hover:border-[#62D4F9] transition-all"
+                title="Voice input coming soon"
+              >
+                <Mic className="w-4 h-4 md:w-5 md:h-5 text-white/50" />
+              </button>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                placeholder="Type your message..."
+                placeholder="Type to Ivy, or use the tools..."
                 style={{ fontSize: '16px' }}
                 className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
               />
@@ -682,18 +754,18 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 data-send-button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/50 disabled:cursor-not-allowed transition-all duration-300 font-semibold text-sm md:text-base"
+                className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/50 disabled:cursor-not-allowed transition-all duration-300 font-semibold text-sm md:text-base flex items-center gap-2"
                 style={{
                   boxShadow: !loading && input.trim() 
                     ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
                     : 'none'
                 }}
               >
-                Send
+                <Send className="w-4 h-4" />
+                <span className="hidden md:inline">Send</span>
               </button>
             </div>
             
-            {/* More compact footer for mobile */}
             <div className="text-center">
               <p className="text-[10px] md:text-sm text-white font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
                 Stop talking about AI. Start closing with it.

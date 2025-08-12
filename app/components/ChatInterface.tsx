@@ -30,61 +30,127 @@ interface ChatInterfaceProps {
   leadId: string
 }
 
-// Always-visible Reality Check Card
+// Mobile-optimized Reality Check Card
 const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
+  const [expanded, setExpanded] = useState(false)
+  
   return (
-    <div className="bg-gradient-to-r from-[#2A50DF]/10 to-[#62D4F9]/10 backdrop-blur-xl border border-[#62D4F9]/50 rounded-xl p-4 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <div className="flex-shrink-0">
-          <div className="w-10 h-10 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
+    <div className="bg-gradient-to-r from-[#2A50DF]/10 to-[#62D4F9]/10 backdrop-blur-xl border border-[#62D4F9]/50 rounded-xl">
+      {/* Mobile view - collapsible */}
+      <div className="md:hidden">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full p-3 flex items-center justify-between"
+        >
+          <div className="flex items-center gap-2">
             <span className="text-xl">🎯</span>
+            <span className="text-sm font-bold text-[#62D4F9]">AI Reality Check™</span>
+          </div>
+          <svg 
+            className={`w-5 h-5 text-[#62D4F9] transform transition-transform ${expanded ? 'rotate-180' : ''}`}
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {expanded && (
+          <div className="px-3 pb-3 space-y-3 animate-fadeIn">
+            <p className="text-white/80 text-xs">
+              Free 40-min session to analyze your AI spend and show you how to own your solution.
+            </p>
+            <button 
+              onClick={onBook}
+              className="w-full bg-[#62D4F9] text-black font-bold px-4 py-2 rounded-full hover:bg-[#40FFD9] transition-all text-sm"
+              style={{ boxShadow: '0 0 10px rgba(98, 212, 249, 0.5)' }}
+            >
+              Book Session →
+            </button>
+          </div>
+        )}
+      </div>
+      
+      {/* Desktop view - full display */}
+      <div className="hidden md:flex p-4 items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0">
+            <div className="w-10 h-10 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
+              <span className="text-xl">🎯</span>
+            </div>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-base font-bold text-[#62D4F9] font-montserrat tracking-[0.1em]">
+              AI Reality Check™ - Free 40-min Strategy Session
+            </h3>
+            <p className="text-white/80 text-sm">
+              Let's analyze your current AI spend and show you exactly how CoreSentia can replace multiple subscriptions with one solution you own forever.
+            </p>
           </div>
         </div>
-        <div className="flex-1">
-          <h3 className="text-base font-bold text-[#62D4F9] font-montserrat tracking-[0.1em]">
-            AI Reality Check™ - Free 40-min Strategy Session
-          </h3>
-          <p className="text-white/80 text-sm">
-            Let's analyze your current AI spend and show you exactly how CoreSentia can replace multiple subscriptions with one solution you own forever.
-          </p>
-        </div>
+        <button 
+          onClick={onBook}
+          className="bg-[#62D4F9] text-black font-bold px-6 py-2 rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm whitespace-nowrap ml-4"
+          style={{ boxShadow: '0 0 15px rgba(98, 212, 249, 0.5)' }}
+        >
+          Book Your Session →
+        </button>
       </div>
-      <button 
-        onClick={onBook}
-        className="bg-[#62D4F9] text-black font-bold px-6 py-2 rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm whitespace-nowrap ml-4"
-        style={{
-          boxShadow: '0 0 15px rgba(98, 212, 249, 0.5)'
-        }}
-      >
-        Book Your Session →
-      </button>
     </div>
   )
 }
 
-// Quick Actions Component
+// Mobile-optimized Quick Actions
 const QuickActions = ({ onProductClick }: { onProductClick: (product: string) => void }) => {
   return (
-    <div className="flex items-center gap-2 py-3 px-4 bg-black/50 backdrop-blur border-t border-[#62D4F9]/20">
-      <span className="text-white/80 text-sm mr-2">💡 Quick Start:</span>
-      <button 
-        onClick={() => onProductClick('essentials')}
-        className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
-      >
-        Essentials $3k
-      </button>
-      <button 
-        onClick={() => onProductClick('custom')}
-        className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
-      >
-        Custom $10k
-      </button>
-      <button 
-        onClick={() => onProductClick('core')}
-        className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
-      >
-        Core™ $25k
-      </button>
+    <div className="bg-black/50 backdrop-blur border-t border-[#62D4F9]/20">
+      {/* Mobile - horizontal scroll */}
+      <div className="md:hidden px-3 py-2">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <span className="text-white/80 text-xs whitespace-nowrap mr-1">💡 Quick:</span>
+          <button 
+            onClick={() => onProductClick('essentials')}
+            className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs whitespace-nowrap"
+          >
+            Essentials $3k
+          </button>
+          <button 
+            onClick={() => onProductClick('custom')}
+            className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs whitespace-nowrap"
+          >
+            Custom $10k
+          </button>
+          <button 
+            onClick={() => onProductClick('core')}
+            className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs whitespace-nowrap"
+          >
+            Core™ $25k
+          </button>
+        </div>
+      </div>
+      
+      {/* Desktop */}
+      <div className="hidden md:flex items-center gap-2 py-3 px-4">
+        <span className="text-white/80 text-sm mr-2">💡 Quick Start:</span>
+        <button 
+          onClick={() => onProductClick('essentials')}
+          className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
+        >
+          Essentials $3k
+        </button>
+        <button 
+          onClick={() => onProductClick('custom')}
+          className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
+        >
+          Custom $10k
+        </button>
+        <button 
+          onClick={() => onProductClick('core')}
+          className="px-4 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-sm"
+        >
+          Core™ $25k
+        </button>
+      </div>
     </div>
   )
 }
@@ -405,6 +471,15 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden">
       <style jsx global>{`
+        /* Hide scrollbar for horizontal scroll */
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        
         /* Custom Scrollbar Styles */
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;
@@ -466,45 +541,46 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         }
       `}</style>
 
-      {/* Slim Header */}
+      {/* Mobile-optimized Header */}
       <div 
         className={`transition-all duration-300 ease-out z-20 flex-shrink-0 ${
           headerCollapsed 
-            ? 'bg-black/95 backdrop-blur-xl py-2' 
-            : 'bg-black/80 backdrop-blur-md py-3'
+            ? 'bg-black/95 backdrop-blur-xl py-1.5 md:py-2' 
+            : 'bg-black/80 backdrop-blur-md py-2 md:py-3'
         }`}
         style={{
           borderBottom: headerCollapsed ? '2px solid rgba(98, 212, 249, 0.15)' : '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
               <Image 
                 src="/CoreSentia_Transparent_Logo.png" 
                 alt="CoreSentia" 
                 width={200}
                 height={80}
-                className={`${headerCollapsed ? 'h-8' : 'h-12'} w-auto transition-all duration-300`}
+                className={`${headerCollapsed ? 'h-6 md:h-8' : 'h-8 md:h-12'} w-auto transition-all duration-300`}
                 style={{
                   filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
                 }}
               />
-              <span className="text-white/80 text-lg montserrat-header">Welcome to Ivy</span>
+              <span className="hidden md:block text-white/80 text-lg montserrat-header">Welcome to Ivy</span>
             </div>
             
             <Link 
               href="/"
-              className="inline-block px-6 py-2 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm hover:shadow-[0_0_20px_#62D4F9]"
+              className="inline-block px-3 py-1.5 md:px-6 md:py-2 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-xs md:text-sm hover:shadow-[0_0_20px_#62D4F9]"
             >
-              ← Back to Homepage
+              <span className="hidden md:inline">← Back to Homepage</span>
+              <span className="md:hidden">← Back</span>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Chat Area with Glass Container */}
-      <div className="flex-1 p-4 overflow-hidden">
+      {/* Main Chat Area */}
+      <div className="flex-1 p-2 md:p-4 overflow-hidden">
         <div 
           className="h-full max-w-7xl w-full mx-auto flex flex-col"
           style={{
@@ -512,13 +588,13 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             border: '1px solid rgba(98, 212, 249, 0.3)',
-            borderRadius: '20px',
+            borderRadius: '16px',
             position: 'relative',
             zIndex: 1
           }}
         >
-          {/* Always Visible Reality Check Card */}
-          <div className="flex-shrink-0 p-4 border-b border-[#62D4F9]/20">
+          {/* Reality Check Card */}
+          <div className="flex-shrink-0 p-3 md:p-4 border-b border-[#62D4F9]/20">
             <AIRealityCheckCard onBook={handleBookRealityCheck} />
           </div>
 
@@ -528,10 +604,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           {/* Messages Container */}
           <div 
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden p-6 custom-scrollbar"
+            className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 custom-scrollbar"
             style={{ minHeight: 0 }}
           >
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -539,16 +615,16 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 >
                   {message.role === 'assistant' && (
                     <div 
-                      className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 flex-shrink-0"
+                      className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 flex-shrink-0"
                       style={{
                         boxShadow: '0 0 8px #62D4F9, 0 0 16px #62D4F9'
                       }}
                     >
-                      <span className="text-black text-sm font-bold">I</span>
+                      <span className="text-black text-xs md:text-sm font-bold">I</span>
                     </div>
                   )}
                   <div
-                    className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] px-5 py-3 rounded-2xl text-base leading-relaxed text-white ${
+                    className={`max-w-[90%] md:max-w-[85%] lg:max-w-[65%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
                       message.role === 'user' 
                         ? 'bg-[#2A50DF] border border-[#2A50DF]' 
                         : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30'
@@ -566,15 +642,15 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               {loading && (
                 <div className="flex justify-start animate-fadeIn">
                   <div 
-                    className="w-10 h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-3 animate-pulse"
+                    className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 animate-pulse"
                     style={{
                       animation: 'glowPulse 2s ease-in-out infinite',
                     }}
                   >
-                    <span className="text-black text-sm font-bold">I</span>
+                    <span className="text-black text-xs md:text-sm font-bold">I</span>
                   </div>
                   <div 
-                    className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-5 py-3 rounded-2xl"
+                    className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-3 py-2 md:px-5 md:py-3 rounded-2xl"
                     style={{
                       boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
                     }}
@@ -591,9 +667,9 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             </div>
           </div>
 
-          {/* Input Area */}
-          <div className="flex-shrink-0 p-6 border-t border-[#62D4F9]/30">
-            <div className="flex space-x-3 mb-4">
+          {/* Mobile-optimized Input Area */}
+          <div className="flex-shrink-0 p-3 md:p-6 border-t border-[#62D4F9]/30">
+            <div className="flex space-x-2 md:space-x-3 mb-3 md:mb-4">
               <input
                 type="text"
                 value={input}
@@ -601,13 +677,13 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Type your message..."
                 style={{ fontSize: '16px' }}
-                className="flex-1 px-5 py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-base"
+                className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
               />
               <button
                 data-send-button
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="px-6 lg:px-8 py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/50 disabled:cursor-not-allowed transition-all duration-300 font-semibold text-base"
+                className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/50 disabled:cursor-not-allowed transition-all duration-300 font-semibold text-sm md:text-base"
                 style={{
                   boxShadow: !loading && input.trim() 
                     ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
@@ -619,7 +695,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             </div>
             
             <div className="text-center space-y-1">
-              <p className="text-sm text-white font-medium montserrat-header" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
+              <p className="text-xs md:text-sm text-white font-medium montserrat-header" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
                 Stop talking about AI. Start closing with it.
               </p>
               <p className="text-xs text-white/60">

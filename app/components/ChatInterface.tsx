@@ -757,7 +757,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="Chat with Ivy or use the Command Center above..."
                   style={{ fontSize: '16px' }}
-                  className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/40 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
+                  className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/05 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
                 />
                 <button
                   data-send-button

@@ -513,7 +513,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden bg-black relative">
+    <div className="h-screen w-screen flex flex-col overflow-hidden relative">
       {/* Network canvas background for entire page */}
       <NetworkCanvas />
       
@@ -663,7 +663,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           <div 
             className="h-full w-full flex flex-col"
             style={{
-              background: 'rgba(0, 0, 0, 0.3)', // Very transparent black
+              background: 'transparent', // Completely transparent
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
               border: '1px solid rgba(98, 212, 249, 0.3)',

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import Image from 'next/image'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { 
   Target, 
   Sparkles, 
@@ -20,6 +21,9 @@ import {
   Mic,
   PaletteIcon
 } from 'lucide-react'
+
+// Dynamically import NetworkCanvas (no SSR for canvas animation)
+const NetworkCanvas = dynamic(() => import('@/app/components/NetworkCanvas'), { ssr: false })
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -112,7 +116,7 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
         </button>
         {expanded && (
           <div className="px-3 pb-3 space-y-3 animate-fadeIn">
-            <p className="text-white/80 text-xs">
+            <p className="text-white text-xs">
               Free 40-min session to analyze your AI spend and show you how to own your solution.
             </p>
             <button 
@@ -138,7 +142,7 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
             <h3 className="text-base font-bold text-[#62D4F9] font-montserrat tracking-[0.1em]">
               AI Reality Check™ - Free 40-min Strategy Session
             </h3>
-            <p className="text-white/80 text-sm">
+            <p className="text-white text-sm">
               Let's analyze your current AI spend and show you exactly how CoreSentia can replace multiple subscriptions with one solution you own forever.
             </p>
           </div>
@@ -165,10 +169,10 @@ const QuickActions = ({ onProductClick }: { onProductClick: (product: string) =>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#62D4F9]" />
-            <span className="text-white/80 text-xs md:text-sm">Quick Start</span>
+            <span className="text-white text-xs md:text-sm">Quick Start</span>
             <button
               onClick={() => setShowHelp(!showHelp)}
-              className="ml-1 text-white/40 hover:text-white/80 transition-colors"
+              className="ml-1 text-white hover:text-[#62D4F9] transition-colors"
             >
               <HelpCircle className="w-3 h-3" />
             </button>
@@ -200,7 +204,7 @@ const QuickActions = ({ onProductClick }: { onProductClick: (product: string) =>
         </div>
         
         {showHelp && (
-          <div className="mt-2 pt-2 border-t border-white/10 text-white/60 text-xs">
+          <div className="mt-2 pt-2 border-t border-white/10 text-white text-xs">
             Click any product to explore • Type to chat • Use tools on the left • Ivy can generate quotes, book meetings, and more
           </div>
         )}
@@ -528,251 +532,261 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
 
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden bg-black relative">
-      {/* Network canvas background effect */}
-      <div 
-        className={`absolute inset-0 z-0 transition-opacity duration-1000 ${isThinking ? 'opacity-100' : 'opacity-30'}`}
-        style={{
-          background: `radial-gradient(circle at center, rgba(98, 212, 249, ${isThinking ? '0.15' : '0.05'}), transparent 70%)`,
-        }}
-      />
+      {/* Network canvas background */}
+      <NetworkCanvas />
       
-      <style jsx global>{`
-        /* Hide scrollbar for horizontal scroll */
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        
-        /* Custom Scrollbar Styles */
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 4px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #62D4F9;
-          border-radius: 4px;
-          box-shadow: 0 0 2px #62D4F9;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #40FFD9;
-          box-shadow: 0 0 5px #40FFD9;
-        }
-
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: #62D4F9 rgba(255, 255, 255, 0.05);
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
+      {/* Main content wrapper with higher z-index */}
+      <div className="relative z-10 h-full flex flex-col">
+        <style jsx global>{`
+          /* Hide scrollbar for horizontal scroll */
+          .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+          .no-scrollbar::-webkit-scrollbar {
+            display: none;
           }
-        }
-        
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes glowPulse {
-          0%, 100% {
-            box-shadow: 0 0 8px #62D4F9, 0 0 16px #62D4F9;
+          
+          /* Custom Scrollbar Styles */
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
           }
-          50% {
-            box-shadow: 0 0 12px #62D4F9, 0 0 20px #62D4F9;
+          
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
           }
-        }
+          
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #62D4F9;
+            border-radius: 4px;
+            box-shadow: 0 0 2px #62D4F9;
+          }
+          
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #40FFD9;
+            box-shadow: 0 0 5px #40FFD9;
+          }
 
-        .montserrat-header {
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 400;
-          letter-spacing: 0.15em;
-        }
-        
-        body {
-          font-family: 'Open Sans', system-ui, sans-serif;
-        }
-      `}</style>
+          .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #62D4F9 rgba(255, 255, 255, 0.05);
+          }
 
-      {/* Interactive Palette Tools */}
-      <PaletteTools onToolClick={handleToolClick} />
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(10px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+          }
 
-      {/* Enhanced Header */}
-      <div className="bg-black/80 backdrop-blur-md py-2 md:py-3 z-20 flex-shrink-0 border-b border-white/10">
-        <div className="max-w-full px-3 md:px-6 lg:px-20">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 md:gap-4">
-              <Image 
-                src="/CoreSentia_Transparent_Logo.png" 
-                alt="CoreSentia" 
-                width={200}
-                height={80}
-                className="h-6 md:h-8 w-auto"
-                style={{
-                  filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
-                }}
-              />
-              <div className="hidden md:flex items-center gap-2">
-                <PaletteIcon className="w-5 h-5 text-[#62D4F9]" />
-                <span className="text-white/80 text-lg montserrat-header">Ivy • Where conversation becomes action</span>
+          @keyframes glowPulse {
+            0%, 100% {
+              box-shadow: 0 0 8px #62D4F9, 0 0 16px #62D4F9;
+            }
+            50% {
+              box-shadow: 0 0 12px #62D4F9, 0 0 20px #62D4F9;
+            }
+          }
+
+          .montserrat-header {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+          }
+          
+          body {
+            font-family: 'Open Sans', system-ui, sans-serif;
+          }
+        `}</style>
+
+        {/* Interactive Palette Tools */}
+        <PaletteTools onToolClick={handleToolClick} />
+
+        {/* Enhanced Header with more padding */}
+        <div className="bg-black/80 backdrop-blur-md pt-4 pb-3 md:pt-6 md:pb-4 z-20 flex-shrink-0 border-b border-white/10">
+          <div className="max-w-full px-3 md:px-6 lg:px-20">
+            <div className="flex items-center justify-between">
+              {/* Logo - keep large */}
+              <div className="flex-shrink-0">
+                <Image 
+                  src="/CoreSentia_Transparent_Logo.png" 
+                  alt="CoreSentia" 
+                  width={200}
+                  height={80}
+                  className="h-8 md:h-10 lg:h-12 w-auto"
+                  style={{
+                    filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
+                  }}
+                />
               </div>
+              
+              {/* Centered Ivy section */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-2">
+                <span className="text-white text-lg font-montserrat tracking-[0.1em]">
+                  <strong className="font-semibold">Meet Ivy</strong> • She runs your business while you sleep
+                </span>
+              </div>
+              
+              {/* Back button */}
+              <Link 
+                href="/"
+                className="inline-block px-3 py-1.5 md:px-6 md:py-2 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-xs md:text-sm hover:shadow-[0_0_20px_#62D4F9]"
+              >
+                <span className="hidden md:inline">← Back to Homepage</span>
+                <span className="md:hidden">← Back</span>
+              </Link>
             </div>
             
-            <Link 
-              href="/"
-              className="inline-block px-3 py-1.5 md:px-6 md:py-2 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-xs md:text-sm hover:shadow-[0_0_20px_#62D4F9]"
-            >
-              <span className="hidden md:inline">← Back to Homepage</span>
-              <span className="md:hidden">← Back</span>
-            </Link>
+            {/* Mobile Ivy text - below on mobile */}
+            <div className="md:hidden text-center mt-3">
+              <span className="text-white text-sm font-montserrat tracking-[0.1em]">
+                <strong className="font-semibold">Meet Ivy</strong> • She runs your business while you sleep
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Ivy Palette Area - Now using full screen width */}
-      <div className="flex-1 p-2 md:p-4 lg:px-20 overflow-hidden min-h-0 relative z-10">
-        <div 
-          className="h-full w-full flex flex-col"
-          style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(98, 212, 249, 0.3)',
-            borderRadius: '16px',
-            position: 'relative',
-          }}
-        >
-          {/* Reality Check Card */}
-          <div className="flex-shrink-0 p-3 md:p-4 border-b border-[#62D4F9]/20">
-            <AIRealityCheckCard onBook={handleBookRealityCheck} />
-          </div>
-
-          {/* Quick Actions Bar */}
-          <QuickActions onProductClick={handleProductClick} />
-
-          {/* Messages Container - The Core Interaction Area */}
+        {/* Main Ivy Palette Area */}
+        <div className="flex-1 p-2 md:p-4 lg:px-20 overflow-hidden min-h-0 relative">
           <div 
-            ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 lg:p-8 custom-scrollbar min-h-0"
+            className="h-full w-full flex flex-col"
+            style={{
+              background: 'rgba(0, 0, 0, 0.7)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(98, 212, 249, 0.3)',
+              borderRadius: '16px',
+              position: 'relative',
+            }}
           >
-            <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
-                >
-                  {message.role === 'assistant' && (
-                    <div 
-                      className={`w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 flex-shrink-0 ${
-                        loading && index === messages.length - 1 ? 'animate-pulse' : ''
+            {/* Reality Check Card */}
+            <div className="flex-shrink-0 p-3 md:p-4 border-b border-[#62D4F9]/20">
+              <AIRealityCheckCard onBook={handleBookRealityCheck} />
+            </div>
+
+            {/* Quick Actions Bar */}
+            <QuickActions onProductClick={handleProductClick} />
+
+            {/* Messages Container - The Core Interaction Area */}
+            <div 
+              ref={messagesContainerRef}
+              className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 lg:p-8 custom-scrollbar min-h-0"
+            >
+              <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
+                  >
+                    {message.role === 'assistant' && (
+                      <div 
+                        className={`w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 flex-shrink-0 ${
+                          loading && index === messages.length - 1 ? 'animate-pulse' : ''
+                        }`}
+                        style={{
+                          boxShadow: isThinking && index === messages.length - 1 
+                            ? '0 0 20px #62D4F9, 0 0 40px #62D4F9' 
+                            : '0 0 8px #62D4F9, 0 0 16px #62D4F9'
+                        }}
+                      >
+                        <span className="text-black text-xs md:text-sm font-bold">I</span>
+                      </div>
+                    )}
+                    <div
+                      className={`max-w-[90%] md:max-w-[85%] lg:max-w-[75%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
+                        message.role === 'user' 
+                          ? 'bg-[#2A50DF] border border-[#2A50DF]' 
+                          : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30'
                       }`}
                       style={{
-                        boxShadow: isThinking && index === messages.length - 1 
-                          ? '0 0 20px #62D4F9, 0 0 40px #62D4F9' 
-                          : '0 0 8px #62D4F9, 0 0 16px #62D4F9'
+                        boxShadow: message.role === 'user'
+                          ? '0 0 12px #2A50DF, 0 0 20px #2A50DF'
+                          : '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
+                      }}
+                    >
+                      {message.role === 'user' ? message.content : formatMessage(message.content)}
+                    </div>
+                  </div>
+                ))}
+                {loading && (
+                  <div className="flex justify-start animate-fadeIn">
+                    <div 
+                      className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3"
+                      style={{
+                        animation: 'glowPulse 2s ease-in-out infinite',
                       }}
                     >
                       <span className="text-black text-xs md:text-sm font-bold">I</span>
                     </div>
-                  )}
-                  <div
-                    className={`max-w-[90%] md:max-w-[85%] lg:max-w-[75%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
-                      message.role === 'user' 
-                        ? 'bg-[#2A50DF] border border-[#2A50DF]' 
-                        : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30'
-                    }`}
-                    style={{
-                      boxShadow: message.role === 'user'
-                        ? '0 0 12px #2A50DF, 0 0 20px #2A50DF'
-                        : '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
-                    }}
-                  >
-                    {message.role === 'user' ? message.content : formatMessage(message.content)}
-                  </div>
-                </div>
-              ))}
-              {loading && (
-                <div className="flex justify-start animate-fadeIn">
-                  <div 
-                    className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3"
-                    style={{
-                      animation: 'glowPulse 2s ease-in-out infinite',
-                    }}
-                  >
-                    <span className="text-black text-xs md:text-sm font-bold">I</span>
-                  </div>
-                  <div 
-                    className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-3 py-2 md:px-5 md:py-3 rounded-2xl"
-                    style={{
-                      boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
-                    }}
-                  >
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '0ms', boxShadow: '0 0 2px #62D4F9' }}></div>
-                      <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '150ms', boxShadow: '0 0 2px #62D4F9' }}></div>
-                      <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '300ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                    <div 
+                      className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-3 py-2 md:px-5 md:py-3 rounded-2xl"
+                      style={{
+                        boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
+                      }}
+                    >
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '0ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                        <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '150ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                        <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '300ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
+                )}
+                <div ref={messagesEndRef} />
+              </div>
             </div>
-          </div>
 
-          {/* Enhanced Input Area with Voice Option */}
-          <div className="flex-shrink-0 px-3 pb-2 pt-3 md:p-6 border-t border-[#62D4F9]/30">
-            <div className="flex space-x-2 md:space-x-3 mb-2 md:mb-4">
-              <button
-                className="p-2 md:p-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl hover:border-[#62D4F9] transition-all"
-                title="Voice input coming soon"
-              >
-                <Mic className="w-4 h-4 md:w-5 md:h-5 text-white/50" />
-              </button>
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                placeholder="Type to Ivy, or use the tools..."
-                style={{ fontSize: '16px' }}
-                className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
-              />
-              <button
-                data-send-button
-                onClick={sendMessage}
-                disabled={loading || !input.trim()}
-                className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/50 disabled:cursor-not-allowed transition-all duration-300 font-semibold text-sm md:text-base flex items-center gap-2"
-                style={{
-                  boxShadow: !loading && input.trim() 
-                    ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
-                    : 'none'
-                }}
-              >
-                <Send className="w-4 h-4" />
-                <span className="hidden md:inline">Send</span>
-              </button>
-            </div>
-            
-            <div className="text-center">
-              <p className="text-[10px] md:text-sm text-white font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
-                Stop talking about AI. Start closing with it.
-              </p>
-              <p className="text-[10px] md:text-xs text-white/60">
-                © CoreSentia 2025
-              </p>
+            {/* Enhanced Input Area with Voice Option */}
+            <div className="flex-shrink-0 px-3 pb-2 pt-3 md:p-6 border-t border-[#62D4F9]/30">
+              <div className="flex space-x-2 md:space-x-3 mb-2 md:mb-4">
+                <button
+                  className="p-2 md:p-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl hover:border-[#62D4F9] transition-all"
+                  title="Voice input coming soon"
+                >
+                  <Mic className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                </button>
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="Type to Ivy, or use the tools..."
+                  style={{ fontSize: '16px' }}
+                  className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
+                />
+                <button
+                  data-send-button
+                  onClick={sendMessage}
+                  disabled={loading || !input.trim()}
+                  className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white disabled:cursor-not-allowed transition-all duration-300 font-semibold text-sm md:text-base flex items-center gap-2"
+                  style={{
+                    boxShadow: !loading && input.trim() 
+                      ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
+                      : 'none'
+                  }}
+                >
+                  <Send className="w-4 h-4" />
+                  <span className="hidden md:inline">Send</span>
+                </button>
+              </div>
+              
+              <div className="text-center">
+                <p className="text-[10px] md:text-sm text-white font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
+                  Stop talking about AI. Start closing with it.
+                </p>
+                <p className="text-[10px] md:text-xs text-white">
+                  © CoreSentia 2025
+                </p>
+              </div>
             </div>
           </div>
         </div>

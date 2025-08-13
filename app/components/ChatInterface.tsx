@@ -116,7 +116,7 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
   )
 }
 
-// Enhanced Command Center (formerly Quick Actions)
+// Enhanced Command Center
 const CommandCenter = ({ onAction }: { onAction: (action: string) => void }) => {
   const [showHelp, setShowHelp] = useState(false)
   
@@ -513,10 +513,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden relative">
-      {/* Network canvas background - no black overlay */}
-      <NetworkCanvas />
-      
+    <div className="h-screen w-screen flex flex-col overflow-hidden bg-black">
       {/* Main content wrapper */}
       <div className="relative z-10 h-full flex flex-col">
         <style jsx global>{`
@@ -600,7 +597,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         `}</style>
 
         {/* Enhanced Header */}
-        <div className="bg-black/40 backdrop-blur-xl pt-4 pb-3 md:pt-6 md:pb-4 z-20 flex-shrink-0 border-b border-[#62D4F9]/20">
+        <div className="bg-black/80 backdrop-blur-xl pt-4 pb-3 md:pt-6 md:pb-4 z-20 flex-shrink-0 border-b border-[#62D4F9]/20">
           <div className="max-w-full px-3 md:px-6 lg:px-20">
             <div className="flex items-center justify-between">
               {/* Logo - larger */}
@@ -661,128 +658,136 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         {/* Main Chat Container */}
         <div className="flex-1 p-2 md:p-4 lg:px-20 overflow-hidden min-h-0 relative">
           <div 
-            className="h-full w-full flex flex-col"
+            className="h-full w-full flex flex-col relative overflow-hidden"
             style={{
-              background: 'rgba(0, 0, 0, 0.5)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
               border: '1px solid rgba(98, 212, 249, 0.3)',
               borderRadius: '16px',
-              position: 'relative',
             }}
           >
-            {/* AI Reality Check Card */}
-            <div className="flex-shrink-0 p-3 md:p-4 border-b border-[#62D4F9]/20">
-              <AIRealityCheckCard onBook={handleBookRealityCheck} />
+            {/* Network canvas inside chat container */}
+            <div className="absolute inset-0 z-0">
+              <NetworkCanvas />
             </div>
+            
+            {/* Chat content with backdrop blur */}
+            <div className="relative z-10 h-full flex flex-col" style={{
+              background: 'rgba(0, 0, 0, 0.5)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+            }}>
+              {/* AI Reality Check Card */}
+              <div className="flex-shrink-0 p-3 md:p-4 border-b border-[#62D4F9]/20">
+                <AIRealityCheckCard onBook={handleBookRealityCheck} />
+              </div>
 
-            {/* Command Center */}
-            <CommandCenter onAction={handleAction} />
+              {/* Command Center */}
+              <CommandCenter onAction={handleAction} />
 
-            {/* Messages Container */}
-            <div 
-              ref={messagesContainerRef}
-              className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 lg:p-8 custom-scrollbar min-h-0"
-            >
-              <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
-                {messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
-                  >
-                    {message.role === 'assistant' && (
-                      <div 
-                        className={`w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 flex-shrink-0 ${
-                          loading && index === messages.length - 1 ? 'animate-pulse' : ''
+              {/* Messages Container */}
+              <div 
+                ref={messagesContainerRef}
+                className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 lg:p-8 custom-scrollbar min-h-0"
+              >
+                <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
+                  {messages.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
+                    >
+                      {message.role === 'assistant' && (
+                        <div 
+                          className={`w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3 flex-shrink-0 ${
+                            loading && index === messages.length - 1 ? 'animate-pulse' : ''
+                          }`}
+                          style={{
+                            boxShadow: isThinking && index === messages.length - 1 
+                              ? '0 0 20px #62D4F9, 0 0 40px #62D4F9' 
+                              : '0 0 8px #62D4F9, 0 0 16px #62D4F9'
+                          }}
+                        >
+                          <span className="text-black text-xs md:text-sm font-bold">I</span>
+                        </div>
+                      )}
+                      <div
+                        className={`max-w-[90%] md:max-w-[85%] lg:max-w-[75%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
+                          message.role === 'user' 
+                            ? 'bg-[#2A50DF] border border-[#2A50DF]' 
+                            : 'bg-black/70 backdrop-blur-xl border border-[#62D4F9]/30'
                         }`}
                         style={{
-                          boxShadow: isThinking && index === messages.length - 1 
-                            ? '0 0 20px #62D4F9, 0 0 40px #62D4F9' 
-                            : '0 0 8px #62D4F9, 0 0 16px #62D4F9'
+                          boxShadow: message.role === 'user'
+                            ? '0 0 12px #2A50DF, 0 0 20px #2A50DF'
+                            : '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
+                        }}
+                      >
+                        {message.role === 'user' ? message.content : formatMessage(message.content)}
+                      </div>
+                    </div>
+                  ))}
+                  {loading && (
+                    <div className="flex justify-start animate-fadeIn">
+                      <div 
+                        className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3"
+                        style={{
+                          animation: 'glowPulse 2s ease-in-out infinite',
                         }}
                       >
                         <span className="text-black text-xs md:text-sm font-bold">I</span>
                       </div>
-                    )}
-                    <div
-                      className={`max-w-[90%] md:max-w-[85%] lg:max-w-[75%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
-                        message.role === 'user' 
-                          ? 'bg-[#2A50DF] border border-[#2A50DF]' 
-                          : 'bg-black/70 backdrop-blur-xl border border-[#62D4F9]/30'
-                      }`}
-                      style={{
-                        boxShadow: message.role === 'user'
-                          ? '0 0 12px #2A50DF, 0 0 20px #2A50DF'
-                          : '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
-                      }}
-                    >
-                      {message.role === 'user' ? message.content : formatMessage(message.content)}
-                    </div>
-                  </div>
-                ))}
-                {loading && (
-                  <div className="flex justify-start animate-fadeIn">
-                    <div 
-                      className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#62D4F9] flex items-center justify-center mr-2 md:mr-3"
-                      style={{
-                        animation: 'glowPulse 2s ease-in-out infinite',
-                      }}
-                    >
-                      <span className="text-black text-xs md:text-sm font-bold">I</span>
-                    </div>
-                    <div 
-                      className="bg-black/70 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-3 py-2 md:px-5 md:py-3 rounded-2xl"
-                      style={{
-                        boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
-                      }}
-                    >
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '0ms', boxShadow: '0 0 2px #62D4F9' }}></div>
-                        <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '150ms', boxShadow: '0 0 2px #62D4F9' }}></div>
-                        <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '300ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                      <div 
+                        className="bg-black/70 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-3 py-2 md:px-5 md:py-3 rounded-2xl"
+                        style={{
+                          boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
+                        }}
+                      >
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '0ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                          <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '150ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                          <div className="w-2 h-2 bg-[#62D4F9] rounded-full animate-bounce" style={{ animationDelay: '300ms', boxShadow: '0 0 2px #62D4F9' }}></div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
               </div>
-            </div>
 
-            {/* Input Area */}
-            <div className="flex-shrink-0 px-3 pb-2 pt-3 md:p-6 border-t border-[#62D4F9]/30">
-              <div className="flex space-x-2 md:space-x-3 mb-2 md:mb-4">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                  placeholder="Chat with Ivy or use the Command Center above..."
-                  style={{ fontSize: '16px' }}
-                  className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/60 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
-                />
-                <button
-                  data-send-button
-                  onClick={sendMessage}
-                  disabled={loading || !input.trim()}
-                  className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/30 disabled:cursor-not-allowed transition-all duration-300 font-bold text-sm md:text-base flex items-center gap-2"
-                  style={{
-                    boxShadow: !loading && input.trim() 
-                      ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
-                      : 'none'
-                  }}
-                >
-                  <Send className="w-4 h-4" />
-                  <span className="hidden md:inline">Send</span>
-                </button>
-              </div>
-              
-              <div className="text-center">
-                <p className="text-[10px] md:text-sm text-white/80 font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
-                  Stop talking about AI. Start closing with it.
-                </p>
-                <p className="text-[10px] md:text-xs text-white/60">
-                  © CoreSentia 2025
-                </p>
+              {/* Input Area */}
+              <div className="flex-shrink-0 px-3 pb-2 pt-3 md:p-6 border-t border-[#62D4F9]/30">
+                <div className="flex space-x-2 md:space-x-3 mb-2 md:mb-4">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                    placeholder="Chat with Ivy or use the Command Center above..."
+                    style={{ fontSize: '16px' }}
+                    className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/60 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
+                  />
+                  <button
+                    data-send-button
+                    onClick={sendMessage}
+                    disabled={loading || !input.trim()}
+                    className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/30 disabled:cursor-not-allowed transition-all duration-300 font-bold text-sm md:text-base flex items-center gap-2"
+                    style={{
+                      boxShadow: !loading && input.trim() 
+                        ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
+                        : 'none'
+                    }}
+                  >
+                    <Send className="w-4 h-4" />
+                    <span className="hidden md:inline">Send</span>
+                  </button>
+                </div>
+                
+                <div className="text-center">
+                  <p className="text-[10px] md:text-sm text-white/80 font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
+                    Stop talking about AI. Start closing with it.
+                  </p>
+                  <p className="text-[10px] md:text-xs text-white/60">
+                    © CoreSentia 2025
+                  </p>
+                </div>
               </div>
             </div>
           </div>

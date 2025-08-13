@@ -19,7 +19,8 @@ import {
   HelpCircle,
   Send,
   Mic,
-  PaletteIcon
+  X,
+  ArrowLeft
 } from 'lucide-react'
 
 // Dynamically import NetworkCanvas (no SSR for canvas animation)
@@ -50,56 +51,12 @@ interface ChatInterfaceProps {
   leadId: string
 }
 
-// Interactive Palette Tools
-const PaletteTools = ({ onToolClick }: { onToolClick: (tool: string) => void }) => {
-  const [showHelp, setShowHelp] = useState(false)
-  
-  return (
-    <div className="absolute top-1/2 -translate-y-1/2 left-4 lg:left-8 z-20">
-      <div className="flex flex-col gap-3">
-        <button
-          onClick={() => onToolClick('quote')}
-          className="group relative w-12 h-12 lg:w-14 lg:h-14 bg-black/60 backdrop-blur-xl border border-[#62D4F9]/30 rounded-xl flex items-center justify-center hover:border-[#62D4F9] hover:bg-[#62D4F9]/10 transition-all hover:scale-110"
-          title="Get a quote"
-        >
-          <FileText className="w-5 h-5 lg:w-6 lg:h-6 text-[#62D4F9]" />
-          <span className="absolute left-16 opacity-0 group-hover:opacity-100 bg-black/90 text-white px-3 py-1 rounded-lg text-sm whitespace-nowrap transition-opacity pointer-events-none">
-            Get instant quote
-          </span>
-        </button>
-        
-        <button
-          onClick={() => onToolClick('meeting')}
-          className="group relative w-12 h-12 lg:w-14 lg:h-14 bg-black/60 backdrop-blur-xl border border-[#2A50DF]/30 rounded-xl flex items-center justify-center hover:border-[#2A50DF] hover:bg-[#2A50DF]/10 transition-all hover:scale-110"
-          title="Book meeting"
-        >
-          <Calendar className="w-5 h-5 lg:w-6 lg:h-6 text-[#2A50DF]" />
-          <span className="absolute left-16 opacity-0 group-hover:opacity-100 bg-black/90 text-white px-3 py-1 rounded-lg text-sm whitespace-nowrap transition-opacity pointer-events-none">
-            Book consultation
-          </span>
-        </button>
-        
-        <button
-          onClick={() => onToolClick('products')}
-          className="group relative w-12 h-12 lg:w-14 lg:h-14 bg-black/60 backdrop-blur-xl border border-[#40FFD9]/30 rounded-xl flex items-center justify-center hover:border-[#40FFD9] hover:bg-[#40FFD9]/10 transition-all hover:scale-110"
-          title="Explore products"
-        >
-          <Briefcase className="w-5 h-5 lg:w-6 lg:h-6 text-[#40FFD9]" />
-          <span className="absolute left-16 opacity-0 group-hover:opacity-100 bg-black/90 text-white px-3 py-1 rounded-lg text-sm whitespace-nowrap transition-opacity pointer-events-none">
-            Explore solutions
-          </span>
-        </button>
-      </div>
-    </div>
-  )
-}
-
-// Enhanced Reality Check Card with Lucide icons
+// Enhanced Reality Check Card
 const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
   const [expanded, setExpanded] = useState(false)
   
   return (
-    <div className="bg-gradient-to-r from-[#2A50DF]/10 to-[#62D4F9]/10 backdrop-blur-xl border border-[#62D4F9]/50 rounded-xl">
+    <div className="bg-gradient-to-r from-[#2A50DF]/20 to-[#62D4F9]/20 backdrop-blur-xl border border-[#62D4F9]/30 rounded-xl">
       {/* Mobile view - collapsible */}
       <div className="md:hidden">
         <button
@@ -116,7 +73,7 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
         </button>
         {expanded && (
           <div className="px-3 pb-3 space-y-3 animate-fadeIn">
-            <p className="text-white text-xs">
+            <p className="text-white/80 text-xs">
               Free 40-min session to analyze your AI spend and show you how to own your solution.
             </p>
             <button 
@@ -134,22 +91,22 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
       <div className="hidden md:flex p-4 items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex-shrink-0">
-            <div className="w-10 h-10 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
-              <Target className="w-6 h-6 text-[#62D4F9]" />
+            <div className="w-12 h-12 bg-[#62D4F9]/20 rounded-lg flex items-center justify-center">
+              <Target className="w-7 h-7 text-[#62D4F9]" />
             </div>
           </div>
           <div className="flex-1">
-            <h3 className="text-base font-bold text-[#62D4F9] font-montserrat tracking-[0.1em]">
+            <h3 className="text-base font-bold text-[#62D4F9] font-montserrat tracking-[0.1em] mb-1">
               AI Reality Check™ - Free 40-min Strategy Session
             </h3>
-            <p className="text-white text-sm">
+            <p className="text-white/80 text-sm">
               Let's analyze your current AI spend and show you exactly how CoreSentia can replace multiple subscriptions with one solution you own forever.
             </p>
           </div>
         </div>
         <button 
           onClick={onBook}
-          className="bg-[#62D4F9] text-black font-bold px-6 py-2 rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm whitespace-nowrap ml-4"
+          className="bg-[#62D4F9] text-black font-bold px-6 py-2.5 rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm whitespace-nowrap ml-4"
           style={{ boxShadow: '0 0 15px rgba(98, 212, 249, 0.5)' }}
         >
           Book Your Session →
@@ -159,68 +116,105 @@ const AIRealityCheckCard = ({ onBook }: { onBook: () => void }) => {
   )
 }
 
-// Enhanced Quick Actions with more context
-const QuickActions = ({ onProductClick }: { onProductClick: (product: string) => void }) => {
+// Enhanced Command Center (formerly Quick Actions)
+const CommandCenter = ({ onAction }: { onAction: (action: string) => void }) => {
   const [showHelp, setShowHelp] = useState(false)
   
   return (
-    <div className="bg-black/50 backdrop-blur border-t border-[#62D4F9]/20">
-      <div className="px-3 py-2 md:px-4 md:py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#62D4F9]" />
-            <span className="text-white text-xs md:text-sm">Quick Start</span>
-            <button
-              onClick={() => setShowHelp(!showHelp)}
-              className="ml-1 text-white hover:text-[#62D4F9] transition-colors"
-            >
-              <HelpCircle className="w-3 h-3" />
-            </button>
+    <div className="bg-black/30 backdrop-blur-xl border-t border-[#62D4F9]/20">
+      <div className="px-4 py-3">
+        {/* Main Bar */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <Sparkles className="w-6 h-6 text-[#62D4F9]" style={{ filter: 'drop-shadow(0 0 4px #62D4F9)' }} />
+            <span className="text-white text-sm font-semibold tracking-wider">COMMAND CENTER</span>
           </div>
           
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={() => onProductClick('essentials')}
-              className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs md:text-sm whitespace-nowrap flex items-center gap-1"
-            >
-              <Zap className="w-3 h-3" />
-              Essentials $3k
-            </button>
-            <button 
-              onClick={() => onProductClick('custom')}
-              className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs md:text-sm whitespace-nowrap flex items-center gap-1"
-            >
-              <Brain className="w-3 h-3" />
-              Custom $10k
-            </button>
-            <button 
-              onClick={() => onProductClick('core')}
-              className="px-3 py-1.5 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 transition-all text-xs md:text-sm whitespace-nowrap flex items-center gap-1"
-            >
-              <DollarSign className="w-3 h-3" />
-              Core™ $25k
-            </button>
+          <button
+            onClick={() => setShowHelp(!showHelp)}
+            className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+          >
+            {showHelp ? (
+              <X className="w-4 h-4 text-white/60" />
+            ) : (
+              <HelpCircle className="w-4 h-4 text-white/60" />
+            )}
+          </button>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+          <button 
+            onClick={() => onAction('quote')}
+            className="px-3 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 hover:border-[#62D4F9]/50 transition-all text-xs font-medium flex items-center justify-center gap-2"
+          >
+            <FileText className="w-4 h-4" />
+            Get Quote
+          </button>
+          
+          <button 
+            onClick={() => onAction('meeting')}
+            className="px-3 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 hover:border-[#62D4F9]/50 transition-all text-xs font-medium flex items-center justify-center gap-2"
+          >
+            <Calendar className="w-4 h-4" />
+            Book Call
+          </button>
+          
+          <button 
+            onClick={() => onAction('essentials')}
+            className="px-3 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 hover:border-[#62D4F9]/50 transition-all text-xs font-medium flex items-center justify-center gap-2"
+          >
+            <Zap className="w-4 h-4" />
+            Essentials $3k
+          </button>
+          
+          <button 
+            onClick={() => onAction('custom')}
+            className="px-3 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 hover:border-[#62D4F9]/50 transition-all text-xs font-medium flex items-center justify-center gap-2"
+          >
+            <Brain className="w-4 h-4" />
+            Custom $10k
+          </button>
+          
+          <button 
+            onClick={() => onAction('core')}
+            className="px-3 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 hover:border-[#62D4F9]/50 transition-all text-xs font-medium flex items-center justify-center gap-2"
+          >
+            <DollarSign className="w-4 h-4" />
+            Core™ $25k
+          </button>
+          
+          <button 
+            onClick={() => onAction('explore')}
+            className="px-3 py-2 bg-[#2A50DF]/20 text-[#62D4F9] border border-[#62D4F9]/30 rounded-lg hover:bg-[#2A50DF]/30 hover:border-[#62D4F9]/50 transition-all text-xs font-medium flex items-center justify-center gap-2"
+          >
+            <Briefcase className="w-4 h-4" />
+            Explore All
+          </button>
+        </div>
+      </div>
+
+      {/* Help Popup */}
+      {showHelp && (
+        <div className="absolute bottom-full mb-2 right-4 bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 rounded-lg p-3 max-w-xs animate-fadeIn z-50">
+          <div className="text-white/90 text-xs space-y-1">
+            <p>💬 <strong>Chat with Ivy</strong> - Just type below</p>
+            <p>🎯 <strong>Quick Actions</strong> - Click any button</p>
+            <p>📊 <strong>Get Results</strong> - Quotes in minutes</p>
+            <p>🚀 <strong>Close Deals</strong> - 24/7 automation</p>
           </div>
         </div>
-        
-        {showHelp && (
-          <div className="mt-2 pt-2 border-t border-white/10 text-white text-xs">
-            Click any product to explore • Type to chat • Use tools on the left • Ivy can generate quotes, book meetings, and more
-          </div>
-        )}
-      </div>
+      )}
     </div>
   )
 }
 
-// Helper function to strip ACTION: tags from messages
+// Helper function to strip ACTION: tags
 const stripActionTags = (content: string): string => {
-  return content
-    .replace(/\(?\s*ACTION:\s*[A-Z_]+\s*\)?/g, '')
-    .trim()
+  return content.replace(/\(?\s*ACTION:\s*[A-Z_]+\s*\)?/g, '').trim()
 }
 
-// Enhanced markdown formatter
+// Enhanced markdown formatter (keeping existing)
 const formatMessage = (text: string) => {
   if (!text || typeof text !== 'string') {
     return 'Sorry, I encountered an error. Please try again.';
@@ -372,7 +366,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     
     setMessages([{
       role: 'assistant',
-      content: "Hi, I'm Ivy - your AI business partner. I can chat, generate quotes, book meetings, and more. What brings you to CoreSentia today?"
+      content: "Hi, I'm Ivy - your AI business partner. I can chat, generate quotes, book meetings, and more. What brings you to CoreSentia today?\n\n💡 Tip: Use the Command Center below for quick actions, or just chat with me naturally!"
     }])
   }, [leadId])
 
@@ -381,31 +375,16 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
     window.open('https://calendar.app.google/X6T7MdmZCxF3mGBe7', '_blank')
   }
 
-  // Handle tool clicks
-  const handleToolClick = (tool: string) => {
+  // Handle command center actions
+  const handleAction = (action: string) => {
     let message = '';
-    switch(tool) {
+    switch(action) {
       case 'quote':
         message = 'I need a quote';
         break;
       case 'meeting':
         message = 'I want to book a consultation';
         break;
-      case 'products':
-        message = 'Show me your solutions';
-        break;
-    }
-    setInput(message);
-    setTimeout(() => {
-      const sendButton = document.querySelector('[data-send-button]') as HTMLButtonElement;
-      if (sendButton) sendButton.click();
-    }, 100);
-  }
-
-  // Handle product click
-  const handleProductClick = (product: string) => {
-    let message = '';
-    switch(product) {
       case 'essentials':
         message = 'Tell me about the Essentials package';
         break;
@@ -414,6 +393,9 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
         break;
       case 'core':
         message = 'What is Core™?';
+        break;
+      case 'explore':
+        message = 'Show me all your solutions';
         break;
     }
     setInput(message);
@@ -444,7 +426,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       if (quoteResult.success) {
         setMessages(prev => [...prev, {
           role: 'assistant',
-          content: `✅ Quote #${quoteResult.quoteNumber} has been created!`
+          content: `✅ Quote #${quoteResult.quoteNumber} has been created and sent to your email!`
         }])
       } else {
         setMessages(prev => [...prev, {
@@ -531,11 +513,11 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden bg-black relative">
-      {/* Network canvas background */}
+    <div className="h-screen w-screen flex flex-col overflow-hidden relative">
+      {/* Network canvas background - no black overlay */}
       <NetworkCanvas />
       
-      {/* Main content wrapper with higher z-index */}
+      {/* Main content wrapper */}
       <div className="relative z-10 h-full flex flex-col">
         <style jsx global>{`
           /* Hide scrollbar for horizontal scroll */
@@ -597,6 +579,15 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             }
           }
 
+          @keyframes textGlow {
+            0%, 100% {
+              text-shadow: 0 0 10px rgba(98, 212, 249, 0.8), 0 0 20px rgba(98, 212, 249, 0.6);
+            }
+            50% {
+              text-shadow: 0 0 15px rgba(98, 212, 249, 1), 0 0 30px rgba(98, 212, 249, 0.8);
+            }
+          }
+
           .montserrat-header {
             font-family: 'Montserrat', sans-serif;
             font-weight: 400;
@@ -608,59 +599,71 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
           }
         `}</style>
 
-        {/* Interactive Palette Tools */}
-        <PaletteTools onToolClick={handleToolClick} />
-
-        {/* Enhanced Header with more padding */}
-        <div className="bg-black/80 backdrop-blur-md pt-4 pb-3 md:pt-6 md:pb-4 z-20 flex-shrink-0 border-b border-white/10">
+        {/* Enhanced Header */}
+        <div className="bg-black/40 backdrop-blur-xl pt-4 pb-3 md:pt-6 md:pb-4 z-20 flex-shrink-0 border-b border-[#62D4F9]/20">
           <div className="max-w-full px-3 md:px-6 lg:px-20">
             <div className="flex items-center justify-between">
-              {/* Logo - keep large */}
+              {/* Logo - larger */}
               <div className="flex-shrink-0">
                 <Image 
                   src="/CoreSentia_Transparent_Logo.png" 
                   alt="CoreSentia" 
-                  width={200}
-                  height={80}
-                  className="h-8 md:h-10 lg:h-12 w-auto"
+                  width={220}
+                  height={88}
+                  className="h-10 md:h-14 lg:h-16 w-auto"
                   style={{
-                    filter: 'drop-shadow(0 0 20px rgba(98, 212, 249, 0.8))'
+                    filter: 'drop-shadow(0 0 25px rgba(98, 212, 249, 0.9))'
                   }}
                 />
               </div>
               
-              {/* Centered Ivy section */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-2">
-                <span className="text-white text-lg font-montserrat tracking-[0.1em]">
-                  <strong className="font-semibold">Meet Ivy</strong> • She runs your business while you sleep
-                </span>
+              {/* Centered Ivy section - more dynamic */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block">
+                <div className="text-center">
+                  <div className="text-white text-lg font-montserrat tracking-[0.2em] flex items-center gap-3">
+                    <span 
+                      className="font-bold text-[#62D4F9]"
+                      style={{ animation: 'textGlow 3s ease-in-out infinite' }}
+                    >
+                      MEET IVY
+                    </span>
+                    <span className="text-[#40FFD9] text-2xl">•</span>
+                    <span className="text-white/90 text-base">
+                      She runs your business while you sleep
+                    </span>
+                  </div>
+                </div>
               </div>
               
-              {/* Back button */}
+              {/* Back button - matched size */}
               <Link 
                 href="/"
-                className="inline-block px-3 py-1.5 md:px-6 md:py-2 bg-[#62D4F9] text-black font-semibold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-xs md:text-sm hover:shadow-[0_0_20px_#62D4F9]"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#62D4F9] text-black font-bold rounded-full hover:bg-[#40FFD9] transition-all transform hover:scale-105 text-sm"
+                style={{ boxShadow: '0 0 15px rgba(98, 212, 249, 0.5)' }}
               >
-                <span className="hidden md:inline">← Back to Homepage</span>
-                <span className="md:hidden">← Back</span>
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden md:inline">Back to Homepage</span>
+                <span className="md:hidden">Back</span>
               </Link>
             </div>
             
-            {/* Mobile Ivy text - below on mobile */}
+            {/* Mobile Ivy text */}
             <div className="md:hidden text-center mt-3">
-              <span className="text-white text-sm font-montserrat tracking-[0.1em]">
-                <strong className="font-semibold">Meet Ivy</strong> • She runs your business while you sleep
-              </span>
+              <div className="text-white text-sm font-montserrat tracking-[0.15em]">
+                <span className="font-bold text-[#62D4F9]">MEET IVY</span>
+                <span className="text-[#40FFD9] mx-2">•</span>
+                <span className="text-white/90">She runs your business</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Main Ivy Palette Area */}
+        {/* Main Chat Container */}
         <div className="flex-1 p-2 md:p-4 lg:px-20 overflow-hidden min-h-0 relative">
           <div 
             className="h-full w-full flex flex-col"
             style={{
-              background: 'rgba(0, 0, 0, 0.7)',
+              background: 'rgba(0, 0, 0, 0.5)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               border: '1px solid rgba(98, 212, 249, 0.3)',
@@ -668,15 +671,15 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               position: 'relative',
             }}
           >
-            {/* Reality Check Card */}
+            {/* AI Reality Check Card */}
             <div className="flex-shrink-0 p-3 md:p-4 border-b border-[#62D4F9]/20">
               <AIRealityCheckCard onBook={handleBookRealityCheck} />
             </div>
 
-            {/* Quick Actions Bar */}
-            <QuickActions onProductClick={handleProductClick} />
+            {/* Command Center */}
+            <CommandCenter onAction={handleAction} />
 
-            {/* Messages Container - The Core Interaction Area */}
+            {/* Messages Container */}
             <div 
               ref={messagesContainerRef}
               className="flex-1 overflow-y-auto overflow-x-hidden p-3 md:p-6 lg:p-8 custom-scrollbar min-h-0"
@@ -705,7 +708,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                       className={`max-w-[90%] md:max-w-[85%] lg:max-w-[75%] px-3 py-2 md:px-5 md:py-3 rounded-2xl text-sm md:text-base leading-relaxed text-white ${
                         message.role === 'user' 
                           ? 'bg-[#2A50DF] border border-[#2A50DF]' 
-                          : 'bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30'
+                          : 'bg-black/70 backdrop-blur-xl border border-[#62D4F9]/30'
                       }`}
                       style={{
                         boxShadow: message.role === 'user'
@@ -728,7 +731,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
                       <span className="text-black text-xs md:text-sm font-bold">I</span>
                     </div>
                     <div 
-                      className="bg-black/90 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-3 py-2 md:px-5 md:py-3 rounded-2xl"
+                      className="bg-black/70 backdrop-blur-xl border border-[#62D4F9]/30 text-white px-3 py-2 md:px-5 md:py-3 rounded-2xl"
                       style={{
                         boxShadow: '0 0 8px rgba(98, 212, 249, 0.15), 0 0 16px rgba(98, 212, 249, 0.12)'
                       }}
@@ -745,29 +748,23 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               </div>
             </div>
 
-            {/* Enhanced Input Area with Voice Option */}
+            {/* Input Area */}
             <div className="flex-shrink-0 px-3 pb-2 pt-3 md:p-6 border-t border-[#62D4F9]/30">
               <div className="flex space-x-2 md:space-x-3 mb-2 md:mb-4">
-                <button
-                  className="p-2 md:p-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl hover:border-[#62D4F9] transition-all"
-                  title="Voice input coming soon"
-                >
-                  <Mic className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                </button>
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                  placeholder="Type to Ivy, or use the tools..."
+                  placeholder="Chat with Ivy or use the Command Center above..."
                   style={{ fontSize: '16px' }}
-                  className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/80 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
+                  className="flex-1 px-3 py-2 md:px-5 md:py-3 bg-black/60 backdrop-blur-xl border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#62D4F9] transition-all duration-300 text-sm md:text-base"
                 />
                 <button
                   data-send-button
                   onClick={sendMessage}
                   disabled={loading || !input.trim()}
-                  className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white disabled:cursor-not-allowed transition-all duration-300 font-semibold text-sm md:text-base flex items-center gap-2"
+                  className="px-4 py-2 md:px-6 lg:px-8 md:py-3 bg-[#62D4F9] text-black rounded-full hover:bg-[#40FFD9] hover:scale-105 disabled:bg-white/10 disabled:text-white/30 disabled:cursor-not-allowed transition-all duration-300 font-bold text-sm md:text-base flex items-center gap-2"
                   style={{
                     boxShadow: !loading && input.trim() 
                       ? '0 0 8px #62D4F9, 0 0 16px #62D4F9'
@@ -780,10 +777,10 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
               </div>
               
               <div className="text-center">
-                <p className="text-[10px] md:text-sm text-white font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
+                <p className="text-[10px] md:text-sm text-white/80 font-medium montserrat-header mb-0.5" style={{ textShadow: '0 0 2px rgba(255, 255, 255, 0.25)' }}>
                   Stop talking about AI. Start closing with it.
                 </p>
-                <p className="text-[10px] md:text-xs text-white">
+                <p className="text-[10px] md:text-xs text-white/60">
                   © CoreSentia 2025
                 </p>
               </div>

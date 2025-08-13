@@ -664,8 +664,8 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
             className="h-full w-full flex flex-col"
             style={{
               background: 'transparent',
-              backdropFilter: 'blur(10px) brightness(1.1)', // Add brightness compensation
-              WebkitBackdropFilter: 'blur(10px) brightness(1.1)',
+              backdropFilter: 'blur(10px) brightness(1.4)', // Add brightness compensation
+              WebkitBackdropFilter: 'blur(8px) brightness(1.1)',
               border: '1px solid rgba(98, 212, 249, 0.3)',
               borderRadius: '16px',
             }}

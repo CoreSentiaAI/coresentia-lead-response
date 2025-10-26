@@ -3,10 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-rgb: 0, 0, 0;
-  --brand-primary: #62D4F9;
-  --brand-secondary: #2A50DF;
+  --foreground-rgb: 45, 52, 54;
+  --background-rgb: 255, 255, 255;
+  --brand-navy: #1E3A5F;
+  --brand-orange: #FF6B35;
+  --brand-sage: #8FBC8F;
+  --text-primary: #2D3436;
+  --text-secondary: rgba(45, 52, 54, 0.6);
 }
 
 body {
@@ -29,8 +32,31 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Gradient text effect */
 .gradient-text {
-  background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  background: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-orange) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: var(--brand-orange);
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+}
+
+.btn-secondary {
+  background-color: var(--brand-navy);
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-secondary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(30, 58, 95, 0.3);
 }

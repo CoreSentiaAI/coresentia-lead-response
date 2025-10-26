@@ -7,6 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        brand: {
+          navy: '#1E3A5F',
+          orange: '#FF6B35',
+          sage: '#8FBC8F',
+        },
+        text: {
+          primary: '#2D3436',
+          secondary: 'rgba(45, 52, 54, 0.6)',
+        },
+      },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
       },

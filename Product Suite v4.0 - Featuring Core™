@@ -1,0 +1,507 @@
+# CoreSentia Product Suite v4.0
+## Featuring Core™ (CoreSentia Core™)
+
+**Last Updated: August 2025**  
+**Status: Category-Defining Product Launch**
+
+---
+
+## Executive Summary
+
+CoreSentia is evolving from an AI automation company to a business transformation company. Our flagship product, **Core™**, isn't just automation. It's the operational brain and central nervous system of your business - the single control point where everything connects, communicates, and executes.
+
+**The Math:** Businesses spend $400K+ annually on:
+- Receptionist ($45K)
+- Sales Coordinator ($65K)
+- Sales Rep ($120K+)
+- Admin Assistant ($50K)
+- Bookkeeper ($60K)
+- Customer Service ($50K)
+
+**Our Solution:** One unified system for $25K-50K + hosting
+
+**The Philosophy:** Run your business from the Core.
+
+---
+
+## The Name: Why Core™
+
+### The Philosophy Behind "Core"
+
+We didn't choose this name lightly. After considering dozens of alternatives - from technical acronyms to Silicon Valley neologisms - we landed on something profoundly simple: **Core**.
+
+**Why?** Because that's exactly what it becomes.
+
+When implemented, businesses naturally start referring to it as "the Core":
+- "Is that in the Core yet?"
+- "Check the Core for that lead"
+- "The Core handled everything"
+
+It's not *a* core system - it becomes **THE Core** of their operations. The simplicity is the power. Like how "the CRM" means Salesforce or "the Drive" means Google Drive, "the Core" will mean the central nervous system where businesses actually run.
+
+**Legally protected as:** CoreSentia Core™  
+**Marketed as:** Core™ by CoreSentia  
+**Used as:** "The Core"
+
+This evolution happens naturally. We don't force it - we just build something so fundamental that there's no other way to describe it.
+
+---
+
+## Product Portfolio
+
+### 🟢 Lead-to-Deal ESSENTIALS™ - $3,000
+**The Entry Point to AI Automation**
+
+Your first taste of what AI can do for your business. Perfect for proving ROI before scaling up.
+
+**What You Get:**
+- Intelligent chat bot trained on your business
+- Instant SMS & email responses to leads
+- Professional PDF quote generation
+- Basic follow-up sequences
+- Standard templates and workflows
+- 2-week deployment
+
+**Technical Approach:**
+- Built on n8n automation platform
+- Hosted entirely by CoreSentia
+- Pre-configured templates
+- Basic customization only
+
+**Ideal For:**
+- Small businesses (1-10 employees)
+- Simple sales processes
+- Budget-conscious companies
+- Testing AI before full commitment
+
+**Pricing:**
+- Setup: $3,000 (one-time)
+- Hosting: $300/month
+- Conversations: Up to 1,000/month
+- Self-hosting: Not available
+
+---
+
+### 🔵 Lead-to-Deal CUSTOM™ - $10,000
+**The Intelligent Sales System**
+
+Beautiful, branded AI that feels like your best salesperson - because it learns from them.
+
+**What You Get:**
+- Everything from Essentials PLUS:
+- Custom-designed interface matching your brand
+- Unlimited conversations (no caps, ever)
+- Advanced lead scoring with AI reasoning
+- Multi-channel (Web, SMS, WhatsApp, Email)
+- Admin dashboard with analytics
+- Personality matching (adapts to each lead)
+- A/B testing framework
+- 4 hours monthly optimization included
+- 4-week deployment
+
+**Technical Approach:**
+- Built on Next.js/React
+- Sophisticated state management
+- API-first architecture
+- You own the code (optional handover +$1,500)
+
+**Ideal For:**
+- Growing businesses (10-50 employees)
+- Complex sales processes
+- Companies scaling rapidly
+- Those wanting ownership options
+
+**Pricing:**
+- Setup: $10,000 (one-time)
+- Hosting: $500/month
+- Conversations: UNLIMITED
+- Self-hosting: +$1,500 for complete code handover
+
+---
+
+### 🚀 Core™ (CoreSentia Core™) - $25,000
+**The Unified Core of Your Operations**
+
+Not just a chatbot. Not just a website. Not just automation. This is the operational brain and central nervous system of your entire business.
+
+**The Revolution:**
+Core™ is the single control point for your business. From first inquiry to final invoice, Core™ unifies every tool, every process, and every customer interaction into one live environment.
+
+Instead of customers navigating your website → finding products → filling forms → waiting for quotes → scheduling meetings → signing contracts... 
+
+Everything happens in ONE place. No redirects. No app-switching. No lost context.
+
+**If it's not in the Core, it's not in the business.**
+
+**What Makes Core™ Different:**
+
+| Traditional Systems | Core™ |
+|---------------------|-------|
+| Multiple platforms | One unified environment |
+| Data silos | Everything connected |
+| Manual handoffs | Automatic orchestration |
+| Context switching | Single source of truth |
+| Delayed responses | Real-time execution |
+| Fragmented experience | Seamless journey |
+
+**Core Capabilities:**
+
+**1. Dynamic Component System**
+- Product explorers appear when discussing solutions
+- Calendar widgets embed directly in conversation
+- Quote builders generate in real-time
+- Contract signing happens inline
+- Payment processing without leaving
+
+**2. Replaces These Roles:**
+- **Receptionist:** First point of contact, routing, scheduling
+- **Sales Coordinator:** Lead qualification, quote generation
+- **Sales Rep:** Product recommendations, objection handling
+- **Admin Assistant:** Document management, follow-ups
+- **Customer Service:** Support, troubleshooting, account management
+
+**3. Unified Infrastructure:**
+- 📅 **Calendar Booking:** Real-time availability, instant confirmation
+- 📝 **Smart Forms:** Context-aware fields appear naturally
+- 💰 **Quote Generation:** Professional quotes with live editing
+- ✍️ **Contract Signing:** DocuSign embedded inline
+- 💳 **Payment Processing:** Stripe/Square integration
+- 📊 **Analytics Dashboard:** Track every interaction
+- 🎯 **Lead Scoring:** AI-powered qualification
+- 📧 **Multi-channel:** Web, SMS, WhatsApp, Email from one interface
+- 🔗 **System Integration:** CRM, accounting, project management - all connected
+
+**Technical Architecture:**
+- Next.js 14+ with App Router
+- React Server Components
+- Edge computing for speed
+- WebSocket for real-time
+- Component lazy loading
+- Predictive preloading
+- Fallback systems
+- 99.9% uptime SLA
+
+**Ideal For:**
+- Service businesses ($10K+ contracts)
+- Companies wanting to leap ahead
+- Businesses tired of juggling platforms
+- Organizations ready to transform
+
+**Pricing:**
+- Setup: $25,000 (one-time)
+- Hosting: $750/month
+- Conversations: UNLIMITED
+- Components: All included
+- Self-hosting: +$12,500 for complete handover
+
+**Delivery:** 6-8 week sprint
+
+---
+
+## Product Comparison Matrix
+
+| Feature | ESSENTIALS | CUSTOM | Core™ |
+|---------|------------|--------|-------|
+| **Price** | $3,000 | $10,000 | $25,000 |
+| **Monthly** | $300 | $500 | $750 |
+| **Deployment** | 2 weeks | 4 weeks | 6-8 weeks |
+| **Conversations** | 1,000/mo | Unlimited | Unlimited |
+| **Basic Chat** | ✅ | ✅ | ✅ |
+| **SMS/Email** | ✅ | ✅ | ✅ |
+| **PDF Quotes** | ✅ | ✅ | ✅ |
+| **Custom Design** | ❌ | ✅ | ✅ |
+| **Lead Scoring** | ❌ | ✅ | ✅ |
+| **Multi-channel** | ❌ | ✅ | ✅ |
+| **Analytics** | Basic | Advanced | Complete |
+| **Embedded Calendar** | ❌ | ❌ | ✅ |
+| **Interactive Products** | ❌ | ❌ | ✅ |
+| **In-chat Forms** | ❌ | ❌ | ✅ |
+| **Contract Signing** | ❌ | ❌ | ✅ |
+| **Payment Processing** | ❌ | ❌ | ✅ |
+| **System Integration** | Basic | Advanced | Complete |
+| **Voice Integration** | ❌ | Optional | ✅ |
+| **Component Library** | ❌ | ❌ | ✅ |
+| **Replaces Employees** | 0.5 | 1-2 | 3-5 |
+| **Code Ownership** | ❌ | Optional | Optional |
+
+---
+
+## The Core™ Difference: A Practical Example
+
+### Traditional Customer Journey (12 steps, 3 days)
+1. Lands on website
+2. Browses products
+3. Clicks contact
+4. Fills out form
+5. Waits for email
+6. Exchanges 5 emails
+7. Clicks calendar link
+8. Books meeting
+9. Has meeting
+10. Waits for quote
+11. Reviews quote
+12. Signs contract
+
+### Core™ Journey (1 conversation, 15 minutes)
+1. Lands on website
+2. Enters Core™:
+   - "I need help with lead management"
+   - [Product cards appear inline]
+   - "The Custom package looks good"
+   - [Quote generates live with pricing]
+   - "Can we discuss this Tuesday?"
+   - [Calendar appears, meeting booked]
+   - "Here's my card for deposit"
+   - [Payment processed]
+3. Deal closed
+
+**From first click to final payment — in the Core.**
+
+---
+
+## ROI Calculation
+
+### Traditional Costs (Annual)
+- Receptionist: $45,000
+- Sales Coordinator: $65,000  
+- Junior Sales Rep: $85,000
+- Admin Assistant: $50,000
+- **Subtotal:** $245,000
+- Overhead (benefits, space, equipment): +30%
+- **Total:** ~$318,500/year
+
+### Core™ Investment
+- Year 1: $25,000 + ($750 × 12) = $34,000
+- Year 2+: $9,000/year
+- **10-year total:** $115,000
+- **10-year savings:** $3,070,000
+
+### Performance Metrics
+- Response time: 24 hours → 2 seconds
+- Lead qualification: 2 days → 5 minutes
+- Quote generation: 1 day → instant
+- Meeting booking: 5 emails → 1 chat
+- Conversion rate: 10% → 35%+
+
+**Core replaces five roles and twelve platforms.**
+
+---
+
+## Implementation Roadmap
+
+### Phase 1: Foundation (Months 1-2)
+- Deploy Lead-to-Deal Essentials for quick wins
+- Prove ROI with basic automation
+- Gather data on customer interactions
+- Identify bottlenecks in current process
+
+### Phase 2: Enhancement (Months 3-4)
+- Upgrade to Custom for better branding
+- Implement advanced lead scoring
+- Add multi-channel capabilities
+- Train AI on successful sales patterns
+
+### Phase 3: Transformation (Months 5-6)
+- Implement full Core™ platform
+- Connect all business systems
+- Migrate processes into the Core
+- Redeploy human resources to growth
+
+### Phase 4: Optimization (Ongoing)
+- A/B test conversation flows
+- Add new components as needed
+- Expand to new channels
+- Scale without hiring
+
+**Get to the Core of your business.**
+
+---
+
+## Why Core™ Wins
+
+### 1. We're Not Selling Software
+We're selling the elimination of operational overhead. One system replaces 5 job functions and 12 software subscriptions.
+
+### 2. Ownership Changes Everything
+Unlike SaaS that you rent forever, you OWN Core™. Optional self-hosting means no vendor lock-in fear.
+
+### 3. The Math is Undeniable
+- **Their way:** $300K+/year forever
+- **Our way:** $34K year one, $9K/year after
+- **Break-even:** 6 weeks
+
+### 4. Category-Defining Innovation
+Nobody else is doing true unified business operations. While competitors link to calendars, we embed them. While they mention products, we display them. While they promise quotes, we generate them live.
+
+### 5. Australian Built, Globally Capable
+Brisbane-based team understanding local business needs, building for global scale.
+
+**Run it from the Core, or run around in circles.**
+
+---
+
+## Technical Differentiators
+
+### What Makes Core™ Possible
+1. **Next.js 14+ App Router** - Server components for speed
+2. **Vercel Edge Functions** - Global low-latency
+3. **Component Lazy Loading** - Instant perceived performance
+4. **Predictive Preloading** - Components ready before needed
+5. **WebSocket Connections** - Real-time updates
+6. **Fallback Systems** - Never fails completely
+
+### What Makes Core™ Defensible
+1. **Technical Complexity** - Can't be built with no-code tools
+2. **Integration Depth** - Years to replicate all connections
+3. **Conversation Intelligence** - Learns from every interaction
+4. **Component Library** - Growing ecosystem of business functions
+5. **Patent Pending** - Core™ unified operations methodology
+
+**Your whole operation. One Core.**
+
+---
+
+## Market Positioning
+
+### Target Markets
+
+**Immediate (2025)**
+- Professional services ($50K+ contracts)
+- B2B service companies
+- High-touch sales organizations
+- Healthcare practices
+- Real estate agencies
+
+**Expansion (2026)**
+- E-commerce (product discovery)
+- Financial services (applications)  
+- Education (enrollment)
+- Government services
+
+**Future (2027+)**
+- White-label for agencies
+- Vertical-specific solutions
+- Enterprise deployments
+- Core™ API marketplace
+
+---
+
+## Success Stories (Projected)
+
+### Legal Firm (Core™ Implementation)
+- **Before:** 3 admin staff, 15% lead conversion
+- **After:** 1 admin, 47% lead conversion
+- **Result:** $400K cost reduction, 2.1M revenue increase
+
+### Medical Practice (Core™ Implementation)
+- **Before:** 2 receptionists, phone tag hell
+- **After:** Core™ handles everything, humans do medicine
+- **Result:** 50% overhead reduction, 90% patient satisfaction
+
+### Real Estate Agency (Core™ Implementation)
+- **Before:** Missing leads, slow follow-up
+- **After:** Every lead captured, instant qualification
+- **Result:** 3x listing appointments, 2x sales
+
+**Business runs better at the Core.**
+
+---
+
+## Competitive Landscape
+
+### What Others Offer
+- **Intercom:** $500/mo for limited conversations
+- **Drift:** $2,500/mo for basic automation
+- **Qualified:** $3,000/mo for lead routing
+- **Custom Development:** $100K+ and you maintain it
+
+### What We Offer
+- Complete business operations
+- One-time setup fee
+- You own the system
+- We handle the complexity
+- Costs less than one employee
+
+**One platform. Total control.**
+
+---
+
+## FAQ
+
+**Q: Is Core™ replacing our entire website?**
+A: Your website becomes a beautiful front door that leads to Core™. SEO pages remain, but all interaction happens through the Core.
+
+**Q: Can Core™ integrate with our existing tools?**
+A: Yes. Core™ connects with any API-enabled platform. We commonly integrate with Xero, QuickBooks, HubSpot, Salesforce, Google Workspace, and Microsoft 365.
+
+**Q: What if we want to customize Core™ later?**
+A: You own the code (with handover option). Add features, modify flows, or completely rebuild - it's yours.
+
+**Q: How is this different from ChatGPT or Claude?**
+A: Those are general AI assistants. Core™ is YOUR business in operational form, with embedded functionality they can't provide.
+
+**Q: What about support and updates?**
+A: Monthly hosting includes maintenance, security updates, and 4 hours of modifications. Additional development at $150/hour.
+
+---
+
+## Getting Started
+
+### Week 1: Discovery
+- Map current customer journey
+- Identify automation opportunities
+- Audit existing tools and costs
+- Calculate potential ROI
+
+### Week 2: Strategy
+- Choose product tier
+- Design Core™ architecture
+- Plan component requirements
+- Set success metrics
+
+### Week 3-8: Implementation
+- Build and test Core™
+- Train AI on your business
+- Connect all systems
+- Deploy and optimize
+
+### Week 9+: Scale
+- Monitor performance
+- Add new capabilities
+- Reduce human overhead
+- Grow without hiring
+
+**Everything. Connected. At the Core.**
+
+---
+
+## Investment Summary
+
+| Product | Setup | Monthly | Break-even |
+|---------|-------|---------|------------|
+| **ESSENTIALS** | $3,000 | $300 | 6-8 weeks |
+| **CUSTOM** | $10,000 | $500 | 2-3 months |
+| **Core™** | $25,000 | $750 | 6-8 weeks |
+
+**Remember:** This isn't a cost. It's the elimination of $300K+ in annual overhead.
+
+---
+
+## Contact & Next Steps
+
+**Ready to transform your business operations?**
+
+Chat with Ivy: [ivy.coresentia.com](https://ivy.coresentia.com)  
+Email: info@coresentia.com  
+Website: [coresentia.com](https://coresentia.com)
+
+Or better yet - experience Core™ yourself. Our own implementation handles every inquiry, books every meeting, and closes deals 24/7. 
+
+**The future of business isn't hiring more people or buying more software.**  
+**It's having everything unified at the Core.**
+
+---
+
+*Core™ by CoreSentia*  
+*Patent Pending | Brisbane, Australia*  
+*"The Core. Where your business lives."*

@@ -1,0 +1,371 @@
+# Core™ MVP Strategy - Small Trades Focus
+**Status: Living Document - Subject to Change/Updates/New Ideas**  
+**Last Updated: August 2025**  
+**Focus: Build Ivy AS THE Product**
+
+---
+
+## The Pivot: From "Business OS" to "Ivy IS Your Business"
+
+### Core Insight
+**We're not building a chatbot that helps run a business.**  
+**We're building Ivy to BE the business.**
+
+When a customer texts, calls, or visits the website - they're not talking to a representative. They're talking directly to the business itself. Ivy isn't the interface to your operations - Ivy IS your operations.
+
+### Brand Strategy for MVP
+- **Customer-facing brand**: "Ivy" (friendly, memorable, human)
+- **Platform name**: Core™ (for later expansion, contracts, technical docs)
+- **Pitch**: "Ivy books jobs, sends quotes, takes deposits while you're on the tools"
+- **NOT**: "Core for Trades integrated AI platform" (too technical for tradies)
+
+---
+
+## Target Market: Small Australian Trades
+
+### Who We're Building For
+- **New/early-stage tradies** (0-2 years in business)
+- **Solo operators** (landscapers, bricklayers, cleaners, mobile mechanics)
+- **Current "system"**: Facebook page + mobile phone
+- **Pain**: Missing jobs while on tools, quoting takes forever, chasing payments
+- **Dream**: Jobs in calendar, money in bank, no tech headaches
+
+### Why This Market First
+1. **No legacy systems** - Nothing to migrate or integrate
+2. **Desperate for solution** - Currently losing money from missed leads
+3. **Simple needs** - Book jobs, send quotes, get paid
+4. **Price sensitive but value-aware** - Will pay for what works
+5. **Word-of-mouth goldmine** - Tradies talk to tradies
+
+---
+
+## The MVP Product: "Ivy for Trades"
+
+### The Pitch
+**"Ivy books jobs and takes deposits while you're on the tools."**
+
+Not another app to learn. Not another subscription to manage. Just Ivy - your 24/7 business assistant that never misses a lead, never forgets a quote, and never lets an invoice slip.
+
+### What They Get
+
+**Customer Experience:**
+1. **Professional website** - Not a Facebook page, a real business presence
+2. **Ivy answers everything** - Available 24/7 via chat, SMS, or voice
+3. **Quick quotes** - Generated in minutes, not days
+4. **Book directly** - See availability, pick a time, done
+5. **Pay deposits** - Secure the job immediately
+
+**Tradie Experience:**
+1. **One login** - Everything in one place
+2. **Jobs dashboard** - See what's coming up
+3. **Quote templates** - Consistent pricing, instant delivery
+4. **Payment tracking** - Know who's paid, who hasn't
+5. **Customer database** - Never lose a contact
+
+---
+
+## Technical Architecture (Using What We've Built)
+
+### Frontend (What Customers See)
+```
+Next.js site (clone from CoreSentia)
+├── Homepage (services, areas, gallery)
+├── Ivy Chat (the star of the show)
+│   ├── Interactive service cards
+│   ├── Inline calendar booking
+│   ├── Live quote generation
+│   └── Payment processing
+└── Customer portal (view quotes, receipts)
+```
+
+### Ivy's Evolution: From Bot to Business Brain
+```javascript
+// Current Ivy: Qualifies and routes
+if (userNeedsQuote) {
+  sendToHuman();
+}
+
+// MVP Ivy: Completes the entire transaction
+if (userNeedsQuote) {
+  showServiceOptions();    // Interactive cards
+  calculatePrice();         // Based on inputs
+  generateQuote();         // PDF with e-sign
+  processDeposit();        // Stripe checkout
+  bookJob();               // Calendar integration
+  sendConfirmation();      // Email/SMS
+}
+```
+
+### Backend (Simple but Complete)
+- **Database**: Supabase (customers, jobs, quotes, payments)
+- **Auth**: Supabase Auth (one login for tradie)
+- **Payments**: Stripe (no card data on our servers)
+- **Calendar**: Google Calendar API (simple, works)
+- **Email**: SendGrid (transactional only)
+- **SMS**: Twilio (confirmations, reminders)
+
+### What We DON'T Need for MVP
+- ❌ Multi-user access
+- ❌ Complex permissions
+- ❌ Inventory management
+- ❌ Subcontractor management
+- ❌ Accounting integration (just CSV export)
+- ❌ Custom reporting
+
+---
+
+## Compliance & Legal Requirements
+
+### Before Going Live
+- [ ] **Privacy Policy** - Compliant with Australian Privacy Act
+- [ ] **Terms of Service** - Clear service boundaries and liabilities
+- [ ] **Data Handling** - NDB (Notifiable Data Breaches) compliance plan
+- [ ] **Payment Security** - PCI DSS compliance via Stripe hosted checkout
+- [ ] **SMS Compliance** - ACMA Spam Act compliance for marketing messages
+- [ ] **Business Registration** - ABN, domain, basic insurance
+
+### Data Principles
+- All data stays in Australia (Supabase Sydney region)
+- Customer owns their data, can export anytime
+- Clear consent for marketing communications
+- 30-day data retention post-cancellation
+
+---
+
+## Deployment Strategy: Template & Clone
+
+### The Template Build
+1. **Take current CoreSentia/Ivy codebase**
+2. **Strip to essentials** (no Xero, no complex workflows)
+3. **Add trade-specific features** (service cards, area coverage, gallery)
+4. **Create configuration file** for easy customization:
+```javascript
+{
+  businessName: "Mike's Landscaping",
+  services: ["Mowing", "Hedging", "Garden Design"],
+  pricing: { mowing: { base: 80, perSqm: 0.50 }},
+  serviceAreas: ["Flagstone", "Jimboomba", "Park Ridge"],
+  workingHours: { mon: "7am-5pm", ... },
+  colors: { primary: "#2A7F3E", ... }
+}
+```
+
+### Deployment Process (Per Client)
+1. **Clone template repo**
+2. **Update configuration**
+3. **Add their photos/logo**
+4. **Deploy to Vercel**
+5. **Connect their domain**
+6. **Set up Stripe account**
+7. **Initial training** (30 minutes)
+8. **2-week handholding period** (included in pilot)
+
+**Time to deploy: 2-3 hours per client**
+
+---
+
+## Go-to-Market: Flagstone First
+
+### Phase 1: Proof of Concept (Next 30 Days)
+1. **Build MVP using CoreSentia base**
+2. **Deploy demo**: ivy.coresentia.com/trades-demo
+3. **Create "Mike's Landscaping" fake demo** (fully functional)
+4. **Record 2-minute video** showing lead → quote → payment
+5. **Post in Flagstone Community Facebook groups**
+
+### The Facebook Post
+```
+"Sick of missing jobs while you're on the tools? 
+
+I built Ivy - she answers your phone, books jobs, 
+sends quotes, and takes deposits. All automatic, 24/7.
+
+Watch her in action: [demo video]
+
+First 2 local trades get it FREE for 3 months 
+(normally $200/month). I just need your feedback.
+
+Not another subscription - you'll own this.
+Comment below or message me."
+```
+
+### Phase 2: First 2 Pilots (Days 30-60)
+- **Target**: 1 landscaper, 1 cleaner/pressure washer
+- **Pilot Deal**: 
+  - FREE setup (normally $3,000)
+  - FREE 3 months hosting (normally $200/month)
+  - In exchange: Weekly feedback calls, testimonial, referrals
+- **Support**: White glove for first 2 weeks, then standard
+- **Success metrics**: 
+  - Time to first booking (target: same day)
+  - Quote acceptance rate (target: 50%+)
+  - Deposit collection rate (target: 80%+)
+
+### Phase 3: Refine & Scale (Days 60-90)
+- **Incorporate pilot feedback**
+- **Optimize deployment process**
+- **Create self-service onboarding video**
+- **Launch at market price**: $3,000 setup + $200/month
+- **Referral program**: $500 credit for each referral
+
+---
+
+## Pricing Model
+
+### Pilot Pricing (First 2 Clients)
+- **Setup**: FREE (normally $3,000)
+- **First 3 months**: FREE (normally $200/month)
+- **After 3 months**: $200/month ongoing
+- **Commitment**: Feedback + testimonial + 3 referrals
+
+### Market Pricing (Clients 3-10)
+- **Setup**: $3,000 (one-time)
+- **Hosting**: $200/month
+- **What they own**: The code, the data, the system
+- **What we provide**: Hosting, updates, support (2 hrs/month included)
+
+### Why This Works
+- **Compare to**: ServiceM8 at $79/month = $948/year forever
+- **Our model**: Own it after year 2, just pay hosting
+- **Psychology**: Tradies understand owning vs renting (tools, vehicles)
+
+---
+
+## Success Metrics (Realistic)
+
+### Technical Success
+- [ ] Lead to booking: < 5 minutes (not 60 seconds)
+- [ ] Quote generation: < 2 minutes (not 30 seconds)
+- [ ] Payment processing: < 5 minutes (not 2 minutes)
+- [ ] 95% automated (some human intervention OK)
+- [ ] 99% uptime (occasional maintenance windows OK)
+
+### Business Success
+- [ ] 50% reduction in missed leads
+- [ ] Same-day quote delivery (vs 2-3 days)
+- [ ] 80% deposit collection rate
+- [ ] 30% increase in jobs booked
+- [ ] ROI positive in 90 days
+
+### Marketing Claims
+- "Book jobs in minutes, not days"
+- "Quotes while they wait"
+- "Never miss another lead"
+- "Get deposits instantly"
+
+---
+
+## Support Structure
+
+### Pilot Phase (First 2 Clients)
+- **Week 1-2**: Daily check-ins, immediate fixes
+- **Week 3-4**: Every 2 days, gathering feedback
+- **Month 2-3**: Weekly calls, optimization
+
+### Standard Support (Post-Pilot)
+- **Included**: 2 hours/month support
+- **Response time**: Next business day
+- **Channels**: Email, scheduled calls
+- **Additional support**: $100/hour
+
+### Support Boundaries
+- Configuration changes: Included
+- New features: Quoted separately
+- "Can Ivy do X?": "That's on the roadmap for v2"
+
+---
+
+## The Moat We're Building
+
+### Why This Becomes Defensible
+1. **Ivy gets smarter** - Every interaction improves responses
+2. **Industry templates** - Build once, deploy many
+3. **Network effects** - Tradies refer tradies
+4. **Brand ownership** - "Ivy" becomes the name they trust
+5. **Technical complexity** - Competitors need months to replicate
+
+### The Evolution Path
+```
+MVP: Ivy for Trades → 
+v2: Ivy for Service Businesses → 
+v3: Ivy for Professionals → 
+v4: Full Core™ Platform Vision
+```
+
+But always: **Ivy is the face, Core™ is the platform**
+
+---
+
+## Immediate Next Steps
+
+### Week 1: Strip & Focus
+- [ ] Fork CoreSentia repo as "ivy-trades-template"
+- [ ] Remove Xero, complex features
+- [ ] Add service cards component
+- [ ] Add area selector component
+- [ ] Create pricing calculator
+- [ ] Draft privacy policy and terms
+
+### Week 2: Ivy Evolution
+- [ ] Build interactive service selector
+- [ ] Implement inline calendar booking
+- [ ] Add quote generation flow
+- [ ] Integrate Stripe checkout
+- [ ] Create confirmation sequences
+- [ ] Test end-to-end flows
+
+### Week 3: Demo & Deploy
+- [ ] Deploy Mike's Landscaping demo
+- [ ] Record demo video (show real times)
+- [ ] Prepare Facebook posts
+- [ ] Set up pilot tracking spreadsheet
+- [ ] Legal review of terms/privacy
+
+### Week 4: First Pilots
+- [ ] Recruit 2 pilot businesses
+- [ ] Deploy their systems
+- [ ] Begin handholding period
+- [ ] Daily check-ins first week
+- [ ] Document everything
+
+---
+
+## Risk Mitigation
+
+### Technical Risks
+- **Payment compliance**: Use Stripe's hosted checkout (PCI burden on them)
+- **Data privacy**: Clear privacy policy, data stays in Australia
+- **Uptime**: Vercel + Supabase = enterprise reliability
+- **Over-promising**: Market "minutes not days" vs "instant everything"
+
+### Business Risks
+- **Support burden**: Clear 2hr/month boundary after pilot
+- **Feature creep**: "That's in v2" - stay focused
+- **Price resistance**: Lead with ownership, show missed job recovery
+- **Pilot dropout**: Get commitment upfront for 3 months
+
+---
+
+## The Vision (What This Becomes)
+
+**Year 1**: 50 trades using Ivy  
+**Year 2**: 500 trades, Ivy for Services launches  
+**Year 3**: "Ivy" becomes how new businesses start  
+**Year 5**: Core™ platform powers thousands of Ivys
+
+But it all starts with Mike's Landscaping in Flagstone.
+
+---
+
+## Remember
+
+**For tradies: "Ivy runs your business while you're on the tools"**  
+**For us: "We're building the Core™ platform that powers every Ivy"**
+
+When someone asks a tradie "How do you manage everything?"  
+The answer: **"Ivy handles it all."**
+
+---
+
+*Next update: After Week 1 technical build*  
+*Questions/pivots/insights: Document everything*

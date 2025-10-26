@@ -9,7 +9,7 @@ const supabase = createClient(
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { leadId, customerName, customerEmail, customerPhone, service, dateTime, notes } = body
+    const { leadId, customerName, customerEmail, customerPhone, service, dateTime, notes, businessId } = body
 
     // Validate required fields
     if (!leadId || !customerName || !customerEmail || !dateTime) {
@@ -19,11 +19,68 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Validate dateTime format (ISO 8601)
+    const requestedDateTime = new Date(dateTime)
+    if (isNaN(requestedDateTime.getTime())) {
+      return NextResponse.json(
+        { error: 'Invalid dateTime format. Use ISO 8601 (e.g., 2025-10-27T10:00:00Z)' },
+        { status: 400 }
+      )
+    }
+
+    // Check for double-booking
+    // Look for existing bookings within ±2 hours of requested time
+    const twoHoursBefore = new Date(requestedDateTime.getTime() - 2 * 60 * 60 * 1000).toISOString()
+    const twoHoursAfter = new Date(requestedDateTime.getTime() + 2 * 60 * 60 * 1000).toISOString()
+
+    let conflictQuery = supabase
+      .from('bookings')
+      .select('id, date_time, customer_name')
+      .gte('date_time', twoHoursBefore)
+      .lte('date_time', twoHoursAfter)
+      .in('status', ['pending', 'confirmed'])
+
+    if (businessId) {
+      conflictQuery = conflictQuery.eq('business_id', businessId)
+    }
+
+    const { data: conflicts, error: conflictError } = await conflictQuery
+
+    if (conflictError) {
+      console.error('Error checking conflicts:', conflictError)
+      // Don't block booking on conflict check error, just log it
+    }
+
+    // Check for exact time match or overlapping bookings
+    if (conflicts && conflicts.length > 0) {
+      const exactMatch = conflicts.find(b => {
+        const existingTime = new Date(b.date_time).getTime()
+        const requestedTime = requestedDateTime.getTime()
+        // Within 1 hour = conflict
+        return Math.abs(existingTime - requestedTime) < 60 * 60 * 1000
+      })
+
+      if (exactMatch) {
+        return NextResponse.json(
+          {
+            error: 'Time slot not available',
+            message: 'This time slot is already booked. Please choose another time.',
+            conflictingBooking: {
+              time: exactMatch.date_time,
+              customer: exactMatch.customer_name
+            }
+          },
+          { status: 409 } // 409 Conflict
+        )
+      }
+    }
+
     // Create booking
     const { data: booking, error } = await supabase
       .from('bookings')
       .insert({
         lead_id: leadId,
+        business_id: businessId || null,
         customer_name: customerName,
         customer_email: customerEmail,
         customer_phone: customerPhone,
@@ -45,7 +102,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      booking
+      booking,
+      message: 'Booking created successfully'
     })
   } catch (error) {
     console.error('Booking API error:', error)

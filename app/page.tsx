@@ -1,11 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { Zap, MessageSquare, Globe, Calendar, Check, Clock, DollarSign, Users, Phone, TrendingUp, Shield } from 'lucide-react'
 import Header from './components/Header'
-
-// Dynamically import NetworkCanvas (no SSR for canvas animation)
-const NetworkCanvas = dynamic(() => import('./components/NetworkCanvas'), { ssr: false })
 
 export default function HomePage() {
   return (

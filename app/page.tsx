@@ -366,46 +366,54 @@ export default function HomePage() {
         {/* How It Works Section */}
         <section className="py-20 px-6 bg-white">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-16 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-4 font-montserrat">
               How It Works
             </h2>
+            <p className="text-center text-lg text-text-secondary mb-16 max-w-3xl mx-auto">
+              We're your "front gate" — capturing leads and booking appointments automatically. You take over from there and manage jobs your way.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   1
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Sign Up</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Customer Texts/Chats</h3>
                 <p className="text-text-secondary text-sm">
-                  Choose your package and tell us about your business
+                  Your customer reaches out via SMS or website chat
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   2
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">We Build</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">AI Qualifies Lead</h3>
                 <p className="text-text-secondary text-sm">
-                  2-7 days to set up your AI, website (if included), and booking system
+                  Our AI asks questions, understands needs, and checks availability
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   3
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Go Live</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Booking Confirmed</h3>
                 <p className="text-text-secondary text-sm">
-                  Start capturing leads immediately — share your number or website
+                  Appointment booked into your dashboard, SMS sent to both parties
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   4
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Grow</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">You Take Over</h3>
                 <p className="text-text-secondary text-sm">
-                  Book more jobs without lifting a finger — we handle support
+                  Show up, do the work, quote, and get paid — your way
                 </p>
               </div>
+            </div>
+            <div className="mt-12 p-6 bg-gray-50 rounded-lg border border-gray-200 max-w-3xl mx-auto">
+              <p className="text-sm text-text-secondary text-center">
+                <strong>Simple:</strong> We don't replace your workflow. We feed qualified leads into your pipeline, and you handle the rest like you always have.
+              </p>
             </div>
           </div>
         </section>

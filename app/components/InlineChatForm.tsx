@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { User, Building, Mail, Phone } from 'lucide-react'
+import { User, Building, Mail, Phone, Briefcase, MessageSquare } from 'lucide-react'
 
 interface InlineChatFormProps {
   formType: 'quote' | 'meeting' | 'general'
@@ -14,9 +14,11 @@ export default function InlineChatForm({ formType, onSubmit, onCancel }: InlineC
     name: '',
     company: '',
     email: '',
-    phone: ''
+    phone: '',
+    industry: '',
+    challenge: ''
   })
-  
+
   const [errors, setErrors] = useState<any>({})
 
   const validateForm = () => {
@@ -24,7 +26,8 @@ export default function InlineChatForm({ formType, onSubmit, onCancel }: InlineC
     if (!formData.name) newErrors.name = 'Name is required'
     if (!formData.email) newErrors.email = 'Email is required'
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email'
-    
+    if (!formData.industry) newErrors.industry = 'Industry is required'
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -102,6 +105,39 @@ export default function InlineChatForm({ formType, onSubmit, onCancel }: InlineC
             className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-text-primary
                      placeholder-text-secondary focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 focus:outline-none transition-all"
             placeholder="0400 000 000 (optional)"
+          />
+        </div>
+
+        {/* Industry/Service Type Field */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Briefcase className="w-4 h-4 text-brand-navy" />
+            <label className="text-sm font-medium text-text-primary">Industry / Service Type</label>
+          </div>
+          <input
+            type="text"
+            value={formData.industry}
+            onChange={(e) => setFormData({...formData, industry: e.target.value})}
+            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-text-primary
+                     placeholder-text-secondary focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 focus:outline-none transition-all"
+            placeholder="e.g., Landscaping, Plumbing, Beauty Salon"
+          />
+          {errors.industry && <span className="text-red-500 text-xs mt-1">{errors.industry}</span>}
+        </div>
+
+        {/* Challenge/What Brings You Here Field */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <MessageSquare className="w-4 h-4 text-brand-navy" />
+            <label className="text-sm font-medium text-text-primary">What brings you here?</label>
+          </div>
+          <textarea
+            value={formData.challenge}
+            onChange={(e) => setFormData({...formData, challenge: e.target.value})}
+            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-text-primary
+                     placeholder-text-secondary focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 focus:outline-none transition-all resize-none"
+            placeholder="e.g., Missing leads while working, need better response time..."
+            rows={2}
           />
         </div>
 

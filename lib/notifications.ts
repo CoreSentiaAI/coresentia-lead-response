@@ -8,12 +8,14 @@ const ADMIN_PHONE = process.env.ADMIN_PHONE || '+61467723694' // Your phone numb
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@coresentia.com'
 
 interface NotificationData {
-  type: 'human_handoff' | 'quote_request' | 'new_lead' | 'high_value'
+  type: 'human_handoff' | 'quote_request' | 'new_lead' | 'high_value' | 'meeting_request'
   leadName: string
   leadEmail?: string
   leadPhone?: string
   leadSource?: string
   packageType?: string
+  industry?: string
+  challenge?: string
   conversationSummary?: string
   urgency?: 'high' | 'normal'
 }
@@ -43,9 +45,22 @@ They want to speak with you! Check dashboard for conversation.`
 Lead: ${data.leadName}
 ${data.leadPhone ? `Phone: ${data.leadPhone}` : ''}
 ${data.leadEmail ? `Email: ${data.leadEmail}` : ''}
+${data.industry ? `Industry: ${data.industry}` : ''}
 Package: ${data.packageType || 'Unknown'}
+${data.challenge ? `Challenge: ${data.challenge}` : ''}
 
-Check dashboard to generate quote in Xero.`
+Check dashboard for full conversation.`
+        break
+
+      case 'meeting_request':
+        smsBody = `📞 MEETING REQUEST
+Lead: ${data.leadName}
+${data.leadPhone ? `Phone: ${data.leadPhone}` : ''}
+${data.leadEmail ? `Email: ${data.leadEmail}` : ''}
+${data.industry ? `Industry: ${data.industry}` : ''}
+${data.challenge ? `Need: ${data.challenge}` : ''}
+
+Reach out to schedule a call.`
         break
 
       case 'new_lead':
@@ -129,7 +144,21 @@ export async function handleActionNotifications(actions: Array<{ type: string; s
             leadName: action.data.clientName || 'Unknown',
             leadEmail: action.data.email,
             leadPhone: action.data.phone,
+            industry: action.data.industry,
+            challenge: action.data.challenge,
             packageType: action.data.packageType,
+            conversationSummary: action.data.conversationSummary
+          })
+          break
+
+        case 'book_meeting':
+          await notifyAdmin({
+            type: 'meeting_request',
+            leadName: action.data.clientName || 'Unknown',
+            leadEmail: action.data.email,
+            leadPhone: action.data.phone,
+            industry: action.data.industry,
+            challenge: action.data.need,
             conversationSummary: action.data.conversationSummary
           })
           break

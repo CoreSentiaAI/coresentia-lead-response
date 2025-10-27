@@ -206,13 +206,13 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   const handleFormSubmit = async (formData: any) => {
     setShowInlineForm(null)
 
-    const userMessage = `Contact Details: ${formData.name} from ${formData.company || 'N/A'}, ${formData.email}, ${formData.phone || 'N/A'}`
+    const userMessage = `Contact Details: ${formData.name} from ${formData.company || 'N/A'}, ${formData.email}, ${formData.phone || 'N/A'}, Industry: ${formData.industry || 'N/A'}, Challenge: ${formData.challenge || 'N/A'}`
     setMessages(prev => [...prev, { role: 'user', content: userMessage }])
 
     if (showInlineForm === 'quote') {
-      await sendMessageWithContent(`Please generate a quote for ${formData.name} at ${formData.email} ACTION: GENERATE_QUOTE`)
+      await sendMessageWithContent(`Please generate a quote for ${formData.name} (${formData.industry}) at ${formData.email}. Their challenge: ${formData.challenge || 'Not specified'}. Phone: ${formData.phone || 'Not provided'}. ACTION: GENERATE_QUOTE`)
     } else if (showInlineForm === 'meeting') {
-      await sendMessageWithContent(`Please book a meeting for ${formData.name} at ${formData.email} ACTION: BOOK_MEETING`)
+      await sendMessageWithContent(`Please book a meeting for ${formData.name} (${formData.industry}) at ${formData.email}. Their need: ${formData.challenge || 'Not specified'}. Phone: ${formData.phone || 'Not provided'}. ACTION: BOOK_MEETING`)
     }
   }
 

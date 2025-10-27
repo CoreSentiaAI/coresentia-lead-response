@@ -111,7 +111,7 @@ We provide AI-powered SMS and web chat that responds 24/7, qualifies leads, and 
 
 ### Two-Tier Offering
 
-#### **Tier 1: SMS Responder** ($1,200 + $150/mo inc. GST)
+#### **Tier 1: SMS Responder** ($999 + $150/mo inc. GST)
 **Target:** Tradies without websites (landscapers, cleaners, mobile mechanics)
 
 **Core Features:**

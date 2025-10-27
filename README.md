@@ -44,7 +44,7 @@ CoreSentia gives service businesses:
 
 ## 📦 Product Offerings
 
-### SMS Responder - $1,200 + $150/month (inc. GST)
+### SMS Responder - $999 + $150/month (inc. GST)
 Perfect for tradies and mobile services without a website.
 
 **What you get:**

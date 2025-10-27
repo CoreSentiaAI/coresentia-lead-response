@@ -239,7 +239,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="mb-6">
-                  <p className="text-4xl font-bold text-brand-navy">$1,200</p>
+                  <p className="text-4xl font-bold text-brand-navy">$999</p>
                   <p className="text-lg text-text-secondary">+ $150/month</p>
                   <p className="text-xs text-text-secondary mt-1">(inc. GST)</p>
                   <p className="text-sm text-brand-orange font-semibold mt-2">⚡ 2-3 day delivery</p>
@@ -508,8 +508,9 @@ export default function HomePage() {
                 <h4 className="font-semibold mb-4 font-montserrat">Company</h4>
                 <ul className="space-y-2 text-white/80">
                   <li><Link href="/about" className="hover:text-brand-orange transition-colors">About</Link></li>
-                  <li><Link href="/contact" className="hover:text-brand-orange transition-colors">Contact</Link></li>
+                  <li><Link href="/faq" className="hover:text-brand-orange transition-colors">FAQ</Link></li>
                   <li><Link href="/terms" className="hover:text-brand-orange transition-colors">Terms</Link></li>
+                  <li><Link href="/privacy" className="hover:text-brand-orange transition-colors">Privacy</Link></li>
                 </ul>
               </div>
               <div>
@@ -533,6 +534,7 @@ export default function HomePage() {
             </div>
             <div className="mt-12 pt-8 border-t border-white/20 text-center text-white/80">
               <p className="font-montserrat">&copy; 2025 CoreSentia. Never miss a lead again.</p>
+              <p className="text-sm mt-2">ABN: 69 267 271 132</p>
             </div>
           </div>
         </footer>

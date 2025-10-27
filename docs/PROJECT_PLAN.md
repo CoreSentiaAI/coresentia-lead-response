@@ -1,7 +1,7 @@
 # CoreSentia Project Plan
 
-**Last Updated:** October 26, 2025
-**Status:** MVP Development Phase
+**Last Updated:** October 27, 2025
+**Status:** Phase 1 Complete - Phase 2 Planning
 **Target Launch:** Q1 2026
 
 ---
@@ -14,46 +14,96 @@ We provide AI-powered SMS and web chat that responds 24/7, qualifies leads, and 
 
 ---
 
-## 📊 Current State (October 2025)
+## 🏗️ Two-Phase Development Approach
 
-### ✅ COMPLETED
+**⚠️ CRITICAL DISTINCTION:**
 
-**Frontend (100%)**
-- [x] Complete rebrand to Navy/Orange/White professional palette
-- [x] Two-tier product structure homepage
-- [x] Chat interface redesigned (removed "Ivy" branding)
-- [x] Mobile-responsive design
-- [x] GST-inclusive pricing display
-- [x] Header navigation updated
+### Phase 1: CoreSentia Marketing System (CURRENT)
+**Purpose:** Build our own lead generation and sales infrastructure
+**Timeline:** October 2025 - December 2025
+**Goal:** Capture and qualify leads who want to BUY CoreSentia services
 
-**Backend (60%)**
-- [x] AI assistant prompt updated for two-tier offering
-- [x] Bookings API created (POST, GET, PATCH)
-- [x] Lead tracking system
+**What We're Building:**
+- Website at coresentia.com.au selling our products
+- Web chat that pitches SMS Responder & Professional Package
+- SMS number (+61489087491) that demonstrates the product
+- **Lead Actions:** Calendar bookings + Quote generation
+- Lead notification system for CoreSentia team
+- Dashboard to manage OUR incoming leads
+
+**Why This Comes First:**
+- We need a working demo potential clients can interact with
+- "Text our number to see how it works" is powerful sales
+- Validates the product before building complex multi-tenant system
+- Generates revenue while building Phase 2
+
+### Phase 2: Client SMS Product Template (NEXT)
+**Purpose:** The actual product we deploy to paying customers
+**Timeline:** January 2026 - March 2026
+**Goal:** Scalable system to onboard and manage multiple client businesses
+
+**What We'll Build:**
+- Multi-business database architecture
+- Business profile management (hours, services, branding)
+- Per-client AI customization system
+- Website template builder (Professional Package)
+- **Client Actions:** Appointment bookings only (no quotes)
+- Client onboarding workflow
+- White-label dashboard for clients
+
+**Why This Comes Second:**
+- Requires proven product-market fit first
+- More complex architecture (multi-tenant)
+- Needs real customer feedback to build correctly
+- Can iterate based on pilot customer learnings
+
+---
+
+## 📊 Current State (October 27, 2025)
+
+### ✅ PHASE 1 COMPLETED
+
+**CoreSentia Marketing System - Working Demo**
+- [x] Website with two-tier pricing at coresentia.com.au
+- [x] Web chat interface selling CoreSentia products
+- [x] **SMS integration LIVE** (+61489087491)
+- [x] Twilio webhook receiving incoming messages
+- [x] AI chat responding via SMS automatically
+- [x] Lead capture and tracking (web + SMS)
 - [x] Conversation history storage
 - [x] Rate limiting and safety controls
+- [x] Availability checking API
+- [x] Booking dashboard prototype
+- [x] Professional Navy/Orange branding
+- [x] Mobile-responsive design
+- [x] Vercel production deployment
 
 **Infrastructure**
-- [x] Next.js 13 setup
+- [x] Next.js 13 App Router
 - [x] Supabase database configured
-- [x] Vercel deployment ready
-- [x] GitHub repository with archive branches
+- [x] Twilio SMS API integrated
+- [x] Anthropic Claude Sonnet 4
+- [x] GitHub repository with proper branching
 
-### 🚧 IN PROGRESS
+### 🚧 PHASE 1 IN PROGRESS
 
-**Database**
-- [ ] **YOU NEED TO:** Run bookings table SQL in Supabase (see README.md)
-- [ ] Set up business hours configuration table
-- [ ] Create availability slots system
+**CoreSentia Lead Management (Remaining)**
+- [ ] Quote generation system for CoreSentia leads
+- [ ] Lead notification system (SMS/Email to you)
+- [ ] Improved lead management dashboard
+- [ ] Analytics (conversion tracking)
+- [ ] Automated follow-up sequences
 
-### ❌ NOT STARTED
+### ❌ PHASE 2 NOT STARTED
 
-**Critical Features**
-- [ ] Twilio SMS integration
-- [ ] Appointment availability checking
-- [ ] Customer dashboard (view bookings)
-- [ ] SMS confirmation system
-- [ ] Website template system for Tier 2
+**Client SMS Product Template**
+- [ ] Multi-business database architecture
+- [ ] Business profile management system
+- [ ] Per-client AI prompt customization
+- [ ] Website template builder (Professional Package)
+- [ ] Client onboarding workflow
+- [ ] White-label dashboard for clients
+- [ ] SMS confirmation system for client bookings
 
 ---
 

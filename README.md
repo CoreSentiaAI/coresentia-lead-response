@@ -2,17 +2,45 @@
 
 **Never miss a lead again.** CoreSentia provides AI-powered SMS and web chat for local Australian service businesses — tradies, salons, and mobile services.
 
-**🟢 Status:** MVP 95% Complete | **🌐 Live:** https://www.coresentia.com.au/ | **⏳ Waiting:** Twilio approval
+**🟢 Status:** Phase 1 Complete (SMS Integration Live!) | **🌐 Live:** https://www.coresentia.com.au/
 
-## 🎯 What We Do
+---
+
+## 🏗️ Repository Overview
+
+**⚠️ IMPORTANT:** This repository contains TWO distinct systems:
+
+### 1️⃣ CoreSentia Marketing System (PHASE 1 - Current)
+**Purpose:** Our own lead generation and sales system
+**Users:** Potential clients interested in buying CoreSentia services
+**Features:**
+- Website at coresentia.com.au
+- Web chat widget selling our products
+- SMS number (+61489087491) selling our products
+- **Offers:** Calendar bookings + Quote generation
+- Lead notification system for CoreSentia team
+
+### 2️⃣ Client SMS Product Template (PHASE 2 - Next)
+**Purpose:** The actual product we sell and deploy to customers
+**Users:** Our clients' customers (e.g., tradies' customers)
+**Features:**
+- Template SMS system for client businesses
+- Template website (Professional Package)
+- Per-client AI customization
+- **Offers:** Appointment bookings only (no quotes)
+- Multi-tenant architecture
+
+---
+
+## 🎯 What CoreSentia Does
 
 We solve a simple problem: **You're on the tools, can't answer your phone, and leads book your competitors instead.**
 
-CoreSentia gives you:
+CoreSentia gives service businesses:
 - **Dedicated AI-powered business SMS number** that responds 24/7
-- **Automatic appointment booking** into your calendar
+- **Automatic appointment booking** into their calendar
 - **Simple mobile dashboard** to view all bookings
-- **SMS confirmations** to you and your customers
+- **SMS confirmations** to them and their customers
 
 ## 📦 Product Offerings
 
@@ -50,7 +78,7 @@ For service businesses ready for a professional web presence.
 - **Styling:** Tailwind CSS (Navy/Orange/Sage palette)
 - **AI:** Anthropic Claude Sonnet 4
 - **Database:** Supabase (PostgreSQL)
-- **SMS:** Twilio (planned)
+- **SMS:** Twilio (✅ Live - +61489087491)
 - **Hosting:** Vercel
 
 ## 🚀 Getting Started
@@ -157,24 +185,29 @@ Open [http://localhost:3000](http://localhost:3000)
 coresentia-lead-response/
 ├── app/
 │   ├── api/
-│   │   ├── chat/route.ts          # AI chat endpoint
-│   │   ├── bookings/route.ts      # Booking management
-│   │   ├── quotes/generate/       # Quote generation (legacy)
-│   │   └── xero/callback/         # Xero OAuth (legacy)
-│   ├── chat/[leadId]/page.tsx     # Chat interface
+│   │   ├── chat/route.ts             # AI chat endpoint (web + SMS)
+│   │   ├── sms/webhook/route.ts      # Twilio SMS webhook (NEW)
+│   │   ├── bookings/route.ts         # Booking management
+│   │   ├── availability/route.ts     # Available time slots
+│   │   ├── quotes/generate/          # Quote generation (legacy)
+│   │   └── xero/callback/            # Xero OAuth (legacy)
+│   ├── chat/[leadId]/page.tsx        # Chat interface
+│   ├── dashboard/[businessId]/       # Booking dashboard
 │   ├── components/
-│   │   ├── ChatInterface.tsx      # Main chat UI
-│   │   ├── Header.tsx             # Navigation
-│   │   ├── InlineChatForm.tsx     # Lead capture forms
-│   │   └── NetworkCanvas.tsx      # Background animation
-│   ├── page.tsx                   # Homepage
-│   ├── globals.css                # Global styles
-│   └── layout.tsx                 # Root layout
-├── public/                        # Static assets
-├── docs/                          # Documentation
-│   ├── ARCHIVE_V1.md              # Original Ivy build docs
-│   └── PROJECT_PLAN.md            # Current roadmap
-└── README.md                      # This file
+│   │   ├── ChatInterface.tsx         # Main chat UI
+│   │   ├── Header.tsx                # Navigation
+│   │   └── InlineChatForm.tsx        # Lead capture forms
+│   ├── page.tsx                      # Homepage
+│   ├── globals.css                   # Global styles
+│   └── layout.tsx                    # Root layout
+├── lib/
+│   └── twilio.ts                     # Twilio helper functions (NEW)
+├── public/                           # Static assets
+├── docs/                             # Documentation
+│   ├── ARCHIVE_V1.md                 # Original Ivy build docs
+│   ├── PROJECT_PLAN.md               # Development roadmap
+│   └── SESSION_SUMMARY_2025-10-26.md # Recent session notes
+└── README.md                         # This file
 ```
 
 ## 🎨 Brand Guidelines
@@ -200,7 +233,7 @@ coresentia-lead-response/
 ## 📝 API Routes
 
 ### POST /api/chat
-AI chat conversation endpoint.
+AI chat conversation endpoint (used by both web chat and SMS).
 
 **Request:**
 ```json
@@ -221,6 +254,21 @@ AI chat conversation endpoint.
   "actions": [{"type": "book_meeting"}]
 }
 ```
+
+### POST /api/sms/webhook
+Twilio SMS webhook endpoint for incoming text messages.
+
+**Twilio Configuration:**
+- URL: `https://www.coresentia.com.au/api/sms/webhook`
+- Method: HTTP POST
+- Receives: Form data from Twilio (From, To, Body, MessageSid)
+- Returns: TwiML response
+
+**Flow:**
+1. Receives SMS from Twilio
+2. Creates/finds lead by phone number
+3. Calls /api/chat with conversation history
+4. Sends AI response via Twilio SMS API
 
 ### POST /api/bookings
 Create a new booking.
@@ -244,26 +292,51 @@ Fetch bookings for a lead or business.
 ### PATCH /api/bookings
 Update booking status (pending → confirmed → completed/cancelled).
 
-## 🚧 What's Next (Roadmap)
+### GET /api/availability?date=2025-10-27
+Get available time slots for a specific date.
+
+## 🚧 Development Status
 
 See [PROJECT_PLAN.md](./docs/PROJECT_PLAN.md) for detailed roadmap.
 
-**High Priority:**
-- [ ] Twilio SMS integration
-- [ ] Availability checking system
-- [ ] Customer dashboard (view bookings)
-- [ ] SMS confirmation system
+### ✅ PHASE 1: CoreSentia Marketing System (Current Priority)
 
-**Medium Priority:**
-- [ ] Website template system (Tier 2)
-- [ ] Multi-business support
-- [ ] Payment processing integration
+**Completed:**
+- [x] Website with two-tier pricing structure
+- [x] Web chat interface with Claude AI
+- [x] Twilio SMS integration (+61489087491)
+- [x] Lead capture and tracking
+- [x] SMS/Web chat selling CoreSentia products
+- [x] Availability checking API
+- [x] Booking dashboard prototype
+
+**In Progress:**
+- [ ] Quote generation for CoreSentia leads
+- [ ] Lead notification system (email/SMS alerts)
+- [ ] Calendar booking link integration
+- [ ] CoreSentia lead management dashboard
+
+**Next Up:**
+- [ ] Automated follow-up system
+- [ ] Analytics for lead conversion
+- [ ] Payment processing for quotes
+
+### 📋 PHASE 2: Client SMS Product (Future)
+
+**Not Started:**
+- [ ] Multi-business database architecture
+- [ ] Business profile management system
+- [ ] Per-client AI prompt customization
+- [ ] Website template builder (Professional Package)
+- [ ] Client onboarding workflow
+- [ ] White-label dashboard
+- [ ] SMS confirmation system for clients
 - [ ] Staff calendar management
 
-**Future:**
+**Future Enhancements:**
 - [ ] Voice AI (phone calls)
 - [ ] WhatsApp integration
-- [ ] Advanced analytics
+- [ ] Advanced analytics for clients
 - [ ] Mobile app for tradies
 
 ## 📚 Documentation

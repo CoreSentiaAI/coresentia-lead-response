@@ -2,6 +2,8 @@
 
 **Never miss a lead again.** CoreSentia provides AI-powered SMS and web chat for local Australian service businesses — tradies, salons, and mobile services.
 
+**🟢 Status:** MVP 95% Complete | **🌐 Live:** https://www.coresentia.com.au/ | **⏳ Waiting:** Twilio approval
+
 ## 🎯 What We Do
 
 We solve a simple problem: **You're on the tools, can't answer your phone, and leads book your competitors instead.**

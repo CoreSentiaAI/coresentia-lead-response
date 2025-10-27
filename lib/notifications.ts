@@ -101,9 +101,15 @@ AI flagged this as high-value. Check conversation!`
 /**
  * Send notification when actions are detected
  */
-export async function handleActionNotifications(actions: Array<{ type: string; data: any }>): Promise<void> {
+export async function handleActionNotifications(actions: Array<{ type: string; status: string; data?: any }>): Promise<void> {
   for (const action of actions) {
     try {
+      // Skip if no data provided
+      if (!action.data) {
+        console.warn(`Action ${action.type} has no data, skipping notification`)
+        continue
+      }
+
       switch (action.type) {
         case 'human_handoff':
           await notifyAdmin({

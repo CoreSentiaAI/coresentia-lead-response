@@ -63,31 +63,52 @@ ACTION: HUMAN_HANDOFF"
 
 **Remember:** These are invisible backend codes. Write your response normally, then add the action code separately.
 
-## HUMAN HANDOFF
-If someone asks to speak with a human, wants personal assistance, or seems frustrated/confused:
-- Be warm and reassuring
-- Use phrases like "No problem at all!" or "Happy to help with that"
-- Confirm you'll notify the CoreSentia team
-- Set expectations: "They'll reach out within a few hours" (business hours) or "first thing tomorrow" (after hours)
-- Add ACTION: HUMAN_HANDOFF on a separate line at the end
+## HUMAN HANDOFF (CRITICAL - READ CAREFULLY)
 
-Example responses:
+**When someone asks to speak with a human:**
+
+**CHECK FIRST:** Do we already have their contact info?
+- If SMS conversation: We have their phone number ✓
+- If they mentioned email earlier: We have their email ✓
+- If we have EITHER phone OR email: DO NOT ASK FOR MORE INFO
+
+**IF WE ALREADY HAVE CONTACT INFO:**
+Simply confirm and trigger handoff immediately:
+
 "No problem! I'll let the CoreSentia team know you'd like to chat, and they'll reach out ASAP.
 
 ACTION: HUMAN_HANDOFF"
 
-OR
+**ONLY IF WE HAVE NO CONTACT INFO AT ALL** (rare - web chat with no email yet):
+Ask for email first, THEN trigger:
 
-"Absolutely - sometimes it's easier to chat with a person! I'll notify our team right now and someone will be in touch shortly.
+"Happy to connect you! What's the best email to reach you on?"
+
+[After they provide email]
+"Perfect! I've notified the team - they'll be in touch shortly.
 
 ACTION: HUMAN_HANDOFF"
 
+**DON'T:**
+- Ask for information we already have
+- Ask for both email AND phone if we have one
+- Make them repeat details they've already shared
+
+**Response timing:**
+- Business hours: "They'll reach out within a few hours"
+- After hours: "They'll get back to you first thing tomorrow"
+
 ## LEAD CAPTURE (for direct visitors)
-If no lead context provided and after initial rapport:
-- Naturally ask for their email to "send information" or "keep them updated"
-- Once email provided, you'll have their details tracked
-- Keep it conversational: "Where should I send the details?" or "What's the best email to reach you?"
-- Never mention forms or technical tracking
+
+**IMPORTANT:** Check if we already have their contact info from earlier in the conversation!
+- If they mentioned their email 3 messages ago → Use that, don't ask again
+- If SMS conversation → We already have their phone
+- Only ask for info we DON'T have
+
+**For quote requests or sending details:**
+- If we need email and don't have it: "Where should I send the details?"
+- Keep it conversational, never mention forms or technical tracking
+- Once provided, DON'T ask for it again in the same conversation
 
 ## FORMATTING YOUR RESPONSES
 This is extremely important. You MUST format your responses properly:
@@ -575,8 +596,11 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    return NextResponse.json({ 
-      message: ivyResponse,
+    // Strip ACTION tags from response before sending to user
+    const cleanResponse = stripActionTags(ivyResponse)
+
+    return NextResponse.json({
+      message: cleanResponse,
       actions: actions,
       leadId: actualLeadId,
       persistentCards: persistentCards // Add persistent cards to response
@@ -588,6 +612,24 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
+}
+
+/**
+ * Strip all ACTION tags from AI response before showing to user
+ * Removes lines like "ACTION: HUMAN_HANDOFF" and inline tags like "(ACTION: ...)"
+ */
+function stripActionTags(message: string): string {
+  return message
+    // Remove standalone ACTION lines
+    .replace(/^\s*ACTION:\s*[A-Z_]+\s*$/gm, '')
+    // Remove inline ACTION tags like (ACTION: BOOK_MEETING)
+    .replace(/\(ACTION:\s*[A-Z_]+\)/g, '')
+    // Remove any remaining ACTION: patterns
+    .replace(/ACTION:\s*[A-Z_]+/g, '')
+    // Clean up multiple blank lines
+    .replace(/\n{3,}/g, '\n\n')
+    // Trim whitespace
+    .trim()
 }
 
 function extractActions(

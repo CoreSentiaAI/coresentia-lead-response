@@ -188,24 +188,72 @@ Lead clicks "Get Quote" or "Book Call" button → Form appears with fields:
 
 ---
 
-### Stage 5: Deal Closed (Manual)
+### Stage 5: Deal Closed - Payment & Onboarding (Manual)
 
 **When Lead Becomes Client:**
-1. They agree to sign up
-2. You send them:
-   - **Invoice** for setup fee ($999 or $2,500 inc. GST)
-   - **CLIENT_ONBOARDING_FORM.md** to fill out
-   - **SERVICE_AGREEMENT_TEMPLATE.md** to sign
 
-3. Once payment received and forms returned:
-   - Mark them as `status: 'qualified'` or `status: 'won'` in dashboard
-   - Begin client onboarding (see ONBOARDING_WORKFLOW.md)
-   - Set up their AI receptionist system
+#### Step 1: Agreement & Deposit
+1. Lead agrees to sign up
+2. You send them:
+   - **SERVICE_AGREEMENT_TEMPLATE.md** to review and sign
+   - **Invoice for 50% deposit** ($499.50 for SMS Responder OR $1,250 for Professional)
+   - Explain: "We require a 50% deposit to start work, with the remaining 50% due before go-live"
+
+3. Once deposit received:
+   - Mark them as `status: 'qualified'` in admin dashboard
+   - Send them the onboarding form link
+
+#### Step 2: Onboarding Form
+4. Send client the onboarding form URL:
+   - **https://www.coresentia.com.au/onboarding**
+   - This is a web form they fill out online (takes 10-15 minutes)
+   - Data automatically syncs to your admin dashboard
+
+5. Once form submitted:
+   - You receive notification
+   - Review their responses in admin dashboard
+   - Schedule brief setup call (15-30 mins) to clarify any details
+
+#### Step 3: Build & Setup
+6. Build their AI receptionist system:
+   - **SMS Responder:** 2-3 business days
+   - **Professional Package:** 5-7 business days
+7. Keep them updated on progress via email
+
+#### Step 4: Testing & Final Payment
+8. When ready for testing:
+   - Send them access to test the system
+   - Walk them through the dashboard
+   - Make any final adjustments
+
+9. Once they approve:
+   - Send invoice for **remaining 50%** ($499.50 or $1,250)
+   - Explain: "Final payment due before we go live"
+
+#### Step 5: Go Live!
+10. Once final payment received:
+    - Activate their system (SMS number, website, etc.)
+    - Send them login credentials
+    - Provide training/walkthrough
+    - Set up first monthly invoice (due 1st of next month)
+
+**Payment Options:**
+- **Option A (Recommended):** 50% deposit + 50% before go-live
+  - Pro: Shows commitment, protects you from time wasters
+  - Con: Two invoices to manage
+- **Option B:** Full payment upfront
+  - Pro: Simple, immediate cash flow
+  - Con: Higher barrier to entry, may lose some leads
+- **Option C:** Invoice on completion (Net 7)
+  - Pro: Builds trust, easier for client
+  - Con: Risk of non-payment after work done
+
+**Recommendation:** Start with Option A (50/50 split). It's the industry standard for custom setup work and protects both parties.
 
 **Files for This Stage:**
-- `/docs/CLIENT_ONBOARDING_FORM.md` - Client fills this out
-- `/docs/SERVICE_AGREEMENT_TEMPLATE.md` - Legal agreement
-- Both files are in the `/docs/` folder
+- Onboarding Form: https://www.coresentia.com.au/onboarding (live web form)
+- Service Agreement: `/docs/SERVICE_AGREEMENT_TEMPLATE.md` (send as PDF)
+- Both accessible from your docs folder
 
 ---
 

@@ -72,6 +72,99 @@ For service businesses ready for a professional web presence.
 **Delivery:** 5-7 days
 **Best for:** Hairdressers, beauty services, pet groomers, mobile businesses
 
+---
+
+## 📧 Client Onboarding Email Sequence
+
+**Complete workflow from lead to live client:**
+
+### Email 1: Service Agreement + 50% Deposit Invoice
+**When:** After lead agrees to sign up
+**Send:**
+- Service Agreement Template (`/docs/SERVICE_AGREEMENT_TEMPLATE.md`)
+- Invoice for 50% deposit ($499.50 for SMS Responder or $1,250 for Professional)
+- Payment instructions
+
+**Message:** "We require a 50% deposit to start work, with the remaining 50% due before go-live."
+
+---
+
+### Email 2: Onboarding Form Link
+**When:** After deposit received
+**Send:** https://www.coresentia.com.au/onboarding
+
+**Template:**
+```
+Subject: CoreSentia Setup - Next Steps
+
+Hi [Name],
+
+Great news - your deposit has been received! We're ready to build your AI Receptionist.
+
+Next step: Please fill out our onboarding form so we can customize everything
+perfectly for your business.
+
+🔗 Onboarding Form: https://www.coresentia.com.au/onboarding
+⏱️ Takes about 10-15 minutes
+
+Once submitted, I'll review your responses and reach out within 24 hours to
+schedule a brief setup call.
+
+Timeline:
+• Setup call: Within 24 hours
+• Build time: 2-3 days (SMS) or 5-7 days (Professional)
+• Testing: 1-2 days
+• Go-live: As soon as you approve!
+
+Remaining payment ($[amount]) will be due before go-live.
+
+Cheers,
+[Your Name]
+CoreSentia
+```
+
+---
+
+### Email 3: Setup Call Confirmation
+**When:** After onboarding form submitted
+**Action:** Review their responses in Supabase → Schedule 15-30 min call
+**Purpose:** Clarify details, answer questions, confirm timeline
+
+---
+
+### Email 4: Progress Update
+**When:** During build phase (midway through 2-7 days)
+**Message:** Quick update on progress, keeping them excited and engaged
+
+---
+
+### Email 5: Testing Access + Final Payment
+**When:** System ready for testing
+**Send:**
+- Testing access link/credentials
+- Invoice for remaining 50%
+- Walkthrough instructions
+
+**Message:** "Your system is ready to test! Once you approve and we receive final payment, we'll go live."
+
+---
+
+### Email 6: Go-Live + Training
+**When:** After final payment received
+**Send:**
+- Live system credentials
+- Dashboard walkthrough
+- Training materials
+- Support contact info
+
+**Message:** "You're live! 🚀 Your AI Receptionist is now answering leads 24/7."
+
+---
+
+**📋 See full details in:** `/docs/PIPELINE_WORKFLOW.md`
+
+---
+
 ## 🛠 Tech Stack
 
 - **Frontend:** Next.js 13 (App Router), React 18, TypeScript

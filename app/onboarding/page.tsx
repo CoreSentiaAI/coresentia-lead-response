@@ -82,15 +82,14 @@ export default function OnboardingPage() {
   }
 
   const handleWorkingHoursChange = (day: string, field: string, value: any) => {
+    const updatedHours: any = { ...formData.workingHours }
+    updatedHours[day] = {
+      ...updatedHours[day],
+      [field]: value
+    }
     setFormData({
       ...formData,
-      workingHours: {
-        ...formData.workingHours,
-        [day]: {
-          ...formData.workingHours[day as keyof typeof formData.workingHours],
-          [field]: value
-        }
-      }
+      workingHours: updatedHours
     })
   }
 

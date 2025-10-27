@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { handleActionNotifications } from '@/lib/notifications'
 
 const ASSISTANT_SYSTEM_PROMPT = `
 You are CoreSentia's AI assistant, helping local service businesses never miss a lead again. Australian business - use UK/Australian English and $AUD. All prices include GST.
@@ -33,11 +34,12 @@ You are CoreSentia's AI assistant, helping local service businesses never miss a
 
 ## ACTION TRIGGERS (IMPORTANT)
 When you decide to take specific actions, include these EXACT phrases somewhere in your response:
-- To send a quote: Include "ACTION: GENERATE_QUOTE" 
+- To send a quote: Include "ACTION: GENERATE_QUOTE"
 - To book a meeting: Include "ACTION: BOOK_MEETING"
 - For high-value alerts: Include "ACTION: HIGH_VALUE_ALERT"
 - To show AI Reality Check card: Include "ACTION: SHOW_REALITY_CHECK"
 - To show product cards: Include "ACTION: SHOW_PRODUCTS"
+- **To connect with a human: Include "ACTION: HUMAN_HANDOFF"**
 
 **CRITICAL**: If an action fails because you're missing information (like email), you MUST include the action trigger again in your response after getting that information.
 
@@ -45,8 +47,22 @@ You can work these naturally into your responses. For example:
 "I'll get that quote sorted for you right now (ACTION: GENERATE_QUOTE)"
 "Let me book that consultation for you (ACTION: BOOK_MEETING)"
 "Let me show you our AI Reality Check offer (ACTION: SHOW_REALITY_CHECK)"
+"No worries! I'll let our team know you'd like to chat with someone (ACTION: HUMAN_HANDOFF)"
 
 The user won't see these action tags - they trigger backend processes.
+
+## HUMAN HANDOFF
+If someone asks to speak with a human, wants personal assistance, or seems frustrated/confused:
+- Be warm and reassuring
+- Use phrases like "No problem at all!" or "Happy to help with that"
+- Confirm you'll notify the CoreSentia team
+- Set expectations: "They'll reach out within a few hours" (business hours) or "first thing tomorrow" (after hours)
+- Always include ACTION: HUMAN_HANDOFF
+
+Example responses:
+- "No problem! I'll let the CoreSentia team know you'd like to chat, and they'll reach out ASAP. (ACTION: HUMAN_HANDOFF)"
+- "Absolutely - sometimes it's easier to chat with a person! I'll notify our team right now and someone will be in touch shortly. (ACTION: HUMAN_HANDOFF)"
+- "Of course! Let me connect you with the CoreSentia admin. They'll reach out within the next few hours. (ACTION: HUMAN_HANDOFF)"
 
 ## LEAD CAPTURE (for direct visitors)
 If no lead context provided and after initial rapport:
@@ -528,7 +544,15 @@ export async function POST(request: NextRequest) {
     const actions = extractActions(ivyResponse, actualLeadId, currentLeadData, messages)
     console.log('Actions extracted:', JSON.stringify(actions, null, 2))
     console.log('Persistent cards:', persistentCards)
-    
+
+    // Send notifications for actions (human handoff, quote requests, etc.)
+    // This runs async in background - doesn't block the response
+    if (actions.length > 0) {
+      handleActionNotifications(actions).catch(error => {
+        console.error('Error handling action notifications:', error)
+      })
+    }
+
     return NextResponse.json({ 
       message: ivyResponse,
       actions: actions,
@@ -556,22 +580,20 @@ function extractActions(
   // Quote generation with data
   if (message.includes('ACTION: GENERATE_QUOTE')) {
     console.log('Quote trigger detected!')
-    
+
     // Analyze conversation to determine package
     const conversationText = messages.map(m => m.content).join(' ').toLowerCase()
-    let packageType = 'Lead-to-Deal ESSENTIALS'
-    let amount = 3000
-    
-    // Check for specific product mentions - simplified to just ESSENTIALS and CUSTOM
-    if (conversationText.includes('custom') || conversationText.includes('$10,000') || conversationText.includes('10000') || conversationText.includes('enterprise') || conversationText.includes('advanced')) {
-      packageType = 'Lead-to-Deal CUSTOM'
-      amount = 10000
-    } else {
-      // Default to ESSENTIALS for any mention of starter, essentials, basic, etc.
-      packageType = 'Lead-to-Deal ESSENTIALS'
-      amount = 3000
+    let packageType = 'SMS Responder'
+    let setupFee = 1200
+    let monthlyFee = 150
+
+    // Check for Professional Package mentions
+    if (conversationText.includes('professional') || conversationText.includes('website') || conversationText.includes('web chat') || conversationText.includes('$2,500') || conversationText.includes('2500')) {
+      packageType = 'Professional Package'
+      setupFee = 2500
+      monthlyFee = 250
     }
-    
+
     const quoteData = {
       leadId: leadId,
       clientName: leadData?.name || 'Valued Client',
@@ -579,13 +601,15 @@ function extractActions(
       email: leadData?.email || '',
       phone: leadData?.phone || '',
       packageType,
-      amount
+      setupFee,
+      monthlyFee,
+      conversationSummary: messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n')
     }
-    
+
     console.log('Quote data prepared:', quoteData)
-    
-    actions.push({ 
-      type: 'generate_quote', 
+
+    actions.push({
+      type: 'generate_quote',
       status: 'pending',
       data: quoteData
     })
@@ -609,16 +633,33 @@ function extractActions(
   // High value alert
   if (message.includes('ACTION: HIGH_VALUE_ALERT')) {
     console.log('High value alert trigger detected!')
-    actions.push({ 
-      type: 'high_value_alert', 
+    actions.push({
+      type: 'high_value_alert',
       status: 'pending',
       data: {
         leadId: leadId,
         leadData: leadData,
-        reason: 'High-value lead detected by Ivy'
+        reason: 'High-value lead detected by AI'
       }
     })
   }
-  
+
+  // Human handoff request
+  if (message.includes('ACTION: HUMAN_HANDOFF')) {
+    console.log('Human handoff request detected!')
+    actions.push({
+      type: 'human_handoff',
+      status: 'pending',
+      data: {
+        leadId: leadId,
+        leadName: leadData?.name || 'Unknown',
+        email: leadData?.email || '',
+        phone: leadData?.phone || '',
+        source: leadData?.source || 'unknown',
+        conversationSummary: messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n')
+      }
+    })
+  }
+
   return actions
 }

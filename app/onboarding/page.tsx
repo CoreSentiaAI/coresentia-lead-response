@@ -58,7 +58,7 @@ export default function OnboardingPage() {
     return (
       <div className="min-h-screen bg-white">
         <Header />
-        <main className="pt-32 pb-20 px-6">
+        <main className="pt-40 pb-20 px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl font-bold text-brand-navy mb-4">Thank You! Form Submitted ✓</h1>
             <p className="text-lg text-text-secondary mb-8">
@@ -76,7 +76,7 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="pt-32 pb-20 px-6">
+      <main className="pt-40 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold text-brand-navy mb-4">Client Onboarding Form</h1>
           <p className="text-lg text-text-secondary mb-8">

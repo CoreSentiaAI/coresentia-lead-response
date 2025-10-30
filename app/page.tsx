@@ -15,17 +15,17 @@ export default function HomePage() {
         <Header />
 
         {/* Hero Section */}
-        <section className="min-h-[90vh] flex items-center justify-center px-6 pt-32 pb-20">
+        <section className="min-h-[85vh] flex items-center justify-center px-6 pt-28 pb-16">
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-montserrat text-brand-navy leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-5 font-montserrat text-brand-navy leading-tight">
               Stop talking about AI.
               <br />
               <span className="text-brand-orange">Start closing with it.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-text-secondary mb-4 font-light max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-text-secondary mb-3 font-light max-w-3xl mx-auto">
               Your AI Receptionist for Local Business
             </p>
-            <p className="text-lg md:text-xl text-text-secondary mb-12 font-light max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-text-secondary mb-10 font-light max-w-2xl mx-auto">
               Never miss a lead again. Respond 24/7, book jobs automatically, grow your business while you work.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -49,9 +49,9 @@ export default function HomePage() {
         </section>
 
         {/* The Problem Section */}
-        <section className="py-20 px-6 bg-white">
+        <section className="py-16 px-6 bg-white">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-12 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
               Sound familiar?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -81,12 +81,12 @@ export default function HomePage() {
         </section>
 
         {/* Solution Section */}
-        <section className="py-20 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
+        <section className="py-16 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 font-montserrat">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat">
               Meet Your AI Receptionist
             </h2>
-            <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto font-light">
+            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light">
               An intelligent assistant that responds to leads via SMS and web chat 24/7, qualifies them, and books jobs into your calendar — while you focus on the work.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
@@ -115,12 +115,12 @@ export default function HomePage() {
         </section>
 
         {/* How It Works - Simple Workflow */}
-        <section className="py-20 px-6 bg-white">
+        <section className="py-16 px-6 bg-white">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-4 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               Simple. Automatic. Effective.
             </h2>
-            <p className="text-xl text-text-secondary text-center mb-16 max-w-2xl mx-auto">
+            <p className="text-xl text-text-secondary text-center mb-12 max-w-2xl mx-auto">
               Here's how it works in the real world
             </p>
 
@@ -219,10 +219,10 @@ export default function HomePage() {
         </section>
 
         {/* Packages Section */}
-        <section id="packages" className="py-24 px-6 bg-gray-50">
+        <section id="packages" className="py-20 px-6 bg-gray-50">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-6 font-montserrat">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-5 font-montserrat">
                 Choose Your Package
               </h2>
               <p className="text-xl text-text-secondary max-w-2xl mx-auto">
@@ -364,12 +364,12 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-20 px-6 bg-white">
+        <section className="py-16 px-6 bg-white">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-4 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               How It Works
             </h2>
-            <p className="text-center text-lg text-text-secondary mb-16 max-w-3xl mx-auto">
+            <p className="text-center text-lg text-text-secondary mb-12 max-w-3xl mx-auto">
               We're your "front gate" — capturing leads and booking appointments automatically. You take over from there and manage jobs your way.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -419,9 +419,9 @@ export default function HomePage() {
         </section>
 
         {/* Why CoreSentia Section */}
-        <section className="py-20 px-6 bg-gray-50">
+        <section className="py-16 px-6 bg-gray-50">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-12 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
               Why CoreSentia?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -451,12 +451,12 @@ export default function HomePage() {
         </section>
 
         {/* Social Proof / Testimonials Section - Placeholder */}
-        <section className="py-20 px-6 bg-white">
+        <section className="py-16 px-6 bg-white">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-12 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-10 font-montserrat">
               Built for Australian Service Businesses
             </h2>
-            <p className="text-xl text-text-secondary mb-8">
+            <p className="text-xl text-text-secondary mb-6">
               Whether you're a solo tradie or a growing salon, we help you capture every lead and book more jobs — without the overwhelm.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -481,12 +481,12 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
+        <section className="py-20 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-montserrat">
+            <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat">
               Ready to Stop Missing Leads?
             </h2>
-            <p className="text-xl md:text-2xl mb-10 font-light">
+            <p className="text-xl md:text-2xl mb-8 font-light">
               Get your AI receptionist set up this week. Start booking more jobs while you focus on the work.
             </p>
             <Link
@@ -502,7 +502,7 @@ export default function HomePage() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 px-6 bg-brand-navy text-white">
+        <footer className="py-10 px-6 bg-brand-navy text-white">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>

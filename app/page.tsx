@@ -230,9 +230,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto lg:items-stretch">
               {/* Tier 1: SMS Responder */}
-              <div className="bg-white border-2 border-gray-200 rounded-2xl p-10 hover:border-brand-orange transition-all shadow-lg">
+              <div className="bg-white border-2 border-gray-200 rounded-2xl p-10 hover:border-brand-orange transition-all shadow-lg flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
                   <MessageSquare className="w-10 h-10 text-brand-orange" />
                   <h3 className="text-2xl font-bold text-brand-navy font-montserrat">SMS Responder</h3>
@@ -249,7 +249,7 @@ export default function HomePage() {
                   Perfect for tradies and mobile services who need to respond fast but don't have a website.
                 </p>
 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-8 flex-grow">
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
                     <span className="text-text-primary">Dedicated business SMS number</span>
@@ -276,20 +276,22 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/chat/homepage-visitor"
-                  className="btn-primary w-full py-3 rounded-full font-semibold text-center block"
-                >
-                  Get Started
-                </Link>
+                <div className="mt-auto">
+                  <Link
+                    href="/chat/homepage-visitor"
+                    className="btn-primary w-full py-3 rounded-full font-semibold text-center block"
+                  >
+                    Get Started
+                  </Link>
 
-                <p className="text-sm text-text-secondary mt-4 italic">
-                  Best for: Landscapers, cleaners, mobile mechanics, handymen
-                </p>
+                  <p className="text-sm text-text-secondary mt-4 italic">
+                    Best for: Landscapers, cleaners, mobile mechanics, handymen
+                  </p>
+                </div>
               </div>
 
               {/* Tier 2: Professional Package */}
-              <div className="bg-gradient-to-br from-brand-navy to-blue-900 border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl transform lg:scale-105">
+              <div className="bg-gradient-to-br from-brand-navy to-blue-900 border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl transform lg:scale-105 flex flex-col">
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white px-6 py-2 rounded-full text-sm font-bold">
                   MOST POPULAR
                 </div>
@@ -310,7 +312,7 @@ export default function HomePage() {
                   For service businesses ready to look professional with a complete web presence.
                 </p>
 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-8 flex-grow">
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
                     <span className="font-semibold">Everything in SMS Responder, PLUS:</span>
@@ -341,16 +343,18 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/chat/homepage-visitor"
-                  className="bg-brand-orange text-white hover:bg-orange-600 w-full py-3 rounded-full font-semibold text-center block transition-all"
-                >
-                  Get Started
-                </Link>
+                <div className="mt-auto">
+                  <Link
+                    href="/chat/homepage-visitor"
+                    className="bg-brand-orange text-white hover:bg-orange-600 w-full py-3 rounded-full font-semibold text-center block transition-all"
+                  >
+                    Get Started
+                  </Link>
 
-                <p className="text-sm text-white/80 mt-4 italic">
-                  Best for: Hairdressers, beauty services, pet groomers, mobile businesses ready to grow
-                </p>
+                  <p className="text-sm text-white/80 mt-4 italic">
+                    Best for: Hairdressers, beauty services, pet groomers, mobile businesses ready to grow
+                  </p>
+                </div>
               </div>
             </div>
 

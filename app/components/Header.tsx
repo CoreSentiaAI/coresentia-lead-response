@@ -5,18 +5,38 @@ import Link from 'next/link'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
-  
+  const [hidden, setHidden] = useState(false)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => {
+      const currentScrollY = window.scrollY
+
+      // Update scrolled state for styling
+      setScrolled(currentScrollY > 50)
+
+      // Hide header when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down & past 100px
+        setHidden(true)
+      } else {
+        // Scrolling up or at top
+        setHidden(false)
+      }
+
+      setLastScrollY(currentScrollY)
+    }
+
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-  
+  }, [lastScrollY])
+
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
       ${scrolled
         ? 'bg-brand-navy/98 backdrop-blur-lg shadow-lg border-b border-brand-orange/30'
-        : 'bg-brand-navy/95 backdrop-blur-sm'}`}
+        : 'bg-brand-navy/95 backdrop-blur-sm'}
+      ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
         <Link href="/" className="flex items-center">

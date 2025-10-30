@@ -58,7 +58,7 @@ export default function OnboardingPage() {
     return (
       <div className="min-h-screen bg-white">
         <Header />
-        <main className="pt-24 pb-20 px-6">
+        <main className="pt-32 pb-20 px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl font-bold text-brand-navy mb-4">Thank You! Form Submitted ✓</h1>
             <p className="text-lg text-text-secondary mb-8">
@@ -76,7 +76,7 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="pt-24 pb-20 px-6">
+      <main className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold text-brand-navy mb-4">Client Onboarding Form</h1>
           <p className="text-lg text-text-secondary mb-8">
@@ -168,14 +168,48 @@ export default function OnboardingPage() {
               </div>
             </div>
 
-            {/* Section 2: Package Confirmation */}
-            <div className="bg-green-50 border-2 border-green-200 p-6 rounded-lg">
-              <h2 className="text-xl font-bold text-brand-navy mb-2">Package Confirmation</h2>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">✓</span>
-                <span className="text-lg font-semibold text-brand-navy">SMS Responder - $999 setup + $150/month inc. GST</span>
+            {/* Section 2: Package Selection */}
+            <div className="bg-gray-50 p-6 rounded-lg space-y-4">
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Package Selection</h2>
+
+              <div>
+                <label className="block text-sm font-medium text-text-primary mb-3">Which package did you purchase? *</label>
+                <div className="space-y-3">
+                  <label className="flex items-start gap-3 p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-brand-orange transition-colors has-[:checked]:border-brand-orange has-[:checked]:bg-orange-50">
+                    <input
+                      type="radio"
+                      name="package"
+                      value="SMS Responder"
+                      checked={formData.selectedPackage === 'SMS Responder'}
+                      onChange={(e) => setFormData({ ...formData, selectedPackage: e.target.value })}
+                      required
+                      className="mt-1"
+                    />
+                    <div>
+                      <div className="font-semibold text-text-primary text-lg">SMS Responder</div>
+                      <div className="text-brand-navy font-medium">$999 setup + $150/month inc. GST</div>
+                      <div className="text-sm text-gray-600 mt-1">AI SMS responder + lead capture system</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start gap-3 p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-brand-orange transition-colors has-[:checked]:border-brand-orange has-[:checked]:bg-orange-50">
+                    <input
+                      type="radio"
+                      name="package"
+                      value="Professional Package"
+                      checked={formData.selectedPackage === 'Professional Package'}
+                      onChange={(e) => setFormData({ ...formData, selectedPackage: e.target.value })}
+                      required
+                      className="mt-1"
+                    />
+                    <div>
+                      <div className="font-semibold text-text-primary text-lg">Professional Package</div>
+                      <div className="text-brand-navy font-medium">$2,500 setup + $250/month inc. GST</div>
+                      <div className="text-sm text-gray-600 mt-1">SMS + Custom website + Advanced features</div>
+                    </div>
+                  </label>
+                </div>
               </div>
-              <p className="text-sm text-gray-600 mt-2">If this is incorrect, please contact us immediately at info@coresentia.com</p>
             </div>
 
             {/* Section 3: Service Coverage */}

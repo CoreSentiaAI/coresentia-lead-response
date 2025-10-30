@@ -115,45 +115,42 @@ export default function HomePage() {
         </section>
 
         {/* How It Works - Simple Workflow */}
-        <section className="py-16 px-6 bg-white">
+        <section className="py-16 px-4 md:px-6 bg-white">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               Simple. Automatic. Effective.
             </h2>
-            <p className="text-xl text-text-secondary text-center mb-12 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-text-secondary text-center mb-10 max-w-2xl mx-auto">
               Here's how it works in the real world
             </p>
 
-            <div className="bg-gradient-to-br from-gray-50 to-blue-50 border-2 border-gray-200 rounded-2xl p-8 md:p-12 mb-12">
-              <div className="space-y-8">
+            <div className="bg-gradient-to-br from-gray-50 to-blue-50 border-2 border-gray-200 rounded-2xl p-4 md:p-8 mb-8">
+              <div className="space-y-6 md:space-y-8">
                 {/* Step 1 */}
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-xl">
+                <div className="flex gap-3 md:gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-lg md:text-xl">
                     1
                   </div>
-                  <div>
-                    <h3 className="font-bold text-xl text-brand-navy mb-2">Lead texts your business number</h3>
-                    <p className="text-text-secondary mb-3">
-                      It's 8pm. You're watching the footy. Someone texts: <span className="italic">"Can you mow my lawn this week?"</span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-2">Lead texts your business number</h3>
+                    <p className="text-sm md:text-base text-text-secondary mb-3 italic">
+                      "Can you mow my lawn this week?"
                     </p>
-                    <div className="bg-white border border-gray-300 rounded-lg p-4 text-sm">
-                      <p className="text-gray-600 mb-1">📱 <strong>To:</strong> Your business (0412 XXX XXX)</p>
+                    <div className="bg-white border border-gray-300 rounded-lg p-3 md:p-4 text-sm">
+                      <p className="text-gray-600 text-xs md:text-sm mb-1">📱 To: Your business (0412 XXX XXX)</p>
                       <p className="text-text-primary">"Hi, can you mow my lawn this week?"</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Step 2 */}
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-xl">
+                <div className="flex gap-3 md:gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-lg md:text-xl">
                     2
                   </div>
-                  <div>
-                    <h3 className="font-bold text-xl text-brand-navy mb-2">AI responds instantly & books them in</h3>
-                    <p className="text-text-secondary mb-3">
-                      Your AI assistant handles the conversation, checks your availability, and locks in the booking.
-                    </p>
-                    <div className="bg-white border border-gray-300 rounded-lg p-4 text-sm space-y-3">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">AI responds instantly & books them in</h3>
+                    <div className="bg-white border border-gray-300 rounded-lg p-3 md:p-4 text-sm space-y-2 md:space-y-3">
                       <p className="text-text-primary"><strong>AI:</strong> "I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works for you?"</p>
                       <p className="text-gray-600"><strong>Lead:</strong> "Thursday 10am"</p>
                       <p className="text-text-primary"><strong>AI:</strong> "Perfect! You're booked for Thursday 10am. I've sent a confirmation."</p>
@@ -162,27 +159,24 @@ export default function HomePage() {
                 </div>
 
                 {/* Step 3 */}
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-xl">
+                <div className="flex gap-3 md:gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-lg md:text-xl">
                     3
                   </div>
-                  <div>
-                    <h3 className="font-bold text-xl text-brand-navy mb-2">You confirm with one tap</h3>
-                    <p className="text-text-secondary mb-3">
-                      Next morning, you open your dashboard on your phone. See the booking. Tap "Confirm". Done in 2 seconds.
-                    </p>
-                    <div className="bg-white border border-brand-navy rounded-lg p-4">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">You confirm with one tap</h3>
+                    <div className="bg-white border border-brand-navy rounded-lg p-3 md:p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-yellow-700 bg-yellow-100 px-3 py-1 rounded-full border border-yellow-300">● Pending</span>
+                        <span className="text-xs md:text-sm font-medium text-yellow-700 bg-yellow-100 px-2 md:px-3 py-1 rounded-full border border-yellow-300">● Pending</span>
                         <span className="text-xs text-gray-500">Just now</span>
                       </div>
-                      <p className="font-semibold text-brand-navy mb-2">Thursday, 10:00 AM - Lawn Mowing</p>
-                      <p className="text-sm text-text-secondary mb-4">John Smith • 0412 XXX XXX</p>
+                      <p className="font-semibold text-brand-navy mb-2 text-sm md:text-base">Thursday, 10:00 AM - Lawn Mowing</p>
+                      <p className="text-xs md:text-sm text-text-secondary mb-3 md:mb-4">John Smith • 0412 XXX XXX</p>
                       <div className="flex gap-2">
-                        <button className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg font-medium text-sm">
+                        <button className="flex-1 bg-green-600 text-white py-2 px-3 md:px-4 rounded-lg font-medium text-xs md:text-sm">
                           ✓ Confirm
                         </button>
-                        <button className="flex-1 bg-white border-2 border-gray-300 text-text-primary py-2 px-4 rounded-lg font-medium text-sm">
+                        <button className="flex-1 bg-white border-2 border-gray-300 text-text-primary py-2 px-3 md:px-4 rounded-lg font-medium text-xs md:text-sm">
                           Cancel
                         </button>
                       </div>
@@ -191,11 +185,11 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-gray-300 text-center">
-                <p className="text-brand-navy font-semibold text-lg">
+              <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-300 text-center">
+                <p className="text-brand-navy font-semibold text-base md:text-lg">
                   That's it. You just booked a job without lifting a finger.
                 </p>
-                <p className="text-text-secondary mt-2">
+                <p className="text-text-secondary mt-2 text-sm md:text-base">
                   No phone tag. No missed calls. No back-and-forth. Just bookings.
                 </p>
               </div>

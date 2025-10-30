@@ -1,74 +1,59 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import nodemailer from 'nodemailer'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_KEY!
 )
 
+// Email transporter (configure with your SMTP settings)
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+})
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.json()
 
-    // Save to database
+    // Save to database (simplified fields)
     const { data: onboarding, error } = await supabase
       .from('client_onboarding')
       .insert({
-        // Business Information
+        // Business Basics
         business_name: formData.businessName,
-        trading_name: formData.tradingName,
-        abn: formData.abn,
-        business_address: formData.businessAddress,
+        abn: formData.abn || null,
         contact_person: formData.contactPerson,
         mobile: formData.mobile,
         email: formData.email,
-        business_type: formData.businessType,
         industry_type: formData.industryType,
-
-        // Services
-        services: formData.services.filter((s: string) => s.trim() !== ''),
-        pricing_structure: formData.pricingStructure,
-        typical_job_value: formData.typicalJobValue,
-        pricing_notes: formData.pricingNotes,
-
-        // Working Hours
-        working_hours: formData.workingHours,
-        appointment_duration: formData.appointmentDuration,
-        advance_booking: formData.advanceBooking,
-
-        // Service Area
-        service_areas: formData.serviceAreas,
-        travel_radius: formData.travelRadius,
-        travel_charges: formData.travelCharges,
-
-        // Communication
-        ai_personality: formData.aiPersonality,
-        key_phrases: formData.keyPhrases,
-        mentions: formData.mentions,
-        things_not_to_say: formData.thingsNotToSay,
 
         // Package
         selected_package: formData.selectedPackage,
 
-        // Professional Package Details
-        preferred_domain: formData.preferredDomain,
-        alternative_domain: formData.alternativeDomain,
-        primary_color: formData.primaryColor,
-        secondary_color: formData.secondaryColor,
-        has_logo: formData.hasLogo,
-        tagline: formData.tagline,
-        about: formData.about,
-        has_photos: formData.hasPhotos,
+        // Service Coverage
+        service_city: formData.serviceCity,
+        service_state: formData.serviceState,
+        service_radius: formData.serviceRadius,
+        service_notes: formData.serviceNotes || null,
 
-        // Current Setup
-        existing_phone: formData.existingPhone,
-        phone_preference: formData.phonePreference,
-        existing_website: formData.existingWebsite,
+        // Phone Setup
+        current_phone: formData.currentPhone,
+        phone_setup: formData.phoneSetup,
+        port_number: formData.portNumber || null,
 
-        // Setup Preferences
-        preferred_go_live: formData.preferredGoLive,
-        best_time_for_call: formData.bestTimeForCall,
-        questions: formData.questions,
+        // Scheduling
+        go_live_date: formData.goLiveDate,
+        call_time: formData.callTime,
+
+        // Additional
+        special_requests: formData.specialRequests || null,
 
         // Status
         status: 'submitted',
@@ -85,8 +70,81 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // TODO: Send notification to admin
-    // You could integrate with your existing notification system here
+    // Send email notification
+    try {
+      await transporter.sendMail({
+        from: '"CoreSentia" <info@coresentia.com.au>',
+        to: formData.email,
+        subject: 'Welcome to CoreSentia - Onboarding Received!',
+        html: `
+          <h2>Thanks for completing your onboarding form!</h2>
+          <p>Hi ${formData.contactPerson},</p>
+          <p>We've received your onboarding information for <strong>${formData.businessName}</strong>.</p>
+
+          <h3>What's Next?</h3>
+          <ol>
+            <li><strong>Setup Call:</strong> We'll reach out within 24 hours to schedule your 15-minute setup call</li>
+            <li><strong>Customization:</strong> We'll build and customize your AI receptionist (1-2 business days)</li>
+            <li><strong>Testing:</strong> You'll test and approve before we go live</li>
+            <li><strong>Go Live:</strong> Start capturing leads on ${formData.goLiveDate}!</li>
+          </ol>
+
+          <h3>Your Information:</h3>
+          <ul>
+            <li><strong>Package:</strong> ${formData.selectedPackage}</li>
+            <li><strong>Service Area:</strong> ${formData.serviceCity}, ${formData.serviceState} (${formData.serviceRadius})</li>
+            <li><strong>Phone Setup:</strong> ${formData.phoneSetup === 'new' ? 'New CoreSentia number' : 'Port existing number'}</li>
+            <li><strong>Preferred Call Time:</strong> ${formData.callTime}</li>
+          </ul>
+
+          <p>If you have any questions before our call, reply to this email or text <strong>+61489087491</strong>.</p>
+
+          <p>Looking forward to working with you!</p>
+          <p><strong>The CoreSentia Team</strong></p>
+          <hr>
+          <p style="font-size: 12px; color: #666;">CoreSentia | ABN: 69 267 271 132 | Brisbane, QLD</p>
+        `,
+      })
+
+      // Send internal notification to admin
+      await transporter.sendMail({
+        from: '"CoreSentia System" <info@coresentia.com.au>',
+        to: process.env.ADMIN_EMAIL || 'info@coresentia.com.au',
+        subject: `🎉 New Onboarding: ${formData.businessName}`,
+        html: `
+          <h2>New Client Onboarding Submitted</h2>
+
+          <h3>Business Details:</h3>
+          <ul>
+            <li><strong>Business Name:</strong> ${formData.businessName}</li>
+            <li><strong>ABN:</strong> ${formData.abn || 'Not provided'}</li>
+            <li><strong>Contact:</strong> ${formData.contactPerson}</li>
+            <li><strong>Mobile:</strong> ${formData.mobile}</li>
+            <li><strong>Email:</strong> ${formData.email}</li>
+            <li><strong>Industry:</strong> ${formData.industryType}</li>
+          </ul>
+
+          <h3>Package & Setup:</h3>
+          <ul>
+            <li><strong>Package:</strong> ${formData.selectedPackage}</li>
+            <li><strong>Service Area:</strong> ${formData.serviceCity}, ${formData.serviceState}</li>
+            <li><strong>Radius:</strong> ${formData.serviceRadius}</li>
+            <li><strong>Current Phone:</strong> ${formData.currentPhone}</li>
+            <li><strong>Phone Setup:</strong> ${formData.phoneSetup === 'new' ? 'New number' : `Port: ${formData.portNumber}`}</li>
+            <li><strong>Go-Live Date:</strong> ${formData.goLiveDate}</li>
+            <li><strong>Call Time:</strong> ${formData.callTime}</li>
+          </ul>
+
+          ${formData.serviceNotes ? `<h3>Service Notes:</h3><p>${formData.serviceNotes}</p>` : ''}
+          ${formData.specialRequests ? `<h3>Special Requests:</h3><p>${formData.specialRequests}</p>` : ''}
+
+          <p><strong>Action Required:</strong> Schedule setup call with ${formData.contactPerson} within 24 hours</p>
+        `,
+      })
+    } catch (emailError) {
+      console.error('Email error (non-blocking):', emailError)
+      // Don't fail the request if email fails
+    }
 
     return NextResponse.json({
       success: true,

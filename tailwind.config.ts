@@ -10,6 +10,8 @@ module.exports = {
       colors: {
         brand: {
           navy: '#1E3A5F',
+          'navy-light': '#25466F',
+          'navy-lighter': '#2B5280',
           orange: '#FF6B35',
           sage: '#8FBC8F',
         },

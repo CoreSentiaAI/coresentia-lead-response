@@ -15,36 +15,93 @@ export default function HomePage() {
         <Header />
 
         {/* Hero Section */}
-        <section className="min-h-screen w-full flex items-center justify-center px-6 snap-start snap-always">
-          <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-5 font-montserrat text-brand-navy leading-tight">
-              Stop talking about AI.
-              <br />
-              <span className="text-brand-orange">Start closing with it.</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-text-secondary mb-3 font-light max-w-3xl mx-auto">
-              Your AI Receptionist for Local Business
-            </p>
-            <p className="text-lg md:text-xl text-text-secondary mb-10 font-light max-w-2xl mx-auto">
-              Never miss a lead again. Respond 24/7, book jobs automatically, grow your business while you work.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                href="/chat/homepage-visitor"
-                className="btn-primary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
-              >
-                Get Started →
-              </Link>
-              <Link
-                href="#packages"
-                className="btn-secondary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
-              >
-                View Packages
-              </Link>
+        <section className="min-h-screen w-full flex items-center px-6 lg:px-8 snap-start snap-always relative overflow-hidden">
+          {/* Subtle background accent */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(transparent_0,transparent_60%,rgba(30,58,95,0.04)_100%)]" />
+
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative z-10">
+            {/* Left: Content */}
+            <div className="lg:col-span-6 space-y-6 text-center lg:text-left flex flex-col justify-center">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-brand-navy">
+                Stop talking about AI.
+                <br />
+                <span className="text-brand-orange">Start closing with it.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-700 max-w-xl mx-auto lg:mx-0">
+                Your AI receptionist responds 24/7, qualifies leads, and books jobs into your calendar—while you focus on the work.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Link
+                  href="/chat/homepage-visitor"
+                  className="btn-primary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
+                >
+                  Get Started →
+                </Link>
+                <Link
+                  href="#packages"
+                  className="btn-secondary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
+                >
+                  View Packages
+                </Link>
+              </div>
+
+              {/* Micro-metrics */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Zap className="w-4 h-4 text-brand-orange" />
+                  <span>Avg reply &lt;10s</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Calendar className="w-4 h-4 text-brand-sage" />
+                  <span>2–7 days to launch</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Shield className="w-4 h-4 text-brand-navy" />
+                  <span>100% Australian</span>
+                </div>
+              </div>
             </div>
-            <p className="text-sm text-text-secondary mt-6">
-              Built for trades, salons, and local service businesses across Australia
-            </p>
+
+            {/* Right: Product Mock */}
+            <div className="lg:col-span-6 flex items-center">
+              <div className="w-full rounded-2xl border-2 border-gray-200 shadow-2xl bg-white p-6 md:p-8">
+                {/* Chat Mock */}
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0" />
+                    <div className="flex-1">
+                      <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 text-sm">
+                        Can you mow my lawn this week?
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">2:47 PM</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 flex-row-reverse">
+                    <div className="w-8 h-8 rounded-full bg-brand-orange flex-shrink-0" />
+                    <div className="flex-1 text-right">
+                      <div className="bg-brand-navy text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
+                        I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works?
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">2:47 PM</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Booking Confirmation Mock */}
+                <div className="border-t pt-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="inline-flex items-center rounded-full bg-brand-sage/20 border border-brand-sage px-3 py-1 text-xs font-medium text-brand-sage">
+                      ● Confirmed
+                    </span>
+                    <span className="text-xs text-gray-500">Just now</span>
+                  </div>
+                  <p className="font-semibold text-brand-navy mb-1">Thursday, 10:00 AM - Lawn Mowing</p>
+                  <p className="text-sm text-gray-600">John Smith • 0412 XXX XXX</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -285,14 +342,16 @@ export default function HomePage() {
               </div>
 
               {/* Tier 2: Professional Package */}
-              <div className="bg-gradient-to-br from-brand-navy to-blue-900 border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl transform lg:scale-105 flex flex-col">
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white px-6 py-2 rounded-full text-sm font-bold">
-                  MOST POPULAR
-                </div>
-
-                <div className="flex items-center gap-3 mb-4">
-                  <Globe className="w-10 h-10 text-brand-orange" />
-                  <h3 className="text-2xl font-bold font-montserrat">Professional Package</h3>
+              <div className="bg-gradient-to-br from-brand-navy to-blue-900 border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
+                {/* Header with Badge */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <Globe className="w-10 h-10 text-brand-orange" />
+                    <h3 className="text-2xl font-bold font-montserrat">Professional Package</h3>
+                  </div>
+                  <span className="inline-flex items-center rounded-full border border-brand-orange bg-brand-orange/10 px-3 py-1 text-xs font-medium text-brand-orange whitespace-nowrap">
+                    Most popular
+                  </span>
                 </div>
 
                 <div className="mb-6">
@@ -538,9 +597,32 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="mt-12 pt-8 border-t border-white/20 text-center text-white/80">
-              <p className="font-montserrat">&copy; 2025 CoreSentia. Never miss a lead again.</p>
-              <p className="text-sm mt-2">ABN: 69 267 271 132</p>
+
+            {/* Trust Strip */}
+            <div className="mt-12 pt-8 border-t border-white/20">
+              <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-white/70 mb-8">
+                <div className="flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-brand-sage" />
+                  <span>Australian data residency</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-4 h-4 text-brand-sage" />
+                  <span>No per-conversation fees</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-brand-sage" />
+                  <span>24hr response SLA</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4 text-brand-sage" />
+                  <span>Brisbane-based support</span>
+                </div>
+              </div>
+
+              <div className="text-center text-white/80">
+                <p className="font-montserrat">&copy; 2025 CoreSentia. Never miss a lead again.</p>
+                <p className="text-sm mt-2">ABN: 69 267 271 132</p>
+              </div>
             </div>
           </div>
         </footer>

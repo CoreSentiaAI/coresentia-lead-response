@@ -9,8 +9,13 @@ export default function Header() {
   const [lastScrollY, setLastScrollY] = useState(0)
 
   useEffect(() => {
+    // Find the scroll container (the main content wrapper)
+    const scrollContainer = document.querySelector('.snap-y') as HTMLElement
+
+    if (!scrollContainer) return
+
     const onScroll = () => {
-      const currentScrollY = window.scrollY
+      const currentScrollY = scrollContainer.scrollTop
 
       // Update scrolled state for styling
       setScrolled(currentScrollY > 50)
@@ -27,15 +32,15 @@ export default function Header() {
       setLastScrollY(currentScrollY)
     }
 
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    scrollContainer.addEventListener('scroll', onScroll)
+    return () => scrollContainer.removeEventListener('scroll', onScroll)
   }, [lastScrollY])
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
       ${scrolled
-        ? 'bg-brand-navy/98 backdrop-blur-lg shadow-lg border-b border-brand-orange/30'
-        : 'bg-brand-navy/95 backdrop-blur-sm'}
+        ? 'bg-blue-900/98 backdrop-blur-lg shadow-lg border-b border-brand-orange/30'
+        : 'bg-blue-900/95 backdrop-blur-sm'}
       ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">

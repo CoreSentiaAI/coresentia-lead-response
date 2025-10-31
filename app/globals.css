@@ -66,12 +66,12 @@ h3 {
 }
 
 .btn-secondary {
-  background-color: var(--brand-navy);
+  background-color: #1e3a8a;
   color: white;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-secondary:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(30, 58, 95, 0.3);
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
 }

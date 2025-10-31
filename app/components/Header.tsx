@@ -46,7 +46,9 @@ export default function Header() {
   }, [lastScrollY])
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out bg-brand-navy
+    <header
+      style={{ backgroundColor: '#1E3A5F' }}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
       ${scrolled
         ? 'shadow-lg border-b border-brand-orange/30'
         : ''}

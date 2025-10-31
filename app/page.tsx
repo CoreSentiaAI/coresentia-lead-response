@@ -22,7 +22,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative z-10">
             {/* Left: Content */}
             <div className="lg:col-span-6 space-y-6 text-center lg:text-left flex flex-col justify-center">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-brand-navy">
+              <h1 style={{ color: '#1E3A5F' }} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat">
                 Stop talking about AI.
                 <br />
                 <span className="text-brand-orange">Start closing with it.</span>
@@ -81,7 +81,7 @@ export default function HomePage() {
                   <div className="flex items-start gap-3 flex-row-reverse">
                     <div className="w-8 h-8 rounded-full bg-brand-orange flex-shrink-0" />
                     <div className="flex-1 text-right">
-                      <div className="bg-brand-navy text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
+                      <div style={{ backgroundColor: '#1E3A5F' }} className="text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
                         I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works?
                       </div>
                       <p className="text-xs text-gray-500 mt-1">2:47 PM</p>
@@ -138,7 +138,7 @@ export default function HomePage() {
         </section>
 
         {/* Solution Section */}
-        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-brand-navy text-white snap-start">
+        <section style={{ backgroundColor: '#1E3A5F' }} className="min-h-screen w-full flex items-center py-16 px-6 text-white snap-start">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat">
               Meet Your AI Receptionist
@@ -342,7 +342,7 @@ export default function HomePage() {
               </div>
 
               {/* Tier 2: Professional Package */}
-              <div className="bg-brand-navy border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
+              <div style={{ backgroundColor: '#1E3A5F' }} className="border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
                 {/* Header with Badge */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -538,7 +538,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6 bg-brand-navy text-white snap-start">
+        <section style={{ backgroundColor: '#1E3A5F' }} className="py-20 px-6 text-white snap-start">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat">
               Ready to Stop Missing Leads?
@@ -559,7 +559,7 @@ export default function HomePage() {
         </section>
 
         {/* Footer */}
-        <footer className="py-10 px-6 bg-brand-navy text-white">
+        <footer style={{ backgroundColor: '#1E3A5F' }} className="py-10 px-6 text-white">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>

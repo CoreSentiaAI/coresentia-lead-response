@@ -161,7 +161,7 @@ export default function FAQPage() {
 
       <main className="pt-24 pb-20">
         {/* Hero Section */}
-        <section className="py-12 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
+        <section className="py-12 px-6 bg-brand-navy text-white">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 font-montserrat">
               Frequently Asked Questions

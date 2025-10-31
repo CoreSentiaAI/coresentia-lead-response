@@ -10,7 +10,7 @@ export default function ChatPage() {
   return (
     <div className="min-h-screen bg-white text-text-primary relative overflow-hidden">
       {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50 z-0"></div>
+      <div className="absolute inset-0 bg-white z-0"></div>
 
       {/* Main content wrapper */}
       <div className="relative z-10 min-h-screen">

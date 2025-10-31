@@ -381,7 +381,7 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden bg-gradient-to-br from-white via-gray-50 to-blue-50">
+    <div className="h-screen w-screen flex flex-col overflow-hidden bg-white">
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;

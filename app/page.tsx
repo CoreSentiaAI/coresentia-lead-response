@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-text-primary relative overflow-x-hidden font-opensans">
       {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50 z-0"></div>
+      <div className="absolute inset-0 bg-white z-0"></div>
 
       {/* Main content wrapper with scroll snap */}
       <div className="relative z-10 snap-y snap-proximity overflow-y-auto h-screen scroll-smooth">
@@ -138,7 +138,7 @@ export default function HomePage() {
         </section>
 
         {/* Solution Section */}
-        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-gradient-to-br from-brand-navy to-brand-navy text-white snap-start">
+        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-brand-navy text-white snap-start">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat">
               Meet Your AI Receptionist
@@ -181,7 +181,7 @@ export default function HomePage() {
               Here's how it works in the real world
             </p>
 
-            <div className="bg-gradient-to-br from-gray-50 to-blue-50 border-2 border-gray-200 rounded-2xl p-4 md:p-8 mb-8">
+            <div className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-4 md:p-8 mb-8">
               <div className="space-y-6 md:space-y-8">
                 {/* Step 1 */}
                 <div className="flex gap-3 md:gap-4">
@@ -342,7 +342,7 @@ export default function HomePage() {
               </div>
 
               {/* Tier 2: Professional Package */}
-              <div className="bg-gradient-to-br from-brand-navy to-brand-navy border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
+              <div className="bg-brand-navy border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
                 {/* Header with Badge */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -538,7 +538,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6 bg-gradient-to-br from-brand-navy to-brand-navy text-white snap-start">
+        <section className="py-20 px-6 bg-brand-navy text-white snap-start">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat">
               Ready to Stop Missing Leads?

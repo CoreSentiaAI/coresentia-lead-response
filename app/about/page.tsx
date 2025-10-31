@@ -9,7 +9,7 @@ export default function AboutPage() {
 
       <main className="pt-24 pb-20">
         {/* Hero Section */}
-        <section className="py-12 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
+        <section className="py-12 px-6 bg-brand-navy text-white">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 font-montserrat">
               About CoreSentia
@@ -83,7 +83,7 @@ export default function AboutPage() {
         </section>
 
         {/* Our Values Section */}
-        <section className="py-16 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
+        <section className="py-16 px-6 bg-brand-navy text-white">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-12 font-montserrat text-center">Our Values</h2>
             <div className="grid md:grid-cols-3 gap-8">

@@ -40,7 +40,7 @@ export default function InlineChatForm({ formType, onSubmit, onCancel }: InlineC
   }
 
   return (
-    <div className="bg-white border-2 border-brand-navy/20 rounded-2xl p-6 w-full max-w-md shadow-lg">
+    <div className="bg-white border-2 border-gray-200 rounded-2xl p-6 w-full max-w-md shadow-lg">
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name Field */}
         <div>

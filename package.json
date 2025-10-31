@@ -32,6 +32,7 @@
   "devDependencies": {
     "@supabase/ssr": "^0.5.0",
     "@types/nodemailer": "^6.4.14",
+    "@types/react-big-calendar": "^1.16.3",
     "resend": "^2.0.0"
   }
 }

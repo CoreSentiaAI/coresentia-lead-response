@@ -5,17 +5,17 @@ import Header from './components/Header'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-text-primary relative overflow-hidden font-opensans">
+    <div className="min-h-screen bg-white text-text-primary relative overflow-x-hidden font-opensans">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50 z-0"></div>
 
-      {/* Main content wrapper */}
-      <div className="relative z-10">
+      {/* Main content wrapper with scroll snap */}
+      <div className="relative z-10 snap-y snap-mandatory overflow-y-auto h-screen scroll-smooth">
         {/* Header Component */}
         <Header />
 
         {/* Hero Section */}
-        <section className="min-h-[85vh] flex items-center justify-center px-6 pt-28 pb-16">
+        <section className="min-h-screen w-full flex items-center justify-center px-6 snap-start snap-always">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-5 font-montserrat text-brand-navy leading-tight">
               Stop talking about AI.
@@ -49,7 +49,7 @@ export default function HomePage() {
         </section>
 
         {/* The Problem Section */}
-        <section className="py-16 px-6 bg-white">
+        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-white snap-start">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
               Sound familiar?
@@ -81,7 +81,7 @@ export default function HomePage() {
         </section>
 
         {/* Solution Section */}
-        <section className="py-16 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
+        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white snap-start">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat">
               Meet Your AI Receptionist
@@ -115,7 +115,7 @@ export default function HomePage() {
         </section>
 
         {/* How It Works - Simple Workflow */}
-        <section className="py-16 px-4 md:px-6 bg-white">
+        <section className="min-h-screen w-full flex items-center py-16 px-4 md:px-6 bg-white snap-start">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               Simple. Automatic. Effective.

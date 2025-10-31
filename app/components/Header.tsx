@@ -16,17 +16,26 @@ export default function Header() {
 
     const onScroll = () => {
       const currentScrollY = scrollContainer.scrollTop
+      const isMobile = window.innerWidth < 768
 
       // Update scrolled state for styling
       setScrolled(currentScrollY > 50)
 
-      // Hide header when scrolling down, show when scrolling up
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down & past 100px
-        setHidden(true)
+      // Mobile: Only show header when near top (< 50px), otherwise keep hidden
+      // Desktop: Show on scroll up, hide on scroll down
+      if (isMobile) {
+        if (currentScrollY > 50) {
+          setHidden(true)
+        } else {
+          setHidden(false)
+        }
       } else {
-        // Scrolling up or at top
-        setHidden(false)
+        // Desktop behavior: hide when scrolling down, show when scrolling up
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          setHidden(true)
+        } else {
+          setHidden(false)
+        }
       }
 
       setLastScrollY(currentScrollY)

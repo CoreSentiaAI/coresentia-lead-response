@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+// Check if env vars are set and not placeholders
+const isValidUrl = supabaseUrl && !supabaseUrl.includes('your_supabase_url_here') && supabaseUrl.startsWith('http')
+const isValidKey = supabaseKey && !supabaseKey.includes('your_') && supabaseKey.length > 20
+
+if (!isValidUrl || !isValidKey) {
+  console.error('Missing or invalid Supabase environment variables')
+}
+
+const supabase = isValidUrl && isValidKey
+  ? createClient(supabaseUrl, supabaseKey)
+  : null
 
 interface BusinessHours {
   timezone: string
@@ -21,6 +31,10 @@ interface BusinessHours {
 
 // GET /api/availability?date=2025-10-27&businessId=xxx
 export async function GET(request: NextRequest) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 })
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const date = searchParams.get('date') // Format: YYYY-MM-DD
@@ -144,6 +158,24 @@ export async function GET(request: NextRequest) {
 
 // Helper: Get default business settings
 async function getDefaultSettings(): Promise<BusinessHours> {
+  // If no supabase client, return hardcoded defaults
+  if (!supabase) {
+    return {
+      timezone: 'Australia/Brisbane',
+      booking_duration: 60,
+      buffer_time: 0,
+      hours: {
+        monday: { enabled: true, start: '09:00', end: '17:00' },
+        tuesday: { enabled: true, start: '09:00', end: '17:00' },
+        wednesday: { enabled: true, start: '09:00', end: '17:00' },
+        thursday: { enabled: true, start: '09:00', end: '17:00' },
+        friday: { enabled: true, start: '09:00', end: '17:00' },
+        saturday: { enabled: false, start: '09:00', end: '13:00' },
+        sunday: { enabled: false, start: '09:00', end: '17:00' }
+      }
+    }
+  }
+
   const { data, error } = await supabase
     .from('settings')
     .select('value')

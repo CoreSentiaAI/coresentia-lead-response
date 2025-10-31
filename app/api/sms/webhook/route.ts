@@ -30,11 +30,26 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Initialize Supabase
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_KEY!
-    )
+    // Initialize Supabase with validation
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    // Check if env vars are set and not placeholders
+    const isValidUrl = supabaseUrl && !supabaseUrl.includes('your_supabase_url_here') && supabaseUrl.startsWith('http')
+    const isValidKey = supabaseKey && !supabaseKey.includes('your_') && supabaseKey.length > 20
+
+    if (!isValidUrl || !isValidKey) {
+      console.error('Missing or invalid Supabase environment variables')
+      return new NextResponse(
+        '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
+        {
+          status: 503,
+          headers: { 'Content-Type': 'text/xml' }
+        }
+      )
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
 
     // Format phone number consistently
     const normalizedPhone = formatPhoneNumber(from)

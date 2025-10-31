@@ -348,12 +348,21 @@ FINAL REMINDER ABOUT FORMATTING:
 
 export async function POST(request: NextRequest) {
   try {
-    // Initialize Supabase inside the function
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_KEY!
-    )
-    
+    // Initialize Supabase inside the function with validation
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    // Check if env vars are set and not placeholders
+    const isValidUrl = supabaseUrl && !supabaseUrl.includes('your_supabase_url_here') && supabaseUrl.startsWith('http')
+    const isValidKey = supabaseKey && !supabaseKey.includes('your_') && supabaseKey.length > 20
+
+    if (!isValidUrl || !isValidKey) {
+      console.error('Missing or invalid Supabase environment variables')
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 })
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
     const body = await request.json()
     const { messages = [], leadId, leadInfo } = body
 

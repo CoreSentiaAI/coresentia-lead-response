@@ -10,7 +10,7 @@ export default function HomePage() {
       <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50 z-0"></div>
 
       {/* Main content wrapper with scroll snap */}
-      <div className="relative z-10 snap-y snap-mandatory overflow-y-auto h-screen scroll-smooth">
+      <div className="relative z-10 snap-y snap-proximity overflow-y-auto h-screen scroll-smooth">
         {/* Header Component */}
         <Header />
 
@@ -213,7 +213,7 @@ export default function HomePage() {
         </section>
 
         {/* Packages Section */}
-        <section id="packages" className="py-20 px-6 bg-gray-50">
+        <section id="packages" className="min-h-screen w-full flex items-center py-20 px-6 bg-gray-50 snap-start">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-5 font-montserrat">
@@ -362,7 +362,7 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-16 px-6 bg-white">
+        <section className="py-16 px-6 bg-white snap-start">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               How It Works
@@ -417,7 +417,7 @@ export default function HomePage() {
         </section>
 
         {/* Why CoreSentia Section */}
-        <section className="py-16 px-6 bg-gray-50">
+        <section className="py-16 px-6 bg-gray-50 snap-start">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
               Why CoreSentia?
@@ -449,7 +449,7 @@ export default function HomePage() {
         </section>
 
         {/* Social Proof / Testimonials Section - Placeholder */}
-        <section className="py-16 px-6 bg-white">
+        <section className="py-16 px-6 bg-white snap-start">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-10 font-montserrat">
               Built for Australian Service Businesses
@@ -479,7 +479,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white">
+        <section className="py-20 px-6 bg-gradient-to-br from-brand-navy to-blue-900 text-white snap-start">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat">
               Ready to Stop Missing Leads?

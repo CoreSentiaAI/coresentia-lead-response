@@ -2,7 +2,9 @@
 
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, AlertCircle, List, CalendarDays } from 'lucide-react'
+import CalendarView from '@/app/components/CalendarView'
+import type { Booking as CalendarBooking, BlockedTime, CalendarEvent } from '@/types/calendar'
 
 interface Booking {
   id: string
@@ -14,6 +16,9 @@ interface Booking {
   notes: string
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled'
   created_at: string
+  scheduled_time?: string
+  job_duration?: number
+  full_address?: string
 }
 
 export default function DashboardPage() {
@@ -21,14 +26,22 @@ export default function DashboardPage() {
   const businessId = params.businessId as string
 
   const [bookings, setBookings] = useState<Booking[]>([])
+  const [blockedTimes, setBlockedTimes] = useState<BlockedTime[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [filter, setFilter] = useState<'all' | 'upcoming' | 'past'>('upcoming')
+  const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list')
+  const [showBlockModal, setShowBlockModal] = useState(false)
+  const [blockSlot, setBlockSlot] = useState<{ start: Date; end: Date } | null>(null)
 
   useEffect(() => {
     fetchBookings()
+    fetchBlockedTimes()
     // Auto-refresh every 30 seconds
-    const interval = setInterval(fetchBookings, 30000)
+    const interval = setInterval(() => {
+      fetchBookings()
+      fetchBlockedTimes()
+    }, 30000)
     return () => clearInterval(interval)
   }, [businessId])
 
@@ -45,6 +58,18 @@ export default function DashboardPage() {
       console.error('Error fetching bookings:', err)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchBlockedTimes = async () => {
+    try {
+      const response = await fetch(`/api/blocked-times?businessId=${businessId}`)
+      if (!response.ok) throw new Error('Failed to fetch blocked times')
+
+      const data = await response.json()
+      setBlockedTimes(data.blockedTimes || [])
+    } catch (err) {
+      console.error('Error fetching blocked times:', err)
     }
   }
 
@@ -131,6 +156,35 @@ export default function DashboardPage() {
     }
   }
 
+  // Convert bookings to calendar format
+  const calendarBookings: CalendarBooking[] = bookings.map(booking => ({
+    id: booking.id,
+    business_id: businessId,
+    customer_name: booking.customer_name,
+    customer_phone: booking.customer_phone,
+    customer_email: booking.customer_email,
+    service_type: booking.service,
+    scheduled_time: booking.scheduled_time || booking.date_time,
+    job_duration: booking.job_duration || 60,
+    full_address: booking.full_address,
+    suburb: '',
+    estimated_travel_time: 0,
+    status: booking.status,
+    notes: booking.notes,
+    created_at: booking.created_at,
+    updated_at: booking.created_at,
+  }))
+
+  const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
+    setBlockSlot(slotInfo)
+    setShowBlockModal(true)
+  }
+
+  const handleSelectEvent = (event: CalendarEvent) => {
+    // Event details are shown in the calendar component's modal
+    console.log('Selected event:', event)
+  }
+
   const filteredBookings = getFilteredBookings()
   const upcomingCount = bookings.filter(b => new Date(b.date_time) >= new Date() && b.status !== 'cancelled').length
 
@@ -148,10 +202,38 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-brand-navy text-white p-6 shadow-md">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold mb-1">Bookings Dashboard</h1>
-          <p className="text-white/80 text-sm">Manage your appointments</p>
+      <div style={{ backgroundColor: '#1E3A5F' }} className="text-white p-6 shadow-md">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold mb-1">Bookings Dashboard</h1>
+            <p className="text-white/80 text-sm">Manage your appointments</p>
+          </div>
+
+          {/* View Toggle */}
+          <div className="inline-flex rounded-lg border-2 border-white/20 p-1">
+            <button
+              onClick={() => setViewMode('list')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
+                viewMode === 'list'
+                  ? 'bg-white text-brand-navy'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              <List className="w-4 h-4" />
+              List View
+            </button>
+            <button
+              onClick={() => setViewMode('calendar')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
+                viewMode === 'calendar'
+                  ? 'bg-white text-brand-navy'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              <CalendarDays className="w-4 h-4" />
+              Calendar View
+            </button>
+          </div>
         </div>
       </div>
 
@@ -175,44 +257,57 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto flex">
-          <button
-            onClick={() => setFilter('upcoming')}
-            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-              filter === 'upcoming'
-                ? 'text-brand-orange border-b-2 border-brand-orange'
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            Upcoming
-          </button>
-          <button
-            onClick={() => setFilter('past')}
-            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-              filter === 'past'
-                ? 'text-brand-orange border-b-2 border-brand-orange'
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            Past
-          </button>
-          <button
-            onClick={() => setFilter('all')}
-            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-              filter === 'all'
-                ? 'text-brand-orange border-b-2 border-brand-orange'
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            All
-          </button>
+      {/* Filter Tabs - Only show in list view */}
+      {viewMode === 'list' && (
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-4xl mx-auto flex">
+            <button
+              onClick={() => setFilter('upcoming')}
+              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                filter === 'upcoming'
+                  ? 'text-brand-orange border-b-2 border-brand-orange'
+                  : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              Upcoming
+            </button>
+            <button
+              onClick={() => setFilter('past')}
+              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                filter === 'past'
+                  ? 'text-brand-orange border-b-2 border-brand-orange'
+                  : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              Past
+            </button>
+            <button
+              onClick={() => setFilter('all')}
+              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                filter === 'all'
+                  ? 'text-brand-orange border-b-2 border-brand-orange'
+                  : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              All
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto p-4 pb-20">
+      {viewMode === 'calendar' ? (
+        <div className="p-6 h-[calc(100vh-200px)]">
+          <CalendarView
+            businessId={businessId}
+            bookings={calendarBookings}
+            blockedTimes={blockedTimes}
+            onSelectSlot={handleSelectSlot}
+            onSelectEvent={handleSelectEvent}
+          />
+        </div>
+      ) : (
+        <div className="max-w-4xl mx-auto p-4 pb-20">
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4">
             {error}
@@ -320,7 +415,8 @@ export default function DashboardPage() {
             ))}
           </div>
         )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

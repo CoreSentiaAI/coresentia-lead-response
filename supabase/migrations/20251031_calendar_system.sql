@@ -6,7 +6,7 @@
 -- =====================================================
 CREATE TABLE IF NOT EXISTS business_settings (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  business_id UUID REFERENCES businesses(id) ON DELETE CASCADE,
+  business_id UUID NOT NULL, -- Foreign key constraint can be added later if businesses table exists
 
   -- Working Hours (JSONB format)
   -- Example: {"mon": {"start": "08:00", "end": "17:00", "enabled": true}, ...}
@@ -48,7 +48,7 @@ CREATE INDEX IF NOT EXISTS idx_business_settings_business_id ON business_setting
 -- =====================================================
 CREATE TABLE IF NOT EXISTS blocked_times (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  business_id UUID REFERENCES businesses(id) ON DELETE CASCADE,
+  business_id UUID NOT NULL, -- Foreign key constraint can be added later if businesses table exists
 
   -- Time Range
   start_time TIMESTAMP NOT NULL,
@@ -114,7 +114,7 @@ ADD COLUMN IF NOT EXISTS selected_time TIMESTAMP;
 -- =====================================================
 CREATE TABLE IF NOT EXISTS availability_cache (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  business_id UUID REFERENCES businesses(id) ON DELETE CASCADE,
+  business_id UUID NOT NULL, -- Foreign key constraint can be added later if businesses table exists
   date DATE NOT NULL,
   available_slots JSONB, -- Array of {start: "14:00", end: "15:00", available: true}
   generated_at TIMESTAMP DEFAULT NOW(),
@@ -178,10 +178,16 @@ $$ LANGUAGE plpgsql;
 -- =====================================================
 
 -- Insert default settings for any existing businesses that don't have settings yet
-INSERT INTO business_settings (business_id)
-SELECT id FROM businesses
-WHERE id NOT IN (SELECT business_id FROM business_settings WHERE business_id IS NOT NULL)
-ON CONFLICT DO NOTHING;
+-- Only runs if businesses table exists
+DO $$
+BEGIN
+  IF EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'businesses') THEN
+    INSERT INTO business_settings (business_id)
+    SELECT id FROM businesses
+    WHERE id NOT IN (SELECT business_id FROM business_settings WHERE business_id IS NOT NULL)
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
 
 -- =====================================================
 -- 8. ROW LEVEL SECURITY (RLS) POLICIES

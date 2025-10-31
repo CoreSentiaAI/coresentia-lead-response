@@ -12,6 +12,19 @@
   --text-secondary: rgba(45, 52, 54, 0.6);
 }
 
+/* Force single navy color: #1E3A5F */
+.bg-brand-navy {
+  background-color: #1E3A5F !important;
+}
+
+.text-brand-navy {
+  color: #1E3A5F !important;
+}
+
+.border-brand-navy {
+  border-color: #1E3A5F !important;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));

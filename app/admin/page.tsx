@@ -109,12 +109,20 @@ export default function AdminDashboard() {
               <h1 className="text-2xl font-bold">CoreSentia Admin</h1>
               <p className="text-sm text-gray-300">Lead Management Dashboard</p>
             </div>
-            <Link
-              href="/"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition"
-            >
-              Back to Site
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/admin/calendar"
+                className="px-4 py-2 bg-brand-orange hover:bg-orange-600 rounded-lg transition font-medium"
+              >
+                📅 Calendar Dashboard
+              </Link>
+              <Link
+                href="/"
+                className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition"
+              >
+                Back to Site
+              </Link>
+            </div>
           </div>
         </div>
       </div>

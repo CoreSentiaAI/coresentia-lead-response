@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS business_settings (
 );
 
 -- Index for faster lookups
-CREATE INDEX idx_business_settings_business_id ON business_settings(business_id);
+CREATE INDEX IF NOT EXISTS idx_business_settings_business_id ON business_settings(business_id);
 
 -- =====================================================
 -- 2. BLOCKED TIMES TABLE
@@ -73,8 +73,8 @@ CREATE TABLE IF NOT EXISTS blocked_times (
 );
 
 -- Indexes for efficient availability queries
-CREATE INDEX idx_blocked_times_business_id ON blocked_times(business_id);
-CREATE INDEX idx_blocked_times_time_range ON blocked_times(business_id, start_time, end_time);
+CREATE INDEX IF NOT EXISTS idx_blocked_times_business_id ON blocked_times(business_id);
+CREATE INDEX IF NOT EXISTS idx_blocked_times_time_range ON blocked_times(business_id, start_time, end_time);
 
 -- =====================================================
 -- 3. UPDATE BOOKINGS TABLE
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS availability_cache (
   UNIQUE(business_id, date)
 );
 
-CREATE INDEX idx_availability_cache_lookup ON availability_cache(business_id, date, expires_at);
+CREATE INDEX IF NOT EXISTS idx_availability_cache_lookup ON availability_cache(business_id, date, expires_at);
 
 -- =====================================================
 -- 6. HELPER FUNCTIONS
@@ -187,16 +187,38 @@ ON CONFLICT DO NOTHING;
 -- 8. ROW LEVEL SECURITY (RLS) POLICIES
 -- =====================================================
 
--- Enable RLS
-ALTER TABLE business_settings ENABLE ROW LEVEL SECURITY;
-ALTER TABLE blocked_times ENABLE ROW LEVEL SECURITY;
-ALTER TABLE availability_cache ENABLE ROW LEVEL SECURITY;
+-- Enable RLS (only if not already enabled)
+DO $$ BEGIN
+  ALTER TABLE business_settings ENABLE ROW LEVEL SECURITY;
+EXCEPTION WHEN OTHERS THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  ALTER TABLE blocked_times ENABLE ROW LEVEL SECURITY;
+EXCEPTION WHEN OTHERS THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  ALTER TABLE availability_cache ENABLE ROW LEVEL SECURITY;
+EXCEPTION WHEN OTHERS THEN NULL;
+END $$;
 
 -- Policies will be added based on your existing auth setup
 -- For now, allowing all operations (you'll want to restrict this in production)
-CREATE POLICY "Allow all operations on business_settings" ON business_settings FOR ALL USING (true);
-CREATE POLICY "Allow all operations on blocked_times" ON blocked_times FOR ALL USING (true);
-CREATE POLICY "Allow all operations on availability_cache" ON availability_cache FOR ALL USING (true);
+DO $$ BEGIN
+  CREATE POLICY "Allow all operations on business_settings" ON business_settings FOR ALL USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  CREATE POLICY "Allow all operations on blocked_times" ON blocked_times FOR ALL USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  CREATE POLICY "Allow all operations on availability_cache" ON availability_cache FOR ALL USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 -- =====================================================
 -- MIGRATION COMPLETE

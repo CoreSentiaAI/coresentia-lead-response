@@ -60,7 +60,7 @@ export default function OnboardingPage() {
         <Header />
         <main className="pt-40 pb-20 px-6">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold text-blue-900 mb-4">Thank You! Form Submitted ✓</h1>
+            <h1 className="text-4xl font-bold text-brand-navy mb-4">Thank You! Form Submitted ✓</h1>
             <p className="text-lg text-text-secondary mb-8">
               We've received your onboarding information and will reach out within 24 hours to schedule your 15-minute setup call.
             </p>
@@ -78,7 +78,7 @@ export default function OnboardingPage() {
       <Header />
       <main className="pt-40 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold text-blue-900 mb-4">Client Onboarding Form</h1>
+          <h1 className="text-4xl font-bold text-brand-navy mb-4">Client Onboarding Form</h1>
           <p className="text-lg text-text-secondary mb-8">
             Welcome to CoreSentia! This form takes 5-7 minutes. We'll cover the detailed setup on our 15-minute call.
           </p>
@@ -86,7 +86,7 @@ export default function OnboardingPage() {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Section 1: Business Basics */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Business Basics</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Business Basics</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Business Name *</label>
@@ -170,7 +170,7 @@ export default function OnboardingPage() {
 
             {/* Section 2: Package Selection */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Package Selection</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Package Selection</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">Which package did you purchase? *</label>
@@ -187,7 +187,7 @@ export default function OnboardingPage() {
                     />
                     <div>
                       <div className="font-semibold text-text-primary text-lg">SMS Responder</div>
-                      <div className="text-blue-900 font-medium">$999 setup + $150/month inc. GST</div>
+                      <div className="text-brand-navy font-medium">$999 setup + $150/month inc. GST</div>
                       <div className="text-sm text-gray-600 mt-1">AI SMS responder + lead capture system</div>
                     </div>
                   </label>
@@ -204,7 +204,7 @@ export default function OnboardingPage() {
                     />
                     <div>
                       <div className="font-semibold text-text-primary text-lg">Professional Package</div>
-                      <div className="text-blue-900 font-medium">$2,500 setup + $250/month inc. GST</div>
+                      <div className="text-brand-navy font-medium">$2,500 setup + $250/month inc. GST</div>
                       <div className="text-sm text-gray-600 mt-1">SMS + Custom website + Advanced features</div>
                     </div>
                   </label>
@@ -214,7 +214,7 @@ export default function OnboardingPage() {
 
             {/* Section 3: Service Coverage */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Service Coverage</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Service Coverage</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -280,7 +280,7 @@ export default function OnboardingPage() {
 
             {/* Section 4: Phone Setup */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Phone Setup</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Phone Setup</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Your Current Business Phone *</label>
@@ -341,7 +341,7 @@ export default function OnboardingPage() {
 
             {/* Section 5: Scheduling */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Scheduling</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Scheduling</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Preferred Go-Live Date *</label>
@@ -374,7 +374,7 @@ export default function OnboardingPage() {
 
             {/* Section 6: Quick Notes */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Additional Information</h2>
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Additional Information</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Any Questions or Special Requests? (optional)</label>

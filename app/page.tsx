@@ -22,7 +22,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative z-10">
             {/* Left: Content */}
             <div className="lg:col-span-6 space-y-6 text-center lg:text-left flex flex-col justify-center">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-blue-900">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-brand-navy">
                 Stop talking about AI.
                 <br />
                 <span className="text-brand-orange">Start closing with it.</span>
@@ -57,7 +57,7 @@ export default function HomePage() {
                   <span>2–7 days to launch</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Shield className="w-4 h-4 text-blue-900" />
+                  <Shield className="w-4 h-4 text-brand-navy" />
                   <span>100% Australian</span>
                 </div>
               </div>
@@ -81,7 +81,7 @@ export default function HomePage() {
                   <div className="flex items-start gap-3 flex-row-reverse">
                     <div className="w-8 h-8 rounded-full bg-brand-orange flex-shrink-0" />
                     <div className="flex-1 text-right">
-                      <div className="bg-blue-900 text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
+                      <div className="bg-brand-navy text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
                         I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works?
                       </div>
                       <p className="text-xs text-gray-500 mt-1">2:47 PM</p>
@@ -97,7 +97,7 @@ export default function HomePage() {
                     </span>
                     <span className="text-xs text-gray-500">Just now</span>
                   </div>
-                  <p className="font-semibold text-blue-900 mb-1">Thursday, 10:00 AM - Lawn Mowing</p>
+                  <p className="font-semibold text-brand-navy mb-1">Thursday, 10:00 AM - Lawn Mowing</p>
                   <p className="text-sm text-gray-600">John Smith • 0412 XXX XXX</p>
                 </div>
               </div>
@@ -108,27 +108,27 @@ export default function HomePage() {
         {/* The Problem Section */}
         <section className="min-h-screen w-full flex items-center py-16 px-6 bg-white snap-start">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 text-center mb-10 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
               Sound familiar?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
                 <Phone className="w-12 h-12 text-brand-orange mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-blue-900">Missing Calls</h3>
+                <h3 className="text-xl font-semibold mb-3 text-brand-navy">Missing Calls</h3>
                 <p className="text-text-secondary">
                   You're on the tools, can't answer your phone. Leads call your competitors instead.
                 </p>
               </div>
               <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
                 <Clock className="w-12 h-12 text-brand-orange mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-blue-900">Slow Responses</h3>
+                <h3 className="text-xl font-semibold mb-3 text-brand-navy">Slow Responses</h3>
                 <p className="text-text-secondary">
                   By the time you text back at 8pm, they've already booked someone else.
                 </p>
               </div>
               <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
                 <Globe className="w-12 h-12 text-brand-orange mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-blue-900">No Web Presence</h3>
+                <h3 className="text-xl font-semibold mb-3 text-brand-navy">No Web Presence</h3>
                 <p className="text-text-secondary">
                   Facebook posts and DMs don't cut it. You need something more professional.
                 </p>
@@ -138,7 +138,7 @@ export default function HomePage() {
         </section>
 
         {/* Solution Section */}
-        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-gradient-to-br from-blue-900 to-blue-900 text-white snap-start">
+        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-gradient-to-br from-brand-navy to-brand-navy text-white snap-start">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat">
               Meet Your AI Receptionist
@@ -174,7 +174,7 @@ export default function HomePage() {
         {/* How It Works - Simple Workflow */}
         <section className="min-h-screen w-full flex items-center py-16 px-4 md:px-6 bg-white snap-start">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 text-center mb-3 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               Simple. Automatic. Effective.
             </h2>
             <p className="text-lg md:text-xl text-text-secondary text-center mb-10 max-w-2xl mx-auto">
@@ -189,7 +189,7 @@ export default function HomePage() {
                     1
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg md:text-xl text-blue-900 mb-2">Lead texts your business number</h3>
+                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-2">Lead texts your business number</h3>
                     <p className="text-sm md:text-base text-text-secondary mb-3 italic">
                       "Can you mow my lawn this week?"
                     </p>
@@ -206,7 +206,7 @@ export default function HomePage() {
                     2
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg md:text-xl text-blue-900 mb-3">AI responds instantly & books them in</h3>
+                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">AI responds instantly & books them in</h3>
                     <div className="bg-white border border-gray-300 rounded-lg p-3 md:p-4 text-sm space-y-2 md:space-y-3">
                       <p className="text-text-primary"><strong>AI:</strong> "I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works for you?"</p>
                       <p className="text-gray-600"><strong>Lead:</strong> "Thursday 10am"</p>
@@ -221,13 +221,13 @@ export default function HomePage() {
                     3
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg md:text-xl text-blue-900 mb-3">You confirm with one tap</h3>
-                    <div className="bg-white border border-blue-900 rounded-lg p-3 md:p-4">
+                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">You confirm with one tap</h3>
+                    <div className="bg-white border border-brand-navy rounded-lg p-3 md:p-4">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-xs md:text-sm font-medium text-yellow-700 bg-yellow-100 px-2 md:px-3 py-1 rounded-full border border-yellow-300">● Pending</span>
                         <span className="text-xs text-gray-500">Just now</span>
                       </div>
-                      <p className="font-semibold text-blue-900 mb-2 text-sm md:text-base">Thursday, 10:00 AM - Lawn Mowing</p>
+                      <p className="font-semibold text-brand-navy mb-2 text-sm md:text-base">Thursday, 10:00 AM - Lawn Mowing</p>
                       <p className="text-xs md:text-sm text-text-secondary mb-3 md:mb-4">John Smith • 0412 XXX XXX</p>
                       <div className="flex gap-2">
                         <button className="flex-1 bg-green-600 text-white py-2 px-3 md:px-4 rounded-lg font-medium text-xs md:text-sm">
@@ -243,7 +243,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-300 text-center">
-                <p className="text-blue-900 font-semibold text-base md:text-lg">
+                <p className="text-brand-navy font-semibold text-base md:text-lg">
                   That's it. You just booked a job without lifting a finger.
                 </p>
                 <p className="text-text-secondary mt-2 text-sm md:text-base">
@@ -273,7 +273,7 @@ export default function HomePage() {
         <section id="packages" className="min-h-screen w-full flex items-center py-20 px-6 bg-gray-50 snap-start">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold text-blue-900 mb-5 font-montserrat">
+              <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-5 font-montserrat">
                 Choose Your Package
               </h2>
               <p className="text-xl text-text-secondary max-w-2xl mx-auto">
@@ -286,11 +286,11 @@ export default function HomePage() {
               <div className="bg-white border-2 border-gray-200 rounded-2xl p-10 hover:border-brand-orange transition-all shadow-lg flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
                   <MessageSquare className="w-10 h-10 text-brand-orange" />
-                  <h3 className="text-2xl font-bold text-blue-900 font-montserrat">SMS Responder</h3>
+                  <h3 className="text-2xl font-bold text-brand-navy font-montserrat">SMS Responder</h3>
                 </div>
 
                 <div className="mb-6">
-                  <p className="text-4xl font-bold text-blue-900">$999</p>
+                  <p className="text-4xl font-bold text-brand-navy">$999</p>
                   <p className="text-lg text-text-secondary">+ $150/month</p>
                   <p className="text-xs text-text-secondary mt-1">(inc. GST)</p>
                   <p className="text-sm text-brand-orange font-semibold mt-2">⚡ 2-3 day delivery</p>
@@ -342,7 +342,7 @@ export default function HomePage() {
               </div>
 
               {/* Tier 2: Professional Package */}
-              <div className="bg-gradient-to-br from-blue-900 to-blue-900 border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
+              <div className="bg-gradient-to-br from-brand-navy to-brand-navy border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
                 {/* Header with Badge */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -423,7 +423,7 @@ export default function HomePage() {
         {/* How It Works Section */}
         <section className="py-16 px-6 bg-white snap-start">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 text-center mb-3 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               How It Works
             </h2>
             <p className="text-center text-lg text-text-secondary mb-12 max-w-3xl mx-auto">
@@ -434,7 +434,7 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   1
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-blue-900">Customer Texts/Chats</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Customer Texts/Chats</h3>
                 <p className="text-text-secondary text-sm">
                   Your customer reaches out via SMS or website chat
                 </p>
@@ -443,7 +443,7 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   2
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-blue-900">AI Qualifies Lead</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">AI Qualifies Lead</h3>
                 <p className="text-text-secondary text-sm">
                   Our AI asks questions, understands needs, and checks availability
                 </p>
@@ -452,7 +452,7 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   3
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-blue-900">Booking Confirmed</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Booking Confirmed</h3>
                 <p className="text-text-secondary text-sm">
                   Appointment booked into your dashboard, SMS sent to both parties
                 </p>
@@ -461,7 +461,7 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   4
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-blue-900">You Take Over</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">You Take Over</h3>
                 <p className="text-text-secondary text-sm">
                   Show up, do the work, quote, and get paid — your way
                 </p>
@@ -478,27 +478,27 @@ export default function HomePage() {
         {/* Why CoreSentia Section */}
         <section className="py-16 px-6 bg-gray-50 snap-start">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 text-center mb-10 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
               Why CoreSentia?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white border border-gray-200 rounded-xl p-8">
                 <Users className="w-12 h-12 text-brand-orange mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-blue-900">100% Australian</h3>
+                <h3 className="text-xl font-semibold mb-3 text-brand-navy">100% Australian</h3>
                 <p className="text-text-secondary">
                   Brisbane-based team. We understand local businesses and what actually works here.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl p-8">
                 <DollarSign className="w-12 h-12 text-brand-orange mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-blue-900">No Hidden Fees</h3>
+                <h3 className="text-xl font-semibold mb-3 text-brand-navy">No Hidden Fees</h3>
                 <p className="text-text-secondary">
                   Simple pricing. No per-conversation charges. No surprise bills. Just predictable monthly hosting.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl p-8">
                 <TrendingUp className="w-12 h-12 text-brand-orange mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-blue-900">Fast ROI</h3>
+                <h3 className="text-xl font-semibold mb-3 text-brand-navy">Fast ROI</h3>
                 <p className="text-text-secondary">
                   Most customers break even in 2-3 months. Every lead captured after that is pure profit.
                 </p>
@@ -510,7 +510,7 @@ export default function HomePage() {
         {/* Social Proof / Testimonials Section - Placeholder */}
         <section className="py-16 px-6 bg-white snap-start">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-10 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-10 font-montserrat">
               Built for Australian Service Businesses
             </h2>
             <p className="text-xl text-text-secondary mb-6">
@@ -538,7 +538,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6 bg-gradient-to-br from-blue-900 to-blue-900 text-white snap-start">
+        <section className="py-20 px-6 bg-gradient-to-br from-brand-navy to-brand-navy text-white snap-start">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat">
               Ready to Stop Missing Leads?
@@ -559,7 +559,7 @@ export default function HomePage() {
         </section>
 
         {/* Footer */}
-        <footer className="py-10 px-6 bg-blue-900 text-white">
+        <footer className="py-10 px-6 bg-brand-navy text-white">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>

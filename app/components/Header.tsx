@@ -39,8 +39,8 @@ export default function Header() {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
       ${scrolled
-        ? 'bg-blue-900/98 backdrop-blur-lg shadow-lg border-b border-brand-orange/30'
-        : 'bg-blue-900/95 backdrop-blur-sm'}
+        ? 'bg-brand-navy/98 backdrop-blur-lg shadow-lg border-b border-brand-orange/30'
+        : 'bg-brand-navy/95 backdrop-blur-sm'}
       ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { Calendar } from 'lucide-react'
+import Header from '../components/Header'
 
 interface Lead {
   id: string
@@ -100,32 +102,30 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-[#1E3A5F] text-white shadow">
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold">CoreSentia Admin</h1>
-              <p className="text-sm text-gray-300">Lead Management Dashboard</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Link
-                href="/admin/calendar"
-                className="px-4 py-2 bg-brand-orange hover:bg-orange-600 rounded-lg transition font-medium"
-              >
-                📅 Calendar Dashboard
-              </Link>
-              <Link
-                href="/"
-                className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition"
-              >
-                Back to Site
-              </Link>
+    <div className="min-h-screen bg-white">
+      <Header />
+
+      <div className="pt-32 bg-gray-50 min-h-screen">
+        {/* Page Title */}
+        <div className="bg-white border-b border-gray-200 p-6 shadow-sm">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-brand-navy mb-1 font-montserrat">Admin Dashboard</h1>
+                <p className="text-text-secondary text-sm">Lead Management</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/admin/calendar"
+                  className="flex items-center gap-2 px-4 py-2 bg-brand-accent text-white rounded-lg hover:bg-brand-accent-hover transition font-medium"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Calendar View
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       {/* Filters */}
       <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
@@ -138,7 +138,7 @@ export default function AdminDashboard() {
                   onClick={() => setFilter('all')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     filter === 'all'
-                      ? 'bg-[#1E3A5F] text-white'
+                      ? 'bg-brand-primary text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -148,7 +148,7 @@ export default function AdminDashboard() {
                   onClick={() => setFilter('sms')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     filter === 'sms'
-                      ? 'bg-[#1E3A5F] text-white'
+                      ? 'bg-brand-primary text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -158,7 +158,7 @@ export default function AdminDashboard() {
                   onClick={() => setFilter('web_chat')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     filter === 'web_chat'
-                      ? 'bg-[#1E3A5F] text-white'
+                      ? 'bg-brand-primary text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -174,7 +174,7 @@ export default function AdminDashboard() {
                   onClick={() => setStatusFilter('all')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     statusFilter === 'all'
-                      ? 'bg-[#1E3A5F] text-white'
+                      ? 'bg-brand-primary text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
                   onClick={() => setStatusFilter('new')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     statusFilter === 'new'
-                      ? 'bg-[#1E3A5F] text-white'
+                      ? 'bg-brand-primary text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -194,7 +194,7 @@ export default function AdminDashboard() {
                   onClick={() => setStatusFilter('contacted')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     statusFilter === 'contacted'
-                      ? 'bg-[#1E3A5F] text-white'
+                      ? 'bg-brand-primary text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -204,7 +204,7 @@ export default function AdminDashboard() {
                   onClick={() => setStatusFilter('qualified')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     statusFilter === 'qualified'
-                      ? 'bg-[#1E3A5F] text-white'
+                      ? 'bg-brand-primary text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -219,7 +219,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow p-4">
             <p className="text-sm text-gray-600">Total Leads</p>
-            <p className="text-2xl font-bold text-[#1E3A5F]">{leads.length}</p>
+            <p className="text-2xl font-bold text-brand-navy">{leads.length}</p>
           </div>
           <div className="bg-white rounded-lg shadow p-4">
             <p className="text-sm text-gray-600">New</p>
@@ -336,7 +336,7 @@ export default function AdminDashboard() {
                                 <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                                   <div className={`max-w-[80%] rounded-lg p-3 ${
                                     msg.sender === 'user'
-                                      ? 'bg-[#1E3A5F] text-white'
+                                      ? 'bg-brand-primary text-white'
                                       : 'bg-white border'
                                   }`}>
                                     <p className="text-xs font-medium mb-1 opacity-70">

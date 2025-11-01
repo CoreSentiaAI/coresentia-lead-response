@@ -67,8 +67,8 @@ export default function CalendarView({
 
   // Custom event styling
   const eventStyleGetter = useCallback((event: CalendarEvent) => {
-    let backgroundColor = '#1E3A5F' // brand-navy
-    let borderColor = '#1E3A5F'
+    let backgroundColor = '#2A50DF' // brand-primary
+    let borderColor = '#2A50DF'
 
     if (event.type === 'blocked') {
       backgroundColor = '#6B7280' // gray

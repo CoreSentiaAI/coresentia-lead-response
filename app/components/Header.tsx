@@ -54,7 +54,7 @@ export default function Header() {
         : ''}
       ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-center md:justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/CoreSentia_Original_Logo_Symbol_Cropped.png"

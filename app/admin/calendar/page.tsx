@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Calendar as CalendarIcon, Plus, X } from 'lucide-react'
+import { Calendar as CalendarIcon, Plus, X, List, Trash2, Edit2 } from 'lucide-react'
+import Link from 'next/link'
 import Header from '@/app/components/Header'
 import CalendarView from '@/app/components/CalendarView'
 import type { Booking as CalendarBooking, BlockedTime, CalendarEvent } from '@/types/calendar'
@@ -14,6 +15,7 @@ export default function AdminCalendarPage() {
   const [blockedTimes, setBlockedTimes] = useState<BlockedTime[]>([])
   const [loading, setLoading] = useState(true)
   const [showAddBooking, setShowAddBooking] = useState(false)
+  const [editingBooking, setEditingBooking] = useState<any>(null)
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
@@ -80,10 +82,42 @@ export default function AdminCalendarPage() {
   }
 
   const handleSelectEvent = (event: CalendarEvent) => {
-    console.log('Selected event:', event)
+    const booking = bookings.find(b => b.id === event.id)
+    if (booking) {
+      setEditingBooking(booking)
+      setFormData({
+        customerName: booking.customer_name,
+        customerEmail: booking.customer_email || '',
+        customerPhone: booking.customer_phone || '',
+        service: booking.service || '',
+        dateTime: booking.date_time ? new Date(booking.date_time).toISOString().slice(0, 16) : '',
+        notes: booking.notes || ''
+      })
+      setShowAddBooking(true)
+    }
   }
 
-  const createBooking = async (e: React.FormEvent) => {
+  const deleteBooking = async (bookingId: string) => {
+    if (!confirm('Are you sure you want to delete this booking?')) return
+
+    try {
+      const response = await fetch(`/api/bookings?id=${bookingId}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        alert('Booking deleted successfully!')
+        fetchData()
+      } else {
+        alert('Failed to delete booking')
+      }
+    } catch (error) {
+      console.error('Error deleting booking:', error)
+      alert('Failed to delete booking')
+    }
+  }
+
+  const saveBooking = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!formData.customerName || !formData.customerEmail || !formData.dateTime) {
@@ -92,41 +126,78 @@ export default function AdminCalendarPage() {
     }
 
     try {
-      const response = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          leadId: `admin-${Date.now()}`, // Generate unique lead ID
-          businessId: BUSINESS_ID,
-          customerName: formData.customerName,
-          customerEmail: formData.customerEmail,
-          customerPhone: formData.customerPhone,
-          service: formData.service || 'General Service',
-          dateTime: formData.dateTime,
-          notes: formData.notes,
+      if (editingBooking) {
+        // Update existing booking
+        const response = await fetch('/api/bookings', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bookingId: editingBooking.id,
+            customerName: formData.customerName,
+            customerEmail: formData.customerEmail,
+            customerPhone: formData.customerPhone,
+            service: formData.service || 'General Service',
+            dateTime: formData.dateTime,
+            notes: formData.notes,
+          })
         })
-      })
 
-      const result = await response.json()
+        const result = await response.json()
 
-      if (response.ok) {
-        alert('Booking created successfully!')
-        setShowAddBooking(false)
-        setFormData({
-          customerName: '',
-          customerEmail: '',
-          customerPhone: '',
-          service: '',
-          dateTime: '',
-          notes: ''
-        })
-        fetchData()
+        if (response.ok) {
+          alert('Booking updated successfully!')
+          setShowAddBooking(false)
+          setEditingBooking(null)
+          setFormData({
+            customerName: '',
+            customerEmail: '',
+            customerPhone: '',
+            service: '',
+            dateTime: '',
+            notes: ''
+          })
+          fetchData()
+        } else {
+          alert(`Failed to update booking: ${result.error || 'Unknown error'}`)
+        }
       } else {
-        alert(`Failed to create booking: ${result.error || 'Unknown error'}`)
+        // Create new booking
+        const response = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            leadId: `admin-${Date.now()}`, // Generate unique lead ID
+            businessId: BUSINESS_ID,
+            customerName: formData.customerName,
+            customerEmail: formData.customerEmail,
+            customerPhone: formData.customerPhone,
+            service: formData.service || 'General Service',
+            dateTime: formData.dateTime,
+            notes: formData.notes,
+          })
+        })
+
+        const result = await response.json()
+
+        if (response.ok) {
+          alert('Booking created successfully!')
+          setShowAddBooking(false)
+          setFormData({
+            customerName: '',
+            customerEmail: '',
+            customerPhone: '',
+            service: '',
+            dateTime: '',
+            notes: ''
+          })
+          fetchData()
+        } else {
+          alert(`Failed to create booking: ${result.error || 'Unknown error'}`)
+        }
       }
     } catch (error) {
-      console.error('Error creating booking:', error)
-      alert('Failed to create booking')
+      console.error('Error saving booking:', error)
+      alert('Failed to save booking')
     }
   }
 
@@ -175,6 +246,13 @@ export default function AdminCalendarPage() {
               </div>
 
               <div className="flex items-center gap-3">
+                <Link
+                  href="/admin"
+                  className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                >
+                  <List className="w-4 h-4" />
+                  List View
+                </Link>
                 <button
                   onClick={() => setShowAddBooking(true)}
                   className="flex items-center gap-2 px-4 py-2 bg-brand-accent text-white rounded-lg font-medium hover:bg-brand-accent-hover transition-colors"
@@ -226,22 +304,35 @@ export default function AdminCalendarPage() {
           </div>
         </div>
 
-        {/* Create Booking Modal */}
+        {/* Create/Edit Booking Modal */}
         {showAddBooking && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-brand-navy">Create Booking</h2>
+                  <h2 className="text-2xl font-bold text-brand-navy">
+                    {editingBooking ? 'Edit Booking' : 'Create Booking'}
+                  </h2>
                   <button
-                    onClick={() => setShowAddBooking(false)}
+                    onClick={() => {
+                      setShowAddBooking(false)
+                      setEditingBooking(null)
+                      setFormData({
+                        customerName: '',
+                        customerEmail: '',
+                        customerPhone: '',
+                        service: '',
+                        dateTime: '',
+                        notes: ''
+                      })
+                    }}
                     className="text-gray-400 hover:text-gray-600"
                   >
                     <X className="w-6 h-6" />
                   </button>
                 </div>
 
-                <form onSubmit={createBooking} className="space-y-4">
+                <form onSubmit={saveBooking} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-text-primary mb-2">
                       Customer Name *
@@ -323,9 +414,30 @@ export default function AdminCalendarPage() {
                   </div>
 
                   <div className="flex gap-3 pt-4">
+                    {editingBooking && (
+                      <button
+                        type="button"
+                        onClick={() => deleteBooking(editingBooking.id)}
+                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+                      >
+                        <Trash2 className="w-4 h-4 inline mr-1" />
+                        Delete
+                      </button>
+                    )}
                     <button
                       type="button"
-                      onClick={() => setShowAddBooking(false)}
+                      onClick={() => {
+                        setShowAddBooking(false)
+                        setEditingBooking(null)
+                        setFormData({
+                          customerName: '',
+                          customerEmail: '',
+                          customerPhone: '',
+                          service: '',
+                          dateTime: '',
+                          notes: ''
+                        })
+                      }}
                       className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                     >
                       Cancel
@@ -334,7 +446,7 @@ export default function AdminCalendarPage() {
                       type="submit"
                       className="flex-1 px-4 py-2 bg-brand-accent text-white rounded-lg hover:bg-brand-accent-hover transition-colors font-medium"
                     >
-                      Create Booking
+                      {editingBooking ? 'Update Booking' : 'Create Booking'}
                     </button>
                   </div>
                 </form>

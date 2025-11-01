@@ -185,18 +185,28 @@ export async function PATCH(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { bookingId, status } = body
+    const { bookingId, status, customerName, customerEmail, customerPhone, service, dateTime, notes } = body
 
-    if (!bookingId || !status) {
+    if (!bookingId) {
       return NextResponse.json(
-        { error: 'bookingId and status required' },
+        { error: 'bookingId required' },
         { status: 400 }
       )
     }
 
+    // Build update object with only provided fields
+    const updateData: any = {}
+    if (status !== undefined) updateData.status = status
+    if (customerName !== undefined) updateData.customer_name = customerName
+    if (customerEmail !== undefined) updateData.customer_email = customerEmail
+    if (customerPhone !== undefined) updateData.customer_phone = customerPhone
+    if (service !== undefined) updateData.service = service
+    if (dateTime !== undefined) updateData.date_time = dateTime
+    if (notes !== undefined) updateData.notes = notes
+
     const { data, error } = await supabase
       .from('bookings')
-      .update({ status })
+      .update(updateData)
       .eq('id', bookingId)
       .select()
       .single()
@@ -215,6 +225,48 @@ export async function PATCH(request: NextRequest) {
     })
   } catch (error) {
     console.error('PATCH booking error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 })
+  }
+
+  try {
+    const { searchParams } = new URL(request.url)
+    const bookingId = searchParams.get('id')
+
+    if (!bookingId) {
+      return NextResponse.json(
+        { error: 'Booking id required' },
+        { status: 400 }
+      )
+    }
+
+    const { error } = await supabase
+      .from('bookings')
+      .delete()
+      .eq('id', bookingId)
+
+    if (error) {
+      console.error('Error deleting booking:', error)
+      return NextResponse.json(
+        { error: 'Failed to delete booking', details: error.message },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Booking deleted successfully'
+    })
+  } catch (error) {
+    console.error('DELETE booking error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

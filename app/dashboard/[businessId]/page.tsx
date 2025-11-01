@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, AlertCircle, List, CalendarDays, LogOut } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
+import Header from '@/app/components/Header'
 import CalendarView from '@/app/components/CalendarView'
 import type { Booking as CalendarBooking, BlockedTime, CalendarEvent } from '@/types/calendar'
 
@@ -241,79 +242,84 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div style={{ backgroundColor: '#1E3A5F' }} className="text-white p-6 shadow-md">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold mb-1">Bookings Dashboard</h1>
-            <p className="text-white/80 text-sm">Manage your appointments</p>
-          </div>
+    <div className="min-h-screen bg-white">
+      <Header />
 
-          <div className="flex items-center gap-4">
-            {/* View Toggle */}
-            <div className="inline-flex rounded-lg border-2 border-white/20 p-1">
-              <button
-                onClick={() => setViewMode('list')}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
-                  viewMode === 'list'
-                    ? 'bg-white text-brand-navy'
-                    : 'text-white hover:bg-white/10'
-                }`}
-              >
-                <List className="w-4 h-4" />
-                List View
-              </button>
-              <button
-                onClick={() => setViewMode('calendar')}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
-                  viewMode === 'calendar'
-                    ? 'bg-white text-brand-navy'
-                    : 'text-white hover:bg-white/10'
-                }`}
-              >
-                <CalendarDays className="w-4 h-4" />
-                Calendar View
-              </button>
+      <div className="pt-32 bg-gray-50 min-h-screen">
+        {/* Page Title */}
+        <div className="bg-white border-b border-gray-200 p-6 shadow-sm">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-brand-navy mb-1 font-montserrat">Bookings Dashboard</h1>
+                <p className="text-text-secondary text-sm">Manage your appointments</p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {/* View Toggle */}
+                <div className="inline-flex rounded-lg border border-gray-300 p-1">
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
+                      viewMode === 'list'
+                        ? 'bg-brand-primary text-white'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <List className="w-4 h-4" />
+                    List View
+                  </button>
+                  <button
+                    onClick={() => setViewMode('calendar')}
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
+                      viewMode === 'calendar'
+                        ? 'bg-brand-primary text-white'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <CalendarDays className="w-4 h-4" />
+                    Calendar View
+                  </button>
+                </div>
+
+                {/* Logout Button */}
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span className="hidden sm:inline">Sign Out</span>
+                </button>
+              </div>
             </div>
-
-            {/* Logout Button */}
-            <button
-              onClick={handleSignOut}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
-              title="Sign Out"
-            >
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Sign Out</span>
-            </button>
           </div>
         </div>
-      </div>
 
-      {/* Stats Bar */}
-      <div className="bg-white border-b border-gray-200 p-4 shadow-sm">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div>
-            <p className="text-2xl font-bold text-brand-navy">{upcomingCount}</p>
-            <p className="text-xs text-text-secondary">Upcoming</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-text-primary">{bookings.length}</p>
-            <p className="text-xs text-text-secondary">Total</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-green-600">
-              {bookings.filter(b => b.status === 'confirmed').length}
-            </p>
-            <p className="text-xs text-text-secondary">Confirmed</p>
+        {/* Stats Bar */}
+        <div className="bg-white border-b border-gray-200 p-4 shadow-sm">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div>
+              <p className="text-2xl font-bold text-brand-navy">{upcomingCount}</p>
+              <p className="text-xs text-text-secondary">Upcoming</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-text-primary">{bookings.length}</p>
+              <p className="text-xs text-text-secondary">Total</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-green-600">
+                {bookings.filter(b => b.status === 'confirmed').length}
+              </p>
+              <p className="text-xs text-text-secondary">Confirmed</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Filter Tabs - Only show in list view */}
-      {viewMode === 'list' && (
-        <div className="bg-white border-b border-gray-200">
-          <div className="max-w-4xl mx-auto flex">
+        {/* Filter Tabs - Only show in list view */}
+        {viewMode === 'list' && (
+          <div className="bg-white border-b border-gray-200">
+            <div className="max-w-7xl mx-auto flex">
             <button
               onClick={() => setFilter('upcoming')}
               className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
@@ -345,22 +351,22 @@ export default function DashboardPage() {
               All
             </button>
           </div>
-        </div>
-      )}
+          </div>
+        )}
 
-      {/* Main Content */}
-      {viewMode === 'calendar' ? (
-        <div className="p-6 h-[calc(100vh-200px)]">
-          <CalendarView
-            businessId={businessId}
-            bookings={calendarBookings}
-            blockedTimes={blockedTimes}
-            onSelectSlot={handleSelectSlot}
-            onSelectEvent={handleSelectEvent}
-          />
-        </div>
-      ) : (
-        <div className="max-w-4xl mx-auto p-4 pb-20">
+        {/* Main Content */}
+        {viewMode === 'calendar' ? (
+          <div className="p-6 h-[calc(100vh-200px)]">
+            <CalendarView
+              businessId={businessId}
+              bookings={calendarBookings}
+              blockedTimes={blockedTimes}
+              onSelectSlot={handleSelectSlot}
+              onSelectEvent={handleSelectEvent}
+            />
+          </div>
+        ) : (
+          <div className="max-w-7xl mx-auto p-4 pb-20">
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4">
             {error}
@@ -468,8 +474,9 @@ export default function DashboardPage() {
             ))}
           </div>
         )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

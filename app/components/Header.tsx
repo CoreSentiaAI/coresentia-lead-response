@@ -55,7 +55,7 @@ export default function Header() {
       ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
-        <Link href="/" className="flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/CoreSentia_Original_Logo_Symbol_Cropped.png"
             alt="CoreSentia"
@@ -63,7 +63,7 @@ export default function Header() {
             height={80}
             className="transition-all duration-300"
           />
-          <span className="text-5xl font-montserrat font-light tracking-wide15 text-text-primary">coresentia</span>
+          <span className="text-5xl font-montserrat font-thin tracking-wide15 text-text-primary">coresentia</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-2">

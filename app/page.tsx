@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Zap, MessageSquare, Globe, Calendar, Check, Clock, DollarSign, Users, Phone, TrendingUp, Shield } from 'lucide-react'
+import { Zap, MessageSquare, Globe, Calendar, Check, Clock, DollarSign, Users, Phone, TrendingUp, Shield, Rocket } from 'lucide-react'
 import Header from './components/Header'
 
 export default function HomePage() {
@@ -299,7 +299,7 @@ export default function HomePage() {
                   <p className="text-4xl font-bold text-brand-navy">$499</p>
                   <p className="text-lg text-text-primary">+ $150/month</p>
                   <p className="text-xs text-text-primary mt-1">(inc. GST)</p>
-                  <p className="text-sm text-brand-orange font-semibold mt-2">⚡ Delivered within 3 working days</p>
+                  <p className="text-sm text-brand-orange font-semibold mt-2 flex items-center gap-1 justify-center"><Zap className="w-4 h-4" /> Delivered within 3 working days</p>
                 </div>
 
                 <p className="text-text-secondary mb-6">
@@ -364,7 +364,7 @@ export default function HomePage() {
                   <p className="text-4xl font-bold text-brand-primary">$2,500</p>
                   <p className="text-lg text-text-primary">+ $250/month</p>
                   <p className="text-xs text-text-primary mt-1">(inc. GST)</p>
-                  <p className="text-sm text-brand-accent font-semibold mt-2">🚀 5-7 day delivery</p>
+                  <p className="text-sm text-brand-accent font-semibold mt-2 flex items-center gap-1 justify-center"><Rocket className="w-4 h-4" /> 5-7 day delivery</p>
                 </div>
 
                 <p className="text-text-primary mb-6">

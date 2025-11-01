@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Calendar, Shield, DollarSign, Clock, Users } from 'lucide-react';
 import Header from '../components/Header';
 
 export default function OnboardingPage() {
@@ -362,7 +363,7 @@ export default function OnboardingPage() {
                   rel="noopener noreferrer"
                   className="inline-block w-full px-4 py-3 border-2 border-brand-accent text-brand-accent font-semibold rounded-lg hover:bg-brand-accent hover:text-white transition-all text-center"
                 >
-                  📅 Schedule a Call (Optional)
+                  <Calendar className="w-4 h-4 inline-block mr-2" />Schedule a Call (Optional)
                 </a>
               </div>
             </div>
@@ -448,16 +449,20 @@ export default function OnboardingPage() {
           <div className="mt-12 pt-8 border-t border-gray-300">
             <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-text-secondary mb-8">
               <div className="flex items-center gap-2">
-                <span>🛡️ Australian data residency</span>
+                <Shield className="w-4 h-4 text-brand-accent" />
+                <span>Australian data residency</span>
               </div>
               <div className="flex items-center gap-2">
-                <span>💰 No per-conversation fees</span>
+                <DollarSign className="w-4 h-4 text-brand-accent" />
+                <span>No per-conversation fees</span>
               </div>
               <div className="flex items-center gap-2">
-                <span>⏰ 24hr response SLA</span>
+                <Clock className="w-4 h-4 text-brand-accent" />
+                <span>24hr response SLA</span>
               </div>
               <div className="flex items-center gap-2">
-                <span>👥 Brisbane-based support</span>
+                <Users className="w-4 h-4 text-brand-accent" />
+                <span>Brisbane-based support</span>
               </div>
             </div>
 

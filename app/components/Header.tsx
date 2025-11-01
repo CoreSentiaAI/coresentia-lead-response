@@ -62,6 +62,7 @@ export default function Header() {
             width={400}
             height={160}
             className="transition-all duration-300"
+            style={{ filter: 'brightness(0) saturate(100%) invert(17%) sepia(8%) saturate(1020%) hue-rotate(169deg) brightness(95%) contrast(88%)' }}
           />
         </Link>
 

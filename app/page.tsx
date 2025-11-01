@@ -113,7 +113,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-3 font-montserrat">
                 Sound familiar?
               </h2>
-              <p className="text-lg text-text-secondary max-w-2xl mx-auto mb-8">
+              <p className="text-lg text-text-primary max-w-2xl mx-auto mb-8">
                 You're losing leads while you're on the tools. Your AI receptionist changes that.
               </p>
             </div>

@@ -46,7 +46,7 @@ export interface BusinessSettings {
 
 export interface BlockedTime {
   id: string
-  business_id: string
+  business_id?: string | null
 
   // Time Range
   start_time: string // ISO timestamp
@@ -69,7 +69,7 @@ export interface BlockedTime {
 
 export interface Booking {
   id: string
-  business_id: string
+  business_id?: string | null
   lead_id?: string
 
   // Customer Info

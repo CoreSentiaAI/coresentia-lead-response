@@ -21,7 +21,7 @@ const localizer = dateFnsLocalizer({
 })
 
 interface CalendarViewProps {
-  businessId: string
+  businessId?: string | null
   bookings: Booking[]
   blockedTimes: BlockedTime[]
   onSelectSlot: (slotInfo: { start: Date; end: Date }) => void

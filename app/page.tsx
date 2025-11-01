@@ -473,11 +473,6 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-            <div className="mt-12 p-6 bg-gray-50 rounded-lg border border-gray-200 max-w-3xl mx-auto">
-              <p className="text-sm text-text-secondary text-center">
-                <strong>Simple:</strong> We don't replace your workflow. We feed qualified leads into your pipeline, and you handle the rest like you always have.
-              </p>
-            </div>
           </div>
         </section>
 

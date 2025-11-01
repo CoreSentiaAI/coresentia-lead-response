@@ -1,8 +1,9 @@
 'use client'
 
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, AlertCircle, List, CalendarDays } from 'lucide-react'
+import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, AlertCircle, List, CalendarDays, LogOut } from 'lucide-react'
+import { useAuth } from '@/contexts/AuthContext'
 import CalendarView from '@/app/components/CalendarView'
 import type { Booking as CalendarBooking, BlockedTime, CalendarEvent } from '@/types/calendar'
 
@@ -23,7 +24,9 @@ interface Booking {
 
 export default function DashboardPage() {
   const params = useParams()
+  const router = useRouter()
   const businessId = params.businessId as string
+  const { user, businessId: userBusinessId, loading: authLoading, signOut } = useAuth()
 
   const [bookings, setBookings] = useState<Booking[]>([])
   const [blockedTimes, setBlockedTimes] = useState<BlockedTime[]>([])
@@ -34,16 +37,54 @@ export default function DashboardPage() {
   const [showBlockModal, setShowBlockModal] = useState(false)
   const [blockSlot, setBlockSlot] = useState<{ start: Date; end: Date } | null>(null)
 
+  // Authentication check
   useEffect(() => {
-    fetchBookings()
-    fetchBlockedTimes()
-    // Auto-refresh every 30 seconds
-    const interval = setInterval(() => {
+    if (!authLoading) {
+      if (!user) {
+        // Not logged in - redirect to login
+        router.push(`/login?redirect=/dashboard/${businessId}`)
+      } else if (userBusinessId && userBusinessId !== businessId) {
+        // Logged in but trying to access wrong business
+        router.push(`/dashboard/${userBusinessId}`)
+      }
+    }
+  }, [user, userBusinessId, businessId, authLoading, router])
+
+  // Fetch bookings and blocked times (only when authenticated)
+  useEffect(() => {
+    if (!authLoading && user && (!userBusinessId || userBusinessId === businessId)) {
       fetchBookings()
       fetchBlockedTimes()
-    }, 30000)
-    return () => clearInterval(interval)
-  }, [businessId])
+      // Auto-refresh every 30 seconds
+      const interval = setInterval(() => {
+        fetchBookings()
+        fetchBlockedTimes()
+      }, 30000)
+      return () => clearInterval(interval)
+    }
+  }, [authLoading, user, userBusinessId, businessId])
+
+  const handleSignOut = async () => {
+    await signOut()
+    router.push('/login')
+  }
+
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-orange mx-auto mb-4"></div>
+          <p className="text-text-secondary">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Don't render dashboard if not authenticated or wrong business
+  if (!user || (userBusinessId && userBusinessId !== businessId)) {
+    return null
+  }
 
   const fetchBookings = async () => {
     try {
@@ -209,29 +250,41 @@ export default function DashboardPage() {
             <p className="text-white/80 text-sm">Manage your appointments</p>
           </div>
 
-          {/* View Toggle */}
-          <div className="inline-flex rounded-lg border-2 border-white/20 p-1">
+          <div className="flex items-center gap-4">
+            {/* View Toggle */}
+            <div className="inline-flex rounded-lg border-2 border-white/20 p-1">
+              <button
+                onClick={() => setViewMode('list')}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
+                  viewMode === 'list'
+                    ? 'bg-white text-brand-navy'
+                    : 'text-white hover:bg-white/10'
+                }`}
+              >
+                <List className="w-4 h-4" />
+                List View
+              </button>
+              <button
+                onClick={() => setViewMode('calendar')}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
+                  viewMode === 'calendar'
+                    ? 'bg-white text-brand-navy'
+                    : 'text-white hover:bg-white/10'
+                }`}
+              >
+                <CalendarDays className="w-4 h-4" />
+                Calendar View
+              </button>
+            </div>
+
+            {/* Logout Button */}
             <button
-              onClick={() => setViewMode('list')}
-              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
-                viewMode === 'list'
-                  ? 'bg-white text-brand-navy'
-                  : 'text-white hover:bg-white/10'
-              }`}
+              onClick={handleSignOut}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
+              title="Sign Out"
             >
-              <List className="w-4 h-4" />
-              List View
-            </button>
-            <button
-              onClick={() => setViewMode('calendar')}
-              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-colors ${
-                viewMode === 'calendar'
-                  ? 'bg-white text-brand-navy'
-                  : 'text-white hover:bg-white/10'
-              }`}
-            >
-              <CalendarDays className="w-4 h-4" />
-              Calendar View
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">Sign Out</span>
             </button>
           </div>
         </div>

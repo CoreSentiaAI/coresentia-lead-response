@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.51.0",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/supabase-js": "^2.78.0",
     "@types/node": "20.5.2",
     "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
@@ -30,7 +31,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@supabase/ssr": "^0.5.0",
+    "@supabase/ssr": "^0.5.2",
     "@types/nodemailer": "^6.4.14",
     "@types/react-big-calendar": "^1.16.3",
     "resend": "^2.0.0"

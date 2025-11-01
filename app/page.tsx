@@ -15,7 +15,7 @@ export default function HomePage() {
         <Header />
 
         {/* Hero Section */}
-        <section className="min-h-screen w-full flex items-center px-6 lg:px-8 pt-24 lg:pt-0 snap-start snap-always relative overflow-hidden">
+        <section className="min-h-screen w-full flex items-center px-6 lg:px-8 pt-32 lg:pt-0 snap-start snap-always relative overflow-hidden">
           {/* Subtle background accent */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(transparent_0,transparent_60%,rgba(30,58,95,0.04)_100%)]" />
 

@@ -9,11 +9,21 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          navy: '#1E3A5F',
-          'navy-light': '#25466F',
-          'navy-lighter': '#2B5280',
-          orange: '#FF6B35',
-          sage: '#8FBC8F',
+          // Brand colors from Fiverr guide
+          'royal-blue': '#2A50DF',
+          'medium-blue': '#1099E7',
+          'light-blue': '#62D4F9',
+
+          // Semantic aliases
+          primary: '#2A50DF',
+          'primary-hover': '#1e3ba8',
+          accent: '#1099E7',
+          'accent-hover': '#0d7ac4',
+          highlight: '#62D4F9',
+
+          // Legacy names (for backward compatibility)
+          navy: '#2A50DF',
+          orange: '#1099E7',
         },
         text: {
           primary: '#2D3436',
@@ -22,6 +32,7 @@ module.exports = {
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 1s ease-out both',

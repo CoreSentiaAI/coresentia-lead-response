@@ -1,17 +1,18 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Montserrat, Open_Sans } from 'next/font/google';
+import { Montserrat, Inter } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
-  weight: '400'
+  weight: ['400', '600', '700']
 });
 
-const openSans = Open_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-open-sans'
+  variable: '--font-inter',
+  weight: ['400', '600', '700']
 });
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} ${openSans.variable}`}>
+      <body className={`${montserrat.variable} ${inter.variable}`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

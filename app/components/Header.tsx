@@ -63,7 +63,7 @@ export default function Header() {
             height={50}
             className="transition-all duration-300"
           />
-          <span className="text-2xl font-montserrat font-normal tracking-wide text-black">coresentia</span>
+          <span className="text-2xl font-montserrat font-light tracking-wide15 text-black">coresentia</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-2">

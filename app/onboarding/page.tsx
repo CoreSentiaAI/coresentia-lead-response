@@ -79,7 +79,7 @@ export default function OnboardingPage() {
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl text-brand-navy mb-4">Client Onboarding Form</h1>
           <p className="text-lg text-text-secondary mb-8">
-            Welcome to CoreSentia! This form takes 5-7 minutes. We'll cover the detailed setup on our 15-minute call.
+            Welcome to CoreSentia! Please fill in the form below and we'll begin building your AI receptionist.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-8">

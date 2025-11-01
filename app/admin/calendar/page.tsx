@@ -1,18 +1,27 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Calendar as CalendarIcon, Plus, Settings } from 'lucide-react'
+import { Calendar as CalendarIcon, Plus, X } from 'lucide-react'
+import Header from '@/app/components/Header'
 import CalendarView from '@/app/components/CalendarView'
 import type { Booking as CalendarBooking, BlockedTime, CalendarEvent } from '@/types/calendar'
 
-// Test business ID for admin testing
-const TEST_BUSINESS_ID = 'admin-test-business'
+// Business ID for admin calendar
+const BUSINESS_ID = 'admin-business'
 
 export default function AdminCalendarPage() {
   const [bookings, setBookings] = useState<any[]>([])
   const [blockedTimes, setBlockedTimes] = useState<BlockedTime[]>([])
   const [loading, setLoading] = useState(true)
   const [showAddBooking, setShowAddBooking] = useState(false)
+  const [formData, setFormData] = useState({
+    customerName: '',
+    customerEmail: '',
+    customerPhone: '',
+    service: '',
+    dateTime: '',
+    notes: ''
+  })
 
   useEffect(() => {
     fetchData()
@@ -23,14 +32,14 @@ export default function AdminCalendarPage() {
   const fetchData = async () => {
     try {
       // Fetch bookings
-      const bookingsRes = await fetch(`/api/bookings?businessId=${TEST_BUSINESS_ID}`)
+      const bookingsRes = await fetch(`/api/bookings?businessId=${BUSINESS_ID}`)
       if (bookingsRes.ok) {
         const bookingsData = await bookingsRes.json()
         setBookings(bookingsData.bookings || [])
       }
 
       // Fetch blocked times
-      const blockedRes = await fetch(`/api/blocked-times?businessId=${TEST_BUSINESS_ID}`)
+      const blockedRes = await fetch(`/api/blocked-times?businessId=${BUSINESS_ID}`)
       if (blockedRes.ok) {
         const blockedData = await blockedRes.json()
         setBlockedTimes(blockedData.blockedTimes || [])
@@ -51,7 +60,7 @@ export default function AdminCalendarPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          business_id: TEST_BUSINESS_ID,
+          business_id: BUSINESS_ID,
           start_time: slotInfo.start.toISOString(),
           end_time: slotInfo.end.toISOString(),
           reason: reason,
@@ -74,43 +83,57 @@ export default function AdminCalendarPage() {
     console.log('Selected event:', event)
   }
 
-  const createTestBooking = async () => {
-    const tomorrow = new Date()
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    tomorrow.setHours(10, 0, 0, 0)
+  const createBooking = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!formData.customerName || !formData.customerEmail || !formData.dateTime) {
+      alert('Please fill in all required fields')
+      return
+    }
 
     try {
       const response = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          businessId: TEST_BUSINESS_ID,
-          customer_name: 'Test Customer',
-          customer_email: 'test@example.com',
-          customer_phone: '0400 000 000',
-          service: 'Lawn Mowing',
-          date_time: tomorrow.toISOString(),
-          notes: 'Test booking from admin',
-          status: 'confirmed',
+          leadId: `admin-${Date.now()}`, // Generate unique lead ID
+          businessId: BUSINESS_ID,
+          customerName: formData.customerName,
+          customerEmail: formData.customerEmail,
+          customerPhone: formData.customerPhone,
+          service: formData.service || 'General Service',
+          dateTime: formData.dateTime,
+          notes: formData.notes,
         })
       })
 
+      const result = await response.json()
+
       if (response.ok) {
-        alert('Test booking created!')
+        alert('Booking created successfully!')
+        setShowAddBooking(false)
+        setFormData({
+          customerName: '',
+          customerEmail: '',
+          customerPhone: '',
+          service: '',
+          dateTime: '',
+          notes: ''
+        })
         fetchData()
       } else {
-        alert('Failed to create test booking')
+        alert(`Failed to create booking: ${result.error || 'Unknown error'}`)
       }
     } catch (error) {
       console.error('Error creating booking:', error)
-      alert('Failed to create test booking')
+      alert('Failed to create booking')
     }
   }
 
   // Convert bookings to calendar format
   const calendarBookings: CalendarBooking[] = bookings.map(booking => ({
     id: booking.id,
-    business_id: TEST_BUSINESS_ID,
+    business_id: BUSINESS_ID,
     customer_name: booking.customer_name,
     customer_phone: booking.customer_phone,
     customer_email: booking.customer_email,
@@ -138,74 +161,187 @@ export default function AdminCalendarPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div style={{ backgroundColor: '#1E3A5F' }} className="text-white p-6 shadow-md">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between">
+    <div className="min-h-screen bg-white">
+      <Header />
+
+      <div className="pt-32 bg-gray-50 min-h-screen">
+        {/* Page Title */}
+        <div className="bg-white border-b border-gray-200 p-6 shadow-sm">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-brand-navy mb-1 font-montserrat">Admin Calendar Dashboard</h1>
+                <p className="text-text-secondary text-sm">Manage bookings and availability</p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setShowAddBooking(true)}
+                  className="flex items-center gap-2 px-4 py-2 bg-brand-accent text-white rounded-lg font-medium hover:bg-brand-accent-hover transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                  Create booking
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="bg-white border-b border-gray-200 p-4 shadow-sm">
+          <div className="max-w-7xl mx-auto flex items-center gap-8">
             <div>
-              <h1 className="text-2xl font-bold mb-1">Admin Calendar Dashboard</h1>
-              <p className="text-white/80 text-sm">Test and manage the calendar system</p>
+              <p className="text-2xl font-bold text-brand-navy">{bookings.length}</p>
+              <p className="text-xs text-text-secondary">Total Bookings</p>
             </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={createTestBooking}
-                className="flex items-center gap-2 px-4 py-2 bg-brand-orange text-white rounded-lg font-medium hover:bg-orange-600 transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-                Add Test Booking
-              </button>
+            <div>
+              <p className="text-2xl font-bold text-green-600">
+                {bookings.filter(b => b.status === 'confirmed').length}
+              </p>
+              <p className="text-xs text-text-secondary">Confirmed</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-yellow-600">
+                {bookings.filter(b => b.status === 'pending').length}
+              </p>
+              <p className="text-xs text-text-secondary">Pending</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-gray-600">{blockedTimes.length}</p>
+              <p className="text-xs text-text-secondary">Blocked Times</p>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Stats */}
-      <div className="bg-white border-b border-gray-200 p-4 shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center gap-8">
-          <div>
-            <p className="text-2xl font-bold text-brand-navy">{bookings.length}</p>
-            <p className="text-xs text-text-secondary">Total Bookings</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-green-600">
-              {bookings.filter(b => b.status === 'confirmed').length}
-            </p>
-            <p className="text-xs text-text-secondary">Confirmed</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-yellow-600">
-              {bookings.filter(b => b.status === 'pending').length}
-            </p>
-            <p className="text-xs text-text-secondary">Pending</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-gray-600">{blockedTimes.length}</p>
-            <p className="text-xs text-text-secondary">Blocked Times</p>
+        {/* Calendar */}
+        <div className="p-6">
+          <div className="bg-white rounded-lg shadow-lg p-6" style={{ height: 'calc(100vh - 350px)' }}>
+            <CalendarView
+              businessId={BUSINESS_ID}
+              bookings={calendarBookings}
+              blockedTimes={blockedTimes}
+              onSelectSlot={handleSelectSlot}
+              onSelectEvent={handleSelectEvent}
+            />
           </div>
         </div>
-      </div>
 
-      {/* Info Banner */}
-      <div className="bg-blue-50 border-b border-blue-200 p-4">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-sm text-blue-800">
-            <strong>Admin Dashboard:</strong> Testing business ID: <code className="bg-blue-100 px-2 py-1 rounded">{TEST_BUSINESS_ID}</code>
-            {' '}- Click empty slots to block time, click events to view details, or add test bookings using the button above.
-          </p>
-        </div>
-      </div>
+        {/* Create Booking Modal */}
+        {showAddBooking && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-brand-navy">Create Booking</h2>
+                  <button
+                    onClick={() => setShowAddBooking(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
 
-      {/* Calendar */}
-      <div className="p-6 h-[calc(100vh-250px)]">
-        <CalendarView
-          businessId={TEST_BUSINESS_ID}
-          bookings={calendarBookings}
-          blockedTimes={blockedTimes}
-          onSelectSlot={handleSelectSlot}
-          onSelectEvent={handleSelectEvent}
-        />
+                <form onSubmit={createBooking} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Customer Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.customerName}
+                      onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                      placeholder="John Smith"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.customerEmail}
+                      onChange={(e) => setFormData({ ...formData, customerEmail: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Phone
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.customerPhone}
+                      onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                      placeholder="0400 000 000"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Service
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                      placeholder="Lawn Mowing, Cleaning, etc."
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Date & Time *
+                    </label>
+                    <input
+                      type="datetime-local"
+                      required
+                      value={formData.dateTime}
+                      onChange={(e) => setFormData({ ...formData, dateTime: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Notes
+                    </label>
+                    <textarea
+                      value={formData.notes}
+                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      rows={3}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                      placeholder="Any additional information..."
+                    />
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowAddBooking(false)}
+                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 px-4 py-2 bg-brand-accent text-white rounded-lg hover:bg-brand-accent-hover transition-colors font-medium"
+                    >
+                      Create Booking
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

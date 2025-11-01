@@ -47,10 +47,9 @@ export default function Header() {
 
   return (
     <header
-      style={{ backgroundColor: '#1E3A5F' }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out bg-brand-background
       ${scrolled
-        ? 'shadow-lg border-b border-brand-orange/30'
+        ? 'shadow-lg border-b border-brand-accent/30'
         : ''}
       ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
@@ -68,32 +67,32 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-2">
           <Link
             href="#packages"
-            className="text-sm font-medium tracking-wider text-white px-4 py-2
-              border-b-2 border-transparent hover:border-brand-orange hover:text-brand-orange
+            className="text-sm font-medium tracking-wider text-brand-primary px-4 py-2
+              border-b-2 border-transparent hover:border-brand-accent hover:text-brand-accent
               transition-all duration-200"
           >
             Packages
           </Link>
           <Link
             href="/about"
-            className="text-sm font-medium tracking-wider text-white px-4 py-2
-              border-b-2 border-transparent hover:border-brand-orange hover:text-brand-orange
+            className="text-sm font-medium tracking-wider text-brand-primary px-4 py-2
+              border-b-2 border-transparent hover:border-brand-accent hover:text-brand-accent
               transition-all duration-200"
           >
             About
           </Link>
           <Link
             href="/contact"
-            className="text-sm font-medium tracking-wider text-white px-4 py-2
-              border-b-2 border-transparent hover:border-brand-orange hover:text-brand-orange
+            className="text-sm font-medium tracking-wider text-brand-primary px-4 py-2
+              border-b-2 border-transparent hover:border-brand-accent hover:text-brand-accent
               transition-all duration-200"
           >
             Contact
           </Link>
           <Link
             href="/chat/homepage-visitor"
-            className="ml-4 px-6 py-2 bg-brand-orange text-white font-semibold rounded-full
-              hover:bg-orange-600 hover:shadow-lg
+            className="ml-4 px-6 py-2 bg-brand-accent text-white font-semibold rounded-full
+              hover:bg-brand-accent-hover hover:shadow-lg
               transition-all duration-300 transform hover:scale-105"
           >
             Get Started

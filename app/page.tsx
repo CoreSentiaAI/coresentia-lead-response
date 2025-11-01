@@ -22,10 +22,10 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative z-10">
             {/* Left: Content */}
             <div className="lg:col-span-6 space-y-6 text-center lg:text-left flex flex-col justify-center">
-              <h1 style={{ color: '#1E3A5F' }} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-brand-primary">
                 Stop talking about AI.
                 <br />
-                <span className="text-brand-orange">Start closing with it.</span>
+                <span className="text-brand-accent">Start closing with it.</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-700 max-w-xl mx-auto lg:mx-0">
                 Your AI receptionist responds 24/7, qualifies leads, and books jobs into your calendar—while you focus on the work.
@@ -79,9 +79,9 @@ export default function HomePage() {
                   </div>
 
                   <div className="flex items-start gap-3 flex-row-reverse">
-                    <div className="w-8 h-8 rounded-full bg-brand-orange flex-shrink-0" />
+                    <div className="w-8 h-8 rounded-full bg-brand-accent flex-shrink-0" />
                     <div className="flex-1 text-right">
-                      <div style={{ backgroundColor: '#1E3A5F' }} className="text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
+                      <div className="bg-brand-primary text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
                         I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works?
                       </div>
                       <p className="text-xs text-gray-500 mt-1">2:47 PM</p>
@@ -138,34 +138,34 @@ export default function HomePage() {
         </section>
 
         {/* Solution Section */}
-        <section style={{ backgroundColor: '#1E3A5F' }} className="min-h-screen w-full flex items-center py-16 px-6 text-white snap-start">
+        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-brand-background snap-start">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat text-brand-primary">
               Meet Your AI Receptionist
             </h2>
-            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light">
+            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-text-primary">
               An intelligent assistant that responds to leads via SMS and web chat 24/7, qualifies them, and books jobs into your calendar — while you focus on the work.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-                <MessageSquare className="w-10 h-10 text-brand-orange mb-3" />
-                <h3 className="font-semibold mb-2">Instant Response</h3>
-                <p className="text-sm text-white/80">Replies in seconds, not hours</p>
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <MessageSquare className="w-10 h-10 text-brand-accent mb-3" />
+                <h3 className="font-semibold mb-2 text-brand-primary">Instant Response</h3>
+                <p className="text-sm text-text-secondary">Replies in seconds, not hours</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-                <Calendar className="w-10 h-10 text-brand-orange mb-3" />
-                <h3 className="font-semibold mb-2">Auto Booking</h3>
-                <p className="text-sm text-white/80">Jobs booked automatically</p>
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <Calendar className="w-10 h-10 text-brand-accent mb-3" />
+                <h3 className="font-semibold mb-2 text-brand-primary">Auto Booking</h3>
+                <p className="text-sm text-text-secondary">Jobs booked automatically</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-                <Shield className="w-10 h-10 text-brand-orange mb-3" />
-                <h3 className="font-semibold mb-2">Lead Qualification</h3>
-                <p className="text-sm text-white/80">Filters serious inquiries</p>
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <Shield className="w-10 h-10 text-brand-accent mb-3" />
+                <h3 className="font-semibold mb-2 text-brand-primary">Lead Qualification</h3>
+                <p className="text-sm text-text-secondary">Filters serious inquiries</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-                <Zap className="w-10 h-10 text-brand-orange mb-3" />
-                <h3 className="font-semibold mb-2">24/7 Available</h3>
-                <p className="text-sm text-white/80">Never miss a weekend lead</p>
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <Zap className="w-10 h-10 text-brand-accent mb-3" />
+                <h3 className="font-semibold mb-2 text-brand-primary">24/7 Available</h3>
+                <p className="text-sm text-text-secondary">Never miss a weekend lead</p>
               </div>
             </div>
           </div>
@@ -342,69 +342,69 @@ export default function HomePage() {
               </div>
 
               {/* Tier 2: Professional Package */}
-              <div style={{ backgroundColor: '#1E3A5F' }} className="border-2 border-brand-orange rounded-2xl p-10 text-white relative shadow-2xl flex flex-col">
+              <div className="bg-brand-background border-2 border-brand-accent rounded-2xl p-10 relative shadow-2xl flex flex-col">
                 {/* Header with Badge */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <Globe className="w-10 h-10 text-brand-orange" />
-                    <h3 className="text-2xl font-bold font-montserrat">Professional Package</h3>
+                    <Globe className="w-10 h-10 text-brand-accent" />
+                    <h3 className="text-2xl font-bold font-montserrat text-brand-primary">Professional Package</h3>
                   </div>
-                  <span className="inline-flex items-center rounded-full border border-brand-orange bg-brand-orange/10 px-3 py-1 text-xs font-medium text-brand-orange whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full border border-brand-accent bg-brand-accent/10 px-3 py-1 text-xs font-medium text-brand-accent whitespace-nowrap">
                     Most popular
                   </span>
                 </div>
 
                 <div className="mb-6">
-                  <p className="text-4xl font-bold">$2,500</p>
-                  <p className="text-lg text-white/80">+ $250/month</p>
-                  <p className="text-xs text-white/70 mt-1">(inc. GST)</p>
-                  <p className="text-sm text-brand-orange font-semibold mt-2">🚀 5-7 day delivery</p>
+                  <p className="text-4xl font-bold text-brand-primary">$2,500</p>
+                  <p className="text-lg text-text-secondary">+ $250/month</p>
+                  <p className="text-xs text-text-secondary mt-1">(inc. GST)</p>
+                  <p className="text-sm text-brand-accent font-semibold mt-2">🚀 5-7 day delivery</p>
                 </div>
 
-                <p className="text-white/90 mb-6">
+                <p className="text-text-primary mb-6">
                   For service businesses ready to look professional with a complete web presence.
                 </p>
 
                 <div className="space-y-3 mb-8 flex-grow">
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
-                    <span className="font-semibold">Everything in SMS Responder, PLUS:</span>
+                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                    <span className="font-semibold text-brand-primary">Everything in SMS Responder, PLUS:</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
-                    <span>Professional one-page website</span>
+                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary">Professional one-page website</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
-                    <span>Web chat widget (same AI brain)</span>
+                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary">Web chat widget (same AI brain)</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
-                    <span>Custom domain setup (yourname.com.au)</span>
+                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary">Custom domain setup (yourname.com.au)</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
-                    <span>Your branding and colors</span>
+                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary">Your branding and colors</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
-                    <span>Embedded booking system</span>
+                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary">Embedded booking system</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0" />
-                    <span>Mobile-optimized design</span>
+                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary">Mobile-optimized design</span>
                   </div>
                 </div>
 
                 <div className="mt-auto">
                   <Link
                     href="/chat/homepage-visitor"
-                    className="bg-brand-orange text-white hover:bg-orange-600 w-full py-3 rounded-full font-semibold text-center block transition-all"
+                    className="bg-brand-accent text-white hover:bg-brand-accent-hover w-full py-3 rounded-full font-semibold text-center block transition-all"
                   >
                     Get Started
                   </Link>
 
-                  <p className="text-sm text-white/80 mt-4 italic">
+                  <p className="text-sm text-text-secondary mt-4 italic">
                     Best for: Hairdressers, beauty services, pet groomers, mobile businesses ready to grow
                   </p>
                 </div>
@@ -538,60 +538,60 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section style={{ backgroundColor: '#1E3A5F' }} className="py-20 px-6 text-white snap-start">
+        <section className="py-20 px-6 bg-brand-background snap-start">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat">
+            <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat text-brand-primary">
               Ready to Stop Missing Leads?
             </h2>
-            <p className="text-xl md:text-2xl mb-8 font-light">
+            <p className="text-xl md:text-2xl mb-8 font-light text-text-primary">
               Get your AI receptionist set up this week. Start booking more jobs while you focus on the work.
             </p>
             <Link
               href="/chat/homepage-visitor"
-              className="bg-brand-orange text-white hover:bg-orange-600 px-12 py-4 rounded-full font-bold text-xl shadow-xl inline-block transition-all transform hover:scale-105"
+              className="bg-brand-accent text-white hover:bg-brand-accent-hover px-12 py-4 rounded-full font-bold text-xl shadow-xl inline-block transition-all transform hover:scale-105"
             >
               Get Started Now →
             </Link>
-            <p className="text-white/80 mt-6 text-sm">
+            <p className="text-text-secondary mt-6 text-sm">
               No lock-in contracts. Cancel anytime. Full support included.
             </p>
           </div>
         </section>
 
         {/* Footer */}
-        <footer style={{ backgroundColor: '#1E3A5F' }} className="py-10 px-6 text-white">
+        <footer className="py-10 px-6 bg-brand-background">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat">Solutions</h4>
-                <ul className="space-y-2 text-white/80">
-                  <li><a href="#packages" className="hover:text-brand-orange transition-colors">SMS Responder</a></li>
-                  <li><a href="#packages" className="hover:text-brand-orange transition-colors">Professional Package</a></li>
+                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Solutions</h4>
+                <ul className="space-y-2 text-text-secondary">
+                  <li><a href="#packages" className="hover:text-brand-accent transition-colors">SMS Responder</a></li>
+                  <li><a href="#packages" className="hover:text-brand-accent transition-colors">Professional Package</a></li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat">Company</h4>
-                <ul className="space-y-2 text-white/80">
-                  <li><Link href="/about" className="hover:text-brand-orange transition-colors">About</Link></li>
-                  <li><Link href="/faq" className="hover:text-brand-orange transition-colors">FAQ</Link></li>
-                  <li><Link href="/terms" className="hover:text-brand-orange transition-colors">Terms</Link></li>
-                  <li><Link href="/privacy" className="hover:text-brand-orange transition-colors">Privacy</Link></li>
+                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Company</h4>
+                <ul className="space-y-2 text-text-secondary">
+                  <li><Link href="/about" className="hover:text-brand-accent transition-colors">About</Link></li>
+                  <li><Link href="/faq" className="hover:text-brand-accent transition-colors">FAQ</Link></li>
+                  <li><Link href="/terms" className="hover:text-brand-accent transition-colors">Terms</Link></li>
+                  <li><Link href="/privacy" className="hover:text-brand-accent transition-colors">Privacy</Link></li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat">Industries</h4>
-                <ul className="space-y-2 text-white/80">
-                  <li><a href="#" className="hover:text-brand-orange transition-colors">Trades & Contractors</a></li>
-                  <li><a href="#" className="hover:text-brand-orange transition-colors">Beauty & Salons</a></li>
-                  <li><a href="#" className="hover:text-brand-orange transition-colors">Mobile Services</a></li>
+                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Industries</h4>
+                <ul className="space-y-2 text-text-secondary">
+                  <li><a href="#" className="hover:text-brand-accent transition-colors">Trades & Contractors</a></li>
+                  <li><a href="#" className="hover:text-brand-accent transition-colors">Beauty & Salons</a></li>
+                  <li><a href="#" className="hover:text-brand-accent transition-colors">Mobile Services</a></li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat">Connect</h4>
-                <p className="text-white/80 mb-4">Brisbane, Australia</p>
+                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Connect</h4>
+                <p className="text-text-secondary mb-4">Brisbane, Australia</p>
                 <Link
                   href="mailto:info@coresentia.com"
-                  className="text-brand-orange hover:text-orange-400 transition-colors"
+                  className="text-brand-accent hover:text-brand-accent-hover transition-colors"
                 >
                   info@coresentia.com
                 </Link>
@@ -599,27 +599,27 @@ export default function HomePage() {
             </div>
 
             {/* Trust Strip */}
-            <div className="mt-12 pt-8 border-t border-white/20">
-              <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-white/70 mb-8">
+            <div className="mt-12 pt-8 border-t border-gray-300">
+              <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-text-secondary mb-8">
                 <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-brand-sage" />
+                  <Shield className="w-4 h-4 text-brand-accent" />
                   <span>Australian data residency</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <DollarSign className="w-4 h-4 text-brand-sage" />
+                  <DollarSign className="w-4 h-4 text-brand-accent" />
                   <span>No per-conversation fees</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-brand-sage" />
+                  <Clock className="w-4 h-4 text-brand-accent" />
                   <span>24hr response SLA</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-brand-sage" />
+                  <Users className="w-4 h-4 text-brand-accent" />
                   <span>Brisbane-based support</span>
                 </div>
               </div>
 
-              <div className="text-center text-white/80">
+              <div className="text-center text-text-secondary">
                 <p className="font-montserrat">&copy; 2025 CoreSentia. Never miss a lead again.</p>
                 <p className="text-sm mt-2">ABN: 69 267 271 132</p>
               </div>

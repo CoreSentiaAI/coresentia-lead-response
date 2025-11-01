@@ -23,7 +23,6 @@ export default function OnboardingPage() {
     phoneSetup: 'new',
     portNumber: '',
     goLiveDate: '',
-    callTime: '',
     specialRequests: '',
   });
 
@@ -78,7 +77,7 @@ export default function OnboardingPage() {
       <Header />
       <main className="pt-40 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold text-brand-navy mb-4">Client Onboarding Form</h1>
+          <h1 className="text-4xl text-brand-navy mb-4">Client Onboarding Form</h1>
           <p className="text-lg text-text-secondary mb-8">
             Welcome to CoreSentia! This form takes 5-7 minutes. We'll cover the detailed setup on our 15-minute call.
           </p>
@@ -86,7 +85,7 @@ export default function OnboardingPage() {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Section 1: Business Basics */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-brand-navy mb-4">Business Basics</h2>
+              <h2 className="text-xl text-brand-navy mb-4">Business Basics</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Business Name *</label>
@@ -170,7 +169,7 @@ export default function OnboardingPage() {
 
             {/* Section 2: Package Selection */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-brand-navy mb-4">Package Selection</h2>
+              <h2 className="text-xl text-brand-navy mb-4">Package Selection</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">Which package did you purchase? *</label>
@@ -187,7 +186,7 @@ export default function OnboardingPage() {
                     />
                     <div>
                       <div className="font-semibold text-text-primary text-lg">SMS Responder</div>
-                      <div className="text-brand-navy font-medium">$999 setup + $150/month inc. GST</div>
+                      <div className="text-brand-navy font-medium">$499 setup + $150/month inc. GST</div>
                       <div className="text-sm text-gray-600 mt-1">AI SMS responder + lead capture system</div>
                     </div>
                   </label>
@@ -214,7 +213,7 @@ export default function OnboardingPage() {
 
             {/* Section 3: Service Coverage */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-brand-navy mb-4">Service Coverage</h2>
+              <h2 className="text-xl text-brand-navy mb-4">Service Coverage</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -280,7 +279,7 @@ export default function OnboardingPage() {
 
             {/* Section 4: Phone Setup */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-brand-navy mb-4">Phone Setup</h2>
+              <h2 className="text-xl text-brand-navy mb-4">Phone Setup</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Your Current Business Phone *</label>
@@ -341,7 +340,7 @@ export default function OnboardingPage() {
 
             {/* Section 5: Scheduling */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-brand-navy mb-4">Scheduling</h2>
+              <h2 className="text-xl text-brand-navy mb-4">Scheduling</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Preferred Go-Live Date *</label>
@@ -356,25 +355,22 @@ export default function OnboardingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-primary mb-2">Best Time for 15min Setup Call *</label>
-                <select
-                  required
-                  value={formData.callTime}
-                  onChange={(e) => setFormData({ ...formData, callTime: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
+                <label className="block text-sm font-medium text-text-primary mb-2">Want to chat? Book a quick call here</label>
+                <a
+                  href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1XDaFnc1qnZbDeD4UqpMuVZR28pwX8dK2XkbqXFvwcvBMdnxP_OYILDwPGvMHKkzsA1SeAOQ9s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block w-full px-4 py-3 border-2 border-brand-accent text-brand-accent font-semibold rounded-lg hover:bg-brand-accent hover:text-white transition-all text-center"
                 >
-                  <option value="">Select preferred time</option>
-                  <option value="Morning (9am-12pm)">Morning (9am-12pm)</option>
-                  <option value="Afternoon (12pm-5pm)">Afternoon (12pm-5pm)</option>
-                  <option value="Evening (5pm-8pm)">Evening (5pm-8pm)</option>
-                  <option value="Weekend">Weekend</option>
-                </select>
+                  📅 Schedule a Call (Optional)
+                </a>
+                <p className="text-sm text-gray-600 mt-2">No worries if you'd rather wait - we'll reach out to schedule after you submit!</p>
               </div>
             </div>
 
             {/* Section 6: Quick Notes */}
             <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <h2 className="text-xl font-bold text-brand-navy mb-4">Additional Information</h2>
+              <h2 className="text-xl text-brand-navy mb-4">Additional Information</h2>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">Any Questions or Special Requests? (optional)</label>
@@ -388,6 +384,16 @@ export default function OnboardingPage() {
               </div>
             </div>
 
+            {/* Terms Disclaimer */}
+            <div className="text-center text-sm text-text-secondary">
+              <p>
+                By clicking submit you agree to the{' '}
+                <Link href="/terms" className="text-brand-accent hover:text-brand-accent-hover underline">
+                  Terms and Conditions
+                </Link>
+              </p>
+            </div>
+
             <button
               type="submit"
               disabled={submitting}
@@ -398,6 +404,71 @@ export default function OnboardingPage() {
           </form>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer style={{ backgroundColor: '#E5E7EB' }} className="py-10 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Solutions</h4>
+              <ul className="space-y-2 text-text-secondary">
+                <li><a href="/#packages" className="hover:text-brand-accent transition-colors">SMS Responder</a></li>
+                <li><a href="/#packages" className="hover:text-brand-accent transition-colors">Professional Package</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Company</h4>
+              <ul className="space-y-2 text-text-secondary">
+                <li><Link href="/about" className="hover:text-brand-accent transition-colors">About</Link></li>
+                <li><Link href="/faq" className="hover:text-brand-accent transition-colors">FAQ</Link></li>
+                <li><Link href="/terms" className="hover:text-brand-accent transition-colors">Terms</Link></li>
+                <li><Link href="/privacy" className="hover:text-brand-accent transition-colors">Privacy</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Industries</h4>
+              <ul className="space-y-2 text-text-secondary">
+                <li><a href="/#" className="hover:text-brand-accent transition-colors">Trades & Contractors</a></li>
+                <li><a href="/#" className="hover:text-brand-accent transition-colors">Beauty & Salons</a></li>
+                <li><a href="/#" className="hover:text-brand-accent transition-colors">Mobile Services</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Connect</h4>
+              <p className="text-text-secondary mb-4">Brisbane, Australia</p>
+              <Link
+                href="mailto:info@coresentia.com"
+                className="text-brand-accent hover:text-brand-accent-hover transition-colors"
+              >
+                info@coresentia.com
+              </Link>
+            </div>
+          </div>
+
+          {/* Trust Strip */}
+          <div className="mt-12 pt-8 border-t border-gray-300">
+            <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-text-secondary mb-8">
+              <div className="flex items-center gap-2">
+                <span>🛡️ Australian data residency</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>💰 No per-conversation fees</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>⏰ 24hr response SLA</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>👥 Brisbane-based support</span>
+              </div>
+            </div>
+
+            <div className="text-center text-text-secondary">
+              <p className="font-montserrat">&copy; 2025 CoreSentia. Never miss a lead again.</p>
+              <p className="text-sm mt-2">ABN: 69 267 271 132</p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -290,10 +290,10 @@ export default function HomePage() {
                 </div>
 
                 <div className="mb-6">
-                  <p className="text-4xl font-bold text-brand-navy">$999</p>
+                  <p className="text-4xl font-bold text-brand-navy">$499</p>
                   <p className="text-lg text-text-secondary">+ $150/month</p>
                   <p className="text-xs text-text-secondary mt-1">(inc. GST)</p>
-                  <p className="text-sm text-brand-orange font-semibold mt-2">⚡ 2-3 day delivery</p>
+                  <p className="text-sm text-brand-orange font-semibold mt-2">⚡ Delivered within 3 working days</p>
                 </div>
 
                 <p className="text-text-secondary mb-6">

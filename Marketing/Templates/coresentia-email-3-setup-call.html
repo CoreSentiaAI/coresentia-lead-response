@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CoreSentia – Setup Call Scheduled</title>
+    <style>
+      @media screen and (max-width: 600px) {
+        .container { width: 100% !important; }
+        .px { padding-left: 16px !important; padding-right: 16px !important; }
+        .cta-stack { display:block !important; margin-bottom:8px !important; }
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; background-color:#ffffff;">
+    <div style="display:none; font-size:1px; color:#ffffff; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden;">
+      Your onboarding form is received! Let's schedule a quick setup call.
+    </div>
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="background-color:#ffffff;">
+      <tr>
+        <td align="center" style="padding:24px 12px;">
+          <table role="presentation" class="container" cellspacing="0" cellpadding="0" border="0" width="640" style="width:640px; max-width:640px; background:#f3f4f6; border-radius:14px;">
+            <tr>
+              <td class="px" style="padding:16px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#ffffff; border-radius:12px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                  <tr>
+                    <td class="px" style="padding:28px 24px 8px 24px; font-family:Arial, Helvetica, sans-serif; color:#2D3436;">
+                      <p style="margin:0 0 16px 0; font-size:16px;">Hi {{FirstName}},</p>
+                      <p style="margin:0 0 16px 0; font-size:16px; line-height:1.6;">
+                        Thanks for completing your onboarding form! I've reviewed your responses for <em>{{BusinessName}}</em>, and everything looks great.
+                      </p>
+                      <p style="margin:0; font-size:16px; line-height:1.6;">
+                        Let's schedule a brief setup call to clarify any details and answer your questions.
+                      </p>
+                    </td>
+                  </tr>
+
+                  <!-- Call details panel -->
+                  <tr>
+                    <td class="px" style="padding:20px 24px 0 24px;">
+                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #e7e7e7; border-radius:10px;">
+                        <tr>
+                          <td style="padding:18px 20px; font-family:Arial, Helvetica, sans-serif;">
+                            <h2 style="margin:0 0 6px 0; font-size:18px; color:#2A50DF; letter-spacing:.04em;">📞 Setup Call Details</h2>
+                            <p style="margin:0 0 8px 0; font-size:16px; color:#2D3436;">
+                              <strong>Date & Time:</strong> {{CallDateTime}}<br>
+                              <strong>Duration:</strong> 15-30 minutes<br>
+                              <strong>Method:</strong> {{CallMethod}}
+                            </p>
+                            <p style="margin:0; font-size:14px; color:#7c7c7c;">
+                              Add to calendar: <a href="{{CalendarLink}}" style="color:#1099E7; text-decoration:none;">Google Calendar</a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- What we'll cover -->
+                  <tr>
+                    <td class="px" style="padding:20px 24px 0 24px;">
+                      <h3 style="margin:0 0 8px 0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#2A50DF; letter-spacing:.04em;">What We'll Cover</h3>
+                      <ul style="margin:0; padding-left:20px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; color:#2D3436;">
+                        <li>Review your business requirements</li>
+                        <li>Confirm AI tone and messaging preferences</li>
+                        <li>Clarify availability and booking process</li>
+                        <li>Answer any questions you have</li>
+                        <li>Confirm timeline and next steps</li>
+                      </ul>
+                    </td>
+                  </tr>
+
+                  <!-- Timeline reminder -->
+                  <tr>
+                    <td class="px" style="padding:12px 24px 0 24px;">
+                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#EBF5FE; border:1px solid #9DD4F8; border-radius:10px;">
+                        <tr>
+                          <td style="padding:14px 18px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#2A50DF;">
+                            <strong style="display:inline-block; margin-bottom:4px;">Timeline Update</strong>
+                            <div style="color:#2D3436; font-size:14px; line-height:1.5;">
+                              After our call, we'll start building your system immediately. Expected delivery: <strong>{{BuildTime}}</strong>. You'll receive regular progress updates via email.
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- CTA buttons -->
+                  <tr>
+                    <td class="px" style="padding:24px 24px 24px 24px;">
+                      <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left">
+                        <tr>
+                          <td class="cta-stack" align="left" style="border-radius:999px; background:#1099E7;">
+                            <a href="{{CalendarLink}}" style="display:inline-block; padding:12px 24px; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#ffffff; text-decoration:none; border-radius:999px;">Add to calendar</a>
+                          </td>
+                        </tr>
+                      </table>
+                      <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left" style="margin-left:12px;">
+                        <tr>
+                          <td class="cta-stack" align="left" style="border-radius:999px; background:#2A50DF;">
+                            <a href="{{RescheduleLink}}" style="display:inline-block; padding:12px 24px; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#ffffff; text-decoration:none; border-radius:999px;">Need to reschedule?</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Footer note -->
+                  <tr>
+                    <td class="px" style="padding:0 24px 20px 24px;">
+                      <p style="margin:0; background:#fafafa; border:1px solid #ECECEC; border-radius:10px; padding:10px 14px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#7c7c7c;">
+                        Looking forward to speaking with you! If you need to reschedule, just reply to this email or text +61489087491.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

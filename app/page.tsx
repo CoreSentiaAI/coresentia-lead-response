@@ -79,7 +79,7 @@ export default function HomePage() {
                   </div>
 
                   <div className="flex items-start gap-3 flex-row-reverse">
-                    <div className="w-8 h-8 rounded-full bg-brand-accent flex-shrink-0" />
+                    <div className="w-8 h-8 rounded-full bg-brand-accent flex-shrink-0 flex items-center justify-center text-white text-[10px] font-bold">AI</div>
                     <div className="flex-1 text-right">
                       <div className="bg-brand-primary text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
                         I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works?
@@ -105,65 +105,71 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* The Problem Section */}
-        <section className="min-h-screen w-full flex items-center py-16 px-6 bg-white snap-start">
+        {/* Problem + Solution Combined Section */}
+        <section style={{ backgroundColor: '#E5E7EB' }} className="py-16 px-6 snap-start">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
-              Sound familiar?
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
-                <Phone className="w-12 h-12 text-brand-orange mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-brand-navy">Missing Calls</h3>
-                <p className="text-text-secondary">
+            {/* Problem */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-3 font-montserrat">
+                Sound familiar?
+              </h2>
+              <p className="text-lg text-text-secondary max-w-2xl mx-auto mb-8">
+                You're losing leads while you're on the tools. Your AI receptionist changes that.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                <Phone className="w-10 h-10 text-brand-orange mx-auto mb-3" />
+                <h3 className="text-lg font-semibold mb-2 text-brand-navy">Missing Calls</h3>
+                <p className="text-sm text-text-secondary">
                   You're on the tools, can't answer your phone. Leads call your competitors instead.
                 </p>
               </div>
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
-                <Clock className="w-12 h-12 text-brand-orange mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-brand-navy">Slow Responses</h3>
-                <p className="text-text-secondary">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                <Clock className="w-10 h-10 text-brand-orange mx-auto mb-3" />
+                <h3 className="text-lg font-semibold mb-2 text-brand-navy">Slow Responses</h3>
+                <p className="text-sm text-text-secondary">
                   By the time you text back at 8pm, they've already booked someone else.
                 </p>
               </div>
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
-                <Globe className="w-12 h-12 text-brand-orange mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-brand-navy">No Web Presence</h3>
-                <p className="text-text-secondary">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                <Globe className="w-10 h-10 text-brand-orange mx-auto mb-3" />
+                <h3 className="text-lg font-semibold mb-2 text-brand-navy">No Web Presence</h3>
+                <p className="text-sm text-text-secondary">
                   Facebook posts and DMs don't cut it. You need something more professional.
                 </p>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Solution Section */}
-        <section style={{ backgroundColor: '#E5E7EB' }} className="min-h-screen w-full flex items-center py-16 px-6 snap-start">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat text-brand-primary">
-              Meet Your AI Receptionist
-            </h2>
-            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-text-primary">
-              An intelligent assistant that responds to leads via SMS and web chat 24/7, qualifies them, and books jobs into your calendar — while you focus on the work.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
-                <MessageSquare className="w-10 h-10 text-brand-accent mb-3" />
+            {/* Solution */}
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 font-montserrat text-brand-primary">
+                Meet Your AI Receptionist
+              </h2>
+              <p className="text-lg md:text-xl max-w-3xl mx-auto text-text-primary">
+                An intelligent assistant that responds to leads via SMS and web chat 24/7, qualifies them, and books jobs into your calendar.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                <MessageSquare className="w-10 h-10 text-brand-accent mx-auto mb-3" />
                 <h3 className="font-semibold mb-2 text-brand-primary">Instant Response</h3>
                 <p className="text-sm text-text-secondary">Replies in seconds, not hours</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
-                <Calendar className="w-10 h-10 text-brand-accent mb-3" />
+              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                <Calendar className="w-10 h-10 text-brand-accent mx-auto mb-3" />
                 <h3 className="font-semibold mb-2 text-brand-primary">Auto Booking</h3>
                 <p className="text-sm text-text-secondary">Jobs booked automatically</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
-                <Shield className="w-10 h-10 text-brand-accent mb-3" />
+              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                <Shield className="w-10 h-10 text-brand-accent mx-auto mb-3" />
                 <h3 className="font-semibold mb-2 text-brand-primary">Lead Qualification</h3>
                 <p className="text-sm text-text-secondary">Filters serious inquiries</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
-                <Zap className="w-10 h-10 text-brand-accent mb-3" />
+              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                <Zap className="w-10 h-10 text-brand-accent mx-auto mb-3" />
                 <h3 className="font-semibold mb-2 text-brand-primary">24/7 Available</h3>
                 <p className="text-sm text-text-secondary">Never miss a weekend lead</p>
               </div>

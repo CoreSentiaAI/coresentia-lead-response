@@ -183,7 +183,7 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               Simple. Automatic. Effective.
             </h2>
-            <p className="text-lg md:text-xl text-text-secondary text-center mb-10 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-text-primary text-center mb-10 max-w-2xl mx-auto">
               Here's how it works in the real world
             </p>
 
@@ -252,7 +252,7 @@ export default function HomePage() {
                 <p className="text-brand-navy font-semibold text-base md:text-lg">
                   That's it. You just booked a job without lifting a finger.
                 </p>
-                <p className="text-text-secondary mt-2 text-sm md:text-base">
+                <p className="text-text-primary mt-2 text-sm md:text-base">
                   No phone tag. No missed calls. No back-and-forth. Just bookings.
                 </p>
               </div>
@@ -282,7 +282,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-5 font-montserrat">
                 Choose Your Package
               </h2>
-              <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+              <p className="text-xl text-text-primary max-w-2xl mx-auto">
                 Simple pricing. Fast delivery. Start capturing leads you're currently missing.
               </p>
             </div>
@@ -297,8 +297,8 @@ export default function HomePage() {
 
                 <div className="mb-6">
                   <p className="text-4xl font-bold text-brand-navy">$499</p>
-                  <p className="text-lg text-text-secondary">+ $150/month</p>
-                  <p className="text-xs text-text-secondary mt-1">(inc. GST)</p>
+                  <p className="text-lg text-text-primary">+ $150/month</p>
+                  <p className="text-xs text-text-primary mt-1">(inc. GST)</p>
                   <p className="text-sm text-brand-orange font-semibold mt-2">⚡ Delivered within 3 working days</p>
                 </div>
 
@@ -362,8 +362,8 @@ export default function HomePage() {
 
                 <div className="mb-6">
                   <p className="text-4xl font-bold text-brand-primary">$2,500</p>
-                  <p className="text-lg text-text-secondary">+ $250/month</p>
-                  <p className="text-xs text-text-secondary mt-1">(inc. GST)</p>
+                  <p className="text-lg text-text-primary">+ $250/month</p>
+                  <p className="text-xs text-text-primary mt-1">(inc. GST)</p>
                   <p className="text-sm text-brand-accent font-semibold mt-2">🚀 5-7 day delivery</p>
                 </div>
 
@@ -419,7 +419,7 @@ export default function HomePage() {
 
             {/* Add-ons note */}
             <div className="mt-12 text-center">
-              <p className="text-text-secondary">
+              <p className="text-text-primary">
                 Optional add-ons: Payment processing, multiple staff calendars, SMS marketing — discuss during setup
               </p>
             </div>
@@ -432,7 +432,7 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               How It Works
             </h2>
-            <p className="text-center text-lg text-text-secondary mb-12 max-w-3xl mx-auto">
+            <p className="text-center text-lg text-text-primary mb-12 max-w-3xl mx-auto">
               We're your "front gate" — capturing leads and booking appointments automatically. You take over from there and manage jobs your way.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -441,7 +441,7 @@ export default function HomePage() {
                   1
                 </div>
                 <h3 className="font-semibold text-lg mb-2 text-brand-navy">Customer Texts/Chats</h3>
-                <p className="text-text-secondary text-sm">
+                <p className="text-text-primary text-sm">
                   Your customer reaches out via SMS or website chat
                 </p>
               </div>
@@ -450,7 +450,7 @@ export default function HomePage() {
                   2
                 </div>
                 <h3 className="font-semibold text-lg mb-2 text-brand-navy">AI Qualifies Lead</h3>
-                <p className="text-text-secondary text-sm">
+                <p className="text-text-primary text-sm">
                   Our AI asks questions, understands needs, and checks availability
                 </p>
               </div>
@@ -459,7 +459,7 @@ export default function HomePage() {
                   3
                 </div>
                 <h3 className="font-semibold text-lg mb-2 text-brand-navy">Booking Confirmed</h3>
-                <p className="text-text-secondary text-sm">
+                <p className="text-text-primary text-sm">
                   Appointment booked into your dashboard, SMS sent to both parties
                 </p>
               </div>
@@ -468,7 +468,7 @@ export default function HomePage() {
                   4
                 </div>
                 <h3 className="font-semibold text-lg mb-2 text-brand-navy">You Take Over</h3>
-                <p className="text-text-secondary text-sm">
+                <p className="text-text-primary text-sm">
                   Show up, do the work, quote, and get paid — your way
                 </p>
               </div>
@@ -486,21 +486,21 @@ export default function HomePage() {
               <div className="bg-white border border-gray-200 rounded-xl p-8">
                 <Users className="w-12 h-12 text-brand-orange mb-4" />
                 <h3 className="text-xl font-semibold mb-3 text-brand-navy">100% Australian</h3>
-                <p className="text-text-secondary">
+                <p className="text-text-primary">
                   Brisbane-based team. We understand local businesses and what actually works here.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl p-8">
                 <DollarSign className="w-12 h-12 text-brand-orange mb-4" />
                 <h3 className="text-xl font-semibold mb-3 text-brand-navy">No Hidden Fees</h3>
-                <p className="text-text-secondary">
+                <p className="text-text-primary">
                   Simple pricing. No per-conversation charges. No surprise bills. Just predictable monthly hosting.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl p-8">
                 <TrendingUp className="w-12 h-12 text-brand-orange mb-4" />
                 <h3 className="text-xl font-semibold mb-3 text-brand-navy">Fast ROI</h3>
-                <p className="text-text-secondary">
+                <p className="text-text-primary">
                   Most customers break even in 2-3 months. Every lead captured after that is pure profit.
                 </p>
               </div>
@@ -514,25 +514,25 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-10 font-montserrat">
               Built for Australian Service Businesses
             </h2>
-            <p className="text-xl text-text-secondary mb-6">
+            <p className="text-xl text-text-primary mb-6">
               Whether you're a solo tradie or a growing salon, we help you capture every lead and book more jobs — without the overwhelm.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
                 <p className="text-4xl font-bold text-brand-orange">24/7</p>
-                <p className="text-text-secondary mt-2">Always Available</p>
+                <p className="text-text-primary mt-2">Always Available</p>
               </div>
               <div>
                 <p className="text-4xl font-bold text-brand-orange">&lt;60s</p>
-                <p className="text-text-secondary mt-2">Response Time</p>
+                <p className="text-text-primary mt-2">Response Time</p>
               </div>
               <div>
                 <p className="text-4xl font-bold text-brand-orange">100%</p>
-                <p className="text-text-secondary mt-2">Lead Capture Rate</p>
+                <p className="text-text-primary mt-2">Lead Capture Rate</p>
               </div>
               <div>
                 <p className="text-4xl font-bold text-brand-orange">2-7</p>
-                <p className="text-text-secondary mt-2">Days to Launch</p>
+                <p className="text-text-primary mt-2">Days to Launch</p>
               </div>
             </div>
           </div>
@@ -553,7 +553,7 @@ export default function HomePage() {
             >
               Get Started Now →
             </Link>
-            <p className="text-text-secondary mt-6 text-sm">
+            <p className="text-text-primary mt-6 text-sm">
               No lock-in contracts. Cancel anytime. Full support included.
             </p>
           </div>

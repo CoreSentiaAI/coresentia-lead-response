@@ -364,7 +364,6 @@ export default function OnboardingPage() {
                 >
                   📅 Schedule a Call (Optional)
                 </a>
-                <p className="text-sm text-gray-600 mt-2">No worries if you'd rather wait - we'll reach out to schedule after you submit!</p>
               </div>
             </div>
 

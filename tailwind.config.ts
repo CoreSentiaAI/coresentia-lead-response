@@ -13,7 +13,7 @@ module.exports = {
           'royal-blue': '#2A50DF',
           'medium-blue': '#1099E7',
           'light-blue': '#62D4F9',
-          'light-gray': '#F5F7FA',
+          'charcoal': '#2D3436',
 
           // Semantic aliases
           primary: '#2A50DF',
@@ -21,7 +21,7 @@ module.exports = {
           accent: '#1099E7',
           'accent-hover': '#0d7ac4',
           highlight: '#62D4F9',
-          background: '#F5F7FA',
+          background: '#2D3436',
 
           // Legacy names (for backward compatibility)
           navy: '#2A50DF',

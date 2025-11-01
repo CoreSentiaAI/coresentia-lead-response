@@ -140,32 +140,32 @@ export default function HomePage() {
         {/* Solution Section */}
         <section className="min-h-screen w-full flex items-center py-16 px-6 bg-brand-background snap-start">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat text-brand-primary">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-montserrat text-white">
               Meet Your AI Receptionist
             </h2>
-            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-text-primary">
+            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-white/90">
               An intelligent assistant that responds to leads via SMS and web chat 24/7, qualifies them, and books jobs into your calendar — while you focus on the work.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
                 <MessageSquare className="w-10 h-10 text-brand-accent mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">Instant Response</h3>
-                <p className="text-sm text-text-secondary">Replies in seconds, not hours</p>
+                <h3 className="font-semibold mb-2 text-white">Instant Response</h3>
+                <p className="text-sm text-white/80">Replies in seconds, not hours</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
                 <Calendar className="w-10 h-10 text-brand-accent mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">Auto Booking</h3>
-                <p className="text-sm text-text-secondary">Jobs booked automatically</p>
+                <h3 className="font-semibold mb-2 text-white">Auto Booking</h3>
+                <p className="text-sm text-white/80">Jobs booked automatically</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
                 <Shield className="w-10 h-10 text-brand-accent mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">Lead Qualification</h3>
-                <p className="text-sm text-text-secondary">Filters serious inquiries</p>
+                <h3 className="font-semibold mb-2 text-white">Lead Qualification</h3>
+                <p className="text-sm text-white/80">Filters serious inquiries</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
                 <Zap className="w-10 h-10 text-brand-accent mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">24/7 Available</h3>
-                <p className="text-sm text-text-secondary">Never miss a weekend lead</p>
+                <h3 className="font-semibold mb-2 text-white">24/7 Available</h3>
+                <p className="text-sm text-white/80">Never miss a weekend lead</p>
               </div>
             </div>
           </div>
@@ -342,7 +342,7 @@ export default function HomePage() {
               </div>
 
               {/* Tier 2: Professional Package */}
-              <div className="bg-brand-background border-2 border-brand-accent rounded-2xl p-10 relative shadow-2xl flex flex-col">
+              <div className="bg-white border-2 border-brand-accent rounded-2xl p-10 relative shadow-2xl flex flex-col">
                 {/* Header with Badge */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -540,10 +540,10 @@ export default function HomePage() {
         {/* CTA Section */}
         <section className="py-20 px-6 bg-brand-background snap-start">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat text-brand-primary">
+            <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat text-white">
               Ready to Stop Missing Leads?
             </h2>
-            <p className="text-xl md:text-2xl mb-8 font-light text-text-primary">
+            <p className="text-xl md:text-2xl mb-8 font-light text-white/90">
               Get your AI receptionist set up this week. Start booking more jobs while you focus on the work.
             </p>
             <Link
@@ -552,7 +552,7 @@ export default function HomePage() {
             >
               Get Started Now →
             </Link>
-            <p className="text-text-secondary mt-6 text-sm">
+            <p className="text-white/80 mt-6 text-sm">
               No lock-in contracts. Cancel anytime. Full support included.
             </p>
           </div>
@@ -563,15 +563,15 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Solutions</h4>
-                <ul className="space-y-2 text-text-secondary">
+                <h4 className="font-semibold mb-4 font-montserrat text-white">Solutions</h4>
+                <ul className="space-y-2 text-white/80">
                   <li><a href="#packages" className="hover:text-brand-accent transition-colors">SMS Responder</a></li>
                   <li><a href="#packages" className="hover:text-brand-accent transition-colors">Professional Package</a></li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Company</h4>
-                <ul className="space-y-2 text-text-secondary">
+                <h4 className="font-semibold mb-4 font-montserrat text-white">Company</h4>
+                <ul className="space-y-2 text-white/80">
                   <li><Link href="/about" className="hover:text-brand-accent transition-colors">About</Link></li>
                   <li><Link href="/faq" className="hover:text-brand-accent transition-colors">FAQ</Link></li>
                   <li><Link href="/terms" className="hover:text-brand-accent transition-colors">Terms</Link></li>
@@ -579,16 +579,16 @@ export default function HomePage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Industries</h4>
-                <ul className="space-y-2 text-text-secondary">
+                <h4 className="font-semibold mb-4 font-montserrat text-white">Industries</h4>
+                <ul className="space-y-2 text-white/80">
                   <li><a href="#" className="hover:text-brand-accent transition-colors">Trades & Contractors</a></li>
                   <li><a href="#" className="hover:text-brand-accent transition-colors">Beauty & Salons</a></li>
                   <li><a href="#" className="hover:text-brand-accent transition-colors">Mobile Services</a></li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Connect</h4>
-                <p className="text-text-secondary mb-4">Brisbane, Australia</p>
+                <h4 className="font-semibold mb-4 font-montserrat text-white">Connect</h4>
+                <p className="text-white/80 mb-4">Brisbane, Australia</p>
                 <Link
                   href="mailto:info@coresentia.com"
                   className="text-brand-accent hover:text-brand-accent-hover transition-colors"
@@ -599,8 +599,8 @@ export default function HomePage() {
             </div>
 
             {/* Trust Strip */}
-            <div className="mt-12 pt-8 border-t border-gray-300">
-              <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-text-secondary mb-8">
+            <div className="mt-12 pt-8 border-t border-white/20">
+              <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-white/80 mb-8">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-brand-accent" />
                   <span>Australian data residency</span>
@@ -619,7 +619,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="text-center text-text-secondary">
+              <div className="text-center text-white/80">
                 <p className="font-montserrat">&copy; 2025 CoreSentia. Never miss a lead again.</p>
                 <p className="text-sm mt-2">ABN: 69 267 271 132</p>
               </div>

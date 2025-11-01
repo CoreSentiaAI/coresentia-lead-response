@@ -57,13 +57,12 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/CoreSentia_Original_Logo_Symbol_Cropped.png"
+            src="/CoreSentia_Transparent_Logo.png"
             alt="CoreSentia"
-            width={50}
-            height={50}
+            width={400}
+            height={160}
             className="transition-all duration-300"
           />
-          <span className="text-2xl font-montserrat font-bold tracking-wide15 text-black">coresentia</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-2">

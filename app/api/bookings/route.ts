@@ -25,10 +25,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { leadId, customerName, customerEmail, customerPhone, service, dateTime, notes, businessId } = body
 
-    // Validate required fields
-    if (!leadId || !customerName || !customerEmail || !dateTime) {
+    // Validate required fields (leadId is optional for manual bookings)
+    if (!customerName || !customerEmail || !dateTime) {
       return NextResponse.json(
-        { error: 'Missing required fields: leadId, customerName, customerEmail, dateTime' },
+        { error: 'Missing required fields: customerName, customerEmail, dateTime' },
         { status: 400 }
       )
     }
@@ -93,11 +93,11 @@ export async function POST(request: NextRequest) {
     const { data: booking, error } = await supabase
       .from('bookings')
       .insert({
-        lead_id: leadId,
+        lead_id: leadId || null,
         business_id: businessId || null,
         customer_name: customerName,
         customer_email: customerEmail,
-        customer_phone: customerPhone,
+        customer_phone: customerPhone || null,
         service: service || 'General',
         date_time: dateTime,
         notes: notes || '',

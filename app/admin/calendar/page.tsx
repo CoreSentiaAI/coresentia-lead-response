@@ -7,8 +7,8 @@ import Header from '@/app/components/Header'
 import CalendarView from '@/app/components/CalendarView'
 import type { Booking as CalendarBooking, BlockedTime, CalendarEvent } from '@/types/calendar'
 
-// Business ID for admin calendar
-const BUSINESS_ID = 'admin-business'
+// Business ID for admin calendar (null for manual bookings without business association)
+const BUSINESS_ID = null
 
 export default function AdminCalendarPage() {
   const [bookings, setBookings] = useState<any[]>([])
@@ -166,7 +166,7 @@ export default function AdminCalendarPage() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            leadId: `admin-${Date.now()}`, // Generate unique lead ID
+            leadId: null, // No lead association for manual admin bookings
             businessId: BUSINESS_ID,
             customerName: formData.customerName,
             customerEmail: formData.customerEmail,

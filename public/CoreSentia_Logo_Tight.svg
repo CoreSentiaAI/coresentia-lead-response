@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="280" height="280">
+  <!-- CoreSentia Logo - Tightly Cropped -->
+  <!-- Network/Connection Symbol with 12 nodes radiating from center -->
+
+  <g transform="translate(140, 140)">
+    <!-- Center horizontal connector -->
+    <ellipse cx="0" cy="0" rx="22" ry="10" fill="#2563EB"/>
+
+    <!-- Node 1: Top (12 o'clock) -->
+    <g transform="rotate(0)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#0EA5E9"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#0EA5E9"/>
+    </g>
+
+    <!-- Node 2: 30 degrees (1 o'clock) -->
+    <g transform="rotate(30)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#38BDF8"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#7DD3FC"/>
+    </g>
+
+    <!-- Node 3: 60 degrees (2 o'clock) -->
+    <g transform="rotate(60)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#38BDF8"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#7DD3FC"/>
+    </g>
+
+    <!-- Node 4: 90 degrees (3 o'clock) -->
+    <g transform="rotate(90)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#0EA5E9"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#7DD3FC"/>
+    </g>
+
+    <!-- Node 5: 120 degrees (4 o'clock) -->
+    <g transform="rotate(120)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#0EA5E9"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#7DD3FC"/>
+    </g>
+
+    <!-- Node 6: 150 degrees (5 o'clock) -->
+    <g transform="rotate(150)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#2563EB"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#2563EB"/>
+    </g>
+
+    <!-- Node 7: 180 degrees (6 o'clock) -->
+    <g transform="rotate(180)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#1E40AF"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#2563EB"/>
+    </g>
+
+    <!-- Node 8: 210 degrees (7 o'clock) -->
+    <g transform="rotate(210)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#1E40AF"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#2563EB"/>
+    </g>
+
+    <!-- Node 9: 240 degrees (8 o'clock) -->
+    <g transform="rotate(240)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#2563EB"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#2563EB"/>
+    </g>
+
+    <!-- Node 10: 270 degrees (9 o'clock) -->
+    <g transform="rotate(270)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#1E40AF"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#0EA5E9"/>
+    </g>
+
+    <!-- Node 11: 300 degrees (10 o'clock) -->
+    <g transform="rotate(300)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#0EA5E9"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#0EA5E9"/>
+    </g>
+
+    <!-- Node 12: 330 degrees (11 o'clock) -->
+    <g transform="rotate(330)">
+      <ellipse cx="0" cy="-50" rx="10" ry="16" fill="#0EA5E9"/>
+      <ellipse cx="0" cy="-85" rx="14" ry="18" fill="#0EA5E9"/>
+    </g>
+
+    <!-- Center circles -->
+    <circle cx="-25" cy="0" r="11" fill="#2563EB"/>
+    <circle cx="25" cy="0" r="11" fill="#2563EB"/>
+    <circle cx="0" cy="0" r="11" fill="#1E40AF"/>
+  </g>
+</svg>

@@ -127,6 +127,11 @@ export default function AdminCalendarPage() {
       return
     }
 
+    // Convert form datetime to proper ISO string with timezone
+    const [dateStr, timeStr] = formData.dateTime.split('T')
+    const localDateTime = new Date(`${dateStr}T${timeStr}:00`)
+    const isoDateTime = localDateTime.toISOString()
+
     try {
       if (editingBooking) {
         // Update existing booking
@@ -139,7 +144,7 @@ export default function AdminCalendarPage() {
             customerEmail: formData.customerEmail,
             customerPhone: formData.customerPhone,
             service: formData.service || 'General Service',
-            dateTime: formData.dateTime,
+            dateTime: isoDateTime,
             jobDuration: formData.duration,
             notes: formData.notes,
           })
@@ -176,7 +181,7 @@ export default function AdminCalendarPage() {
             customerEmail: formData.customerEmail,
             customerPhone: formData.customerPhone,
             service: formData.service || 'General Service',
-            dateTime: formData.dateTime,
+            dateTime: isoDateTime,
             jobDuration: formData.duration,
             notes: formData.notes,
           })

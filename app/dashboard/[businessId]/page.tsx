@@ -125,6 +125,10 @@ export default function DashboardPage() {
 
       if (!response.ok) throw new Error('Failed to update booking')
 
+      // Show success message
+      const statusText = newStatus === 'confirmed' ? 'confirmed' : newStatus === 'cancelled' ? 'cancelled' : 'updated'
+      alert(`Booking ${statusText} successfully!`)
+
       // Refresh bookings
       await fetchBookings()
     } catch (err) {

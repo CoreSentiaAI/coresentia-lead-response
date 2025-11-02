@@ -33,15 +33,15 @@ export default function AdminCalendarPage() {
 
   const fetchData = async () => {
     try {
-      // Fetch bookings
-      const bookingsRes = await fetch(`/api/bookings?businessId=${BUSINESS_ID}`)
+      // Fetch all bookings (no business filter for admin)
+      const bookingsRes = await fetch(`/api/bookings/all`)
       if (bookingsRes.ok) {
         const bookingsData = await bookingsRes.json()
         setBookings(bookingsData.bookings || [])
       }
 
-      // Fetch blocked times
-      const blockedRes = await fetch(`/api/blocked-times?businessId=${BUSINESS_ID}`)
+      // Fetch all blocked times (no business filter for admin)
+      const blockedRes = await fetch(`/api/blocked-times/all`)
       if (blockedRes.ok) {
         const blockedData = await blockedRes.json()
         setBlockedTimes(blockedData.blockedTimes || [])

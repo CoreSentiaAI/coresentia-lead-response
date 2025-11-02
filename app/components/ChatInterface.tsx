@@ -418,17 +418,17 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
       `}</style>
 
       {/* Header */}
-      <div className="bg-brand-navy shadow-lg py-4 px-6 flex items-center justify-between">
+      <div style={{ backgroundColor: '#E5E7EB' }} className="shadow-lg py-4 px-6 flex items-center justify-between">
         <Image
-          src="/CoreSentia_Transparent_Logo.png"
+          src="/CoreSentia_Full_Logo.png"
           alt="CoreSentia"
-          width={200}
-          height={80}
+          width={300}
+          height={60}
           className="h-12 w-auto"
         />
 
         <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2 text-white">
+          <div className="hidden md:flex items-center gap-2 text-gray-700">
             <MessageSquare className="w-5 h-5 text-brand-orange" />
             <span className="text-sm font-medium">AI Assistant</span>
           </div>

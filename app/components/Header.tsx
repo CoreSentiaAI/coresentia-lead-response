@@ -55,15 +55,14 @@ export default function Header() {
       ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-center md:justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center">
           <Image
-            src="/CoreSentia_Original_Logo_Symbol_Cropped.png"
+            src="/CoreSentia_Full_Logo.png"
             alt="CoreSentia"
-            width={80}
+            width={400}
             height={80}
-            className="transition-all duration-300"
+            className="h-16 w-auto transition-all duration-300"
           />
-          <span className="text-5xl font-montserrat font-thin tracking-wide15 text-text-primary">coresentia</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-2">

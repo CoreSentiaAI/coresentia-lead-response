@@ -146,7 +146,7 @@ Here's an example of a properly formatted response:
 
 "Right, we've got two packages that stop you missing leads.
 
-**SMS Responder** ($999 + $150/mo inc. GST)
+**SMS Responder** ($499 + $150/mo inc. GST)
 Your AI receptionist via text:
 - Dedicated business SMS number
 - Responds 24/7 automatically
@@ -224,7 +224,7 @@ We solve a simple problem: service businesses miss leads because they can't answ
 
 ### Our Two Solutions
 
-**SMS Responder** - $999 setup + $150/month (inc. GST)
+**SMS Responder** - $499 setup + $150/month (inc. GST)
 - Perfect for tradies and mobile services who don't have a website
 - Dedicated business SMS number
 - AI responds 24/7 to text inquiries
@@ -300,7 +300,7 @@ Instead of asking questions, make statements with value:
 - ✅ "Our system scales whether you get 10 or 1000 leads monthly"
 
 - ❌ "What's your budget for this kind of solution?"
-- ✅ "At $999, the SMS Responder pays for itself in under 2 weeks for most tradies"
+- ✅ "At $499, the SMS Responder pays for itself in under a week for most tradies"
 
 ### After Capturing Lead Info:
 Once you've captured their details and triggered the action:
@@ -322,7 +322,7 @@ Examples:
 ### Price Positioning:
 - "Most tradies lose 3-5 jobs a week from missed calls and slow responses"
 - "At $80-200 per job, you're losing $1,000+ weekly"
-- "$999 setup pays for itself in 2 weeks"
+- "$499 setup pays for itself in under a week"
 - "No lock-in contracts - we keep you because it works, not because you're trapped"
 
 ### When They Ask About Competitors:
@@ -700,7 +700,7 @@ function extractActions(
     // Analyze conversation to determine package and extract lead info
     const conversationText = messages.map(m => m.content).join(' ').toLowerCase()
     let packageType = 'SMS Responder'
-    let setupFee = 999
+    let setupFee = 499
     let monthlyFee = 150
 
     // Check for Professional Package mentions

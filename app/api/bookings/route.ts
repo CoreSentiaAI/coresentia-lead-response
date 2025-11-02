@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { leadId, customerName, customerEmail, customerPhone, service, dateTime, notes, businessId } = body
+    const { leadId, customerName, customerEmail, customerPhone, service, dateTime, jobDuration, notes, businessId } = body
 
     // Validate required fields (leadId is optional for manual bookings)
     if (!customerName || !customerEmail || !dateTime) {
@@ -100,6 +100,7 @@ export async function POST(request: NextRequest) {
         customer_phone: customerPhone || null,
         service: service || 'General',
         date_time: dateTime,
+        job_duration: jobDuration || 60,
         notes: notes || '',
         status: 'pending'
       })
@@ -185,7 +186,7 @@ export async function PATCH(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { bookingId, status, customerName, customerEmail, customerPhone, service, dateTime, notes } = body
+    const { bookingId, status, customerName, customerEmail, customerPhone, service, dateTime, jobDuration, notes } = body
 
     if (!bookingId) {
       return NextResponse.json(
@@ -202,6 +203,7 @@ export async function PATCH(request: NextRequest) {
     if (customerPhone !== undefined) updateData.customer_phone = customerPhone
     if (service !== undefined) updateData.service = service
     if (dateTime !== undefined) updateData.date_time = dateTime
+    if (jobDuration !== undefined) updateData.job_duration = jobDuration
     if (notes !== undefined) updateData.notes = notes
 
     const { data, error } = await supabase

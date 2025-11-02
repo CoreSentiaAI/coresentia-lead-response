@@ -22,6 +22,7 @@ export default function AdminCalendarPage() {
     customerPhone: '',
     service: '',
     dateTime: '',
+    duration: 60, // minutes
     notes: ''
   })
 
@@ -91,6 +92,7 @@ export default function AdminCalendarPage() {
         customerPhone: booking.customer_phone || '',
         service: booking.service || '',
         dateTime: booking.date_time ? new Date(booking.date_time).toISOString().slice(0, 16) : '',
+        duration: booking.job_duration || 60,
         notes: booking.notes || ''
       })
       setShowAddBooking(true)
@@ -138,6 +140,7 @@ export default function AdminCalendarPage() {
             customerPhone: formData.customerPhone,
             service: formData.service || 'General Service',
             dateTime: formData.dateTime,
+            jobDuration: formData.duration,
             notes: formData.notes,
           })
         })
@@ -154,6 +157,7 @@ export default function AdminCalendarPage() {
             customerPhone: '',
             service: '',
             dateTime: '',
+            duration: 60,
             notes: ''
           })
           fetchData()
@@ -173,6 +177,7 @@ export default function AdminCalendarPage() {
             customerPhone: formData.customerPhone,
             service: formData.service || 'General Service',
             dateTime: formData.dateTime,
+            jobDuration: formData.duration,
             notes: formData.notes,
           })
         })
@@ -188,6 +193,7 @@ export default function AdminCalendarPage() {
             customerPhone: '',
             service: '',
             dateTime: '',
+            duration: 60,
             notes: ''
           })
           fetchData()
@@ -394,10 +400,36 @@ export default function AdminCalendarPage() {
                     <input
                       type="datetime-local"
                       required
+                      step="900"
                       value={formData.dateTime}
                       onChange={(e) => setFormData({ ...formData, dateTime: e.target.value })}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Duration *
+                    </label>
+                    <select
+                      required
+                      value={formData.duration}
+                      onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                    >
+                      <option value="15">15 minutes</option>
+                      <option value="30">30 minutes</option>
+                      <option value="45">45 minutes</option>
+                      <option value="60">1 hour</option>
+                      <option value="90">1.5 hours</option>
+                      <option value="120">2 hours</option>
+                      <option value="150">2.5 hours</option>
+                      <option value="180">3 hours</option>
+                      <option value="240">4 hours</option>
+                      <option value="300">5 hours</option>
+                      <option value="360">6 hours</option>
+                      <option value="480">8 hours</option>
+                    </select>
                   </div>
 
                   <div>
@@ -435,6 +467,7 @@ export default function AdminCalendarPage() {
                           customerPhone: '',
                           service: '',
                           dateTime: '',
+                          duration: 60,
                           notes: ''
                         })
                       }}

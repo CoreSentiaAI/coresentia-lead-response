@@ -52,7 +52,7 @@ When a lead becomes a client:
 - Typical job values
 
 ### Package Selection
-- SMS Responder ($999) or Professional ($2,500)
+- SMS Responder ($499) or Professional ($2,500)
 - If Professional: website details (domain, colors, logo, tagline, etc.)
 
 ### AI Personality

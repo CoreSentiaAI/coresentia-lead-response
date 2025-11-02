@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { sendSMS, formatPhoneNumber } from '@/lib/twilio'
+import { getBotType } from '@/lib/bot-prompts'
 
 /**
  * Twilio SMS Webhook
- * Receives incoming SMS messages, processes with AI, and responds
+ * Receives incoming SMS messages, routes to appropriate bot, and responds
+ *
+ * ROUTING LOGIC:
+ * - +61489087491 → CoreSentia Sales Pipeline Bot (acquire clients)
+ * - All other numbers → Client Booking Bot (book appointments for client's customers)
  */
 export async function POST(request: NextRequest) {
   try {
@@ -12,14 +17,14 @@ export async function POST(request: NextRequest) {
 
     // Parse form data from Twilio
     const formData = await request.formData()
-    const from = formData.get('From') as string
-    const to = formData.get('To') as string
+    const from = formData.get('From') as string // Customer's phone
+    const to = formData.get('To') as string // Business phone number that received SMS
     const body = formData.get('Body') as string
     const messageSid = formData.get('MessageSid') as string
 
     console.log('SMS details:', { from, to, body, messageSid })
 
-    if (!from || !body) {
+    if (!from || !to || !body) {
       console.error('Missing required fields')
       return new NextResponse(
         '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
@@ -51,19 +56,72 @@ export async function POST(request: NextRequest) {
 
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    // Format phone number consistently
-    const normalizedPhone = formatPhoneNumber(from)
-    console.log('Normalized phone:', normalizedPhone)
+    // Format phone numbers consistently
+    const normalizedCustomerPhone = formatPhoneNumber(from)
+    const normalizedBusinessPhone = formatPhoneNumber(to)
+    console.log('Normalized phones - Customer:', normalizedCustomerPhone, 'Business:', normalizedBusinessPhone)
 
-    // Look up or create lead
+    // =====================================================
+    // STEP 1: Determine bot type and get business context
+    // =====================================================
+    const botType = getBotType(normalizedBusinessPhone)
+    console.log('Bot type:', botType)
+
+    let businessContext: any = null
+    let businessId: string | null = null
+
+    if (botType === 'client') {
+      // Look up business from phone number
+      const { data: businessPhone, error: lookupError } = await supabase
+        .from('business_phones')
+        .select('*')
+        .eq('phone_number', normalizedBusinessPhone)
+        .eq('is_active', true)
+        .single()
+
+      if (lookupError || !businessPhone) {
+        console.error('Business phone not found or inactive:', normalizedBusinessPhone, lookupError)
+        // Send error SMS
+        await sendSMS({
+          to: from,
+          body: "Sorry, this number is not configured. Please contact CoreSentia support."
+        })
+        return new NextResponse(
+          '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
+          { status: 200, headers: { 'Content-Type': 'text/xml' } }
+        )
+      }
+
+      businessContext = {
+        businessName: businessPhone.business_name,
+        industryType: businessPhone.industry_type,
+        services: businessPhone.services || [],
+        botPersonality: businessPhone.bot_personality,
+        customGreeting: businessPhone.custom_greeting
+      }
+      businessId = businessPhone.business_id
+
+      console.log('Business context:', businessContext)
+    }
+
+    // =====================================================
+    // STEP 2: Look up or create lead
+    // =====================================================
+    const normalizedPhone = normalizedCustomerPhone
     let lead: any = null
 
     // Try to find existing lead by phone
-    const { data: existingLead } = await supabase
+    // For client bookings, also filter by business_id
+    let leadQuery = supabase
       .from('leads')
       .select('*')
       .eq('phone', normalizedPhone)
-      .single()
+
+    if (botType === 'client' && businessId) {
+      leadQuery = leadQuery.eq('business_id', businessId)
+    }
+
+    const { data: existingLead } = await leadQuery.single()
 
     if (existingLead) {
       console.log('Found existing lead:', existingLead.id)
@@ -71,15 +129,22 @@ export async function POST(request: NextRequest) {
     } else {
       // Create new lead
       console.log('Creating new lead for SMS contact')
+      const leadData: any = {
+        phone: normalizedPhone,
+        name: `SMS Contact ${normalizedPhone.slice(-4)}`,
+        initial_message: body,
+        status: 'new',
+        source: 'sms'
+      }
+
+      // For client bookings, associate with business
+      if (botType === 'client' && businessId) {
+        leadData.business_id = businessId
+      }
+
       const { data: newLead, error: createError } = await supabase
         .from('leads')
-        .insert({
-          phone: normalizedPhone,
-          name: `SMS Contact ${normalizedPhone.slice(-4)}`,
-          initial_message: body,
-          status: 'new',
-          source: 'sms'
-        })
+        .insert(leadData)
         .select('*')
         .single()
 
@@ -123,6 +188,7 @@ export async function POST(request: NextRequest) {
     console.log('Calling chat API with', messages.length, 'messages')
 
     // Call chat API to get AI response
+    // Pass bot type and business context for routing
     const chatResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/chat`, {
       method: 'POST',
       headers: {
@@ -131,7 +197,10 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         messages,
         leadId: lead.id,
-        leadInfo: lead
+        leadInfo: lead,
+        botType: botType, // 'sales' or 'client'
+        businessContext: businessContext, // For client bot only
+        businessId: businessId // For client bot only
       })
     })
 

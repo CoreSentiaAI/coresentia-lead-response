@@ -15,27 +15,32 @@
 
 ## 🏗️ Repository Overview
 
-**⚠️ IMPORTANT:** This repository contains TWO distinct systems:
+**⚠️ CRITICAL:** This repository contains TWO DISTINCT BOT SYSTEMS:
 
-### 1️⃣ CoreSentia Marketing System (PHASE 1 - Current)
-**Purpose:** Our own lead generation and sales system
-**Users:** Potential clients interested in buying CoreSentia services
-**Features:**
-- Website at coresentia.com.au
-- Web chat widget selling our products
-- SMS number (+61489087491) selling our products
-- **Offers:** Calendar bookings + Quote generation
-- Lead notification system for CoreSentia team
+### 1️⃣ CoreSentia Sales Pipeline Bot
+**Phone Number:** +61489087491 (YOUR business number)
+**Purpose:** Acquire clients who want to BUY CoreSentia
+**Users:** Businesses interested in purchasing CoreSentia services
+**What it does:**
+- Qualifies leads for YOUR business
+- Captures contact info (email, phone, business details)
+- Triggers quote generation for YOUR sales team
+- Books meetings with YOU
+- Talks about $499 SMS Responder + $2,500 Professional Package
 
-### 2️⃣ Client SMS Product Template (PHASE 2 - Next)
-**Purpose:** The actual product we sell and deploy to customers
-**Users:** Our clients' customers (e.g., tradies' customers)
-**Features:**
-- Template SMS system for client businesses
-- Template website (Professional Package)
-- Per-client AI customization
-- **Offers:** Appointment bookings only (no quotes)
-- Multi-tenant architecture
+### 2️⃣ Client Booking Bot (Multi-tenant)
+**Phone Numbers:** All OTHER numbers (client business numbers)
+**Purpose:** Book appointments for YOUR CLIENTS' customers
+**Users:** Your clients' customers (homeowners, salon clients, etc.)
+**What it does:**
+- Qualifies customers for YOUR CLIENT'S business
+- Collects booking details (name, service, address, time)
+- Checks YOUR CLIENT'S calendar availability
+- Creates PENDING bookings (awaits client approval)
+- Sends SMS to YOUR CLIENT for confirmation
+- Handles human handoffs to THE CLIENT
+
+**Key Difference:** Sales bot sells CoreSentia. Client bot books appointments for businesses using CoreSentia.
 
 ---
 
@@ -51,7 +56,7 @@ CoreSentia gives service businesses:
 
 ## 📦 Product Offerings
 
-### SMS Responder - $999 + $150/month (inc. GST)
+### SMS Responder - $499 + $150/month (inc. GST)
 Perfect for tradies and mobile services without a website.
 
 **What you get:**
@@ -168,7 +173,7 @@ CoreSentia
 
 ---
 
-**📋 See full details in:** `/docs/PIPELINE_WORKFLOW.md`
+**📋 See full details in:** `/docs/CORESENTIA_SALES_PIPELINE.md` and `/docs/CLIENT_BOOKING_WORKFLOW.md`
 
 ---
 
@@ -333,9 +338,13 @@ coresentia-lead-response/
 ## 📝 API Routes
 
 ### POST /api/chat
-AI chat conversation endpoint (used by both web chat and SMS).
+**AI chat conversation endpoint with intelligent bot routing.**
 
-**Request:**
+**IMPORTANT:** This endpoint serves BOTH bot systems:
+- **Sales Pipeline Bot** (default): When `botType='sales'` or omitted
+- **Client Booking Bot**: When `botType='client'` with businessContext
+
+**Request (Sales Bot):**
 ```json
 {
   "messages": [
@@ -346,17 +355,43 @@ AI chat conversation endpoint (used by both web chat and SMS).
 }
 ```
 
+**Request (Client Booking Bot):**
+```json
+{
+  "messages": [
+    {"role": "user", "content": "I need my lawn mowed"}
+  ],
+  "leadId": "uuid",
+  "leadInfo": {"phone": "+61400000000"},
+  "botType": "client",
+  "businessId": "business-uuid",
+  "businessContext": {
+    "businessName": "Green Lawn Services",
+    "industryType": "Landscaping",
+    "services": ["Lawn Mowing", "Hedge Trimming"],
+    "botPersonality": "friendly"
+  }
+}
+```
+
 **Response:**
 ```json
 {
   "message": "AI response text",
   "leadId": "uuid",
-  "actions": [{"type": "book_meeting"}]
+  "actions": [
+    {"type": "create_booking", "data": {...}},
+    {"type": "check_availability", "data": {...}}
+  ]
 }
 ```
 
 ### POST /api/sms/webhook
-Twilio SMS webhook endpoint for incoming text messages.
+**Twilio SMS webhook with intelligent routing to correct bot.**
+
+**Critical Routing Logic:**
+- SMS to +61489087491 → **Sales Pipeline Bot** (YOUR business)
+- SMS to any other number → **Client Booking Bot** (lookup business from database)
 
 **Twilio Configuration:**
 - URL: `https://www.coresentia.com.au/api/sms/webhook`
@@ -365,10 +400,12 @@ Twilio SMS webhook endpoint for incoming text messages.
 - Returns: TwiML response
 
 **Flow:**
-1. Receives SMS from Twilio
-2. Creates/finds lead by phone number
-3. Calls /api/chat with conversation history
-4. Sends AI response via Twilio SMS API
+1. Receives SMS from Twilio with `From` (customer) and `To` (business number)
+2. Looks up business from `To` number in `business_phones` table
+3. Determines bot type: sales (+61489087491) or client (any other number)
+4. Creates/finds lead by phone number (scoped to business if client bot)
+5. Calls /api/chat with appropriate `botType` and `businessContext`
+6. Sends AI response via Twilio SMS API
 
 ### POST /api/bookings
 Create a new booking.

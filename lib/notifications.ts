@@ -126,6 +126,10 @@ export async function handleActionNotifications(actions: Array<{ type: string; s
       }
 
       switch (action.type) {
+        // =====================================================
+        // SALES PIPELINE ACTIONS (for CoreSentia)
+        // =====================================================
+
         case 'human_handoff':
           await notifyAdmin({
             type: 'human_handoff',
@@ -172,9 +176,112 @@ export async function handleActionNotifications(actions: Array<{ type: string; s
             leadSource: action.data.leadData?.source
           })
           break
+
+        // =====================================================
+        // CLIENT BOOKING ACTIONS (for client businesses)
+        // =====================================================
+
+        case 'create_booking':
+          await handleBookingCreation(action.data)
+          break
+
+        case 'client_human_handoff':
+          await handleClientHumanHandoff(action.data)
+          break
       }
     } catch (error) {
       console.error(`Error handling ${action.type} notification:`, error)
     }
+  }
+}
+
+/**
+ * Create a pending booking and notify the business owner
+ */
+async function handleBookingCreation(data: any): Promise<void> {
+  try {
+    console.log('Creating pending booking:', data)
+
+    // Create booking via API
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/bookings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        businessId: data.businessId,
+        leadId: data.leadId,
+        customerName: data.customerName,
+        customerEmail: data.customerEmail,
+        customerPhone: data.customerPhone,
+        service: data.service,
+        dateTime: data.dateTime,
+        jobDuration: data.jobDuration,
+        notes: data.notes
+      })
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to create booking: ${response.status}`)
+    }
+
+    const booking = await response.json()
+    console.log('Booking created:', booking)
+
+    // Get business phone to send SMS
+    // TODO: Look up business owner's phone from business_id
+    // For now, sending to admin phone
+    const businessOwnerPhone = ADMIN_PHONE // Replace with actual business owner lookup
+
+    // Format booking date/time nicely
+    const bookingDate = new Date(data.dateTime)
+    const dateStr = bookingDate.toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' })
+    const timeStr = bookingDate.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' })
+
+    // Send SMS to business owner
+    await sendSMS({
+      to: businessOwnerPhone,
+      body: `📅 NEW BOOKING REQUEST
+
+Customer: ${data.customerName}
+Phone: ${data.customerPhone}
+Service: ${data.service}
+Date: ${dateStr} @ ${timeStr}
+${data.fullAddress ? `Address: ${data.fullAddress}` : ''}
+
+Tap to confirm or decline:
+${process.env.NEXT_PUBLIC_SITE_URL}/dashboard/${data.businessId}`
+    })
+
+    console.log('Booking notification sent to business owner')
+  } catch (error) {
+    console.error('Error handling booking creation:', error)
+  }
+}
+
+/**
+ * Notify business owner that customer wants human contact
+ */
+async function handleClientHumanHandoff(data: any): Promise<void> {
+  try {
+    console.log('Client human handoff:', data)
+
+    // Get business owner's phone
+    // TODO: Look up business owner's phone from business_id
+    const businessOwnerPhone = ADMIN_PHONE // Replace with actual business owner lookup
+
+    // Send SMS to business owner
+    await sendSMS({
+      to: businessOwnerPhone,
+      body: `🚨 CUSTOMER WANTS TO CHAT
+
+${data.customerName} wants to discuss a project
+Phone: ${data.customerPhone}
+${data.reason ? `Reason: ${data.reason}` : ''}
+
+Please call them ASAP.`
+    })
+
+    console.log('Human handoff notification sent to business owner')
+  } catch (error) {
+    console.error('Error handling client human handoff:', error)
   }
 }

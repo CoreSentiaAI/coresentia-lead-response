@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { handleActionNotifications } from '@/lib/notifications'
+import { SALES_PIPELINE_PROMPT, getClientBookingPrompt } from '@/lib/bot-prompts'
 
 const ASSISTANT_SYSTEM_PROMPT = `
 You are CoreSentia's AI assistant, helping local service businesses never miss a lead again. Australian business - use UK/Australian English and $AUD. All prices include GST.
@@ -364,9 +365,9 @@ export async function POST(request: NextRequest) {
     const supabase = createClient(supabaseUrl, supabaseKey)
 
     const body = await request.json()
-    const { messages = [], leadId, leadInfo } = body
+    const { messages = [], leadId, leadInfo, botType = 'sales', businessContext, businessId } = body
 
-    console.log('Chat API called with:', { messageCount: messages.length, leadId, hasLeadInfo: !!leadInfo })
+    console.log('Chat API called with:', { messageCount: messages.length, leadId, hasLeadInfo: !!leadInfo, botType, businessId })
 
     // Validate inputs
     if (!Array.isArray(messages)) {
@@ -493,6 +494,25 @@ export async function POST(request: NextRequest) {
     // Get last user message for saving
     const lastUserMessage = messages.filter(m => m.role === 'user').pop()?.content || ''
 
+    // =====================================================
+    // SELECT APPROPRIATE BOT SYSTEM PROMPT
+    // =====================================================
+    let systemPrompt: string
+
+    if (botType === 'client') {
+      // Client Booking Bot - needs business context
+      if (!businessContext) {
+        console.error('Client bot requires businessContext')
+        return NextResponse.json({ error: 'Missing business context' }, { status: 400 })
+      }
+      systemPrompt = getClientBookingPrompt(businessContext)
+      console.log('Using CLIENT BOOKING BOT for:', businessContext.businessName)
+    } else {
+      // Sales Pipeline Bot (default)
+      systemPrompt = SALES_PIPELINE_PROMPT
+      console.log('Using SALES PIPELINE BOT')
+    }
+
     // Call Anthropic API
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -504,7 +524,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
-        system: ASSISTANT_SYSTEM_PROMPT + `\n\nLead Context: ${JSON.stringify(leadInfo || currentLeadData || {})}`,
+        system: systemPrompt + `\n\nLead Context: ${JSON.stringify(leadInfo || currentLeadData || {})}`,
         messages: messages.map((m: any) => ({
           role: m.role === 'user' ? 'user' : 'assistant',
           content: m.content || ''
@@ -635,8 +655,8 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // Extract any actions from the response, passing current lead data
-    const actions = extractActions(ivyResponse, actualLeadId, currentLeadData, messages)
+    // Extract any actions from the response, passing current lead data and bot context
+    const actions = extractActions(ivyResponse, actualLeadId, currentLeadData, messages, botType, businessId)
     console.log('Actions extracted:', JSON.stringify(actions, null, 2))
     console.log('Persistent cards:', persistentCards)
 
@@ -685,14 +705,146 @@ function stripActionTags(message: string): string {
 }
 
 function extractActions(
-  message: string, 
-  leadId: string | null, 
+  message: string,
+  leadId: string | null,
   leadData: any | null,
-  messages: any[]
+  messages: any[],
+  botType: string = 'sales',
+  businessId: string | null = null
 ): Array<{type: string, status: string, data?: any}> {
   console.log('Checking message for actions:', message)
   const actions: Array<{type: string, status: string, data?: any}> = []
-  
+
+  // =====================================================
+  // CLIENT BOOKING BOT ACTIONS
+  // =====================================================
+
+  // Check availability
+  if (message.includes('ACTION: CHECK_AVAILABILITY')) {
+    console.log('Check availability trigger detected!')
+
+    // Extract booking details from conversation
+    const recentMessages = messages.slice(-5).map(m => m.content).join(' ')
+
+    // Extract service
+    const serviceMatch = recentMessages.match(/(?:service|need|looking for|want)[:?\s]+([A-Za-z\s]+)/i)
+    const service = serviceMatch ? serviceMatch[1].trim().split(/[.,!?]/)[0] : 'General Service'
+
+    // Extract address
+    const addressMatch = recentMessages.match(/(?:address|location|at)[:?\s]+([0-9]+[\sA-Za-z0-9,.-]+)/i)
+    const address = addressMatch ? addressMatch[1].trim() : ''
+
+    // Extract preferred date/time
+    const dateMatch = recentMessages.match(/(?:thursday|friday|saturday|sunday|monday|tuesday|wednesday|next week|this week)/i)
+    const preferredDate = dateMatch ? dateMatch[0] : 'this week'
+
+    actions.push({
+      type: 'check_availability',
+      status: 'pending',
+      data: {
+        businessId: businessId,
+        service: service,
+        address: address,
+        preferredDate: preferredDate,
+        leadId: leadId
+      }
+    })
+  }
+
+  // Create booking
+  if (message.includes('ACTION: CREATE_BOOKING')) {
+    console.log('Create booking trigger detected!')
+
+    // Extract all booking details from conversation
+    const conversationText = messages.map(m => m.content).join(' ')
+
+    // Extract customer name
+    const nameMatch = conversationText.match(/(?:name is|I'm|I am|call me)[\s:]+([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)/i) ||
+                      conversationText.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)[,\s]+(?:here|speaking|this is)/i)
+    const customerName = nameMatch ? nameMatch[1].trim() : leadData?.name || 'Customer'
+
+    // Extract phone (from lead data or conversation)
+    const phoneMatch = conversationText.match(/\+?61[\s-]?[0-9]{3}[\s-]?[0-9]{3}[\s-]?[0-9]{3}/) ||
+                      conversationText.match(/0[0-9]{3}[\s-]?[0-9]{3}[\s-]?[0-9]{3}/)
+    const customerPhone = leadData?.phone || (phoneMatch ? phoneMatch[0] : '')
+
+    // Extract email
+    const emailMatch = conversationText.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/)
+    const customerEmail = leadData?.email || (emailMatch ? emailMatch[0] : '')
+
+    // Extract service
+    const serviceMatch = conversationText.match(/(?:service|need|looking for|want)[:?\s]+([A-Za-z\s]+)/i)
+    const service = serviceMatch ? serviceMatch[1].trim().split(/[.,!?]/)[0] : 'General Service'
+
+    // Extract address
+    const addressMatch = conversationText.match(/(?:address|location|at)[:?\s]+([0-9]+[\sA-Za-z0-9,.-]+)/i)
+    const address = addressMatch ? addressMatch[1].trim() : ''
+
+    // Extract date/time - look for specific dates in recent messages
+    const recentMessages = messages.slice(-3).map(m => m.content).join(' ')
+    const dateTimeMatch = recentMessages.match(/(?:thursday|friday|saturday|sunday|monday|tuesday|wednesday)[,\s]+(?:[A-Za-z]+\s+)?(\d{1,2})(?:st|nd|rd|th)?\s+(?:at\s+)?(\d{1,2}):?(\d{2})?\s*(am|pm)/i)
+
+    let bookingDateTime = new Date().toISOString() // Default to now if not found
+    if (dateTimeMatch) {
+      // Parse the matched date/time (simplified - in production would use proper date parsing)
+      const hour = parseInt(dateTimeMatch[2])
+      const minute = dateTimeMatch[3] ? parseInt(dateTimeMatch[3]) : 0
+      const period = dateTimeMatch[4].toLowerCase()
+      const hour24 = period === 'pm' && hour !== 12 ? hour + 12 : (period === 'am' && hour === 12 ? 0 : hour)
+
+      const now = new Date()
+      bookingDateTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour24, minute).toISOString()
+    }
+
+    // Extract duration (default 60 min)
+    const durationMatch = conversationText.match(/(\d+)\s*(?:hour|hr|minute|min)/i)
+    const duration = durationMatch ? parseInt(durationMatch[1]) * (conversationText.includes('hour') || conversationText.includes('hr') ? 60 : 1) : 60
+
+    // Extract notes
+    const notesMatch = conversationText.match(/(?:note|special request|also|additionally)[:?\s]+([^.!?]+)/i)
+    const notes = notesMatch ? notesMatch[1].trim() : ''
+
+    actions.push({
+      type: 'create_booking',
+      status: 'pending',
+      data: {
+        businessId: businessId,
+        leadId: leadId,
+        customerName: customerName,
+        customerEmail: customerEmail,
+        customerPhone: customerPhone,
+        service: service,
+        dateTime: bookingDateTime,
+        jobDuration: duration,
+        fullAddress: address,
+        notes: notes,
+        status: 'pending' // Always pending for client approval
+      }
+    })
+  }
+
+  // Human handoff (for client bookings - different from sales handoff)
+  if (message.includes('ACTION: HUMAN_HANDOFF') && botType === 'client') {
+    console.log('Client booking human handoff trigger detected!')
+
+    actions.push({
+      type: 'client_human_handoff',
+      status: 'pending',
+      data: {
+        businessId: businessId,
+        leadId: leadId,
+        customerName: leadData?.name || 'Customer',
+        customerPhone: leadData?.phone || '',
+        reason: 'Customer requested to speak with someone',
+        conversationSummary: messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n')
+      }
+    })
+  }
+
+  // =====================================================
+  // SALES PIPELINE BOT ACTIONS (existing)
+  // =====================================================
+
   // Quote generation with data
   if (message.includes('ACTION: GENERATE_QUOTE')) {
     console.log('Quote trigger detected!')

@@ -53,7 +53,7 @@ const faqs: FAQItem[] = [
   {
     category: 'features',
     question: "Do I need a website to use CoreSentia?",
-    answer: "No! The SMS Responder ($999 setup) works perfectly without a website. You just get a dedicated business SMS number that responds automatically. The Professional Package ($2,500 setup) includes a website if you want one."
+    answer: "No! The SMS Responder ($499 setup) works perfectly without a website. You just get a dedicated business SMS number that responds automatically. The Professional Package ($2,500 setup) includes a website if you want one."
   },
   {
     category: 'features',
@@ -65,7 +65,7 @@ const faqs: FAQItem[] = [
   {
     category: 'pricing',
     question: "What's the total cost?",
-    answer: "SMS Responder: $999 setup + $150/month (inc. GST). Professional Package: $2,500 setup + $250/month (inc. GST). No hidden fees, no per-conversation charges, no surprise bills. Just predictable monthly hosting."
+    answer: "SMS Responder: $499 setup + $150/month (inc. GST). Professional Package: $2,500 setup + $250/month (inc. GST). No hidden fees, no per-conversation charges, no surprise bills. Just predictable monthly hosting."
   },
   {
     category: 'pricing',
@@ -84,7 +84,7 @@ const faqs: FAQItem[] = [
   },
   {
     category: 'pricing',
-    question: "Why is setup $999? What am I paying for?",
+    question: "Why is setup $499? What am I paying for?",
     answer: "Setup includes: Twilio business phone number provisioning, AI customization for your business (services, pricing, availability), system configuration, testing, and training. It's 'done for you' — you don't need to build anything."
   },
 

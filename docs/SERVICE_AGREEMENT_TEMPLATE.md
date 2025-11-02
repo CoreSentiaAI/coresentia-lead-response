@@ -60,7 +60,7 @@ The Client remains responsible for all customer interactions after the initial b
 ## 2. PRICING AND PAYMENT
 
 ### Setup Fee:
-☐ SMS Responder: $999.00 (inc. GST)
+☐ SMS Responder: $499.00 (inc. GST)
 ☐ Professional Package: $2,500.00 (inc. GST)
 
 **Payment Terms:**

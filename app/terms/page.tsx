@@ -53,7 +53,7 @@ export default function TermsPage() {
 
             <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">3. Service Packages and Pricing</h2>
             <p className="text-text-secondary mb-4">
-              <strong>SMS Responder:</strong> $999 setup + $150/month (inc. GST)<br />
+              <strong>SMS Responder:</strong> $499 setup + $150/month (inc. GST)<br />
               <strong>Professional Package:</strong> $2,500 setup + $250/month (inc. GST)
             </p>
             <p className="text-text-secondary mb-6">

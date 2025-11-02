@@ -167,7 +167,7 @@ ____________________________________________________________________
 ## 🌐 Package Selection
 
 **Selected Package:**
-☐ **SMS Responder** ($999 setup + $150/month inc. GST)
+☐ **SMS Responder** ($499 setup + $150/month inc. GST)
 ☐ **Professional Package** ($2,500 setup + $250/month inc. GST)
 
 ### For Professional Package Only:
@@ -248,7 +248,7 @@ I confirm that:
 ## 🚀 Next Steps
 
 After submitting this form:
-1. **Payment:** Invoice sent for setup fee ($999 or $2,500)
+1. **Payment:** Invoice sent for setup fee ($499 or $2,500)
 2. **Setup Call:** 15-30 minute call to finalize details (within 48 hours)
 3. **Build:** We customize your AI and systems (2-7 days)
 4. **Testing:** You test and approve before going live

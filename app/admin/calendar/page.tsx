@@ -215,15 +215,15 @@ export default function AdminCalendarPage() {
     customer_phone: booking.customer_phone,
     customer_email: booking.customer_email,
     service_type: booking.service,
-    scheduled_time: booking.scheduled_time || booking.date_time,
+    scheduled_time: booking.date_time, // Use date_time from database
     job_duration: booking.job_duration || 60,
     full_address: booking.full_address,
-    suburb: '',
-    estimated_travel_time: 0,
+    suburb: booking.suburb || '',
+    estimated_travel_time: booking.estimated_travel_time || 0,
     status: booking.status,
     notes: booking.notes,
     created_at: booking.created_at,
-    updated_at: booking.created_at,
+    updated_at: booking.updated_at || booking.created_at,
   }))
 
   if (loading) {
@@ -396,16 +396,44 @@ export default function AdminCalendarPage() {
 
                   <div>
                     <label className="block text-sm font-medium text-text-primary mb-2">
-                      Date & Time *
+                      Date *
                     </label>
                     <input
-                      type="datetime-local"
+                      type="date"
                       required
-                      step="900"
-                      value={formData.dateTime}
-                      onChange={(e) => setFormData({ ...formData, dateTime: e.target.value })}
+                      value={formData.dateTime.split('T')[0] || ''}
+                      onChange={(e) => {
+                        const currentTime = formData.dateTime.split('T')[1] || '09:00'
+                        setFormData({ ...formData, dateTime: `${e.target.value}T${currentTime}` })
+                      }}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Time *
+                    </label>
+                    <select
+                      required
+                      value={formData.dateTime.split('T')[1] || '09:00'}
+                      onChange={(e) => {
+                        const currentDate = formData.dateTime.split('T')[0] || new Date().toISOString().split('T')[0]
+                        setFormData({ ...formData, dateTime: `${currentDate}T${e.target.value}` })
+                      }}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                    >
+                      {Array.from({ length: 48 }, (_, i) => {
+                        const hour = Math.floor(i / 4) + 6 // Start at 6 AM
+                        const minute = (i % 4) * 15
+                        if (hour >= 20) return null // End at 8 PM
+                        const timeStr = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
+                        const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
+                        const ampm = hour >= 12 ? 'PM' : 'AM'
+                        const displayTime = `${displayHour}:${minute.toString().padStart(2, '0')} ${ampm}`
+                        return <option key={timeStr} value={timeStr}>{displayTime}</option>
+                      }).filter(Boolean)}
+                    </select>
                   </div>
 
                   <div>

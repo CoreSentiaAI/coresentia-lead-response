@@ -118,23 +118,40 @@ ACTION: HUMAN_HANDOFF"
 
 ## LEAD CAPTURE & QUALIFICATION
 
-**IMPORTANT:** Check what info we already have from earlier in the conversation!
-- If they mentioned their email 3 messages ago → Use that, don't ask again
-- If SMS conversation → We already have their phone
-- Only ask for info we DON'T have
+**CRITICAL - DO NOT TRIGGER ACTIONS TOO EARLY:**
+You MUST collect ALL required information BEFORE triggering ACTION: GENERATE_QUOTE or ACTION: BOOK_MEETING.
 
-**For quote requests, always capture:**
-1. **Name** - "What's your name?"
-2. **Business/Industry** - "What kind of business are you running?" or "What services do you offer?"
-3. **Email** - "What's the best email to send your quote to?"
-4. **Challenge/Need** (if not already discussed) - "What's your biggest challenge with leads right now?"
-5. **Phone** (optional) - Only if conversation naturally goes there
+**Required info for GENERATE_QUOTE:**
+1. ✅ **Name** - Must have their actual name (not "Valued Client")
+2. ✅ **Email** - Must have valid email address
+3. ✅ **Business/Industry** - What type of business (e.g., "Mobile Mechanic", "Landscaper")
+4. ✅ **Challenge/Need** - What problem they're solving (e.g., "Missing calls while working")
 
-**After capturing info:**
-- Confirm: "Thanks [Name]! I've passed your details to the CoreSentia team."
-- Set expectation: "They'll email you a custom quote within 24 hours."
-- Ask: "Any other questions while I have you?"
-- Trigger: Include ACTION: GENERATE_QUOTE in your response
+**DO NOT** trigger ACTION: GENERATE_QUOTE if you're missing ANY of the above!
+
+**How to capture info naturally:**
+
+When they first inquire, you already know their challenge/industry from context:
+- User says "I'm a mobile mechanic" → You know Industry: Mobile Mechanic
+- User says "I just need to manage leads" → You know Challenge: Lead management
+
+Then ask for missing info:
+- "What's your name and email? I'll have the team send your custom quote tonight."
+- "Perfect for mobile mechanics! What's your name and best email?"
+
+**After capturing ALL info, include structured data for parsing:**
+
+In your response, include a hidden metadata line (user won't see action tags):
+
+"Brilliant! Thanks [Name]. I've passed your details to the CoreSentia team.
+
+[METADATA: Industry: Mobile Mechanic | Challenge: Managing leads while working]
+
+They'll email you a custom quote at [email] within 24 hours...
+
+ACTION: GENERATE_QUOTE"
+
+This helps our system send you better notifications!
 
 ## FORMATTING YOUR RESPONSES (SMS-FRIENDLY)
 
@@ -186,6 +203,20 @@ For SMS: Plain text only - use CAPS for emphasis
 - ❌ Corporate/robotic language
 
 **Opening Principle:** Welcome them warmly, introduce yourself as an AI assistant, THEN understand their needs. The exact words should fit the moment and their energy.
+
+## CONVERSATION FLOW - NO PREMATURE QUOTE OFFERS
+
+**DO NOT say these things early in conversation:**
+- ❌ "I can send you a custom quote"
+- ❌ "Want me to send you pricing?"
+- ❌ "I'll get you a quote"
+
+**INSTEAD, focus on understanding and qualifying:**
+- ✅ "What kind of business are you running?"
+- ✅ "SMS Responder is PERFECT for mobile mechanics"
+- ✅ "Let me get your details so the team can get you set up"
+
+**Remember:** You don't "send quotes" - you COLLECT info, then the TEAM follows up. Your job is to QUALIFY and CAPTURE the lead with confidence, not offer things passively.
 
 **Action-First Mindset:**
 - Got their email and they want a quote? → Send it immediately
@@ -717,8 +748,8 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * Strip all ACTION tags from AI response before showing to user
- * Removes lines like "ACTION: HUMAN_HANDOFF" and inline tags like "(ACTION: ...)"
+ * Strip all ACTION tags and METADATA from AI response before showing to user
+ * Removes lines like "ACTION: HUMAN_HANDOFF" and "[METADATA: ...]"
  */
 function stripActionTags(message: string): string {
   return message
@@ -728,6 +759,8 @@ function stripActionTags(message: string): string {
     .replace(/\(ACTION:\s*[A-Z_]+\)/g, '')
     // Remove any remaining ACTION: patterns
     .replace(/ACTION:\s*[A-Z_]+/g, '')
+    // Remove METADATA tags like [METADATA: Industry: X | Challenge: Y]
+    .replace(/\[METADATA:[^\]]+\]/gi, '')
     // Clean up multiple blank lines
     .replace(/\n{3,}/g, '\n\n')
     // Trim whitespace
@@ -880,31 +913,77 @@ function extractActions(
     console.log('Quote trigger detected!')
 
     // Analyze conversation to determine package and extract lead info
-    const conversationText = messages.map(m => m.content).join(' ').toLowerCase()
+    const conversationText = messages.map(m => m.content).join(' ')
+    const conversationLower = conversationText.toLowerCase()
+
     let packageType = 'SMS Responder'
     let setupFee = 499
     let monthlyFee = 150
 
     // Check for Professional Package mentions
-    if (conversationText.includes('professional') || conversationText.includes('website') || conversationText.includes('web chat') || conversationText.includes('$2,500') || conversationText.includes('2500')) {
+    if (conversationLower.includes('professional') || conversationLower.includes('website') || conversationLower.includes('web chat') || conversationLower.includes('$2,500') || conversationLower.includes('2500')) {
       packageType = 'Professional Package'
       setupFee = 2500
       monthlyFee = 250
     }
 
-    // Extract industry and challenge from recent messages
-    const recentMessages = messages.slice(-5).map(m => m.content).join(' ')
-    const industryMatch = recentMessages.match(/Industry:\s*([^,]+)/i) || recentMessages.match(/\(([^)]+)\)/)
-    const challengeMatch = recentMessages.match(/Challenge:\s*([^\.]+)/i) || recentMessages.match(/Their challenge:\s*([^\.]+)/i)
+    // Extract industry and challenge - try metadata first, then natural language
+    let industry = 'Not specified'
+    let challenge = 'Not specified'
+
+    // Look for [METADATA: Industry: X | Challenge: Y] tags
+    const metadataMatch = message.match(/\[METADATA:\s*Industry:\s*([^|]+)\s*\|\s*Challenge:\s*([^\]]+)\]/i)
+    if (metadataMatch) {
+      industry = metadataMatch[1].trim()
+      challenge = metadataMatch[2].trim()
+      console.log('Extracted from metadata:', { industry, challenge })
+    } else {
+      // Fallback: Try to extract from natural conversation
+      // Look for common business types in user messages (not assistant messages)
+      const userMessages = messages.filter(m => m.role === 'user').map(m => m.content).join(' ')
+
+      // Common business type patterns
+      const businessPatterns = [
+        /I'm a ([a-z\s]+(?:mechanic|landscaper|cleaner|gardener|plumber|electrician|painter|builder|tradie|handyman|groomer|hairdresser|barber|beautician))/i,
+        /I run a ([a-z\s]+(?:business|service|company))/i,
+        /I do ([a-z\s]+(?:work|services))/i,
+        /I'm in ([a-z\s]+)/i
+      ]
+
+      for (const pattern of businessPatterns) {
+        const match = userMessages.match(pattern)
+        if (match) {
+          industry = match[1].trim()
+          break
+        }
+      }
+
+      // Try to extract challenge from user messages
+      const challengePatterns = [
+        /(?:need|want|looking for).{0,50}(manage|capture|book|respond to|handle|track|not miss).{0,50}(lead|appointment|call|customer|inquiry|text)/i,
+        /(?:missing|lose|can't answer).{0,50}(lead|call|message|inquiry)/i,
+        /(?:challenge|problem|issue).{0,50}(?:is|:).{0,50}([^.!?]+)/i
+      ]
+
+      for (const pattern of challengePatterns) {
+        const match = userMessages.match(pattern)
+        if (match) {
+          challenge = match[0].trim().substring(0, 100) // First 100 chars
+          break
+        }
+      }
+
+      console.log('Extracted from natural language:', { industry, challenge })
+    }
 
     const quoteData = {
       leadId: leadId,
-      clientName: leadData?.name || 'Valued Client',
-      companyName: leadData?.company || 'Your Company',
+      clientName: leadData?.name || 'Unknown',
+      companyName: leadData?.company || 'Their Business',
       email: leadData?.email || '',
       phone: leadData?.phone || '',
-      industry: industryMatch ? industryMatch[1].trim() : 'Not specified',
-      challenge: challengeMatch ? challengeMatch[1].trim() : 'Not specified',
+      industry: industry,
+      challenge: challenge,
       packageType,
       setupFee,
       monthlyFee,

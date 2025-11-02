@@ -329,6 +329,7 @@ export default function AdminCalendarPage() {
                         customerPhone: '',
                         service: '',
                         dateTime: '',
+                        duration: 60,
                         notes: ''
                       })
                     }}

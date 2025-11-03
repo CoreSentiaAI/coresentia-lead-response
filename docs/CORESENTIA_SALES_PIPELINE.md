@@ -212,7 +212,8 @@ Lead clicks "Get Quote" or "Book Call" button → Form appears with fields:
 5. Once form submitted:
    - You receive notification
    - Review their responses in admin dashboard
-   - Schedule brief setup call (15-30 mins) to clarify any details
+   - If they booked optional setup call: Schedule 15-30 min chat to clarify details
+   - Otherwise: Begin build immediately with form details
 
 #### Step 3: Build & Setup
 6. Build their AI receptionist system:

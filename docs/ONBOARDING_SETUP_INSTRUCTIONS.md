@@ -62,7 +62,7 @@ When a lead becomes a client:
 
 ### Setup Preferences
 - Preferred go-live date
-- Best time for setup call
+- Optional setup call booking (via Google Calendar link)
 - Questions/special requests
 
 ---

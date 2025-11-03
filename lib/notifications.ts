@@ -25,6 +25,12 @@ interface NotificationData {
  * Currently SMS only - email to be added
  */
 export async function notifyAdmin(data: NotificationData): Promise<{ success: boolean; error?: string }> {
+  console.log('=== NOTIFY ADMIN CALLED ===')
+  console.log('Notification type:', data.type)
+  console.log('Lead name:', data.leadName)
+  console.log('Lead email:', data.leadEmail)
+  console.log('Admin phone:', ADMIN_PHONE)
+
   try {
     // Format SMS message based on notification type
     let smsBody = ''
@@ -84,17 +90,27 @@ AI flagged this as high-value. Check conversation!`
     }
 
     // Send SMS notification
+    console.log('=== SENDING SMS ===')
+    console.log('To:', ADMIN_PHONE)
+    console.log('Body length:', smsBody.length)
+    console.log('Body preview:', smsBody.substring(0, 100))
+
     const smsResult = await sendSMS({
       to: ADMIN_PHONE,
       body: smsBody
     })
 
+    console.log('=== SMS SEND RESULT ===')
+    console.log('Success:', smsResult.success)
+    console.log('Message SID:', smsResult.messageSid)
+    console.log('Error:', smsResult.error)
+
     if (!smsResult.success) {
-      console.error('Failed to send SMS notification:', smsResult.error)
+      console.error('❌ Failed to send SMS notification:', smsResult.error)
       return { success: false, error: smsResult.error }
     }
 
-    console.log('Admin notification sent successfully:', data.type)
+    console.log('✅ Admin notification sent successfully:', data.type)
 
     // TODO: Add email notification
     // await sendEmail({

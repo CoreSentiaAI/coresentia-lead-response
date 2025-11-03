@@ -217,34 +217,12 @@ export default function ChatInterface({ leadId }: ChatInterfaceProps) {
   }
 
   // Handle quote generation
+  // Legacy quote generation removed - now handled server-side with SMS notifications
   const handleGenerateQuote = async (actionData: any) => {
-    if (!actionData?.data?.email) {
-      return;
-    }
-
-    try {
-      const quoteResponse = await fetch('/api/quotes/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(actionData.data)
-      })
-
-      const quoteResult = await quoteResponse.json()
-
-      if (quoteResult.success) {
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: `✅ Quote #${quoteResult.quoteNumber} has been created and sent to your email!`
-        }])
-      } else {
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: `⚠️ There was an issue creating your quote. Please email us at info@coresentia.com and we'll sort it out right away.`
-        }])
-      }
-    } catch (quoteError) {
-      console.error('Error calling quote API:', quoteError)
-    }
+    // No longer calls /api/quotes/generate
+    // Notifications are sent server-side via SMS when quote action is triggered
+    // This function can be removed in future cleanup
+    return;
   };
 
   const sendMessageWithContent = async (messageContent: string) => {

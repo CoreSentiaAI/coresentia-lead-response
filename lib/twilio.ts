@@ -15,12 +15,21 @@ interface SendSMSResponse {
  * Send an SMS via Twilio API
  */
 export async function sendSMS({ to, body }: SendSMSParams): Promise<SendSMSResponse> {
+  console.log('=== TWILIO sendSMS CALLED ===')
+  console.log('To:', to)
+  console.log('Body length:', body.length)
+
   const accountSid = process.env.TWILIO_ACCOUNT_SID
   const authToken = process.env.TWILIO_AUTH_TOKEN
   const fromNumber = process.env.TWILIO_PHONE_NUMBER
 
+  console.log('Environment check:')
+  console.log('- Account SID:', accountSid ? `${accountSid.substring(0, 10)}...` : 'MISSING')
+  console.log('- Auth Token:', authToken ? 'SET (hidden)' : 'MISSING')
+  console.log('- From Number:', fromNumber || 'MISSING')
+
   if (!accountSid || !authToken || !fromNumber) {
-    console.error('Twilio credentials not configured')
+    console.error('❌ Twilio credentials not configured')
     return {
       success: false,
       error: 'Twilio credentials not configured'
@@ -38,6 +47,8 @@ export async function sendSMS({ to, body }: SendSMSParams): Promise<SendSMSRespo
     params.append('Body', body)
 
     // Make request with Basic Auth
+    console.log('Making Twilio API request to:', url)
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -47,17 +58,19 @@ export async function sendSMS({ to, body }: SendSMSParams): Promise<SendSMSRespo
       body: params.toString()
     })
 
+    console.log('Twilio API response status:', response.status)
+
     if (!response.ok) {
       const errorText = await response.text()
-      console.error('Twilio API error:', response.status, errorText)
+      console.error('❌ Twilio API error:', response.status, errorText)
       return {
         success: false,
-        error: `Twilio API error: ${response.status}`
+        error: `Twilio API error: ${response.status} - ${errorText}`
       }
     }
 
     const data = await response.json()
-    console.log('SMS sent successfully:', data.sid)
+    console.log('✅ SMS sent successfully! Message SID:', data.sid)
 
     return {
       success: true,

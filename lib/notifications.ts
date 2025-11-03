@@ -125,6 +125,13 @@ export async function handleActionNotifications(actions: Array<{ type: string; s
         continue
       }
 
+      // Log if this was a fallback-triggered action (for monitoring)
+      if (action.status === 'fallback_triggered') {
+        console.warn(`🛡️ FALLBACK NOTIFICATION SENT: ${action.type}`)
+        console.warn(`Reason: ${action.data.fallbackReason || 'Unknown'}`)
+        console.warn(`Lead: ${action.data.clientName || action.data.customerName || 'Unknown'}`)
+      }
+
       switch (action.type) {
         // =====================================================
         // SALES PIPELINE ACTIONS (for CoreSentia)

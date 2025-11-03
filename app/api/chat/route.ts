@@ -8,7 +8,8 @@ You are CoreSentia's AI assistant, helping local service businesses never miss a
 
 ## CORE IDENTITY & REASONING
 - You're an intelligent consultant who can think, analyse, and make decisions
-- Always prefer shorter answers unless there is reason for a longer one. Humans hate walls of text
+- **KEEP IT BRIEF:** Limit responses to 3-4 bullet points maximum. Humans hate walls of text and will drop off
+- **MOBILE-FIRST:** Most users are on phones - long messages kill conversions
 - Besides product, pricing, formatting, and the critical abilities points - you can use these instructions as guidelines, NOT scripts to copy
 - Reason about each situation and craft natural, contextual responses
 - Draw insights, make connections, and adapt your approach dynamically
@@ -1052,6 +1053,251 @@ function extractActions(
         conversationSummary: messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n')
       }
     })
+  }
+
+  // =====================================================
+  // FALLBACK DETECTION LAYER (Rule-Based Safety Net)
+  // =====================================================
+  // This catches cases where the LLM forgot to include ACTION tags
+  // Critical for production reliability - never rely solely on LLM
+
+  if (botType === 'sales') {
+    const hasQuoteAction = actions.some(a => a.type === 'generate_quote')
+    const hasMeetingAction = actions.some(a => a.type === 'book_meeting')
+    const hasHandoffAction = actions.some(a => a.type === 'human_handoff')
+
+    // Check if we have minimum viable lead data
+    const hasName = leadData?.name && leadData.name !== 'Unknown' && leadData.name !== 'Direct Chat'
+    const hasEmail = leadData?.email && leadData.email.includes('@')
+    const hasPhone = leadData?.phone && leadData.phone.length >= 10
+    const hasContact = hasEmail || hasPhone
+    const hasRequiredData = hasName && hasContact
+
+    // Check if bot indicated completion/handoff in its response
+    const messageLower = message.toLowerCase()
+    const quoteCompletionPhrases = [
+      "i've passed your details",
+      "i've sent your details",
+      "passed your details to the coresentia team",
+      "the team will email you",
+      "they'll email you",
+      "team will send you",
+      "they'll send you",
+      "you'll get a call",
+      "team will call you",
+      "they'll reach out",
+      "team will reach out"
+    ]
+
+    const meetingCompletionPhrases = [
+      "i've notified the team",
+      "let me connect you with the team",
+      "team will reach out to schedule",
+      "they'll reach out to schedule"
+    ]
+
+    const handoffCompletionPhrases = [
+      "i'll let the coresentia team know",
+      "i'll notify the team",
+      "speak with a human",
+      "connect you with the team"
+    ]
+
+    const indicatesQuote = quoteCompletionPhrases.some(phrase => messageLower.includes(phrase))
+    const indicatesMeeting = meetingCompletionPhrases.some(phrase => messageLower.includes(phrase))
+    const indicatesHandoff = handoffCompletionPhrases.some(phrase => messageLower.includes(phrase))
+
+    // Log audit data for monitoring
+    console.log('=== FALLBACK DETECTION AUDIT ===')
+    console.log('Has ACTION tag (quote):', hasQuoteAction)
+    console.log('Has ACTION tag (meeting):', hasMeetingAction)
+    console.log('Has ACTION tag (handoff):', hasHandoffAction)
+    console.log('Has required data:', hasRequiredData, { hasName, hasEmail, hasPhone })
+    console.log('Indicates quote completion:', indicatesQuote)
+    console.log('Indicates meeting completion:', indicatesMeeting)
+    console.log('Indicates handoff completion:', indicatesHandoff)
+
+    // FALLBACK: Trigger quote if bot indicated completion but forgot ACTION tag
+    if (!hasQuoteAction && hasRequiredData && indicatesQuote) {
+      console.warn('⚠️ FALLBACK TRIGGERED: Quote completion detected without ACTION tag')
+
+      // Extract industry and challenge like we do in the main ACTION handler
+      const conversationText = messages.map(m => m.content).join(' ')
+      const conversationLower = conversationText.toLowerCase()
+
+      let packageType = 'SMS Responder'
+      let setupFee = 499
+      let monthlyFee = 150
+
+      if (conversationLower.includes('professional') || conversationLower.includes('website') ||
+          conversationLower.includes('web chat') || conversationLower.includes('$2,500') ||
+          conversationLower.includes('2500')) {
+        packageType = 'Professional Package'
+        setupFee = 2500
+        monthlyFee = 250
+      }
+
+      let industry = 'Not specified'
+      let challenge = 'Not specified'
+
+      const userMessages = messages.filter(m => m.role === 'user').map(m => m.content).join(' ')
+      const businessPatterns = [
+        /I'm a ([a-z\s]+(?:mechanic|landscaper|cleaner|gardener|plumber|electrician|painter|builder|tradie|handyman|groomer|hairdresser|barber|beautician))/i,
+        /I run a ([a-z\s]+(?:business|service|company))/i,
+        /I do ([a-z\s]+(?:work|services))/i,
+        /starting.*?([a-z\s]+(?:business|service))/i,
+        /I'm in ([a-z\s]+)/i
+      ]
+
+      for (const pattern of businessPatterns) {
+        const match = userMessages.match(pattern)
+        if (match) {
+          industry = match[1].trim()
+          break
+        }
+      }
+
+      const challengePatterns = [
+        /(?:need|want|looking for).{0,50}(manage|capture|book|respond to|handle|track|not miss).{0,50}(lead|appointment|call|customer|inquiry|text)/i,
+        /(?:missing|lose|can't answer).{0,50}(lead|call|message|inquiry)/i,
+        /just.{0,30}(getting started|starting|beginning)/i
+      ]
+
+      for (const pattern of challengePatterns) {
+        const match = userMessages.match(pattern)
+        if (match) {
+          challenge = match[0].trim().substring(0, 100)
+          break
+        }
+      }
+
+      actions.push({
+        type: 'generate_quote',
+        status: 'fallback_triggered',
+        data: {
+          leadId: leadId,
+          clientName: leadData?.name || 'Unknown',
+          companyName: leadData?.company || 'Their Business',
+          email: leadData?.email || '',
+          phone: leadData?.phone || '',
+          industry: industry,
+          challenge: challenge,
+          packageType,
+          setupFee,
+          monthlyFee,
+          conversationSummary: messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n'),
+          fallbackReason: 'Bot indicated completion without ACTION tag'
+        }
+      })
+    }
+
+    // FALLBACK: Trigger meeting booking if indicated but no ACTION tag
+    if (!hasMeetingAction && hasRequiredData && indicatesMeeting) {
+      console.warn('⚠️ FALLBACK TRIGGERED: Meeting booking detected without ACTION tag')
+
+      const recentMessages = messages.slice(-5).map(m => m.content).join(' ')
+      const industryMatch = recentMessages.match(/Industry:\s*([^,]+)/i) ||
+                            recentMessages.match(/([a-z\s]+(?:business|service|company))/i)
+
+      actions.push({
+        type: 'book_meeting',
+        status: 'fallback_triggered',
+        data: {
+          leadId: leadId,
+          clientName: leadData?.name || '',
+          email: leadData?.email || '',
+          phone: leadData?.phone || '',
+          industry: industryMatch ? industryMatch[1].trim() : 'Not specified',
+          need: 'Requested meeting with team',
+          conversationSummary: messages.slice(-3).map(m => `${m.role}: ${m.content}`).join('\n'),
+          fallbackReason: 'Bot indicated meeting request without ACTION tag'
+        }
+      })
+    }
+
+    // FALLBACK: Trigger handoff if indicated but no ACTION tag
+    if (!hasHandoffAction && hasContact && indicatesHandoff) {
+      console.warn('⚠️ FALLBACK TRIGGERED: Human handoff detected without ACTION tag')
+
+      actions.push({
+        type: 'human_handoff',
+        status: 'fallback_triggered',
+        data: {
+          leadId: leadId,
+          leadName: leadData?.name || 'Unknown',
+          email: leadData?.email || '',
+          phone: leadData?.phone || '',
+          source: leadData?.source || 'unknown',
+          conversationSummary: messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n'),
+          fallbackReason: 'Bot indicated handoff without ACTION tag'
+        }
+      })
+    }
+
+    // Audit log for monitoring
+    if (hasRequiredData && !hasQuoteAction && !hasMeetingAction && !indicatesQuote && !indicatesMeeting) {
+      console.log('📊 AUDIT: Lead has required data but no completion detected')
+      console.log('Lead data:', { name: leadData?.name, email: leadData?.email, phone: leadData?.phone })
+      console.log('Last bot message (first 200 chars):', message.substring(0, 200))
+    }
+  }
+
+  // Same fallback logic for client bookings
+  if (botType === 'client') {
+    const hasBookingAction = actions.some(a => a.type === 'create_booking')
+    const hasHandoffAction = actions.some(a => a.type === 'client_human_handoff')
+
+    const hasName = leadData?.name && leadData.name !== 'Unknown'
+    const hasPhone = leadData?.phone && leadData.phone.length >= 10
+
+    const messageLower = message.toLowerCase()
+    const bookingCompletionPhrases = [
+      "i've created",
+      "i've booked",
+      "booking is confirmed",
+      "i'll create a booking",
+      "let me book that",
+      "booking created"
+    ]
+
+    const indicatesBooking = bookingCompletionPhrases.some(phrase => messageLower.includes(phrase))
+
+    console.log('=== CLIENT BOT FALLBACK AUDIT ===')
+    console.log('Has booking ACTION:', hasBookingAction)
+    console.log('Has required data:', hasName && hasPhone)
+    console.log('Indicates booking:', indicatesBooking)
+
+    if (!hasBookingAction && hasName && hasPhone && indicatesBooking) {
+      console.warn('⚠️ FALLBACK TRIGGERED: Client booking detected without ACTION tag')
+
+      // Extract booking details from conversation
+      const conversationText = messages.map(m => m.content).join(' ')
+
+      const serviceMatch = conversationText.match(/(?:service|need|looking for|want)[:?\s]+([A-Za-z\s]+)/i)
+      const service = serviceMatch ? serviceMatch[1].trim().split(/[.,!?]/)[0] : 'General Service'
+
+      const addressMatch = conversationText.match(/(?:address|location|at)[:?\s]+([0-9]+[\sA-Za-z0-9,.-]+)/i)
+      const address = addressMatch ? addressMatch[1].trim() : ''
+
+      actions.push({
+        type: 'create_booking',
+        status: 'fallback_triggered',
+        data: {
+          businessId: businessId,
+          leadId: leadId,
+          customerName: leadData?.name,
+          customerEmail: leadData?.email || '',
+          customerPhone: leadData?.phone,
+          service: service,
+          dateTime: new Date().toISOString(),
+          jobDuration: 60,
+          fullAddress: address,
+          notes: 'Fallback booking - verify details',
+          status: 'pending',
+          fallbackReason: 'Bot indicated booking without ACTION tag'
+        }
+      })
+    }
   }
 
   return actions

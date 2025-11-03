@@ -469,13 +469,23 @@ export async function POST(request: NextRequest) {
       if (emailMatch) {
         console.log('Email detected:', emailMatch[0])
         
-        // Extract name if mentioned (simple pattern)
-        const nameMatch = lastUserMessage.match(/(?:name is|i'm|i am|call me)\s+([A-Z][a-z]+)/i)
-        const name = nameMatch ? nameMatch[1] : 'Direct Chat'
+        // Extract name if mentioned - multiple patterns
+        let name = 'Direct Chat'
+
+        // Pattern 1: "Details: Name, email" or "Name, email"
+        const detailsMatch = lastUserMessage.match(/(?:details?:?\s*)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\s*,\s*[A-Za-z0-9]/i)
+        // Pattern 2: "my name is X" or "I'm X" or "call me X"
+        const explicitMatch = lastUserMessage.match(/(?:name is|i'm|i am|call me)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/i)
+
+        if (detailsMatch) {
+          name = detailsMatch[1].trim()
+        } else if (explicitMatch) {
+          name = explicitMatch[1].trim()
+        }
         
         // Extract company if mentioned
         const companyMatch = lastUserMessage.match(/(?:from|at|work for|company is)\s+([A-Z][A-Za-z\s&]+)/i)
-        const company = companyMatch ? companyMatch[1].trim() : 'Via Ivy'
+        const company = companyMatch ? companyMatch[1].trim() : 'Web Chat Lead'
         
         console.log('Creating lead with:', { name, company, email: emailMatch[0] })
         
@@ -488,7 +498,7 @@ export async function POST(request: NextRequest) {
             email: emailMatch[0],
             initial_message: messages[0]?.content || 'Direct chat access',
             status: 'new',
-            source: 'ivy_chat'
+            source: 'web_chat'
           })
           .select('*')
           .single()
@@ -607,18 +617,18 @@ export async function POST(request: NextRequest) {
       throw new Error('Invalid response format from Anthropic API')
     }
 
-    const ivyResponse = data.content[0].text
+    const botResponse = data.content[0].text
 
     // Check for persistent card triggers
     const persistentCards: string[] = []
-    
-    // Check if Ivy included the ACTION trigger for Reality Check
-    if (ivyResponse.includes('ACTION: SHOW_REALITY_CHECK')) {
+
+    // Check if bot included the ACTION trigger for Reality Check
+    if (botResponse.includes('ACTION: SHOW_REALITY_CHECK')) {
       persistentCards.push('reality_check')
     }
-    
+
     // Also check for natural mentions of booking or strategy session
-    const lowerResponse = ivyResponse.toLowerCase()
+    const lowerResponse = botResponse.toLowerCase()
     const hasBookingMention = lowerResponse.includes('reality check') || 
                               lowerResponse.includes('40-minute') ||
                               lowerResponse.includes('40 minute') ||
@@ -641,7 +651,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Check for product card triggers
-    if (ivyResponse.includes('ACTION: SHOW_PRODUCTS')) {
+    if (botResponse.includes('ACTION: SHOW_PRODUCTS')) {
       persistentCards.push('product_cards')
     }
     
@@ -684,18 +694,18 @@ export async function POST(request: NextRequest) {
         console.error('Error saving user message:', userMsgError)
       }
 
-      // Save Ivy's response
-      const { error: ivyMsgError } = await supabase
+      // Save bot's response
+      const { error: botMsgError } = await supabase
         .from('conversations')
         .insert({
           lead_id: actualLeadId,
-          message: ivyResponse,
+          message: botResponse,
           sender: 'assistant',
           timestamp: new Date().toISOString()
         })
-      
-      if (ivyMsgError) {
-        console.error('Error saving Ivy message:', ivyMsgError)
+
+      if (botMsgError) {
+        console.error('Error saving bot message:', botMsgError)
       }
     }
 
@@ -718,7 +728,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Extract any actions from the response, passing current lead data and bot context
-    const actions = extractActions(ivyResponse, actualLeadId, currentLeadData, messages, botType, businessId)
+    const actions = extractActions(botResponse, actualLeadId, currentLeadData, messages, botType, businessId)
     console.log('Actions extracted:', JSON.stringify(actions, null, 2))
     console.log('Persistent cards:', persistentCards)
 
@@ -731,7 +741,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Strip ACTION tags from response before sending to user
-    const cleanResponse = stripActionTags(ivyResponse)
+    const cleanResponse = stripActionTags(botResponse)
 
     return NextResponse.json({
       message: cleanResponse,
@@ -943,12 +953,22 @@ function extractActions(
       // Look for common business types in user messages (not assistant messages)
       const userMessages = messages.filter(m => m.role === 'user').map(m => m.content).join(' ')
 
-      // Common business type patterns
+      // Common business type patterns - expanded to catch more variations
       const businessPatterns = [
-        /I'm a ([a-z\s]+(?:mechanic|landscaper|cleaner|gardener|plumber|electrician|painter|builder|tradie|handyman|groomer|hairdresser|barber|beautician))/i,
+        // Direct industry mention at start: "Home massage. Details..."
+        /^([A-Z][a-z]+(?:\s+[a-z]+){0,3})\.\s*(?:details|info)/i,
+        // "I'm a [industry]"
+        /I'm a ([a-z\s]+(?:mechanic|landscaper|cleaner|gardener|plumber|electrician|painter|builder|tradie|handyman|groomer|hairdresser|barber|beautician|massage|therapist))/i,
+        // Generic service mentions
+        /([A-Z][a-z]+(?:\s+[a-z]+){1,2})\s*(?:business|service|therapist|technician)/i,
+        // "I run a [business]"
         /I run a ([a-z\s]+(?:business|service|company))/i,
+        // "I do [work]"
         /I do ([a-z\s]+(?:work|services))/i,
-        /I'm in ([a-z\s]+)/i
+        // "I'm in [industry]"
+        /I'm in ([a-z\s]+)/i,
+        // Industry before email: "Industry. Name, email"
+        /^([A-Z][a-z]+(?:\s+[a-z]+){0,2})\.\s+[A-Z]/i
       ]
 
       for (const pattern of businessPatterns) {
@@ -1142,11 +1162,22 @@ function extractActions(
 
       const userMessages = messages.filter(m => m.role === 'user').map(m => m.content).join(' ')
       const businessPatterns = [
-        /I'm a ([a-z\s]+(?:mechanic|landscaper|cleaner|gardener|plumber|electrician|painter|builder|tradie|handyman|groomer|hairdresser|barber|beautician))/i,
+        // Direct industry mention at start: "Home massage. Details..."
+        /^([A-Z][a-z]+(?:\s+[a-z]+){0,3})\.\s*(?:details|info)/i,
+        // "I'm a [industry]"
+        /I'm a ([a-z\s]+(?:mechanic|landscaper|cleaner|gardener|plumber|electrician|painter|builder|tradie|handyman|groomer|hairdresser|barber|beautician|massage|therapist))/i,
+        // Generic service mentions
+        /([A-Z][a-z]+(?:\s+[a-z]+){1,2})\s*(?:business|service|therapist|technician)/i,
+        // "I run a [business]"
         /I run a ([a-z\s]+(?:business|service|company))/i,
+        // "I do [work]"
         /I do ([a-z\s]+(?:work|services))/i,
+        // Starting a business
         /starting.*?([a-z\s]+(?:business|service))/i,
-        /I'm in ([a-z\s]+)/i
+        // "I'm in [industry]"
+        /I'm in ([a-z\s]+)/i,
+        // Industry before email: "Industry. Name, email"
+        /^([A-Z][a-z]+(?:\s+[a-z]+){0,2})\.\s+[A-Z]/i
       ]
 
       for (const pattern of businessPatterns) {

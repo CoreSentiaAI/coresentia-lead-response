@@ -273,7 +273,7 @@ export default function OnboardingPage() {
                   onChange={(e) => setFormData({ ...formData, serviceNotes: e.target.value })}
                   rows={3}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
-                  placeholder="Any specific areas or restrictions? We'll discuss full details on your setup call."
+                  placeholder="Any specific areas or restrictions?"
                 />
               </div>
             </div>

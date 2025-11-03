@@ -9,8 +9,12 @@
 - ✅ Production-ready safety net ensures ZERO missed notifications
 - ✅ Audit logging for notification reliability monitoring
 - ✅ Shorter bot responses (mobile-first, 3-4 bullet points max)
+- ✅ Buying intent detection (prevents over-selling to ready buyers)
 - ✅ Setup calls now optional (client's choice)
 - ✅ Complete onboarding form with all essential fields
+- ✅ Improved name & industry extraction from conversations
+
+**⭐ New:** See [PROJECT_STATUS.md](./PROJECT_STATUS.md) for quick session-start reference
 
 ---
 

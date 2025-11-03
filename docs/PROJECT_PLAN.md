@@ -4,6 +4,8 @@
 **Status:** Phase 1 COMPLETE - Production Ready - Phase 2 Planning
 **Target Launch:** Q1 2026
 
+**⭐ Quick Start:** See [../PROJECT_STATUS.md](../PROJECT_STATUS.md) for up-to-date session reference
+
 ---
 
 ## 🎯 Mission Statement

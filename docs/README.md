@@ -1,6 +1,8 @@
 # CoreSentia Documentation
 
-**Last Updated:** November 2, 2025
+**Last Updated:** November 3, 2025
+
+**⭐ Quick Start:** See [../PROJECT_STATUS.md](../PROJECT_STATUS.md) for up-to-date session reference
 
 ---
 

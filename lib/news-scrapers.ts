@@ -5,6 +5,7 @@
  * @note Server-side only - uses Node.js APIs
  */
 
+import { parse } from 'node-html-parser'
 import crypto from 'crypto'
 
 export interface ScrapedArticle {
@@ -34,8 +35,6 @@ function generateContentHash(title: string, excerpt: string): string {
  */
 export async function scrapeTechCrunch(): Promise<ScrapedArticle[]> {
   try {
-    const cheerio = await import('cheerio')
-
     const response = await fetch('https://techcrunch.com/category/artificial-intelligence/', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
@@ -48,17 +47,19 @@ export async function scrapeTechCrunch(): Promise<ScrapedArticle[]> {
     }
 
     const html = await response.text()
-    const $ = cheerio.load(html)
+    const root = parse(html)
     const articles: ScrapedArticle[] = []
 
     // TechCrunch uses article.post-block structure
-    $('article.post-block').each((i, elem) => {
+    const articleElements = root.querySelectorAll('article.post-block')
+
+    for (const elem of articleElements) {
       try {
-        const $article = $(elem)
-        const title = $article.find('.post-block__title a').text().trim()
-        const url = $article.find('.post-block__title a').attr('href') || ''
-        const excerpt = $article.find('.post-block__content').text().trim()
-        const dateStr = $article.find('time').attr('datetime')
+        const titleEl = elem.querySelector('.post-block__title a')
+        const title = titleEl?.textContent.trim() || ''
+        const url = titleEl?.getAttribute('href') || ''
+        const excerpt = elem.querySelector('.post-block__content')?.textContent.trim() || ''
+        const dateStr = elem.querySelector('time')?.getAttribute('datetime')
 
         if (title && url && excerpt) {
           articles.push({
@@ -73,7 +74,7 @@ export async function scrapeTechCrunch(): Promise<ScrapedArticle[]> {
       } catch (err) {
         console.error('Error parsing TechCrunch article:', err)
       }
-    })
+    }
 
     console.log(`✅ TechCrunch: Scraped ${articles.length} articles`)
     return articles
@@ -89,8 +90,6 @@ export async function scrapeTechCrunch(): Promise<ScrapedArticle[]> {
  */
 export async function scrapeTheVerge(): Promise<ScrapedArticle[]> {
   try {
-    const cheerio = await import('cheerio')
-
     const response = await fetch('https://www.theverge.com/ai-artificial-intelligence', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
@@ -103,17 +102,21 @@ export async function scrapeTheVerge(): Promise<ScrapedArticle[]> {
     }
 
     const html = await response.text()
-    const $ = cheerio.load(html)
+    const root = parse(html)
     const articles: ScrapedArticle[] = []
 
     // The Verge uses various article containers
-    $('article, div[data-analytics-placement="river"]').each((i, elem) => {
+    const articleElements = root.querySelectorAll('article, div[data-analytics-placement="river"]')
+
+    for (const elem of articleElements) {
       try {
-        const $article = $(elem)
-        const $link = $article.find('a[href*="/2024/"], a[href*="/2025/"]').first()
-        const title = $link.find('h2, h3').text().trim() || $link.attr('aria-label')?.trim() || ''
-        const url = $link.attr('href') || ''
-        const excerpt = $article.find('p').first().text().trim()
+        const link = elem.querySelector('a[href*="/2024/"], a[href*="/2025/"]')
+        if (!link) continue
+
+        const title = link.querySelector('h2, h3')?.textContent.trim() ||
+                      link.getAttribute('aria-label')?.trim() || ''
+        const url = link.getAttribute('href') || ''
+        const excerpt = elem.querySelector('p')?.textContent.trim() || ''
 
         if (title && url && url.includes('theverge.com')) {
           const fullUrl = url.startsWith('http') ? url : `https://www.theverge.com${url}`
@@ -130,7 +133,7 @@ export async function scrapeTheVerge(): Promise<ScrapedArticle[]> {
       } catch (err) {
         console.error('Error parsing The Verge article:', err)
       }
-    })
+    }
 
     // Deduplicate by URL (The Verge sometimes duplicates)
     const uniqueArticles = Array.from(
@@ -151,8 +154,6 @@ export async function scrapeTheVerge(): Promise<ScrapedArticle[]> {
  */
 export async function scrapeVentureBeat(): Promise<ScrapedArticle[]> {
   try {
-    const cheerio = await import('cheerio')
-
     const response = await fetch('https://venturebeat.com/category/ai/', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
@@ -165,18 +166,19 @@ export async function scrapeVentureBeat(): Promise<ScrapedArticle[]> {
     }
 
     const html = await response.text()
-    const $ = cheerio.load(html)
+    const root = parse(html)
     const articles: ScrapedArticle[] = []
 
     // VentureBeat uses article structures
-    $('article, div.ArticleListing').each((i, elem) => {
+    const articleElements = root.querySelectorAll('article, div.ArticleListing')
+
+    for (const elem of articleElements) {
       try {
-        const $article = $(elem)
-        const $link = $article.find('a[href*="venturebeat.com"]').first()
-        const title = $article.find('h2, h3, .article-title').text().trim()
-        const url = $link.attr('href') || ''
-        const excerpt = $article.find('p, .excerpt').first().text().trim()
-        const dateStr = $article.find('time').attr('datetime')
+        const link = elem.querySelector('a[href*="venturebeat.com"]')
+        const title = elem.querySelector('h2, h3, .article-title')?.textContent.trim() || ''
+        const url = link?.getAttribute('href') || ''
+        const excerpt = elem.querySelector('p, .excerpt')?.textContent.trim() || ''
+        const dateStr = elem.querySelector('time')?.getAttribute('datetime')
 
         if (title && url) {
           articles.push({
@@ -191,7 +193,7 @@ export async function scrapeVentureBeat(): Promise<ScrapedArticle[]> {
       } catch (err) {
         console.error('Error parsing VentureBeat article:', err)
       }
-    })
+    }
 
     console.log(`✅ VentureBeat: Scraped ${articles.length} articles`)
     return articles.slice(0, 10)

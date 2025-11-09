@@ -159,7 +159,7 @@ Console output: `⚠️ FALLBACK TRIGGERED: Quote completion detected without AC
 ---
 
 ### Email 4: Progress Update
-**When:** During build phase (midway through 2-7 days)
+**When:** During build phase (midway through build)
 **Message:** Quick update on progress, keeping them excited and engaged
 
 ---

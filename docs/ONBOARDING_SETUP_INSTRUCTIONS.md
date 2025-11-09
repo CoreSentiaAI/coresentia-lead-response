@@ -142,7 +142,7 @@ When a lead becomes a client:
    ↓
 5. Form submitted
    ↓
-6. Build system (2-7 days)
+6. Build system (2-10 working days)
    ↓
 7. Testing with client
    ↓

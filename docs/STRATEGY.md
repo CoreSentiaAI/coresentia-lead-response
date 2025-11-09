@@ -52,7 +52,7 @@ We're:
 | **SMS-first** | ✅ Dedicated number | ❌ Web chat only |
 | **Appointment focus** | ✅ Built for bookings | ⚠️ Generic chat |
 | **Target market** | ✅ Trades/local services | ⚠️ Generic SMB |
-| **Delivery speed** | ✅ 2-7 days | ❌ 2-8 weeks |
+| **Delivery speed** | ✅ 2-10 working days | ❌ 2-8 weeks |
 | **Price point** | ✅ $1,200-2,500 | ❌ $3k-10k+ |
 | **No website needed** | ✅ SMS works solo | ❌ Website required |
 

@@ -54,7 +54,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Calendar className="w-4 h-4 text-brand-sage" />
-                  <span>2–7 days to launch</span>
+                  <span>2–10 working days to launch</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Shield className="w-4 h-4 text-brand-navy" />

@@ -250,7 +250,7 @@ I confirm that:
 After submitting this form:
 1. **Payment:** Invoice sent for setup fee ($499 or $2,500)
 2. **Setup Call:** 15-30 minute call to finalize details (within 48 hours)
-3. **Build:** We customize your AI and systems (2-7 days)
+3. **Build:** We customize your AI and systems (2-10 working days)
 4. **Testing:** You test and approve before going live
 5. **Launch:** Go live and start capturing leads!
 

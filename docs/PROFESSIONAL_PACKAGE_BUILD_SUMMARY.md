@@ -91,7 +91,7 @@
 ---
 
 ### 4. ✅ Database Schema (Complete SQL)
-**Location:** `/docs/DATABASE_SCHEMA_PROFESSIONAL_PACKAGE.sql`
+**Location:** `/supabase/migrations/DATABASE_SCHEMA_PROFESSIONAL_PACKAGE.sql`
 
 **Table:** `client_onboarding_professional`
 
@@ -113,7 +113,7 @@
 ### Step 1: Create Database Table
 1. Open Supabase dashboard: https://supabase.com/dashboard
 2. Go to SQL Editor
-3. Copy entire contents of `/docs/DATABASE_SCHEMA_PROFESSIONAL_PACKAGE.sql`
+3. Copy entire contents of `/supabase/migrations/DATABASE_SCHEMA_PROFESSIONAL_PACKAGE.sql`
 4. Paste and click "Run"
 5. Verify table created in Table Editor
 
@@ -274,7 +274,7 @@ Before going live with Professional Package:
 - `/public/Marketing/Templates/coresentia-email-6-golive-professional.html`
 
 **Database:**
-- `/docs/DATABASE_SCHEMA_PROFESSIONAL_PACKAGE.sql`
+- `/supabase/migrations/DATABASE_SCHEMA_PROFESSIONAL_PACKAGE.sql`
 
 **Documentation:**
 - `/docs/PROFESSIONAL_PACKAGE_ONBOARDING_PLAN.md` (full plan)

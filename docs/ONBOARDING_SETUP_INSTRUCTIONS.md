@@ -1,5 +1,23 @@
 # Client Onboarding Form - Setup Instructions
 
+⚠️ **DEPRECATED - October 2025**
+
+This document contains outdated information from the initial onboarding system setup. For current onboarding documentation, see:
+
+**SMS Responder Package:**
+- Form: https://www.coresentia.com.au/onboarding
+- Documentation: See `/docs/CORESENTIA_SALES_PIPELINE.md`
+- Email templates: `/public/Marketing/Templates/coresentia-email-*.html`
+
+**Professional Package:**
+- Form: https://www.coresentia.com.au/onboarding-professional
+- Documentation: See `/docs/PROFESSIONAL_PACKAGE_BUILD_SUMMARY.md` and `/docs/PROFESSIONAL_PACKAGE_ONBOARDING_PLAN.md`
+- Database schema: `/supabase/migrations/DATABASE_SCHEMA_PROFESSIONAL_PACKAGE.sql`
+
+---
+
+## Legacy Documentation (For Historical Reference Only)
+
 **Status:** ⚠️ REQUIRES DATABASE SETUP BEFORE USE
 
 The client onboarding form has been created at **https://www.coresentia.com.au/onboarding** but needs database configuration before it can accept submissions.

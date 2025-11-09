@@ -329,7 +329,9 @@ Lead clicks "Get Quote" or "Book Call" button → Form appears with fields:
 1. Confirm package choice (SMS Responder or Professional)
 2. Send invoice immediately
 3. Send onboarding form and service agreement
-4. Set expectations for setup timeline (2-3 or 5-7 days)
+4. Set expectations for setup timeline:
+   - SMS Responder: 2-3 days
+   - Professional Package: 10 working days
 
 ---
 

@@ -1,6 +1,6 @@
 # CoreSentia Project Status
 
-**Last Updated:** November 3, 2025 (Monday Evening)
+**Last Updated:** November 9, 2025
 **Current Phase:** Phase 1 COMPLETE - Production Ready ✅
 **Live URL:** https://www.coresentia.com.au
 **Live SMS:** +61489087491
@@ -22,7 +22,7 @@ AI-powered SMS + web chat system for Aussie tradies/service businesses. Two-bot 
 
 ---
 
-## ✅ What's Working (Nov 3, 2025)
+## ✅ What's Working (Nov 9, 2025)
 
 ### Core Features - Production Ready
 - [x] Website with pricing at coresentia.com.au
@@ -33,8 +33,22 @@ AI-powered SMS + web chat system for Aussie tradies/service businesses. Two-bot 
 - [x] **100% reliable SMS alerts to admin** (with audit logging)
 - [x] Lead capture & tracking (SMS + web)
 - [x] Admin dashboard at /admin with conversation history
-- [x] Complete onboarding form at /onboarding (optional setup calls)
 - [x] Two-bot routing system (sales vs client)
+
+### Client Onboarding - Complete (Nov 9)
+- [x] SMS Responder onboarding form at /onboarding (optional setup calls)
+- [x] **Professional Package onboarding form at /onboarding-professional** (NEW)
+- [x] Comprehensive 9-section form (branding, website design, domain setup)
+- [x] API endpoint for Professional Package submissions
+- [x] Complete email template suite:
+  - Email 2a: Professional Package onboarding link
+  - Email 4: Progress update for Professional builds
+  - Email 5a: Completion email with staging preview
+  - Email 6: Enhanced go-live for Professional Package
+- [x] Database schema for tracking website builds, logo creation, revisions
+- [x] Simplified email templates (optional testing, mailto "Confirm Go Live" links)
+- [x] 10 working day timeline for Professional Package builds
+- [x] Complete documentation and deployment guides
 
 ### Recent Fixes (This Session - Nov 3)
 - [x] Fixed SMS notifications (they're working now!)
@@ -75,23 +89,36 @@ AI-powered SMS + web chat system for Aussie tradies/service businesses. Two-bot 
 - `/app/api/admin/leads/route.ts` - Lead API
 
 **Onboarding:**
-- `/app/onboarding/page.tsx` - Client onboarding form
-- `/app/api/onboarding/route.ts` - Form submission handler
+- `/app/onboarding/page.tsx` - SMS Responder onboarding form
+- `/app/onboarding-professional/page.tsx` - Professional Package onboarding form (NEW)
+- `/app/api/onboarding/route.ts` - SMS Responder form handler
+- `/app/api/onboarding-professional/route.ts` - Professional Package form handler (NEW)
+
+**Email Templates:**
+- `/public/Marketing/Templates/` - All client email templates
+- Email 2a, 4, 5a, 6 (Professional Package specific - NEW)
 
 **Database:**
 - Supabase (PostgreSQL)
-- Tables: leads, bookings, business_phones, businesses, client_onboarding
+- Tables: leads, bookings, business_phones, businesses, client_onboarding, client_onboarding_professional (NEW)
 
 ---
 
 ## 🚀 What's Next (Phase 2)
 
-**Not Started Yet:**
-- [ ] Multi-business architecture (client product)
+**Client Product Development (Not Started):**
+- [ ] Multi-business architecture (multi-tenant client bot system)
 - [ ] Business profile management
-- [ ] Website template builder (Professional Package)
+- [ ] Website builder automation (for Professional Package delivery)
 - [ ] Per-client AI customization
 - [ ] White-label dashboard for clients
+- [ ] Automated staging site generation
+
+**Professional Package Enhancements (Future):**
+- [ ] Direct file uploads in onboarding form (logo, photos)
+- [ ] Client portal for tracking build progress
+- [ ] Design approval workflow with visual feedback
+- [ ] Revision request system
 
 **Phase 1 Improvements (Optional):**
 - [ ] Email notifications (currently SMS only)
@@ -223,13 +250,13 @@ Check these if issues arise:
 - View leads: Supabase dashboard → leads table
 - Deploy: `git push` (auto-deploys to Vercel)
 
-**Latest Git Commits (Nov 3):**
+**Latest Git Commits:**
 ```
-8a9fa42 - Add buying intent detection
-39ca382 - Remove Ivy references and improve extraction
-61838ed - Add comprehensive logging for debugging
-690d3e6 - Update documentation with notification system
-2e2d4d5 - Implement bulletproof dual-layer notification system
+655b1dc (Nov 9) - Add complete Professional Package onboarding system
+ad78ecd (Nov 9) - Add PROJECT_STATUS.md for quick session-start reference
+8a9fa42 (Nov 3) - Add buying intent detection
+39ca382 (Nov 3) - Remove Ivy references and improve extraction
+61838ed (Nov 3) - Add comprehensive logging for debugging
 ```
 
 ---

@@ -364,7 +364,7 @@ export default function HomePage() {
                   <p className="text-4xl font-bold text-brand-primary">$2,500</p>
                   <p className="text-lg text-text-primary">+ $250/month</p>
                   <p className="text-xs text-text-primary mt-1">(inc. GST)</p>
-                  <p className="text-sm text-brand-accent font-semibold mt-2 flex items-center gap-1 justify-center"><Rocket className="w-4 h-4" /> 5-7 day delivery</p>
+                  <p className="text-sm text-brand-accent font-semibold mt-2 flex items-center gap-1 justify-center"><Rocket className="w-4 h-4" /> Delivery in 5 to 10 working days</p>
                 </div>
 
                 <p className="text-text-primary mb-6">

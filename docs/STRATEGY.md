@@ -163,7 +163,7 @@ We're:
 
 **Solution Fit:**
 - Professional Package ($2,500 + $250/mo)
-- 5-7 day setup
+- 5 to 10 working days setup
 - Website + SMS + web chat
 - Custom branding
 - ROI in 3-4 weeks

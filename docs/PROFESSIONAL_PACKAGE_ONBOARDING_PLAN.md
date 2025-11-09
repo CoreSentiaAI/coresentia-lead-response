@@ -180,7 +180,7 @@ Same as SMS package but with more detail for website display:
 **Different from SMS version:**
 - Link to Professional Package form
 - Mentions website design process
-- Sets expectation for 5-7 day build
+- Sets expectation for 5 to 10 working days build
 - Mentions branding/logo creation if needed
 
 ### Email 3: Setup Call (SAME)

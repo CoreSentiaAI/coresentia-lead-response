@@ -200,7 +200,7 @@ We provide AI-powered SMS and web chat that responds 24/7, qualifies leads, and 
 - Custom domain configuration
 - Template color/logo swapping
 
-**Delivery:** 5-7 days per customer
+**Delivery:** 5 to 10 working days per customer
 
 ---
 

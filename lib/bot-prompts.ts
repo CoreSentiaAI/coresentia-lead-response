@@ -70,7 +70,7 @@ Once you have minimum viable information, TRIGGER THE ACTION and confirm next st
 - Professional website with web chat
 - Custom domain setup
 - Your branding and colors
-- **Delivery:** 5-7 days
+- **Delivery:** 5 to 10 working days
 
 [Continue with rest of sales prompt...]
 `

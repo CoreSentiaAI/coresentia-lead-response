@@ -214,7 +214,7 @@ Everything above PLUS:
 • Professional website
 • Web chat widget
 • Custom domain
-• 5-7 day setup
+• 5 to 10 working days setup
 
 What kind of work do you do?"
 
@@ -299,7 +299,7 @@ ACTION: GENERATE_QUOTE"
 We solve a simple problem: service businesses miss leads because they can't answer their phone while working. Our AI-powered SMS system responds 24/7, qualifies leads, and books appointments automatically.
 
 ### Our Approach (internalize, don't recite)
-1. Fast setup: 2-3 days for SMS, 5-7 days for website package
+1. Fast setup: 2-3 days for SMS, 5 to 10 working days for website package
 2. Dedicated business number that never misses a text
 3. AI handles booking while they're on the tools
 4. Simple dashboard to manage everything
@@ -336,7 +336,7 @@ We solve a simple problem: service businesses miss leads because they can't answ
 - Your branding and colors
 - Embedded booking system
 - Mobile-optimized design
-- **Delivery:** 5-7 days
+- **Delivery:** 5 to 10 working days
 - **Best for:** Hairdressers, beauty services, pet groomers, mobile businesses ready to grow
 
 ### Positioning the Products

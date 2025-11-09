@@ -130,7 +130,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-brand-navy mb-2">Fast Setup</h3>
                   <p className="text-text-secondary">
-                    2-3 days for SMS, 5-7 days for website package. No months-long implementation projects.
+                    2-3 days for SMS, 5 to 10 working days for website package. No months-long implementation projects.
                   </p>
                 </div>
               </div>

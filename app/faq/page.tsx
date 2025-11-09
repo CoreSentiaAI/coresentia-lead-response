@@ -26,7 +26,7 @@ const faqs: FAQItem[] = [
   {
     category: 'general',
     question: "How fast can I get set up?",
-    answer: "SMS Responder: 2-3 days. Professional Package: 5-7 days. We gather your business information, customize the AI, set up your systems, and get you live fast."
+    answer: "SMS Responder: 2-3 days. Professional Package: 5 to 10 working days. We gather your business information, customize the AI, set up your systems, and get you live fast."
   },
 
   // Features & Scope

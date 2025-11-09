@@ -1,9 +1,10 @@
 # CoreSentia Project Status
 
-**Last Updated:** November 9, 2025
+**Last Updated:** November 9, 2025 (Evening - Post-Deployment)
 **Current Phase:** Phase 1 COMPLETE - Production Ready ✅
 **Live URL:** https://www.coresentia.com.au
 **Live SMS:** +61489087491
+**Deployment:** Vercel (CLI integrated for direct management)
 
 ---
 
@@ -49,6 +50,18 @@ AI-powered SMS + web chat system for Aussie tradies/service businesses. Two-bot 
 - [x] Simplified email templates (optional testing, mailto "Confirm Go Live" links)
 - [x] 10 working day timeline for Professional Package builds
 - [x] Complete documentation and deployment guides
+
+### Deployment & DevOps - Complete (Nov 9 Evening)
+- [x] **Vercel CLI installed and authenticated**
+- [x] **All environment variables configured in production:**
+  - Twilio SMS credentials (Account SID, Auth Token, Phone Number)
+  - Admin phone number for notifications
+  - Anthropic API key for AI
+  - Supabase credentials (URL, Anon Key, Service Key)
+- [x] Production deployment successful with all env vars
+- [x] Custom domains configured (coresentia.com.au, coresentia.com)
+- [x] SSL certificates active
+- [x] GitHub auto-deploy to Vercel working
 
 ### Recent Fixes (This Session - Nov 3)
 - [x] Fixed SMS notifications (they're working now!)
@@ -249,14 +262,20 @@ Check these if issues arise:
 - Check notifications: `/lib/notifications.ts`
 - View leads: Supabase dashboard → leads table
 - Deploy: `git push` (auto-deploys to Vercel)
+- Vercel CLI commands:
+  - `vercel` - Deploy to preview
+  - `vercel --prod` - Deploy to production
+  - `vercel env ls` - List environment variables
+  - `vercel ls` - List recent deployments
+  - `vercel domains ls` - List connected domains
 
-**Latest Git Commits:**
+**Latest Git Commits (Nov 9):**
 ```
-655b1dc (Nov 9) - Add complete Professional Package onboarding system
-ad78ecd (Nov 9) - Add PROJECT_STATUS.md for quick session-start reference
-8a9fa42 (Nov 3) - Add buying intent detection
-39ca382 (Nov 3) - Remove Ivy references and improve extraction
-61838ed (Nov 3) - Add comprehensive logging for debugging
+e3508dc - Add comprehensive pre-launch checklist and push all updates
+c2cfeca - Update Terms of Service with SMS allowance disclosure
+f6553b9 - Add SMS message allowance disclosure (500 SMS/month)
+5a8b394 - Update hero section and docs to 2-10 working days
+52c2800 - Update Professional Package delivery timeframe to 5-10 days
 ```
 
 ---

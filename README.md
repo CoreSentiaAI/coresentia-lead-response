@@ -298,6 +298,20 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
+### Deploy to Production
+
+```bash
+# Vercel CLI is installed and authenticated
+vercel --prod
+```
+
+**Deployment Management:**
+- Auto-deploy on `git push` to main branch
+- Manual deploy: `vercel --prod`
+- View deployments: `vercel ls`
+- Check env vars: `vercel env ls`
+- View domains: `vercel domains ls`
+
 ## 📁 Project Structure
 
 ```

@@ -22,22 +22,26 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
   try {
-    // Verify cron secret (security)
+    // Verify request is from Vercel Cron or has valid auth token
     const authHeader = request.headers.get('Authorization')
-    const cronSecret = process.env.CRON_SECRET || 'development-secret'
+    const cronSecret = process.env.CRON_SECRET
+    const isVercelCron = request.headers.get('User-Agent')?.includes('vercel-cron')
 
     // Debug logging
     console.log('🔍 Auth Debug:', {
-      receivedHeader: authHeader,
-      expectedSecret: cronSecret,
-      expectedBearer: `Bearer ${cronSecret}`,
-      match: authHeader === `Bearer ${cronSecret}`
+      authHeader,
+      cronSecret: cronSecret ? '***SET***' : undefined,
+      userAgent: request.headers.get('User-Agent'),
+      isVercelCron,
     })
 
-    if (authHeader !== `Bearer ${cronSecret}`) {
+    // Allow Vercel Cron or valid Bearer token
+    const isAuthorized = isVercelCron || (authHeader && cronSecret && authHeader === `Bearer ${cronSecret}`)
+
+    if (!isAuthorized) {
       console.error('❌ Unauthorized cron request')
       return NextResponse.json(
-        { error: 'Unauthorized', debug: { hasAuthHeader: !!authHeader, hasCronSecret: !!cronSecret } },
+        { error: 'Unauthorized', debug: { hasAuthHeader: !!authHeader, hasCronSecret: !!cronSecret, isVercelCron } },
         { status: 401 }
       )
     }

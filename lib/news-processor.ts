@@ -7,21 +7,28 @@ import { createClient } from '@supabase/supabase-js'
 import Anthropic from '@anthropic-ai/sdk'
 import { ScrapedArticle } from './news-scrapers'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-)
+// Lazy initialization to avoid build-time errors
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_KEY!
+  )
+}
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-})
+function getAnthropic() {
+  return new Anthropic({
+    apiKey: process.env.ANTHROPIC_API_KEY!,
+  })
+}
 
 /**
  * Check if article already exists in database
  */
 async function isArticleDuplicate(article: ScrapedArticle): Promise<boolean> {
+  const supabase = getSupabase()
+
   // Check by URL
-  const { data: urlMatch } = await supabase
+  const { data: urlMatch } = const supabase = getSupabase(); await supabase
     .from('news_articles')
     .select('id')
     .eq('url', article.url)
@@ -32,7 +39,7 @@ async function isArticleDuplicate(article: ScrapedArticle): Promise<boolean> {
   }
 
   // Check by content hash (similar articles)
-  const { data: hashMatch } = await supabase
+  const { data: hashMatch } = const supabase = getSupabase(); await supabase
     .from('news_articles')
     .select('id')
     .eq('content_hash', article.content_hash)
@@ -139,7 +146,7 @@ URL: ${article.url}
 
 Write the blog post now:`
 
-  const message = await anthropic.messages.create({
+  const anthropic = getAnthropic(); const message = await anthropic.messages.create({
     model: 'claude-3-5-sonnet-20241022',
     max_tokens: 2000,
     messages: [{
@@ -188,7 +195,7 @@ async function publishBlogPost(
     .substring(0, 100)
 
   // Insert blog post
-  const { data: post, error: postError } = await supabase
+  const { data: post, error: postError } = const supabase = getSupabase(); await supabase
     .from('blog_posts')
     .insert({
       title: blogPost.title,
@@ -218,7 +225,7 @@ async function publishBlogPost(
  * Save article to news_articles table
  */
 async function saveArticle(article: ScrapedArticle, blogPostId?: string) {
-  const { error } = await supabase
+  const { error } = const supabase = getSupabase(); await supabase
     .from('news_articles')
     .insert({
       title: article.title,

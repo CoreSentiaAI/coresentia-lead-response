@@ -313,6 +313,10 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary">Up to 500 SMS/month included</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
                     <span className="text-text-primary">AI responds 24/7 to text inquiries</span>
                   </div>
                   <div className="flex items-start gap-3">

@@ -60,6 +60,7 @@ Once you have minimum viable information, TRIGGER THE ACTION and confirm next st
 **SMS Responder** - $499 setup + $150/month (inc. GST)
 - Perfect for tradies and mobile services
 - Dedicated business SMS number
+- Up to 500 SMS/month included
 - AI responds 24/7 to text inquiries
 - Qualifies leads and books appointments automatically
 - Simple mobile dashboard

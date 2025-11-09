@@ -75,7 +75,7 @@ const faqs: FAQItem[] = [
   {
     category: 'pricing',
     question: "What's included in the monthly fee?",
-    answer: "Unlimited conversations, AI hosting, SMS sending/receiving (reasonable use), dashboard access, updates and improvements. The only extra cost would be if you want custom features or integrations beyond the standard package."
+    answer: "Unlimited conversations, AI hosting, up to 500 SMS per month (incoming + outgoing combined), dashboard access, updates and improvements. We'll notify you if you're approaching your SMS limit. Additional messages are billed at $0.15 per SMS. The only other extra cost would be if you want custom features or integrations beyond the standard package."
   },
   {
     category: 'pricing',

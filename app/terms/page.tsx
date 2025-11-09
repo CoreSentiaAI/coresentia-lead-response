@@ -14,7 +14,7 @@ export default function TermsPage() {
               Terms of Service
             </h1>
             <p className="text-lg text-white/80">
-              Last Updated: October 27, 2025
+              Last Updated: November 9, 2025
             </p>
           </div>
         </section>
@@ -60,16 +60,28 @@ export default function TermsPage() {
               Prices are subject to change with 30 days' notice. Current customers will be notified of any price changes before they take effect.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">4. Payment Terms</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">4. SMS Message Allowance</h2>
+            <p className="text-text-secondary mb-4">
+              <strong>Monthly Allowance:</strong> SMS Responder and Professional Package both include up to 500 SMS messages per month (incoming and outgoing combined).
+            </p>
+            <p className="text-text-secondary mb-4">
+              <strong>Usage Monitoring:</strong> We will notify you via email when you approach 80% of your monthly allowance (400 messages).
+            </p>
+            <p className="text-text-secondary mb-6">
+              <strong>Overage Charges:</strong> Messages exceeding the 500 monthly allowance are billed at $0.15 per SMS (inc. GST). Overage charges are invoiced at the end of each month.
+            </p>
+
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">5. Payment Terms</h2>
             <ul className="list-disc list-inside text-text-secondary mb-6 space-y-2">
               <li>Setup fees are due before service commencement</li>
               <li>Monthly fees are billed in advance on the 1st of each month</li>
+              <li>SMS overage charges are billed in arrears at month-end</li>
               <li>Payment is due within 7 days of invoice date</li>
               <li>Late payments may result in service suspension</li>
               <li>All prices include GST</li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">5. Service Term and Cancellation</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">6. Service Term and Cancellation</h2>
             <p className="text-text-secondary mb-4">
               <strong>No Lock-In:</strong> Services are provided month-to-month with no long-term contracts.
             </p>
@@ -80,7 +92,7 @@ export default function TermsPage() {
               <strong>Service Suspension:</strong> We reserve the right to suspend services for non-payment, misuse, or violation of these Terms.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">6. Your Responsibilities</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">7. Your Responsibilities</h2>
             <p className="text-text-secondary mb-4">
               You agree to:
             </p>
@@ -92,7 +104,7 @@ export default function TermsPage() {
               <li>Comply with all applicable laws and regulations</li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">7. AI Disclaimer</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">8. AI Disclaimer</h2>
             <p className="text-text-secondary mb-4">
               <strong>AI Accuracy:</strong> While our AI is highly accurate, it may occasionally make errors or provide incorrect information. CoreSentia is not responsible for:
             </p>
@@ -105,69 +117,69 @@ export default function TermsPage() {
               You remain responsible for all customer interactions and business decisions. The AI is a tool to assist you, not replace your judgment.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">8. Limitation of Liability</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">9. Limitation of Liability</h2>
             <p className="text-text-secondary mb-6">
               To the maximum extent permitted by Australian law, CoreSentia's total liability for any claims arising from these Terms or use of the Services shall not exceed the total amount paid by you in the 12 months preceding the claim.
               <br /><br />
               CoreSentia is not liable for indirect, incidental, special, or consequential damages, including loss of profits, revenue, data, or business opportunities.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">9. No Guarantee of Results</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">10. No Guarantee of Results</h2>
             <p className="text-text-secondary mb-6">
               CoreSentia does not guarantee any specific number of leads, bookings, or revenue. Results vary based on your business, industry, marketing efforts, and other factors outside our control.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">10. Intellectual Property</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">11. Intellectual Property</h2>
             <p className="text-text-secondary mb-6">
               CoreSentia retains all intellectual property rights to the Services, software, AI systems, and related technology. You are granted a limited, non-exclusive license to use the Services for your business purposes only.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">11. Data and Privacy</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">12. Data and Privacy</h2>
             <p className="text-text-secondary mb-6">
               Your use of the Services is also governed by our <Link href="/privacy" className="text-brand-orange hover:underline">Privacy Policy</Link>, which explains how we collect, use, and protect your data and your customers' data.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">12. Service Modifications</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">13. Service Modifications</h2>
             <p className="text-text-secondary mb-6">
               CoreSentia reserves the right to modify, suspend, or discontinue any aspect of the Services at any time. We will provide reasonable notice of significant changes.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">13. Third-Party Services</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">14. Third-Party Services</h2>
             <p className="text-text-secondary mb-6">
               The Services may integrate with third-party platforms (e.g., Twilio for SMS, Anthropic for AI). We are not responsible for the availability, performance, or policies of third-party services.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">14. Indemnification</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">15. Indemnification</h2>
             <p className="text-text-secondary mb-6">
               You agree to indemnify and hold harmless CoreSentia from any claims, damages, or expenses arising from your use of the Services, your violation of these Terms, or your violation of any third-party rights.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">15. Governing Law</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">16. Governing Law</h2>
             <p className="text-text-secondary mb-6">
               These Terms are governed by the laws of Queensland, Australia. Any disputes shall be resolved in the courts of Queensland.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">16. Dispute Resolution</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">17. Dispute Resolution</h2>
             <p className="text-text-secondary mb-6">
               Before commencing legal proceedings, parties agree to attempt to resolve disputes through good faith negotiation. If negotiation fails, disputes may be escalated to mediation or arbitration.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">17. Severability</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">18. Severability</h2>
             <p className="text-text-secondary mb-6">
               If any provision of these Terms is found to be unenforceable, the remaining provisions shall remain in full effect.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">18. Entire Agreement</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">19. Entire Agreement</h2>
             <p className="text-text-secondary mb-6">
               These Terms, together with our Privacy Policy and any Service Agreement you sign, constitute the entire agreement between you and CoreSentia regarding the Services.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">19. Changes to Terms</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">20. Changes to Terms</h2>
             <p className="text-text-secondary mb-6">
               We may update these Terms from time to time. Significant changes will be communicated via email. Continued use of the Services after changes take effect constitutes acceptance of the new Terms.
             </p>
 
-            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">20. Contact Information</h2>
+            <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">21. Contact Information</h2>
             <p className="text-text-secondary mb-6">
               For questions about these Terms, contact us at:<br />
               Email: <Link href="mailto:info@coresentia.com" className="text-brand-orange hover:underline">info@coresentia.com</Link><br />

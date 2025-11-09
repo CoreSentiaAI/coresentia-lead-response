@@ -1,9 +1,10 @@
 /**
  * Web scrapers for AI news sources
  * Extracts articles from TechCrunch, The Verge, VentureBeat
+ *
+ * @note Server-side only - uses Node.js APIs
  */
 
-import * as cheerio from 'cheerio'
 import crypto from 'crypto'
 
 export interface ScrapedArticle {
@@ -33,6 +34,8 @@ function generateContentHash(title: string, excerpt: string): string {
  */
 export async function scrapeTechCrunch(): Promise<ScrapedArticle[]> {
   try {
+    const cheerio = await import('cheerio')
+
     const response = await fetch('https://techcrunch.com/category/artificial-intelligence/', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
@@ -86,6 +89,8 @@ export async function scrapeTechCrunch(): Promise<ScrapedArticle[]> {
  */
 export async function scrapeTheVerge(): Promise<ScrapedArticle[]> {
   try {
+    const cheerio = await import('cheerio')
+
     const response = await fetch('https://www.theverge.com/ai-artificial-intelligence', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
@@ -146,6 +151,8 @@ export async function scrapeTheVerge(): Promise<ScrapedArticle[]> {
  */
 export async function scrapeVentureBeat(): Promise<ScrapedArticle[]> {
   try {
+    const cheerio = await import('cheerio')
+
     const response = await fetch('https://venturebeat.com/category/ai/', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',

@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 export async function getXeroTokens() {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
   
   const { data, error } = await supabase
@@ -76,7 +76,7 @@ async function refreshXeroTokens(refreshToken: string) {
   // Update stored tokens with expiry time
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
   
   const tokenData = {

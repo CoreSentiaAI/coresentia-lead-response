@@ -26,10 +26,18 @@ export async function GET(request: Request) {
     const authHeader = request.headers.get('Authorization')
     const cronSecret = process.env.CRON_SECRET || 'development-secret'
 
+    // Debug logging
+    console.log('🔍 Auth Debug:', {
+      receivedHeader: authHeader,
+      expectedSecret: cronSecret,
+      expectedBearer: `Bearer ${cronSecret}`,
+      match: authHeader === `Bearer ${cronSecret}`
+    })
+
     if (authHeader !== `Bearer ${cronSecret}`) {
       console.error('❌ Unauthorized cron request')
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: 'Unauthorized', debug: { hasAuthHeader: !!authHeader, hasCronSecret: !!cronSecret } },
         { status: 401 }
       )
     }

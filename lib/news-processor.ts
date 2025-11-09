@@ -146,7 +146,8 @@ URL: ${article.url}
 
 Write the blog post now:`
 
-  const anthropic = getAnthropic(); const message = await anthropic.messages.create({
+  const anthropic = getAnthropic()
+  const message = await anthropic.messages.create({
     model: 'claude-3-5-sonnet-20241022',
     max_tokens: 2000,
     messages: [{
@@ -195,7 +196,8 @@ async function publishBlogPost(
     .substring(0, 100)
 
   // Insert blog post
-  const { data: post, error: postError } = const supabase = getSupabase(); await supabase
+  const supabase = getSupabase()
+  const { data: post, error: postError } = await supabase
     .from('blog_posts')
     .insert({
       title: blogPost.title,
@@ -225,7 +227,8 @@ async function publishBlogPost(
  * Save article to news_articles table
  */
 async function saveArticle(article: ScrapedArticle, blogPostId?: string) {
-  const { error } = const supabase = getSupabase(); await supabase
+  const supabase = getSupabase()
+  const { error } = await supabase
     .from('news_articles')
     .insert({
       title: article.title,

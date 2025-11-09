@@ -28,7 +28,7 @@ async function isArticleDuplicate(article: ScrapedArticle): Promise<boolean> {
   const supabase = getSupabase()
 
   // Check by URL
-  const { data: urlMatch } = const supabase = getSupabase(); await supabase
+  const { data: urlMatch } = await supabase
     .from('news_articles')
     .select('id')
     .eq('url', article.url)
@@ -39,7 +39,7 @@ async function isArticleDuplicate(article: ScrapedArticle): Promise<boolean> {
   }
 
   // Check by content hash (similar articles)
-  const { data: hashMatch } = const supabase = getSupabase(); await supabase
+  const { data: hashMatch } = await supabase
     .from('news_articles')
     .select('id')
     .eq('content_hash', article.content_hash)

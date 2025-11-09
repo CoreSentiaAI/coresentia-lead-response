@@ -46,6 +46,18 @@ export default function HomePage() {
                 </Link>
               </div>
 
+              {/* SMS CTA */}
+              <div className="flex items-center justify-center lg:justify-start gap-2 text-gray-700 pt-2">
+                <span className="text-sm">or text our AI:</span>
+                <a
+                  href="sms:+61489087491"
+                  className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover font-semibold text-lg transition-colors"
+                >
+                  <Phone className="w-5 h-5" />
+                  +61 489 087 491
+                </a>
+              </div>
+
               {/* Micro-metrics */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -557,7 +569,17 @@ export default function HomePage() {
             >
               Get Started Now →
             </Link>
-            <p className="text-text-primary mt-6 text-sm">
+            <div className="mt-6 flex items-center justify-center gap-2 text-text-primary">
+              <span>or text us:</span>
+              <a
+                href="sms:+61489087491"
+                className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover font-bold text-lg transition-colors"
+              >
+                <Phone className="w-5 h-5" />
+                +61 489 087 491
+              </a>
+            </div>
+            <p className="text-text-primary mt-4 text-sm">
               No lock-in contracts. Cancel anytime. Full support included.
             </p>
           </div>
@@ -594,12 +616,21 @@ export default function HomePage() {
               <div>
                 <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Connect</h4>
                 <p className="text-text-secondary mb-4">Brisbane, Australia</p>
-                <Link
-                  href="mailto:info@coresentia.com"
-                  className="text-brand-accent hover:text-brand-accent-hover transition-colors"
-                >
-                  info@coresentia.com
-                </Link>
+                <div className="space-y-2">
+                  <a
+                    href="sms:+61489087491"
+                    className="flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover transition-colors"
+                  >
+                    <Phone className="w-4 h-4" />
+                    +61 489 087 491
+                  </a>
+                  <Link
+                    href="mailto:info@coresentia.com"
+                    className="block text-brand-accent hover:text-brand-accent-hover transition-colors"
+                  >
+                    info@coresentia.com
+                  </Link>
+                </div>
               </div>
             </div>
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="x-apple-disable-message-reformatting">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CoreSentia – Your Bot is Ready!</title>
+    <title>CoreSentia – Your Professional Package is Ready!</title>
     <style>
       @media screen and (max-width: 600px) {
         .container { width: 100% !important; }
@@ -15,7 +15,7 @@
   </head>
   <body style="margin:0; padding:0; background-color:#ffffff;">
     <div style="display:none; font-size:1px; color:#ffffff; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden;">
-      Your SMS Lead Capture Bot is built and ready to go live!
+      Your custom website and SMS bot are built and ready to go live!
     </div>
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="background-color:#ffffff;">
       <tr>
@@ -27,11 +27,11 @@
                   <tr>
                     <td class="px" style="padding:28px 24px 8px 24px; font-family:Arial, Helvetica, sans-serif; color:#2D3436;">
                       <p style="margin:0 0 16px 0; font-size:16px;">Hi {{FirstName}},</p>
-                      <p style="margin:0 0 16px 0; font-size:16px; line-height:1.6;">
-                        Exciting news — your SMS Lead Capture Bot for <em>{{BusinessName}}</em> is built and ready to go live!
+                      <p style="margin:0 0 16px 0; font-size:18px; font-weight:600; line-height:1.6; color:#16A34A;">
+                        Your Professional Package is ready! Your custom website and SMS bot are built and ready to go live.
                       </p>
                       <p style="margin:0; font-size:16px; line-height:1.6;">
-                        Everything has been set up according to your specifications. Feel free to test it out, and when you're ready, we'll finalise payments and flip the switch.
+                        Everything has been built for <em>{{BusinessName}}</em> according to your specifications. Feel free to preview your website and test your SMS bot, and when you're ready, we'll finalise payments and flip the switch.
                       </p>
                     </td>
                   </tr>
@@ -44,8 +44,8 @@
                           <td style="padding:18px 20px; font-family:Arial, Helvetica, sans-serif;">
                             <h3 style="margin:0 0 12px 0; font-size:16px; color:#2A50DF; letter-spacing:.04em;">Your Access Details</h3>
                             <div style="font-size:15px; line-height:1.8; color:#2D3436;">
+                              <strong>Website Preview:</strong> <a href="{{StagingUrl}}" style="color:#1099E7; text-decoration:none;">{{StagingUrl}}</a><br>
                               <strong>SMS Number:</strong> {{SMSNumber}}<br>
-                              {{WebsiteAccess}}<br>
                               <strong>Dashboard:</strong> <a href="{{DashboardUrl}}" style="color:#1099E7; text-decoration:none;">{{DashboardUrl}}</a><br>
                               <strong>Login:</strong> {{LoginEmail}}<br>
                               <strong>Password:</strong> {{TempPassword}} (change after first login)
@@ -56,12 +56,27 @@
                     </td>
                   </tr>
 
+                  <!-- What's included -->
+                  <tr>
+                    <td class="px" style="padding:20px 24px 0 24px;">
+                      <h3 style="margin:0 0 8px 0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#2A50DF; letter-spacing:.04em;">What You're Getting</h3>
+                      <ul style="margin:0; padding-left:20px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; color:#2D3436;">
+                        <li>Custom 4-page website at {{PreferredDomain}}</li>
+                        <li>SMS Lead Capture Bot ({{SMSNumber}})</li>
+                        <li>Web chat widget integrated on your site</li>
+                        <li>Dashboard for managing leads and conversations</li>
+                        <li>{{LogoIncluded}}</li>
+                        <li>Professional branding and design</li>
+                      </ul>
+                    </td>
+                  </tr>
+
                   <!-- Optional testing -->
                   <tr>
                     <td class="px" style="padding:20px 24px 0 24px;">
                       <h3 style="margin:0 0 8px 0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#2A50DF; letter-spacing:.04em;">Optional: Test It Out</h3>
                       <p style="margin:0; padding-left:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; color:#2D3436;">
-                        Feel free to send a test message to <strong>{{SMSNumber}}</strong> to see your bot in action. You can also log in to the dashboard to see how leads appear. No pressure — test as much or as little as you like!
+                        Feel free to browse your website preview, send a test message to <strong>{{SMSNumber}}</strong>, and try the web chat on your site. You can also log in to the dashboard to see how leads appear. No pressure — test as much or as little as you like!
                       </p>
                     </td>
                   </tr>
@@ -74,7 +89,7 @@
                           <td style="padding:18px 20px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#166534;">
                             <strong style="display:block; margin-bottom:6px; font-size:16px;">Ready to Go Live?</strong>
                             <div style="color:#2D3436; font-size:15px; line-height:1.6;">
-                              Once you've had a quick look and you're happy to proceed, just reply to this email or click the button below to confirm. We'll finalise payments and get you live!
+                              Once you've had a quick look and you're happy to proceed, just reply to this email or click the button below to confirm. We'll finalise payments and get your website and SMS bot live at your custom domain!
                             </div>
                           </td>
                         </tr>
@@ -94,7 +109,7 @@
                               <strong>Monthly subscription:</strong> {{MonthlyAmount}}/month (cancel anytime)
                             </p>
                             <p style="margin:0; font-size:14px; line-height:1.5; color:#7c7c7c;">
-                              Use the link below to pay your remaining balance and set up your monthly subscription. Once that's done and you confirm you're ready, your bot goes live!
+                              Use the link below to pay your remaining balance and set up your monthly subscription. Once that's done and you confirm you're ready, your website and bot go live!
                             </p>
                           </td>
                         </tr>
@@ -108,7 +123,7 @@
                       <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left">
                         <tr>
                           <td class="cta-stack" align="left" style="border-radius:999px; background:#16A34A;">
-                            <a href="mailto:info@coresentia.com?subject=Ready to Go Live - {{BusinessName}}&body=Hi, I've reviewed my system and I'm ready to go live!" style="display:inline-block; padding:12px 24px; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#ffffff; text-decoration:none; border-radius:999px;">Confirm Go Live</a>
+                            <a href="mailto:info@coresentia.com?subject=Ready to Go Live - {{BusinessName}}&body=Hi, I've reviewed my website and system and I'm ready to go live!" style="display:inline-block; padding:12px 24px; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#ffffff; text-decoration:none; border-radius:999px;">Confirm Go Live</a>
                           </td>
                         </tr>
                       </table>

@@ -57,11 +57,11 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-center md:justify-between">
         <Link href="/" className="flex items-center">
           <Image
-            src="/CoreSentia_Full_Logo.png"
+            src="/CoreSentia_Logo_Black_Text.png"
             alt="CoreSentia"
-            width={400}
-            height={80}
-            className="h-16 w-auto transition-all duration-300"
+            width={625}
+            height={125}
+            className="h-28 w-auto transition-all duration-300"
           />
         </Link>
 

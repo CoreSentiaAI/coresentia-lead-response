@@ -2,22 +2,46 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Zap, MessageSquare, Globe, Calendar, Check, Clock, DollarSign, Users, Phone, TrendingUp, Shield, Rocket } from 'lucide-react'
 import Header from './components/Header'
+import QuoteForm from './components/QuoteForm'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-text-primary relative overflow-x-hidden font-opensans">
-      {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-white z-0"></div>
+    <div className="min-h-screen bg-slate-50 text-text-primary relative overflow-x-hidden font-opensans">
+      {/* Background with Dot Grid & Glowing Orbs */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Dot Grid */}
+        <div className="absolute inset-0 opacity-40" style={{
+          backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }}></div>
 
-      {/* Main content wrapper with scroll snap */}
-      <div className="relative z-10 snap-y snap-proximity overflow-y-auto h-screen scroll-smooth">
+        {/* Radial Masks to fade edges */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-transparent to-slate-50"></div>
+
+        {/* Glowing Orbs using Brand Colors - Enhanced */}
+        {/* Top Right: Light Blue */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 mix-blend-multiply" style={{
+          background: 'rgba(98, 212, 249, 0.25)' // brand-light-blue - increased opacity
+        }}></div>
+        {/* Bottom Left: Royal Blue */}
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 mix-blend-multiply" style={{
+          background: 'rgba(42, 80, 223, 0.18)' // brand-primary - increased opacity
+        }}></div>
+        {/* Center: Medium Blue for extra depth */}
+        <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 mix-blend-multiply" style={{
+          background: 'rgba(16, 153, 231, 0.12)' // brand-accent
+        }}></div>
+      </div>
+
+      {/* Main content wrapper */}
+      <div className="relative z-10 scroll-smooth">
         {/* Header Component */}
         <Header />
 
         {/* Hero Section */}
-        <section className="min-h-screen w-full flex items-center px-6 lg:px-8 pt-32 lg:pt-0 snap-start snap-always relative overflow-hidden">
-          {/* Subtle background accent */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(transparent_0,transparent_60%,rgba(30,58,95,0.04)_100%)]" />
+        <section className="min-h-screen w-full flex items-center px-6 lg:px-8 pt-32 lg:pt-0 relative overflow-hidden"
+          style={{ perspective: '2000px' }}>
 
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative z-10">
             {/* Left: Content */}
@@ -25,7 +49,9 @@ export default function HomePage() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-brand-primary">
                 Stop talking about AI.
                 <br />
-                <span className="text-brand-accent">Start closing with it.</span>
+                <span className="bg-gradient-to-r from-brand-accent to-brand-primary bg-clip-text text-transparent">
+                  Start closing with it.
+                </span>
               </h1>
               <p className="text-lg md:text-xl text-gray-700 max-w-xl mx-auto lg:mx-0">
                 Your AI receptionist responds 24/7, qualifies leads, and books jobs into your calendar—while you focus on the work.
@@ -33,16 +59,18 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link
-                  href="/chat/homepage-visitor"
-                  className="btn-primary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
+                  href="#quote-form"
+                  className="btn-primary px-10 py-4 rounded-full font-semibold text-lg shadow-lg relative overflow-hidden"
                 >
-                  Get Started →
+                  <span className="relative z-10">Request a Quote</span>
+                  {/* Enhanced Shimmer Effect */}
+                  <span className="shimmer-span"></span>
                 </Link>
                 <Link
-                  href="#packages"
+                  href="/chat/homepage-visitor"
                   className="btn-secondary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
                 >
-                  View Packages
+                  Chat Now
                 </Link>
               </div>
 
@@ -75,50 +103,128 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right: Product Mock */}
-            <div className="lg:col-span-6 flex items-center">
-              <div className="w-full rounded-2xl border-2 border-gray-200 shadow-2xl bg-white p-6 md:p-8">
-                {/* Chat Mock */}
-                <div className="space-y-4 mb-6">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0" />
-                    <div className="flex-1">
-                      <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 text-sm">
-                        Can you mow my lawn this week?
-                      </div>
-                      <p className="text-xs text-gray-500 mt-1">2:47 PM</p>
+            {/* Right: 3D Perspective Product Mock */}
+            <div className="lg:col-span-6 flex items-center justify-center relative h-[600px]">
+
+              {/* Floating Badge (Breaking out of the card) */}
+              <div className="absolute -right-4 lg:-right-8 top-20 z-20 bg-white p-3 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3"
+                style={{
+                  animation: 'gentleBounce 4.5s ease-in-out infinite'
+                }}>
+                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                  <Check className="w-5 h-5" />
+                </div>
+                <div className="pr-2">
+                  <p className="text-xs font-bold text-slate-800">Lead Qualified</p>
+                  <p className="text-[10px] text-slate-500">Auto-booked to Calendar</p>
+                </div>
+              </div>
+
+              {/* 3D Perspective Card */}
+              <div className="relative w-full max-w-[360px] bg-white/80 backdrop-blur-xl border border-white/50 rounded-[2rem]"
+                style={{
+                  transform: 'perspective(1000px) rotateY(-8deg) rotateX(3deg)',
+                  transformStyle: 'preserve-3d',
+                  animation: 'float 9s ease-in-out infinite',
+                  boxShadow: '0 30px 60px -15px rgba(42, 80, 223, 0.25)'
+                }}>
+
+                {/* Phone Header */}
+                <div className="px-6 py-6 border-b border-slate-100/50 flex items-center justify-between bg-white/40 rounded-t-[2rem]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-accent to-brand-primary flex items-center justify-center text-white font-bold text-sm shadow-lg"
+                      style={{ boxShadow: '0 4px 14px rgba(16, 153, 231, 0.3)' }}>
+                      AI
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-800">CoreSentia Assistant</h3>
+                      <p className="text-xs text-slate-500 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                        Active now
+                      </p>
                     </div>
                   </div>
+                  <div className="text-slate-400">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+                  </div>
+                </div>
 
-                  <div className="flex items-start gap-3 flex-row-reverse">
-                    <div className="w-8 h-8 rounded-full bg-brand-accent flex-shrink-0 flex items-center justify-center text-white text-[10px] font-bold">AI</div>
-                    <div className="flex-1 text-right">
-                      <div className="bg-brand-primary text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm inline-block">
+                {/* Chat Area */}
+                <div className="p-6 space-y-4 h-[400px] overflow-hidden bg-gradient-to-b from-white/20 to-white/60">
+
+                  {/* Message 1 (User) */}
+                  <div className="flex justify-end" style={{
+                    opacity: 0,
+                    animation: 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s'
+                  }}>
+                    <div className="bg-slate-100 text-slate-700 px-4 py-3 rounded-2xl rounded-tr-sm max-w-[85%] text-sm shadow-sm">
+                      Can you mow my lawn this week?
+                    </div>
+                  </div>
+                  <div className="text-[10px] text-slate-400 text-right pr-1 -mt-2" style={{
+                    opacity: 0,
+                    animation: 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s'
+                  }}>2:47 PM</div>
+
+                  {/* Message 2 (AI) */}
+                  <div className="flex justify-start" style={{
+                    opacity: 0,
+                    animation: 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.5s'
+                  }}>
+                    <div className="flex flex-col gap-1 max-w-[90%]">
+                      <div className="bg-brand-primary text-white px-4 py-3 rounded-2xl rounded-tl-sm text-sm shadow-lg"
+                        style={{ boxShadow: '0 4px 14px rgba(42, 80, 223, 0.25)' }}>
                         I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works?
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">2:47 PM</p>
                     </div>
+                  </div>
+                  <div className="text-[10px] text-slate-400 pl-1 -mt-1" style={{
+                    opacity: 0,
+                    animation: 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.5s'
+                  }}>2:47 PM</div>
+
+                  {/* Message 3 (User) */}
+                  <div className="flex justify-end" style={{
+                    opacity: 0,
+                    animation: 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 2.5s'
+                  }}>
+                    <div className="bg-slate-100 text-slate-700 px-4 py-3 rounded-2xl rounded-tr-sm max-w-[85%] text-sm shadow-sm">
+                      Thursday 10am please.
+                    </div>
+                  </div>
+
+                  {/* Booking Confirm Card */}
+                  <div style={{
+                    opacity: 0,
+                    animation: 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 2.5s'
+                  }} className="mt-2">
+                    <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-md flex items-center gap-3">
+                      <div className="bg-green-100 p-2 rounded-lg">
+                        <Calendar className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-slate-800">Booking Confirmed</p>
+                        <p className="text-xs text-slate-500">Thu, 10:00 AM • Lawn Mowing</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Input Area (Visual Only) */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-white/60 backdrop-blur-md rounded-b-[2rem] border-t border-white/50">
+                  <div className="h-10 bg-slate-100/50 rounded-full flex items-center px-4 text-xs text-slate-400">
+                    Type a message...
                   </div>
                 </div>
 
-                {/* Booking Confirmation Mock */}
-                <div className="border-t pt-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="inline-flex items-center rounded-full bg-brand-sage/20 border border-brand-sage px-3 py-1 text-xs font-medium text-brand-sage">
-                      ● Confirmed
-                    </span>
-                    <span className="text-xs text-gray-500">Just now</span>
-                  </div>
-                  <p className="font-semibold text-brand-navy mb-1">Thursday, 10:00 AM - Lawn Mowing</p>
-                  <p className="text-sm text-gray-600">John Smith • 0412 XXX XXX</p>
-                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Problem + Solution Combined Section */}
-        <section style={{ backgroundColor: '#E5E7EB' }} className="py-16 px-6 snap-start">
+        <section style={{ backgroundColor: '#E5E7EB' }} className="py-16 px-6">
           <div className="max-w-6xl mx-auto">
             {/* Problem */}
             <div className="text-center mb-12">
@@ -190,7 +296,7 @@ export default function HomePage() {
         </section>
 
         {/* How It Works - Simple Workflow */}
-        <section className="min-h-screen w-full flex items-center py-16 px-4 md:px-6 bg-white snap-start">
+        <section className="min-h-screen w-full flex items-center py-16 px-4 md:px-6 bg-white">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               Simple. Automatic. Effective.
@@ -288,7 +394,7 @@ export default function HomePage() {
         </section>
 
         {/* Packages Section */}
-        <section id="packages" className="min-h-screen w-full flex items-center py-20 px-6 bg-gray-50 snap-start">
+        <section id="packages" className="min-h-screen w-full flex items-center py-20 px-6 bg-gray-50">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-5 font-montserrat">
@@ -443,7 +549,7 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-16 px-6 bg-white snap-start">
+        <section className="py-16 px-6 bg-white">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
               How It Works
@@ -493,7 +599,7 @@ export default function HomePage() {
         </section>
 
         {/* Why CoreSentia Section */}
-        <section className="py-16 px-6 bg-gray-50 snap-start">
+        <section className="py-16 px-6 bg-gray-50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
               Why CoreSentia?
@@ -524,8 +630,23 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Quote Request Form Section */}
+        <section id="quote-form" className="py-16 px-6 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-3 font-montserrat">
+                Ready to Get Started?
+              </h2>
+              <p className="text-lg md:text-xl text-text-primary max-w-2xl mx-auto">
+                Fill out the form below and we'll send you a custom quote within 24 hours. No pressure, no obligation.
+              </p>
+            </div>
+            <QuoteForm />
+          </div>
+        </section>
+
         {/* Social Proof / Testimonials Section - Placeholder */}
-        <section className="py-16 px-6 bg-white snap-start">
+        <section className="py-16 px-6 bg-gray-50">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-10 font-montserrat">
               Built for Australian Service Businesses
@@ -555,7 +676,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section style={{ backgroundColor: '#E5E7EB' }} className="py-20 px-6 snap-start">
+        <section style={{ backgroundColor: '#E5E7EB' }} className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat text-brand-primary">
               Ready to Stop Missing Leads?
@@ -563,12 +684,20 @@ export default function HomePage() {
             <p className="text-xl md:text-2xl mb-8 font-light text-text-primary">
               Get your AI receptionist set up this week. Start booking more jobs while you focus on the work.
             </p>
-            <Link
-              href="/chat/homepage-visitor"
-              className="bg-brand-accent text-white hover:bg-brand-accent-hover px-12 py-4 rounded-full font-bold text-xl shadow-xl inline-block transition-all transform hover:scale-105"
-            >
-              Get Started Now →
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="#quote-form"
+                className="bg-brand-accent text-white hover:bg-brand-accent-hover px-12 py-4 rounded-full font-bold text-xl shadow-xl inline-block transition-all transform hover:scale-105"
+              >
+                Request a Quote
+              </Link>
+              <Link
+                href="/chat/homepage-visitor"
+                className="bg-brand-primary text-white hover:bg-brand-primary-hover px-12 py-4 rounded-full font-bold text-xl shadow-xl inline-block transition-all transform hover:scale-105"
+              >
+                Chat Now
+              </Link>
+            </div>
             <div className="mt-6 flex items-center justify-center gap-2 text-text-primary">
               <span>or text us:</span>
               <a

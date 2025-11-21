@@ -148,3 +148,40 @@ h3 {
   background-color: var(--color-primary-hover);
   box-shadow: 0 8px 20px rgba(42, 80, 223, 0.3);
 }
+
+/* Animation for chat bubbles - Pop In */
+@keyframes popIn {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Floating animation for 3D card - Slowed down for elegance */
+@keyframes float {
+  0%, 100% {
+    transform: perspective(1000px) rotateY(-8deg) rotateX(3deg) translateY(0px);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(-8deg) rotateX(3deg) translateY(-15px);
+  }
+}
+
+/* Gentle bounce for floating badge - Slowed to match */
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Shimmer effect for buttons - Slowed for subtlety */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.btn-primary .shimmer-span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 4s infinite;
+  pointer-events: none;
+}

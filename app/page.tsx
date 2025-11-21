@@ -46,6 +46,13 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative z-10">
             {/* Left: Content */}
             <div className="lg:col-span-6 space-y-6 text-center lg:text-left flex flex-col justify-center">
+
+              {/* Live in Brisbane Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-brand-primary text-xs font-semibold uppercase tracking-wide mb-2 mx-auto lg:mx-0 w-fit">
+                <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+                Live in Brisbane
+              </div>
+
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-brand-primary">
                 Stop talking about AI.
                 <br />
@@ -223,41 +230,194 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Trust Strip / Social Proof */}
+        <section className="border-y border-slate-100 bg-white/50 backdrop-blur-sm relative z-10">
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <p className="text-center text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Trusted by local businesses in</p>
+            <div className="flex flex-wrap justify-center gap-x-12 gap-y-6 text-slate-400 font-bold text-lg opacity-60">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Brisbane
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-brand-light-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 14.25c2.25 0 3-2.25 5.25-2.25 2.25 0 3 2.25 5.25 2.25 2.25 0 3-2.25 5.25-2.25"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 10.25c2.25 0 3-2.25 5.25-2.25 2.25 0 3 2.25 5.25 2.25 2.25 0 3-2.25 5.25-2.25"></path>
+                </svg>
+                Gold Coast
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                Sunshine Coast
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Problem + Solution Combined Section */}
         <section style={{ backgroundColor: '#E5E7EB' }} className="py-16 px-6">
           <div className="max-w-6xl mx-auto">
-            {/* Problem */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-3 font-montserrat">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy mb-4 leading-[1.2] font-montserrat">
                 Sound familiar?
               </h2>
-              <p className="text-lg text-text-primary max-w-2xl mx-auto mb-8">
+              <p className="text-lg text-text-primary max-w-2xl mx-auto">
                 You're losing leads while you're on the tools. Your AI receptionist changes that.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <Phone className="w-10 h-10 text-brand-orange mx-auto mb-3" />
-                <h3 className="text-lg font-semibold mb-2 text-brand-navy">Missing Calls</h3>
-                <p className="text-sm text-text-secondary">
-                  You're on the tools, can't answer your phone. Leads call your competitors instead.
-                </p>
+            {/* Problem Bento Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
+
+              {/* Card 1: Missing Calls */}
+              <div className="group relative lg:col-span-1">
+                {/* Layered Shadow Element */}
+                <div className="absolute inset-0 bg-brand-primary/5 rounded-3xl translate-x-2 translate-y-2 transition-transform duration-300 group-hover:translate-x-3 group-hover:translate-y-3"></div>
+
+                {/* Main Card */}
+                <div className="relative h-full bg-white/80 backdrop-blur-md border border-white/50 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:rotate-[0.5deg] overflow-hidden">
+                  {/* Visual: Missed Call Notification List */}
+                  <div className="relative bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-6 shadow-inner">
+                    <div className="space-y-3">
+                      {/* Notification 1 */}
+                      <div className="bg-white p-3 rounded-xl border border-rose-100 flex items-center gap-3 shadow-sm">
+                        <div className="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-500">
+                          <Phone className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs font-bold text-slate-800">Missed Call</div>
+                          <div className="text-[10px] text-slate-400">Potential Customer • 2m ago</div>
+                        </div>
+                      </div>
+                      {/* Notification 2 (Blurred) */}
+                      <div className="bg-white/60 p-3 rounded-xl border border-rose-50 flex items-center gap-3 opacity-60">
+                        <div className="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-300">
+                          <Phone className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs font-bold text-slate-800">Missed Call</div>
+                          <div className="text-[10px] text-slate-400">Unknown Number • 15m ago</div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Badge */}
+                    <div className="absolute -top-2 -right-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md border border-white">3</div>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Missing Calls</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    You're on the tools, can't answer your phone. Leads call your competitors instead.
+                  </p>
+                </div>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <Clock className="w-10 h-10 text-brand-orange mx-auto mb-3" />
-                <h3 className="text-lg font-semibold mb-2 text-brand-navy">Slow Responses</h3>
-                <p className="text-sm text-text-secondary">
-                  By the time you text back at 8pm, they've already booked someone else.
-                </p>
+
+              {/* Card 2: Slow Responses */}
+              <div className="group relative lg:col-span-2">
+                {/* Layered Shadow Element */}
+                <div className="absolute inset-0 bg-brand-primary/5 rounded-3xl translate-x-2 translate-y-2 transition-transform duration-300 group-hover:translate-x-3 group-hover:translate-y-3"></div>
+
+                {/* Main Card */}
+                <div className="relative h-full bg-white/80 backdrop-blur-md border border-white/50 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:rotate-[0.5deg] overflow-hidden flex flex-col md:flex-row gap-8 items-center">
+
+                  {/* Content Side */}
+                  <div className="flex-1 order-2 md:order-1">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Slow Responses</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                      By the time you text back at 8pm, they've already booked someone else.
+                    </p>
+                    <div className="inline-flex items-center gap-2 text-xs font-medium text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-100">
+                      <Clock className="w-3 h-3" />
+                      Avg response: 6 hours
+                    </div>
+                  </div>
+
+                  {/* Visual: Chat Gap Timeline */}
+                  <div className="flex-1 w-full order-1 md:order-2">
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-inner relative">
+                      {/* Message 1 */}
+                      <div className="flex justify-start mb-6">
+                        <div className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl rounded-tl-none text-xs shadow-sm max-w-[80%]">
+                          Hi, can you give me a quote?
+                        </div>
+                      </div>
+                      <div className="absolute left-6 top-[3.2rem] h-8 w-0.5 bg-dashed border-l-2 border-slate-200 border-dashed"></div>
+                      <div className="absolute left-8 top-[3.8rem] text-[10px] text-amber-500 font-medium bg-amber-50 px-1 rounded">10 hrs later</div>
+
+                      {/* Message 2 */}
+                      <div className="flex justify-end mt-4">
+                        <div className="bg-gradient-to-r from-brand-accent to-brand-primary text-white px-3 py-2 rounded-xl rounded-tr-none text-xs shadow-lg shadow-brand-accent/20 max-w-[80%]">
+                          Hey mate, sorry just saw this.
+                        </div>
+                      </div>
+
+                      {/* Status */}
+                      <div className="text-center mt-2 text-[10px] text-slate-400">Read 9:15 PM</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <Globe className="w-10 h-10 text-brand-orange mx-auto mb-3" />
-                <h3 className="text-lg font-semibold mb-2 text-brand-navy">No Web Presence</h3>
-                <p className="text-sm text-text-secondary">
-                  Facebook posts and DMs don't cut it. You need something more professional.
-                </p>
+
+              {/* Card 3: Playing Phone Tag */}
+              <div className="group relative lg:col-span-3">
+                {/* Layered Shadow Element */}
+                <div className="absolute inset-0 bg-brand-primary/5 rounded-3xl translate-x-2 translate-y-2 transition-transform duration-300 group-hover:translate-x-3 group-hover:translate-y-3"></div>
+
+                {/* Main Card */}
+                <div className="relative h-full bg-white/80 backdrop-blur-md border border-white/50 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:rotate-[0.5deg] overflow-hidden flex flex-col md:flex-row gap-8 items-center">
+
+                  {/* Visual: Calendar Slot Animation */}
+                  <div className="w-full md:w-1/2 bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-inner">
+                    <div className="flex justify-between items-center mb-4 border-b border-slate-200 pb-2">
+                      <span className="text-xs font-bold text-slate-700">Tue, Sep 24</span>
+                      <span className="text-[10px] text-slate-400">Schedule</span>
+                    </div>
+
+                    <div className="space-y-2 relative">
+                      {/* Time Slot 9 AM */}
+                      <div className="flex gap-3 items-center opacity-60">
+                        <span className="text-[10px] text-slate-400 w-8">09:00</span>
+                        <div className="bg-white border border-slate-200 h-8 rounded-lg w-full flex items-center px-3 text-[10px] text-slate-500">
+                          Busy
+                        </div>
+                      </div>
+
+                      {/* Time Slot 10 AM (Target) */}
+                      <div className="flex gap-3 items-center">
+                        <span className="text-[10px] font-bold text-slate-600 w-8">10:00</span>
+                        <div className="relative w-full h-10 bg-slate-100 rounded-lg border border-dashed border-slate-300">
+                          {/* Animated Booking Card */}
+                          <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-accent to-brand-primary rounded-lg flex items-center px-3 gap-2 shadow-md animate-slot-fill w-0 overflow-hidden">
+                            <Check className="w-3 h-3 text-white flex-shrink-0" />
+                            <span className="text-[10px] font-bold text-white whitespace-nowrap">John S. - Lawn Mowing</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Time Slot 11 AM */}
+                      <div className="flex gap-3 items-center opacity-60">
+                        <span className="text-[10px] text-slate-400 w-8">11:00</span>
+                        <div className="bg-white border border-slate-200 h-8 rounded-lg w-full flex items-center px-3 text-[10px] text-slate-500">
+                          Available
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Playing Phone Tag</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                      "Can you do Tuesday?" "No." "Wednesday?" Stop the back-and-forth. The AI checks your calendar and locks in a time instantly.
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      <span className="text-xs text-slate-500">Auto-Booking Enabled</span>
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </div>
 
             {/* Solution */}
@@ -791,6 +951,16 @@ export default function HomePage() {
             </div>
           </div>
         </footer>
+      </div>
+
+      {/* Sticky Mobile FAB */}
+      <div className="fixed bottom-6 right-6 md:hidden z-50">
+        <Link
+          href="/chat/homepage-visitor"
+          className="w-14 h-14 rounded-full bg-brand-primary text-white shadow-xl shadow-brand-primary/40 flex items-center justify-center hover:scale-110 transition-transform"
+        >
+          <MessageSquare className="w-6 h-6" />
+        </Link>
       </div>
     </div>
   )

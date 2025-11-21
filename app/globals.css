@@ -185,3 +185,33 @@ h3 {
   animation: shimmer 4s infinite;
   pointer-events: none;
 }
+
+/* Calendar Slot Fill Animation */
+@keyframes slotFill {
+  0% { width: 0%; opacity: 0; }
+  100% { width: 100%; opacity: 1; }
+}
+
+.animate-slot-fill {
+  animation: slotFill 0.8s ease-out forwards;
+  animation-delay: 1s;
+}
+
+/* Card Shimmer Effect */
+.card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 4s infinite;
+  animation-delay: 1s;
+}

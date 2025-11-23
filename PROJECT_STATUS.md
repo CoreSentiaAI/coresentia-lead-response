@@ -1,6 +1,6 @@
 # CoreSentia Project Status
 
-**Last Updated:** November 23, 2025 (Post-Gemini Design Integration)
+**Last Updated:** November 25, 2025 (Voice Feature Planning + UX Polish)
 **Current Phase:** Phase 1 COMPLETE + Marketing/SEO Active + Design Excellence ✅
 **Live URL:** https://www.coresentia.com.au
 **Live SMS:** +61 489 087 491
@@ -119,6 +119,31 @@ CoreSentia is an **AI Automation Agency** building custom AI solutions for Austr
   - Accurate PENDING booking workflow throughout
   - CoreSentia brand colors (#2A50DF, #1099E7, #62D4F9)
 
+### Recent Work (Nov 25 Session - UX Polish + Voice Planning)
+- [x] **Major UX improvements based on user feedback:**
+  - Reduced ALL section spacing by 50% (py-24 → py-12) for tighter layout
+  - Trust strip: py-8 → py-4 (less wasted space)
+  - Result: More content above fold, faster mobile scroll to pricing
+- [x] **Pricing cards now symmetrical with equal visual weight:**
+  - SMS Responder: Added "Quick Start" badge, royal blue border-2, shadow-xl, gradient button
+  - Professional: Removed elevation offset, now same height as SMS Responder
+  - Both cards: items-stretch + flex-col = exactly same height
+  - $499 product no longer looks "lesser" - equal prominence
+- [x] **Created mobile-optimized tabbed interfaces:**
+  - ProblemTabs component: "Sound familiar?" section now has 3 clickable tabs (Missing Calls, Slow Responses, Phone Tag)
+  - TimelineTabs component: "The Process" section now has 3 step tabs (01, 02, 03)
+  - Massive scroll reduction on mobile - users reach pricing ~50% faster
+  - Desktop: Maintains beautiful side-by-side layouts
+- [x] **Extended hero background throughout entire page:**
+  - Dot grid + glowing orbs now cover full page height
+  - Added 4 orbs at different scroll positions for coverage
+  - Unified white canvas with subtle depth everywhere
+- [x] **Voice feature architecture planned:**
+  - Created comprehensive VOICE_IMPLEMENTATION_PLAN.md
+  - Selected Google Cloud Neural TTS via Twilio (best balance)
+  - Ready to build: 2-3 day implementation estimate
+  - Will add AI voice answering to both packages
+
 ### Previous Work (Nov 9 Evening Session)
 - [x] **Fixed blog system database migration** (blog_posts, news_articles tables)
 - [x] **Built complete AI News Aggregator** (5 sources, 6-hour cron, Claude generation)
@@ -170,6 +195,17 @@ CoreSentia is an **AI Automation Agency** building custom AI solutions for Austr
 - [ ] Social media integration (auto-post blog articles)
 - [ ] SEO optimization based on analytics
 - [ ] Email newsletter integration
+
+**🎙️ VOICE CALL FEATURE (HIGH PRIORITY - In Progress Nov 25):**
+- [ ] Add AI voice answering to both SMS Responder and Professional packages
+- [ ] Natural conversation handling (not robotic menu system)
+- [ ] Same qualifying/booking logic as SMS flow
+- [ ] Google Cloud Neural TTS via Twilio (Australian accent)
+- [ ] Call recording for quality/training
+- [ ] 24/7 operation with "take a message" fallback
+- [ ] Cost: ~$0.10/min (~$30/month for 100 calls)
+- [ ] **See VOICE_IMPLEMENTATION_PLAN.md for full technical details**
+- [ ] Status: Architecture finalized, ready to build
 
 **Client Product Development (Not Started):**
 - [ ] Multi-business architecture (multi-tenant client bot system)

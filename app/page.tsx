@@ -622,7 +622,7 @@ export default function HomePage() {
         </section>
 
         {/* Pricing Section */}
-        <section className="relative z-10 bg-slate-50 py-24 border-t border-slate-200">
+        <section className="relative z-10 bg-white py-24 border-t border-slate-200">
           <div className="max-w-7xl mx-auto px-6">
 
             <div className="text-center mb-16">
@@ -761,81 +761,44 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section className="py-16 px-6 bg-white">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
-              How It Works
-            </h2>
-            <p className="text-center text-lg text-text-primary mb-12 max-w-3xl mx-auto">
-              We're your "front gate" — capturing leads and booking appointments automatically. You take over from there and manage jobs your way.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  1
-                </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Customer Texts/Chats</h3>
-                <p className="text-text-primary text-sm">
-                  Your customer reaches out via SMS or website chat
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  2
-                </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">AI Qualifies Lead</h3>
-                <p className="text-text-primary text-sm">
-                  Our AI asks questions, understands needs, and checks availability
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  3
-                </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Booking Created</h3>
-                <p className="text-text-primary text-sm">
-                  Appointment added to dashboard, SMS sent to you for confirmation
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  4
-                </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">You Confirm & Go</h3>
-                <p className="text-text-primary text-sm">
-                  Tap to confirm the booking, then show up and do the work
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Why CoreSentia Section */}
-        <section className="py-16 px-6 bg-gray-50">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-10 font-montserrat">
-              Why CoreSentia?
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white border border-gray-200 rounded-xl p-8">
-                <Users className="w-12 h-12 text-brand-orange mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-brand-navy">100% Australian</h3>
-                <p className="text-text-primary">
+        <section className="relative z-10 bg-white py-24 border-t border-slate-200">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">Why Choose Us</span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-montserrat">Why CoreSentia?</h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                We're built different. Australian-owned, transparent pricing, and designed for fast results.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 rounded-2xl bg-brand-accent/10 flex items-center justify-center mb-6">
+                  <Users className="w-7 h-7 text-brand-accent" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3 font-montserrat">100% Australian</h3>
+                <p className="text-slate-600 leading-relaxed">
                   Brisbane-based team. We understand local businesses and what actually works here.
                 </p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-8">
-                <DollarSign className="w-12 h-12 text-brand-orange mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-brand-navy">No Hidden Fees</h3>
-                <p className="text-text-primary">
+
+              <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 rounded-2xl bg-brand-accent/10 flex items-center justify-center mb-6">
+                  <DollarSign className="w-7 h-7 text-brand-accent" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3 font-montserrat">No Hidden Fees</h3>
+                <p className="text-slate-600 leading-relaxed">
                   Simple pricing. No per-conversation charges. No surprise bills. Just predictable monthly hosting.
                 </p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-8">
-                <TrendingUp className="w-12 h-12 text-brand-orange mb-4" />
-                <h3 className="text-xl font-semibold mb-3 text-brand-navy">Fast ROI</h3>
-                <p className="text-text-primary">
+
+              <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 rounded-2xl bg-brand-accent/10 flex items-center justify-center mb-6">
+                  <TrendingUp className="w-7 h-7 text-brand-accent" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3 font-montserrat">Fast ROI</h3>
+                <p className="text-slate-600 leading-relaxed">
                   Most customers break even in 2-3 months. Every lead captured after that is pure profit.
                 </p>
               </div>
@@ -844,86 +807,18 @@ export default function HomePage() {
         </section>
 
         {/* Quote Request Form Section */}
-        <section id="quote-form" className="py-16 px-6 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-3 font-montserrat">
+        <section id="quote-form" className="relative z-10 bg-white py-24 border-t border-slate-200">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">Get Started</span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-montserrat">
                 Ready to Get Started?
               </h2>
-              <p className="text-lg md:text-xl text-text-primary max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
                 Fill out the form below and we'll send you a custom quote within 24 hours. No pressure, no obligation.
               </p>
             </div>
             <QuoteForm />
-          </div>
-        </section>
-
-        {/* Social Proof / Testimonials Section - Placeholder */}
-        <section className="py-16 px-6 bg-gray-50">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-10 font-montserrat">
-              Built for Australian Service Businesses
-            </h2>
-            <p className="text-xl text-text-primary mb-6">
-              Whether you're a solo tradie or a growing salon, we help you capture every lead and book more jobs — without the overwhelm.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-4xl font-bold text-brand-orange">24/7</p>
-                <p className="text-text-primary mt-2">Always Available</p>
-              </div>
-              <div>
-                <p className="text-4xl font-bold text-brand-orange">&lt;60s</p>
-                <p className="text-text-primary mt-2">Response Time</p>
-              </div>
-              <div>
-                <p className="text-4xl font-bold text-brand-orange">100%</p>
-                <p className="text-text-primary mt-2">Lead Capture Rate</p>
-              </div>
-              <div>
-                <p className="text-4xl font-bold text-brand-orange">2-7</p>
-                <p className="text-text-primary mt-2">Days to Launch</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section style={{ backgroundColor: '#E5E7EB' }} className="py-20 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-5 font-montserrat text-brand-primary">
-              Ready to Stop Missing Leads?
-            </h2>
-            <p className="text-xl md:text-2xl mb-8 font-light text-text-primary">
-              Get your AI receptionist set up this week. Start booking more jobs while you focus on the work.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                href="#quote-form"
-                className="bg-brand-accent text-white hover:bg-brand-accent-hover px-12 py-4 rounded-full font-bold text-xl shadow-xl inline-block transition-all transform hover:scale-105"
-              >
-                Request a Quote
-              </Link>
-              <Link
-                href="/chat/homepage-visitor"
-                className="bg-brand-primary text-white hover:bg-brand-primary-hover px-12 py-4 rounded-full font-bold text-xl shadow-xl inline-block transition-all transform hover:scale-105"
-              >
-                Chat Now
-              </Link>
-            </div>
-            <div className="mt-6 flex items-center justify-center gap-2 text-text-primary">
-              <span>or text us:</span>
-              <a
-                href="sms:+61489087491"
-                className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accent-hover font-bold text-lg transition-colors"
-              >
-                <Phone className="w-5 h-5" />
-                +61 489 087 491
-              </a>
-            </div>
-            <p className="text-text-primary mt-4 text-sm">
-              No lock-in contracts. Cancel anytime. Full support included.
-            </p>
           </div>
         </section>
 

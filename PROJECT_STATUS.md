@@ -1,11 +1,12 @@
 # CoreSentia Project Status
 
-**Last Updated:** November 9, 2025 (Late Evening - Post Blog System Deployment)
-**Current Phase:** Phase 1 COMPLETE + Marketing/SEO Active ✅
+**Last Updated:** November 23, 2025 (Post-Gemini Design Integration)
+**Current Phase:** Phase 1 COMPLETE + Marketing/SEO Active + Design Excellence ✅
 **Live URL:** https://www.coresentia.com.au
 **Live SMS:** +61 489 087 491
 **Blog:** https://www.coresentia.com.au/blog
 **Deployment:** Vercel (CLI integrated, auto-deploy via GitHub)
+**Design Process:** Claude Code + **Gemini 3.0 Flash** (added Nov 23, 2025)
 
 ---
 
@@ -80,21 +81,49 @@ CoreSentia is an **AI Automation Agency** building custom AI solutions for Austr
 - [x] SSL certificates active
 - [x] GitHub auto-deploy to Vercel working
 
-### Recent Work (Nov 9 Evening Session)
+### Recent Work (Nov 23 Session - Design Excellence)
+- [x] **MAJOR: Integrated Gemini 3.0 Flash into design workflow** 🎨
+  - Gemini now collaborates with Claude Code on UI/UX design
+  - Workflow: Gemini creates mockups → Claude implements with accurate content
+  - Best of both worlds: Gemini's design aesthetic + Claude's technical precision
+- [x] **Fixed misleading auto-booking claims across homepage:**
+  - BEFORE: "Auto-booked to Calendar", "Auto-Booking Enabled", "Booking Confirmed"
+  - AFTER: "Ready to confirm", "One-Tap Confirmation", "Booking Requested"
+  - Accurately reflects PENDING booking workflow (business owner confirms manually)
+  - Updated 10+ locations: hero chat mockup, bento cards, how-it-works, packages, etc.
+  - All messaging now emphasizes: "AI pencils in → SMS to owner → Owner confirms → Customer notified"
+- [x] **Enhanced logo presence:**
+  - Increased logo size by 40% (h-20 → h-28, ~112px height)
+  - Combined with updated logo file featuring heavier font weight
+  - Much stronger brand presence in header
+- [x] **Fixed chat mockup visual bug:**
+  - "Booking Requested" card was cut off behind input field
+  - Increased chat area: pb-20 → pb-32, h-400 → h-450
+  - Card now fully visible with proper spacing
+- [x] **Integrated Gemini's beautiful timeline design ("The Process"):**
+  - Interactive 3-step zigzag timeline with pulsing markers
+  - Step 1: SMS notification card visual
+  - Step 2: Chat conversation showing PENDING workflow
+  - Step 3: Mobile confirmation card ("Approve & Notify" button)
+  - Alternating left/right layout (desktop) with hover animations
+  - Stats footer: 24/7, <10s, 2 sec metrics
+  - Added CSS: @keyframes pulseRing for timeline markers
+- [x] **Enhanced pricing section design:**
+  - Cleaner, more modern card aesthetic (Gemini's design)
+  - SMS Responder: Simple white card with green checkmarks
+  - Professional Package: Floating "Most Popular" badge, elevated card design, gradient CTA
+  - Preserved ALL detailed feature descriptions (our superior content)
+  - Better visual hierarchy, typography, spacing
+- [x] **All changes maintain brand consistency:**
+  - Montserrat for headings (H1-H6)
+  - Accurate PENDING booking workflow throughout
+  - CoreSentia brand colors (#2A50DF, #1099E7, #62D4F9)
+
+### Previous Work (Nov 9 Evening Session)
 - [x] **Fixed blog system database migration** (blog_posts, news_articles tables)
-- [x] **Built complete AI News Aggregator:**
-  - Created `lib/news-scrapers.ts` (web scraping + API integrations)
-  - Created `lib/news-processor.ts` (deduplication, filtering, Claude generation, publishing)
-  - Created `app/api/cron/aggregate-news/route.ts` (Vercel Cron endpoint)
-  - Created `vercel.json` (6-hour cron schedule)
-- [x] **Fixed environment variable bug:** SUPABASE_SERVICE_KEY → SUPABASE_SERVICE_ROLE_KEY across all files
-- [x] **Fixed Vercel Cron authentication** (User-Agent based + Bearer token fallback)
-- [x] **Rewrote blog post positioning:** CoreSentia as AI Automation Agency (not just SMS/website)
-- [x] **Added phone number CTAs** throughout homepage:
-  - Hero section: "or text our AI: +61 489 087 491"
-  - Final CTA: "or text us: +61 489 087 491"
-  - Footer: Phone icon + clickable SMS link
-- [x] All CTAs are clickable `sms:` links for easy mobile engagement
+- [x] **Built complete AI News Aggregator** (5 sources, 6-hour cron, Claude generation)
+- [x] **Fixed environment variable bug:** SUPABASE_SERVICE_KEY → SUPABASE_SERVICE_ROLE_KEY
+- [x] **Added phone number CTAs** throughout homepage (+61 489 087 491)
 
 ---
 
@@ -263,24 +292,34 @@ Check these if issues arise:
 
 ---
 
-## 🎓 Lessons Learned (Latest Session)
+## 🎓 Lessons Learned (Latest Sessions)
 
-### Environment Variable Naming Matters
+### Gemini 3.0 as Design Collaborator (Nov 23) 🎨
+**Discovery:** Gemini 3.0 Flash excels at modern UI/UX design patterns
+**Workflow:**
+1. Give Gemini context about our product and brand
+2. Gemini creates beautiful HTML/CSS mockups
+3. Claude Code implements with Next.js/React + accurate content
+4. Result: Gemini's polished aesthetics + our precise messaging
+**Key Insight:** Two-AI workflow beats single-AI approach - leverage each model's strengths
+
+### Marketing Copy Must Match Reality (Nov 23)
+**Problem:** Homepage claimed "auto-booking" but system requires manual confirmation
+**Impact:** Misleading customers = broken trust = lower conversions
+**Solution:** Global search for "auto" → updated 10+ locations to say "pending booking"
+**Key Insight:** Always review marketing copy against actual codebase (lib/bot-prompts.ts, lib/notifications.ts)
+
+### Visual Bugs Are Subtle But Critical (Nov 23)
+**Problem:** "Booking Requested" card was 2/3 hidden behind input field
+**Solution:** Increased padding-bottom (pb-20 → pb-32) + height (h-400 → h-450)
+**Key Insight:** Always check designs at actual device widths - screenshots reveal UX issues
+
+### Environment Variable Naming Matters (Nov 9)
 **Problem:** Code used `SUPABASE_SERVICE_KEY` but Vercel had `SUPABASE_SERVICE_ROLE_KEY`
 **Solution:** Global search/replace across all TypeScript files
 **Key Insight:** Always verify exact env var names when setting up production
 
-### Vercel Cron Authentication
-**Problem:** Bearer token auth wasn't working, kept getting 401
-**Solution:** Use Vercel's User-Agent header (`vercel-cron`) as primary auth method
-**Key Insight:** Check Vercel's official docs for built-in authentication patterns
-
-### Node.js Build Dependencies
-**Problem:** Cheerio's undici dependency broke Next.js 13.5.1 build (private class fields)
-**Solution:** Switched to lighter `node-html-parser` library
-**Key Insight:** Not all npm packages work with older Next.js versions - check compatibility
-
-### Blog Post Positioning
+### Blog Post Positioning (Nov 9)
 **Problem:** Original post positioned CoreSentia as just SMS/website provider
 **Solution:** Rewrote to emphasize AI Automation Agency with broader vision
 **Key Insight:** Positioning is critical - don't limit yourself to first products
@@ -309,18 +348,45 @@ Check these if issues arise:
 - Test cron manually: See command above
 - View cron logs: `vercel logs www.coresentia.com.au --since=6h`
 
+**Latest Git Commits (Nov 23):**
+```
+9eb9e64 - Integrate Gemini's enhanced timeline and pricing designs
+40bafea - Fix misleading auto-booking claims - clarify pending booking workflow
+ad1e87c - Fix chat mockup: Show full booking card above input field
+01c2b60 - Increase chat area height to fully show booking card
+76eae29 - Add Gemini design updates: Trust Strip, enhanced bento grid, animations
+4664aa9 - Increase logo size by 40% for stronger brand presence
+```
+
 **Latest Git Commits (Nov 9 Evening):**
 ```
 69ff7e1 - Add AI Bot phone number CTAs throughout homepage
 9a67741 - Fix environment variable name: SUPABASE_SERVICE_KEY → SUPABASE_SERVICE_ROLE_KEY
 bc483b5 - Allow Vercel Cron User-Agent for authentication
-9ee370c - Fix isArticleDuplicate syntax errors - remove duplicate supabase initialization
-f47d537 - Replace cheerio with node-html-parser to fix build issues
 ... (see git log for full history)
 ```
 
 ---
 
-**Everything is working. Blog system deployed. News aggregator automated. Ready for scale.** 🎉🚀
+## 🎨 Design Process (NEW)
+
+**Two-AI Workflow:**
+1. **Claude Code** (Anthropic Sonnet 4.5) - Technical implementation, accurate content, codebase integration
+2. **Gemini 3.0 Flash** (Google) - UI/UX design, modern aesthetics, visual mockups
+
+**When to Use Each:**
+- **Claude Code**: All coding, file operations, git commits, deployments, technical accuracy
+- **Gemini**: Generate HTML/CSS mockups for new sections, modern design patterns, visual concepts
+
+**Workflow Example (Nov 23):**
+1. User explains product workflow to Gemini (pending bookings, not auto-booking)
+2. Gemini creates beautiful timeline + pricing card designs in HTML
+3. Claude Code implements as Next.js/React components
+4. Claude Code blends Gemini's design with accurate product descriptions
+5. Result: Professional design + truthful marketing copy
+
+---
+
+**Everything is working. Blog system deployed. News aggregator automated. Design excellence achieved. Ready for scale.** 🎉🚀
 
 **Phone Number Visible:** +61 489 087 491 now prominently displayed in 3 locations on homepage!

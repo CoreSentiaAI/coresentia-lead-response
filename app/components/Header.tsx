@@ -61,7 +61,8 @@ export default function Header() {
             alt="CoreSentia"
             width={625}
             height={125}
-            className="h-28 w-auto transition-all duration-300"
+            className="h-16 md:h-20 lg:h-28 w-auto transition-all duration-300"
+            priority
           />
         </Link>
 

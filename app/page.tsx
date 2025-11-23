@@ -40,7 +40,7 @@ export default function HomePage() {
         <Header />
 
         {/* Hero Section */}
-        <section className="min-h-screen w-full flex items-center px-6 lg:px-8 pt-32 lg:pt-0 relative overflow-hidden"
+        <section className="min-h-screen w-full flex items-center px-6 lg:px-8 pt-40 md:pt-32 lg:pt-0 relative overflow-hidden"
           style={{ perspective: '2000px' }}>
 
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative z-10">
@@ -255,7 +255,7 @@ export default function HomePage() {
         </section>
 
         {/* Problem + Solution Combined Section */}
-        <section style={{ backgroundColor: '#E5E7EB' }} className="py-16 px-6">
+        <section className="relative z-10 bg-white py-16 px-6 border-t border-slate-200">
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-16">

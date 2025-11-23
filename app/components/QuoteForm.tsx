@@ -202,19 +202,23 @@ export default function QuoteForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-brand-accent text-white font-semibold py-4 rounded-full
-          hover:bg-brand-accent-hover transition-all transform hover:scale-105
+        className="w-full bg-gradient-to-r from-brand-accent to-brand-primary text-white font-semibold py-4 rounded-full
+          hover:shadow-lg hover:shadow-brand-accent/30 transition-all transform hover:scale-105
           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
-          flex items-center justify-center gap-2 text-lg"
+          flex items-center justify-center gap-2 text-lg relative overflow-hidden"
       >
-        {isSubmitting ? (
-          <>
-            <Loader2 className="w-5 h-5 animate-spin" />
-            Submitting...
-          </>
-        ) : (
-          'Request a Quote'
-        )}
+        <span className="relative z-10">
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin inline mr-2" />
+              Submitting...
+            </>
+          ) : (
+            'Request a Quote'
+          )}
+        </span>
+        {/* Shimmer Effect */}
+        {!isSubmitting && <span className="shimmer-span"></span>}
       </button>
 
       <p className="text-center text-sm text-gray-500 mt-4">

@@ -3,12 +3,13 @@ import Link from 'next/link'
 import { Zap, MessageSquare, Globe, Calendar, Check, Clock, DollarSign, Users, Phone, TrendingUp, Shield, Rocket } from 'lucide-react'
 import Header from './components/Header'
 import QuoteForm from './components/QuoteForm'
+import ProblemTabs from './components/ProblemTabs'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-text-primary relative overflow-x-hidden font-opensans">
-      {/* Background with Dot Grid & Glowing Orbs */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="min-h-screen bg-white text-text-primary relative overflow-x-hidden font-opensans">
+      {/* Background with Dot Grid & Glowing Orbs - Now extends full page */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Dot Grid */}
         <div className="absolute inset-0 opacity-40" style={{
           backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
@@ -16,21 +17,25 @@ export default function HomePage() {
         }}></div>
 
         {/* Radial Masks to fade edges */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-transparent to-slate-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-white"></div>
 
-        {/* Glowing Orbs using Brand Colors - Enhanced */}
+        {/* Glowing Orbs using Brand Colors - Multiple orbs for full page coverage */}
         {/* Top Right: Light Blue */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 mix-blend-multiply" style={{
-          background: 'rgba(98, 212, 249, 0.25)' // brand-light-blue - increased opacity
+          background: 'rgba(98, 212, 249, 0.25)' // brand-light-blue
         }}></div>
-        {/* Bottom Left: Royal Blue */}
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 mix-blend-multiply" style={{
-          background: 'rgba(42, 80, 223, 0.18)' // brand-primary - increased opacity
+        {/* Mid-page Left: Royal Blue */}
+        <div className="absolute top-[800px] left-0 w-[600px] h-[600px] rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 mix-blend-multiply" style={{
+          background: 'rgba(42, 80, 223, 0.18)' // brand-primary
         }}></div>
-        {/* Center: Medium Blue for extra depth */}
-        <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 mix-blend-multiply" style={{
+        {/* Mid-page Right: Medium Blue */}
+        <div className="absolute top-[1400px] right-0 w-[700px] h-[700px] rounded-full blur-3xl translate-x-1/4 mix-blend-multiply" style={{
           background: 'rgba(16, 153, 231, 0.12)' // brand-accent
+        }}></div>
+        {/* Lower: Light Blue */}
+        <div className="absolute top-[2200px] left-1/4 w-[600px] h-[600px] rounded-full blur-3xl mix-blend-multiply" style={{
+          background: 'rgba(98, 212, 249, 0.20)' // brand-light-blue
         }}></div>
       </div>
 
@@ -258,7 +263,7 @@ export default function HomePage() {
         <section className="relative z-10 bg-white py-16 px-6 border-t border-slate-200">
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy mb-4 leading-[1.2] font-montserrat">
                 Sound familiar?
               </h2>
@@ -267,198 +272,13 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Problem Bento Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
-
-              {/* Card 1: Missing Calls */}
-              <div className="group relative lg:col-span-1">
-                {/* Layered Shadow Element */}
-                <div className="absolute inset-0 bg-brand-primary/5 rounded-3xl translate-x-2 translate-y-2 transition-transform duration-300 group-hover:translate-x-3 group-hover:translate-y-3"></div>
-
-                {/* Main Card */}
-                <div className="relative h-full bg-white/80 backdrop-blur-md border border-white/50 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:rotate-[0.5deg] overflow-hidden">
-                  {/* Visual: Missed Call Notification List */}
-                  <div className="relative bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-6 shadow-inner">
-                    <div className="space-y-3">
-                      {/* Notification 1 */}
-                      <div className="bg-white p-3 rounded-xl border border-rose-100 flex items-center gap-3 shadow-sm">
-                        <div className="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-500">
-                          <Phone className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="text-xs font-bold text-slate-800">Missed Call</div>
-                          <div className="text-[10px] text-slate-400">Potential Customer • 2m ago</div>
-                        </div>
-                      </div>
-                      {/* Notification 2 (Blurred) */}
-                      <div className="bg-white/60 p-3 rounded-xl border border-rose-50 flex items-center gap-3 opacity-60">
-                        <div className="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center text-rose-300">
-                          <Phone className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="text-xs font-bold text-slate-800">Missed Call</div>
-                          <div className="text-[10px] text-slate-400">Unknown Number • 15m ago</div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Badge */}
-                    <div className="absolute -top-2 -right-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md border border-white">3</div>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Missing Calls</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    You're on the tools, can't answer your phone. Leads call your competitors instead.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 2: Slow Responses */}
-              <div className="group relative lg:col-span-2">
-                {/* Layered Shadow Element */}
-                <div className="absolute inset-0 bg-brand-primary/5 rounded-3xl translate-x-2 translate-y-2 transition-transform duration-300 group-hover:translate-x-3 group-hover:translate-y-3"></div>
-
-                {/* Main Card */}
-                <div className="relative h-full bg-white/80 backdrop-blur-md border border-white/50 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:rotate-[0.5deg] overflow-hidden flex flex-col md:flex-row gap-8 items-center">
-
-                  {/* Content Side */}
-                  <div className="flex-1 order-2 md:order-1">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Slow Responses</h3>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                      By the time you text back at 8pm, they've already booked someone else.
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-xs font-medium text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-100">
-                      <Clock className="w-3 h-3" />
-                      Avg response: 6 hours
-                    </div>
-                  </div>
-
-                  {/* Visual: Chat Gap Timeline */}
-                  <div className="flex-1 w-full order-1 md:order-2">
-                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-inner relative">
-                      {/* Message 1 */}
-                      <div className="flex justify-start mb-6">
-                        <div className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl rounded-tl-none text-xs shadow-sm max-w-[80%]">
-                          Hi, can you give me a quote?
-                        </div>
-                      </div>
-                      <div className="absolute left-6 top-[3.2rem] h-8 w-0.5 bg-dashed border-l-2 border-slate-200 border-dashed"></div>
-                      <div className="absolute left-8 top-[3.8rem] text-[10px] text-amber-500 font-medium bg-amber-50 px-1 rounded">10 hrs later</div>
-
-                      {/* Message 2 */}
-                      <div className="flex justify-end mt-4">
-                        <div className="bg-gradient-to-r from-brand-accent to-brand-primary text-white px-3 py-2 rounded-xl rounded-tr-none text-xs shadow-lg shadow-brand-accent/20 max-w-[80%]">
-                          Hey mate, sorry just saw this.
-                        </div>
-                      </div>
-
-                      {/* Status */}
-                      <div className="text-center mt-2 text-[10px] text-slate-400">Read 9:15 PM</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3: Playing Phone Tag */}
-              <div className="group relative lg:col-span-3">
-                {/* Layered Shadow Element */}
-                <div className="absolute inset-0 bg-brand-primary/5 rounded-3xl translate-x-2 translate-y-2 transition-transform duration-300 group-hover:translate-x-3 group-hover:translate-y-3"></div>
-
-                {/* Main Card */}
-                <div className="relative h-full bg-white/80 backdrop-blur-md border border-white/50 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:rotate-[0.5deg] overflow-hidden flex flex-col md:flex-row gap-8 items-center">
-
-                  {/* Visual: Calendar Slot Animation */}
-                  <div className="w-full md:w-1/2 bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-inner">
-                    <div className="flex justify-between items-center mb-4 border-b border-slate-200 pb-2">
-                      <span className="text-xs font-bold text-slate-700">Tue, Sep 24</span>
-                      <span className="text-[10px] text-slate-400">Schedule</span>
-                    </div>
-
-                    <div className="space-y-2 relative">
-                      {/* Time Slot 9 AM */}
-                      <div className="flex gap-3 items-center opacity-60">
-                        <span className="text-[10px] text-slate-400 w-8">09:00</span>
-                        <div className="bg-white border border-slate-200 h-8 rounded-lg w-full flex items-center px-3 text-[10px] text-slate-500">
-                          Busy
-                        </div>
-                      </div>
-
-                      {/* Time Slot 10 AM (Target) */}
-                      <div className="flex gap-3 items-center">
-                        <span className="text-[10px] font-bold text-slate-600 w-8">10:00</span>
-                        <div className="relative w-full h-10 bg-slate-100 rounded-lg border border-dashed border-slate-300">
-                          {/* Animated Booking Card */}
-                          <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-accent to-brand-primary rounded-lg flex items-center px-3 gap-2 shadow-md animate-slot-fill w-0 overflow-hidden">
-                            <Check className="w-3 h-3 text-white flex-shrink-0" />
-                            <span className="text-[10px] font-bold text-white whitespace-nowrap">John S. - Lawn Mowing</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Time Slot 11 AM */}
-                      <div className="flex gap-3 items-center opacity-60">
-                        <span className="text-[10px] text-slate-400 w-8">11:00</span>
-                        <div className="bg-white border border-slate-200 h-8 rounded-lg w-full flex items-center px-3 text-[10px] text-slate-500">
-                          Available
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Playing Phone Tag</h3>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                      "Can you do Tuesday?" "No." "Wednesday?" Stop the back-and-forth. The AI checks your calendar, books the lead, then you confirm with one tap.
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                      <span className="text-xs text-slate-500">One-Tap Confirmation</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Solution */}
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-3 font-montserrat text-brand-primary">
-                Meet Your AI Receptionist
-              </h2>
-              <p className="text-lg md:text-xl max-w-3xl mx-auto text-text-primary">
-                An intelligent assistant that responds to leads via SMS and web chat 24/7, qualifies them, and books jobs into your calendar.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <MessageSquare className="w-10 h-10 text-brand-accent mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">Instant Response</h3>
-                <p className="text-sm text-text-secondary">Replies in seconds, not hours</p>
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <Calendar className="w-10 h-10 text-brand-accent mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">Smart Booking</h3>
-                <p className="text-sm text-text-secondary">AI books, you confirm with one tap</p>
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <Shield className="w-10 h-10 text-brand-accent mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">Lead Qualification</h3>
-                <p className="text-sm text-text-secondary">Filters serious inquiries</p>
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <Zap className="w-10 h-10 text-brand-accent mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">24/7 Available</h3>
-                <p className="text-sm text-text-secondary">Never miss a weekend lead</p>
-              </div>
-            </div>
+            {/* Tabbed Problem Interface */}
+            <ProblemTabs />
           </div>
         </section>
 
         {/* How it works: Interactive Timeline */}
-        <section className="relative z-10 bg-white py-24">
-          {/* Section Divider */}
-          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-slate-50 to-white"></div>
+        <section className="relative z-10 bg-white py-24 border-t border-slate-200">
 
           <div className="max-w-7xl mx-auto px-6 pt-24">
 

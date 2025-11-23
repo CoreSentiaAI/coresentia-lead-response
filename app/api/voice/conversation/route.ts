@@ -151,14 +151,14 @@ export async function POST(request: NextRequest) {
     if (botType === 'sales') {
       systemPrompt = getVoicePrompt(voiceParams.To);
     } else {
-      // For client bot, need to fetch business context
+      // For client bot, need to fetch business context from business_phones table
       const { data: businessPhone } = await supabase
         .from('business_phones')
-        .select('businesses(*)')
+        .select('*')
         .eq('phone_number', voiceParams.To)
         .single();
 
-      if (!businessPhone || !businessPhone.businesses) {
+      if (!businessPhone) {
         const twiml = generateErrorTwiML('system');
         return new NextResponse(twiml, {
           status: 200,
@@ -166,12 +166,11 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      const business = businessPhone.businesses as any;
       systemPrompt = getVoicePrompt(voiceParams.To, {
-        businessName: business.name,
-        industryType: business.industry_type || 'service',
-        services: business.services || [],
-        botPersonality: business.bot_personality || 'friendly',
+        businessName: businessPhone.business_name,
+        industryType: businessPhone.industry_type || 'service',
+        services: businessPhone.services || [],
+        botPersonality: businessPhone.bot_personality || 'friendly',
       });
     }
 

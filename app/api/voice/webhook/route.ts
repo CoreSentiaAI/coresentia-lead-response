@@ -84,15 +84,15 @@ export async function POST(request: NextRequest) {
     // Determine business name for greeting
     let businessName = 'CoreSentia';
     if (botType === 'client') {
-      // Look up business name from database
+      // Look up business name from business_phones table
       const { data: businessPhone } = await supabase
         .from('business_phones')
-        .select('businesses(name)')
+        .select('business_name')
         .eq('phone_number', voiceParams.To)
         .single();
 
-      if (businessPhone && businessPhone.businesses) {
-        businessName = (businessPhone.businesses as any).name;
+      if (businessPhone && businessPhone.business_name) {
+        businessName = businessPhone.business_name;
       }
     }
 

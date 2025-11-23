@@ -4,6 +4,7 @@ import { Zap, MessageSquare, Globe, Calendar, Check, Clock, DollarSign, Users, P
 import Header from './components/Header'
 import QuoteForm from './components/QuoteForm'
 import ProblemTabs from './components/ProblemTabs'
+import TimelineTabs from './components/TimelineTabs'
 
 export default function HomePage() {
   return (
@@ -237,7 +238,7 @@ export default function HomePage() {
 
         {/* Trust Strip / Social Proof */}
         <section className="border-y border-slate-100 bg-white/50 backdrop-blur-sm relative z-10">
-          <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="max-w-7xl mx-auto px-6 py-4">
             <p className="text-center text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Trusted by local businesses in</p>
             <div className="flex flex-wrap justify-center gap-x-12 gap-y-6 text-slate-400 font-bold text-lg opacity-60">
               <div className="flex items-center gap-2">
@@ -260,7 +261,7 @@ export default function HomePage() {
         </section>
 
         {/* Problem + Solution Combined Section */}
-        <section className="relative z-10 bg-white py-16 px-6 border-t border-slate-200">
+        <section className="relative z-10 bg-white py-10 px-6 border-t border-slate-200">
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-12">
@@ -278,171 +279,25 @@ export default function HomePage() {
         </section>
 
         {/* How it works: Interactive Timeline */}
-        <section className="relative z-10 bg-white py-24 border-t border-slate-200">
+        <section className="relative z-10 bg-white py-12 border-t border-slate-200">
 
-          <div className="max-w-7xl mx-auto px-6 pt-24">
+          <div className="max-w-7xl mx-auto px-6">
 
             {/* Header */}
-            <div className="text-center mb-20 relative">
+            <div className="text-center mb-12 relative">
               <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">The Process</span>
               <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mb-6 font-montserrat">Simple. Automatic. Effective.</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">Here's how it works in the real world.</p>
             </div>
 
-            {/* Timeline Container */}
-            <div className="relative max-w-5xl mx-auto">
-
-              {/* Central Line (Desktop) / Left Line (Mobile) */}
-              <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 md:block hidden"></div>
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 md:hidden block"></div>
-
-              {/* Step 1 */}
-              <div className="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
-
-                {/* Content (Left on Desktop) */}
-                <div className="md:w-[45%] w-full pl-20 md:pl-0 md:text-right order-2 md:order-1">
-                  <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase">Step 01</div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3 font-montserrat">Lead texts your business</h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    "Can you mow my lawn this week?" Your customer reaches out via SMS just like they always do.
-                  </p>
-                </div>
-
-                {/* Center Marker */}
-                <div className="absolute left-8 md:left-1/2 top-0 w-8 h-8 rounded-full bg-white border-4 border-brand-accent shadow-lg z-10 -translate-x-1/2 pulse-marker order-1 md:order-2"></div>
-
-                {/* Visual (Right on Desktop) */}
-                <div className="md:w-[45%] w-full pl-16 md:pl-0 mt-8 md:mt-0 order-3">
-                  <div className="bg-white p-4 rounded-2xl shadow-xl border border-slate-100 transform transition-transform duration-500 hover:scale-105 group-hover:rotate-1">
-                    {/* Notification UI */}
-                    <div className="bg-slate-800/90 backdrop-blur text-white p-4 rounded-xl shadow-lg flex items-center gap-4 max-w-sm">
-                      <div className="w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center text-xl">💬</div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-baseline mb-0.5">
-                          <span className="font-semibold text-sm">New Message</span>
-                          <span className="text-xs text-slate-400">Now</span>
-                        </div>
-                        <p className="text-sm truncate text-slate-300">Can you mow my lawn this week?</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Step 2 (PENDING) */}
-              <div className="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
-
-                {/* Visual (Left on Desktop) */}
-                <div className="md:w-[45%] w-full pl-16 md:pl-0 mb-8 md:mb-0 order-3 md:order-1">
-                  <div className="bg-white p-6 rounded-3xl shadow-xl border border-slate-100 transform transition-transform duration-500 hover:scale-105 group-hover:-rotate-1 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-accent to-brand-primary"></div>
-                    {/* Chat Snippet */}
-                    <div className="space-y-3 text-sm">
-                      <div className="flex gap-3">
-                        <div className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-brand-accent/30">AI</div>
-                        <div className="bg-slate-50 p-3 rounded-2xl rounded-tl-none text-slate-600 max-w-[240px]">
-                          I'd be happy to help! We have Thursday at 10am available. Does that work?
-                        </div>
-                      </div>
-                      <div className="flex gap-3 flex-row-reverse">
-                        <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 text-xs">JS</div>
-                        <div className="bg-brand-accent text-white p-3 rounded-2xl rounded-tr-none shadow-md max-w-[200px]">
-                          Thursday 10am is perfect.
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <div className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-brand-accent/30">AI</div>
-                        <div className="bg-slate-50 p-3 rounded-2xl rounded-tl-none text-slate-600 max-w-[240px]">
-                          Great. I've penciled you in for Thursday 10am. The team will confirm shortly via SMS.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Center Marker */}
-                <div className="absolute left-8 md:left-1/2 top-0 w-8 h-8 rounded-full bg-white border-4 border-brand-accent shadow-lg z-10 -translate-x-1/2 pulse-marker order-1 md:order-2"></div>
-
-                {/* Content (Right on Desktop) */}
-                <div className="md:w-[45%] w-full pl-20 md:pl-0 order-2 md:order-3">
-                  <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-bold uppercase">Step 02</div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3 font-montserrat">AI responds & pencils it in</h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    The AI checks your availability, negotiates the time, and marks the slot as a <strong>PENDING</strong> request. No accidental double bookings.
-                  </p>
-                </div>
-              </div>
-
-              {/* Step 3 (MANUAL CONFIRM) */}
-              <div className="relative flex flex-col md:flex-row items-center justify-between group">
-
-                {/* Content (Left on Desktop) */}
-                <div className="md:w-[45%] w-full pl-20 md:pl-0 md:text-right order-2 md:order-1">
-                  <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold uppercase">Step 03</div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3 font-montserrat">You confirm with one tap</h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    You get an SMS alert: "New Booking Request". Review the details, tap <strong>Confirm</strong>, and <em>only then</em> do we notify the customer. You maintain full control.
-                  </p>
-                </div>
-
-                {/* Center Marker */}
-                <div className="absolute left-8 md:left-1/2 top-0 w-8 h-8 rounded-full bg-white border-4 border-brand-accent shadow-lg z-10 -translate-x-1/2 pulse-marker order-1 md:order-2"></div>
-
-                {/* Visual (Right on Desktop) */}
-                <div className="md:w-[45%] w-full pl-16 md:pl-0 mt-8 md:mt-0 order-3">
-                  <div className="bg-white p-5 rounded-2xl shadow-xl border border-slate-100 transform transition-transform duration-500 hover:scale-105">
-                    {/* Confirmation Card */}
-                    <div className="border border-slate-100 rounded-xl p-4 bg-slate-50/50">
-                      <div className="flex justify-between items-start mb-4">
-                        <div>
-                          {/* SMS Alert Badge */}
-                          <div className="flex gap-2 mb-2">
-                            <div className="text-[10px] font-bold text-white bg-slate-800 px-2 py-0.5 rounded flex items-center gap-1">
-                              <span>📱 SMS Alert</span>
-                            </div>
-                            <div className="text-[10px] font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded border border-amber-200">Action Required</div>
-                          </div>
-
-                          <div className="font-bold text-slate-900">Lawn Mowing - John Smith</div>
-                          <div className="text-xs text-slate-500">Thu, 10:00 AM • $80 Est</div>
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <button className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-lg text-sm font-bold shadow-lg shadow-emerald-500/30 transition-colors">
-                          ✓ Approve & Notify
-                        </button>
-                        <button className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-50">
-                          Decline
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Stats Footer */}
-            <div className="max-w-4xl mx-auto mt-24 grid grid-cols-3 gap-8 text-center border-t border-slate-100 pt-12">
-              <div>
-                <div className="text-3xl font-bold text-brand-primary mb-1">24/7</div>
-                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">Availability</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-brand-accent mb-1">&lt;10s</div>
-                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">Response Time</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-brand-light-blue mb-1">2 sec</div>
-                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">To Confirm</div>
-              </div>
-            </div>
+            {/* Tabbed Timeline */}
+            <TimelineTabs />
 
           </div>
         </section>
 
         {/* Pricing Section */}
-        <section className="relative z-10 bg-white py-24 border-t border-slate-200">
+        <section className="relative z-10 bg-white py-12 border-t border-slate-200">
           <div className="max-w-7xl mx-auto px-6">
 
             <div className="text-center mb-16">
@@ -450,10 +305,15 @@ export default function HomePage() {
               <p className="text-lg text-slate-600">Choose the package that fits your stage of business.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-start">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
 
               {/* Package 1: SMS Responder */}
-              <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="relative bg-white rounded-3xl p-8 border-2 border-brand-primary shadow-xl transition-shadow flex flex-col">
+                {/* Badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-primary to-brand-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                  Quick Start
+                </div>
+
                 <h3 className="text-xl font-bold text-slate-900 mb-2 font-montserrat">SMS Responder</h3>
                 <p className="text-sm text-slate-500 mb-6 min-h-[40px]">
                   Perfect for tradies and mobile services who need to respond fast but don't have a website.
@@ -469,7 +329,7 @@ export default function HomePage() {
                   Delivered within 3 working days
                 </div>
 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-grow">
                   <li className="flex items-start gap-3 text-sm text-slate-600">
                     <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     Dedicated business SMS number
@@ -500,20 +360,22 @@ export default function HomePage() {
                   </li>
                 </ul>
 
-                <Link
-                  href="/chat/homepage-visitor"
-                  className="block w-full py-3 text-center rounded-xl border border-slate-200 font-semibold text-slate-700 hover:bg-slate-50 transition-colors mb-4"
-                >
-                  Get Started
-                </Link>
+                <div className="mt-auto">
+                  <Link
+                    href="/chat/homepage-visitor"
+                    className="block w-full py-3 text-center rounded-xl bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold shadow-lg shadow-brand-primary/30 hover:shadow-brand-primary/40 transition-all hover:-translate-y-0.5 mb-4"
+                  >
+                    Get Started
+                  </Link>
 
-                <p className="text-sm text-slate-500 italic text-center">
-                  Best for: Landscapers, cleaners, mobile mechanics, handymen
-                </p>
+                  <p className="text-sm text-slate-500 italic text-center">
+                    Best for: Landscapers, cleaners, mobile mechanics, handymen
+                  </p>
+                </div>
               </div>
 
               {/* Package 2: Professional (Highlighted) */}
-              <div className="relative bg-white rounded-3xl p-8 border-2 border-brand-accent shadow-xl transform md:-translate-y-4">
+              <div className="relative bg-white rounded-3xl p-8 border-2 border-brand-accent shadow-xl flex flex-col">
                 {/* Badge */}
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-accent to-brand-primary text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
                   Most Popular
@@ -534,7 +396,7 @@ export default function HomePage() {
                   Delivery in 5 to 10 working days
                 </div>
 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-grow">
                   <li className="flex items-start gap-3 text-sm text-slate-600">
                     <div className="w-5 h-5 rounded-full bg-brand-light-blue/20 flex items-center justify-center text-brand-primary font-bold text-xs mt-0.5">✓</div>
                     <span className="font-semibold text-brand-primary">Everything in SMS Responder, PLUS:</span>
@@ -565,16 +427,18 @@ export default function HomePage() {
                   </li>
                 </ul>
 
-                <Link
-                  href="/onboarding-professional"
-                  className="block w-full py-3 text-center rounded-xl bg-gradient-to-r from-brand-accent to-brand-primary text-white font-semibold shadow-lg shadow-brand-accent/30 hover:shadow-brand-accent/40 transition-all hover:-translate-y-0.5 mb-4"
-                >
-                  Choose Professional
-                </Link>
+                <div className="mt-auto">
+                  <Link
+                    href="/onboarding-professional"
+                    className="block w-full py-3 text-center rounded-xl bg-gradient-to-r from-brand-accent to-brand-primary text-white font-semibold shadow-lg shadow-brand-accent/30 hover:shadow-brand-accent/40 transition-all hover:-translate-y-0.5 mb-4"
+                  >
+                    Choose Professional
+                  </Link>
 
-                <p className="text-sm text-slate-500 italic text-center">
-                  Best for: Any service business that wants a professional online presence
-                </p>
+                  <p className="text-sm text-slate-500 italic text-center">
+                    Best for: Any service business that wants a professional online presence
+                  </p>
+                </div>
               </div>
 
             </div>
@@ -582,7 +446,7 @@ export default function HomePage() {
         </section>
 
         {/* Why CoreSentia Section */}
-        <section className="relative z-10 bg-white py-24 border-t border-slate-200">
+        <section className="relative z-10 bg-white py-12 border-t border-slate-200">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">Why Choose Us</span>
@@ -627,7 +491,7 @@ export default function HomePage() {
         </section>
 
         {/* Quote Request Form Section */}
-        <section id="quote-form" className="relative z-10 bg-white py-24 border-t border-slate-200">
+        <section id="quote-form" className="relative z-10 bg-white py-12 border-t border-slate-200">
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-12">
               <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">Get Started</span>

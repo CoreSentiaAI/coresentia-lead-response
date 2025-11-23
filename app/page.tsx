@@ -455,255 +455,308 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How It Works - Simple Workflow */}
-        <section className="min-h-screen w-full flex items-center py-16 px-4 md:px-6 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-navy text-center mb-3 font-montserrat">
-              Simple. Automatic. Effective.
-            </h2>
-            <p className="text-lg md:text-xl text-text-primary text-center mb-10 max-w-2xl mx-auto">
-              Here's how it works in the real world
-            </p>
+        {/* How it works: Interactive Timeline */}
+        <section className="relative z-10 bg-white py-24">
+          {/* Section Divider */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-slate-50 to-white"></div>
 
-            <div className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-4 md:p-8 mb-8">
-              <div className="space-y-6 md:space-y-8">
-                {/* Step 1 */}
-                <div className="flex gap-3 md:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-lg md:text-xl">
-                    1
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-2">Lead texts your business number</h3>
-                    <p className="text-sm md:text-base text-text-secondary mb-3 italic">
-                      "Can you mow my lawn this week?"
-                    </p>
-                    <div className="bg-white border border-gray-300 rounded-lg p-3 md:p-4 text-sm">
-                      <p className="text-gray-600 text-xs md:text-sm mb-1">📱 To: Your business (0412 XXX XXX)</p>
-                      <p className="text-text-primary">"Hi, can you mow my lawn this week?"</p>
-                    </div>
-                  </div>
+          <div className="max-w-7xl mx-auto px-6 pt-24">
+
+            {/* Header */}
+            <div className="text-center mb-20 relative">
+              <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">The Process</span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mb-6 font-montserrat">Simple. Automatic. Effective.</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">Here's how it works in the real world.</p>
+            </div>
+
+            {/* Timeline Container */}
+            <div className="relative max-w-5xl mx-auto">
+
+              {/* Central Line (Desktop) / Left Line (Mobile) */}
+              <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 md:block hidden"></div>
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 md:hidden block"></div>
+
+              {/* Step 1 */}
+              <div className="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
+
+                {/* Content (Left on Desktop) */}
+                <div className="md:w-[45%] w-full pl-20 md:pl-0 md:text-right order-2 md:order-1">
+                  <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase">Step 01</div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 font-montserrat">Lead texts your business</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    "Can you mow my lawn this week?" Your customer reaches out via SMS just like they always do.
+                  </p>
                 </div>
 
-                {/* Step 2 */}
-                <div className="flex gap-3 md:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-lg md:text-xl">
-                    2
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">AI responds instantly & creates pending booking</h3>
-                    <div className="bg-white border border-gray-300 rounded-lg p-3 md:p-4 text-sm space-y-2 md:space-y-3">
-                      <p className="text-text-primary"><strong>AI:</strong> "I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works for you?"</p>
-                      <p className="text-gray-600"><strong>Lead:</strong> "Thursday 10am"</p>
-                      <p className="text-text-primary"><strong>AI:</strong> "Perfect! I've penciled you in for Thursday 10am. The team will confirm shortly via SMS."</p>
-                    </div>
-                  </div>
-                </div>
+                {/* Center Marker */}
+                <div className="absolute left-8 md:left-1/2 top-0 w-8 h-8 rounded-full bg-white border-4 border-brand-accent shadow-lg z-10 -translate-x-1/2 pulse-marker order-1 md:order-2"></div>
 
-                {/* Step 3 */}
-                <div className="flex gap-3 md:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-lg md:text-xl">
-                    3
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">You confirm with one tap</h3>
-                    <div className="bg-white border border-brand-navy rounded-lg p-3 md:p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs md:text-sm font-medium text-yellow-700 bg-yellow-100 px-2 md:px-3 py-1 rounded-full border border-yellow-300">● Pending</span>
-                        <span className="text-xs text-gray-500">Just now</span>
-                      </div>
-                      <p className="font-semibold text-brand-navy mb-2 text-sm md:text-base">Thursday, 10:00 AM - Lawn Mowing</p>
-                      <p className="text-xs md:text-sm text-text-secondary mb-3 md:mb-4">John Smith • 0412 XXX XXX</p>
-                      <div className="flex gap-2">
-                        <button className="flex-1 bg-green-600 text-white py-2 px-3 md:px-4 rounded-lg font-medium text-xs md:text-sm">
-                          ✓ Confirm
-                        </button>
-                        <button className="flex-1 bg-white border-2 border-gray-300 text-text-primary py-2 px-3 md:px-4 rounded-lg font-medium text-xs md:text-sm">
-                          Cancel
-                        </button>
+                {/* Visual (Right on Desktop) */}
+                <div className="md:w-[45%] w-full pl-16 md:pl-0 mt-8 md:mt-0 order-3">
+                  <div className="bg-white p-4 rounded-2xl shadow-xl border border-slate-100 transform transition-transform duration-500 hover:scale-105 group-hover:rotate-1">
+                    {/* Notification UI */}
+                    <div className="bg-slate-800/90 backdrop-blur text-white p-4 rounded-xl shadow-lg flex items-center gap-4 max-w-sm">
+                      <div className="w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center text-xl">💬</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-baseline mb-0.5">
+                          <span className="font-semibold text-sm">New Message</span>
+                          <span className="text-xs text-slate-400">Now</span>
+                        </div>
+                        <p className="text-sm truncate text-slate-300">Can you mow my lawn this week?</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-300 text-center">
-                <p className="text-brand-navy font-semibold text-base md:text-lg">
-                  That's it. One tap to confirm and you've booked a job.
-                </p>
-                <p className="text-text-primary mt-2 text-sm md:text-base">
-                  No phone tag. No missed calls. No back-and-forth. Just qualified leads ready to confirm.
-                </p>
+              {/* Step 2 (PENDING) */}
+              <div className="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
+
+                {/* Visual (Left on Desktop) */}
+                <div className="md:w-[45%] w-full pl-16 md:pl-0 mb-8 md:mb-0 order-3 md:order-1">
+                  <div className="bg-white p-6 rounded-3xl shadow-xl border border-slate-100 transform transition-transform duration-500 hover:scale-105 group-hover:-rotate-1 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-accent to-brand-primary"></div>
+                    {/* Chat Snippet */}
+                    <div className="space-y-3 text-sm">
+                      <div className="flex gap-3">
+                        <div className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-brand-accent/30">AI</div>
+                        <div className="bg-slate-50 p-3 rounded-2xl rounded-tl-none text-slate-600 max-w-[240px]">
+                          I'd be happy to help! We have Thursday at 10am available. Does that work?
+                        </div>
+                      </div>
+                      <div className="flex gap-3 flex-row-reverse">
+                        <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 text-xs">JS</div>
+                        <div className="bg-brand-accent text-white p-3 rounded-2xl rounded-tr-none shadow-md max-w-[200px]">
+                          Thursday 10am is perfect.
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-brand-accent/30">AI</div>
+                        <div className="bg-slate-50 p-3 rounded-2xl rounded-tl-none text-slate-600 max-w-[240px]">
+                          Great. I've penciled you in for Thursday 10am. The team will confirm shortly via SMS.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Center Marker */}
+                <div className="absolute left-8 md:left-1/2 top-0 w-8 h-8 rounded-full bg-white border-4 border-brand-accent shadow-lg z-10 -translate-x-1/2 pulse-marker order-1 md:order-2"></div>
+
+                {/* Content (Right on Desktop) */}
+                <div className="md:w-[45%] w-full pl-20 md:pl-0 order-2 md:order-3">
+                  <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-bold uppercase">Step 02</div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 font-montserrat">AI responds & pencils it in</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    The AI checks your availability, negotiates the time, and marks the slot as a <strong>PENDING</strong> request. No accidental double bookings.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 (MANUAL CONFIRM) */}
+              <div className="relative flex flex-col md:flex-row items-center justify-between group">
+
+                {/* Content (Left on Desktop) */}
+                <div className="md:w-[45%] w-full pl-20 md:pl-0 md:text-right order-2 md:order-1">
+                  <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold uppercase">Step 03</div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 font-montserrat">You confirm with one tap</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    You get an SMS alert: "New Booking Request". Review the details, tap <strong>Confirm</strong>, and <em>only then</em> do we notify the customer. You maintain full control.
+                  </p>
+                </div>
+
+                {/* Center Marker */}
+                <div className="absolute left-8 md:left-1/2 top-0 w-8 h-8 rounded-full bg-white border-4 border-brand-accent shadow-lg z-10 -translate-x-1/2 pulse-marker order-1 md:order-2"></div>
+
+                {/* Visual (Right on Desktop) */}
+                <div className="md:w-[45%] w-full pl-16 md:pl-0 mt-8 md:mt-0 order-3">
+                  <div className="bg-white p-5 rounded-2xl shadow-xl border border-slate-100 transform transition-transform duration-500 hover:scale-105">
+                    {/* Confirmation Card */}
+                    <div className="border border-slate-100 rounded-xl p-4 bg-slate-50/50">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          {/* SMS Alert Badge */}
+                          <div className="flex gap-2 mb-2">
+                            <div className="text-[10px] font-bold text-white bg-slate-800 px-2 py-0.5 rounded flex items-center gap-1">
+                              <span>📱 SMS Alert</span>
+                            </div>
+                            <div className="text-[10px] font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded border border-amber-200">Action Required</div>
+                          </div>
+
+                          <div className="font-bold text-slate-900">Lawn Mowing - John Smith</div>
+                          <div className="text-xs text-slate-500">Thu, 10:00 AM • $80 Est</div>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <button className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-lg text-sm font-bold shadow-lg shadow-emerald-500/30 transition-colors">
+                          ✓ Approve & Notify
+                        </button>
+                        <button className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-50">
+                          Decline
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Stats Footer */}
+            <div className="max-w-4xl mx-auto mt-24 grid grid-cols-3 gap-8 text-center border-t border-slate-100 pt-12">
+              <div>
+                <div className="text-3xl font-bold text-brand-primary mb-1">24/7</div>
+                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">Availability</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-accent mb-1">&lt;10s</div>
+                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">Response Time</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-brand-light-blue mb-1">2 sec</div>
+                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">To Confirm</div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-              <div>
-                <div className="text-4xl font-bold text-brand-orange mb-2">24/7</div>
-                <p className="text-text-secondary">Never miss a lead, even at midnight</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-brand-orange mb-2">&lt;10s</div>
-                <p className="text-text-secondary">Average response time</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-brand-orange mb-2">2 sec</div>
-                <p className="text-text-secondary">To confirm a booking</p>
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* Packages Section */}
-        <section id="packages" className="min-h-screen w-full flex items-center py-20 px-6 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-5 font-montserrat">
-                Choose Your Package
-              </h2>
-              <p className="text-xl text-text-primary max-w-2xl mx-auto">
-                Simple pricing. Fast delivery. Start capturing leads you're currently missing.
-              </p>
+        {/* Pricing Section */}
+        <section className="relative z-10 bg-slate-50 py-24 border-t border-slate-200">
+          <div className="max-w-7xl mx-auto px-6">
+
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-montserrat">Simple, Transparent Pricing.</h2>
+              <p className="text-lg text-slate-600">Choose the package that fits your stage of business.</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto lg:items-stretch">
-              {/* Tier 1: SMS Responder */}
-              <div className="bg-white border-2 border-gray-200 rounded-2xl p-10 hover:border-brand-orange transition-all shadow-lg flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <MessageSquare className="w-10 h-10 text-brand-orange" />
-                  <h3 className="text-2xl font-bold text-brand-navy font-montserrat">SMS Responder</h3>
-                </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-start">
 
-                <div className="mb-6">
-                  <p className="text-4xl font-bold text-brand-navy">$499</p>
-                  <p className="text-lg text-text-primary">+ $150/month</p>
-                  <p className="text-xs text-text-primary mt-1">(inc. GST)</p>
-                  <p className="text-sm text-brand-orange font-semibold mt-2 flex items-center gap-1 justify-center"><Zap className="w-4 h-4" /> Delivered within 3 working days</p>
-                </div>
-
-                <p className="text-text-secondary mb-6">
+              {/* Package 1: SMS Responder */}
+              <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <h3 className="text-xl font-bold text-slate-900 mb-2 font-montserrat">SMS Responder</h3>
+                <p className="text-sm text-slate-500 mb-6 min-h-[40px]">
                   Perfect for tradies and mobile services who need to respond fast but don't have a website.
                 </p>
 
-                <div className="space-y-3 mb-8 flex-grow">
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Dedicated business SMS number</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Up to 500 SMS/month included</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">AI responds 24/7 to text inquiries</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Qualifies leads and books appointments (pending your confirmation)</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Simple mobile dashboard</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Built-in booking calendar</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">SMS confirmations to you and customer</span>
-                  </div>
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-4xl font-bold text-slate-900">$499</span>
+                  <span className="text-slate-500 font-medium">setup</span>
+                </div>
+                <div className="text-slate-500 text-sm mb-2">+ $150 / month (inc. GST)</div>
+                <div className="inline-flex items-center gap-1 text-xs font-semibold text-brand-accent bg-brand-accent/10 px-2 py-1 rounded mb-6">
+                  <Zap className="w-3 h-3" />
+                  Delivered within 3 working days
                 </div>
 
-                <div className="mt-auto">
-                  <Link
-                    href="/chat/homepage-visitor"
-                    className="btn-primary w-full py-3 rounded-full font-semibold text-center block"
-                  >
-                    Get Started
-                  </Link>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Dedicated business SMS number
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Up to 500 SMS/month included
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    AI responds 24/7 to text inquiries
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Qualifies leads and books appointments (pending your confirmation)
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Simple mobile dashboard
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Built-in booking calendar
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    SMS confirmations to you and customer
+                  </li>
+                </ul>
 
-                  <p className="text-sm text-text-secondary mt-4 italic">
-                    Best for: Landscapers, cleaners, mobile mechanics, handymen
-                  </p>
-                </div>
+                <Link
+                  href="/chat/homepage-visitor"
+                  className="block w-full py-3 text-center rounded-xl border border-slate-200 font-semibold text-slate-700 hover:bg-slate-50 transition-colors mb-4"
+                >
+                  Get Started
+                </Link>
+
+                <p className="text-sm text-slate-500 italic text-center">
+                  Best for: Landscapers, cleaners, mobile mechanics, handymen
+                </p>
               </div>
 
-              {/* Tier 2: Professional Package */}
-              <div className="bg-white border-2 border-brand-accent rounded-2xl p-10 relative shadow-2xl flex flex-col">
-                {/* Header with Badge */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <Globe className="w-10 h-10 text-brand-accent" />
-                    <h3 className="text-2xl font-bold font-montserrat text-brand-primary">Professional Package</h3>
-                  </div>
-                  <span className="inline-flex items-center rounded-full border border-brand-accent bg-brand-accent/10 px-3 py-1 text-xs font-medium text-brand-accent whitespace-nowrap">
-                    Most popular
-                  </span>
+              {/* Package 2: Professional (Highlighted) */}
+              <div className="relative bg-white rounded-3xl p-8 border-2 border-brand-accent shadow-xl transform md:-translate-y-4">
+                {/* Badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-accent to-brand-primary text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                  Most Popular
                 </div>
 
-                <div className="mb-6">
-                  <p className="text-4xl font-bold text-brand-primary">$2,500</p>
-                  <p className="text-lg text-text-primary">+ $250/month</p>
-                  <p className="text-xs text-text-primary mt-1">(inc. GST)</p>
-                  <p className="text-sm text-brand-accent font-semibold mt-2 flex items-center gap-1 justify-center"><Rocket className="w-4 h-4" /> Delivery in 5 to 10 working days</p>
-                </div>
-
-                <p className="text-text-primary mb-6">
+                <h3 className="text-xl font-bold text-slate-900 mb-2 font-montserrat">Professional Package</h3>
+                <p className="text-sm text-slate-500 mb-6 min-h-[40px]">
                   For service businesses ready to look professional with a complete web presence.
                 </p>
 
-                <div className="space-y-3 mb-8 flex-grow">
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-4xl font-bold text-slate-900">$2,500</span>
+                  <span className="text-slate-500 font-medium">setup</span>
+                </div>
+                <div className="text-slate-500 text-sm mb-2">+ $250 / month (inc. GST)</div>
+                <div className="inline-flex items-center gap-1 text-xs font-semibold text-brand-accent bg-brand-accent/10 px-2 py-1 rounded mb-6">
+                  <Rocket className="w-3 h-3" />
+                  Delivery in 5 to 10 working days
+                </div>
+
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <div className="w-5 h-5 rounded-full bg-brand-light-blue/20 flex items-center justify-center text-brand-primary font-bold text-xs mt-0.5">✓</div>
                     <span className="font-semibold text-brand-primary">Everything in SMS Responder, PLUS:</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Professional one-page website</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Web chat widget (same AI brain)</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Custom domain setup (yourname.com.au)</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Your branding and colors</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Embedded booking system</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Mobile-optimized design</span>
-                  </div>
-                </div>
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Professional one-page website
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Web chat widget (same AI brain)
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Custom domain setup (yourname.com.au)
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Your branding and colors
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Embedded booking system
+                  </li>
+                  <li className="flex items-start gap-3 text-sm text-slate-600">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    Mobile-optimized design
+                  </li>
+                </ul>
 
-                <div className="mt-auto">
-                  <Link
-                    href="/chat/homepage-visitor"
-                    className="bg-brand-accent text-white hover:bg-brand-accent-hover w-full py-3 rounded-full font-semibold text-center block transition-all"
-                  >
-                    Get Started
-                  </Link>
+                <Link
+                  href="/onboarding-professional"
+                  className="block w-full py-3 text-center rounded-xl bg-gradient-to-r from-brand-accent to-brand-primary text-white font-semibold shadow-lg shadow-brand-accent/30 hover:shadow-brand-accent/40 transition-all hover:-translate-y-0.5 mb-4"
+                >
+                  Choose Professional
+                </Link>
 
-                  <p className="text-sm text-text-secondary mt-4 italic">
-                    Best for: Hairdressers, beauty services, pet groomers, mobile businesses ready to grow
-                  </p>
-                </div>
+                <p className="text-sm text-slate-500 italic text-center">
+                  Best for: Any service business that wants a professional online presence
+                </p>
               </div>
-            </div>
 
-            {/* Add-ons note */}
-            <div className="mt-12 text-center">
-              <p className="text-text-primary">
-                Optional add-ons: Payment processing, multiple staff calendars, SMS marketing — discuss during setup
-              </p>
             </div>
           </div>
         </section>

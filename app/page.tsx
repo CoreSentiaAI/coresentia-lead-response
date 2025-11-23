@@ -157,7 +157,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Chat Area */}
-                <div className="p-6 pb-20 space-y-4 h-[400px] overflow-hidden bg-gradient-to-b from-white/20 to-white/60">
+                <div className="p-6 pb-32 space-y-3 h-[450px] overflow-hidden bg-gradient-to-b from-white/20 to-white/60">
 
                   {/* Message 1 (User) */}
                   <div className="flex justify-end" style={{

@@ -44,6 +44,8 @@ export async function POST(request: NextRequest) {
 
     console.log('Speech result:', {
       callSid: voiceParams.CallSid,
+      from: voiceParams.From,
+      to: voiceParams.To,
       speech: speechResult,
       confidence,
     });
@@ -94,6 +96,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Retrieve call session from database
+    console.log('Fetching session for CallSid:', voiceParams.CallSid);
     const { data: session, error: sessionError } = await supabase
       .from('voice_call_sessions')
       .select('*')
@@ -108,6 +111,9 @@ export async function POST(request: NextRequest) {
         headers: { 'Content-Type': 'text/xml' },
       });
     }
+
+    console.log('Session found:', session.id);
+    console.log('Existing conversation history length:', session.conversation_history?.length || 0);
 
     // Build conversation context
     const conversationHistory = session.conversation_history || [];
@@ -146,19 +152,23 @@ export async function POST(request: NextRequest) {
 
     // Determine bot type and get appropriate prompt
     const botType = getBotType(voiceParams.To);
+    console.log('Bot type determined:', botType, 'for number:', voiceParams.To);
     let systemPrompt: string;
 
     if (botType === 'sales') {
+      console.log('Using sales bot prompt');
       systemPrompt = getVoicePrompt(voiceParams.To);
     } else {
+      console.log('Using client bot prompt, fetching business context');
       // For client bot, need to fetch business context from business_phones table
-      const { data: businessPhone } = await supabase
+      const { data: businessPhone, error: businessError } = await supabase
         .from('business_phones')
         .select('*')
         .eq('phone_number', voiceParams.To)
         .single();
 
-      if (!businessPhone) {
+      if (businessError || !businessPhone) {
+        console.error('Failed to fetch business phone:', businessError);
         const twiml = generateErrorTwiML('system');
         return new NextResponse(twiml, {
           status: 200,
@@ -166,6 +176,7 @@ export async function POST(request: NextRequest) {
         });
       }
 
+      console.log('Business found:', businessPhone.business_name);
       systemPrompt = getVoicePrompt(voiceParams.To, {
         businessName: businessPhone.business_name,
         industryType: businessPhone.industry_type || 'service',
@@ -176,6 +187,7 @@ export async function POST(request: NextRequest) {
 
     // Call Claude AI
     console.log('Calling Claude AI with', conversationHistory.length, 'messages');
+    console.log('System prompt length:', systemPrompt.length);
 
     const apiResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -196,6 +208,8 @@ export async function POST(request: NextRequest) {
       }),
     });
 
+    console.log('Claude API response status:', apiResponse.status);
+
     if (!apiResponse.ok) {
       const errorData = await apiResponse.text();
       console.error('Anthropic API error:', apiResponse.status, errorData);
@@ -207,12 +221,16 @@ export async function POST(request: NextRequest) {
     }
 
     const aiData = await apiResponse.json();
+    console.log('Claude API response received, parsing...');
+
     if (!aiData.content || !aiData.content[0] || !aiData.content[0].text) {
+      console.error('Invalid AI response structure:', JSON.stringify(aiData));
       throw new Error('Invalid response from Claude API');
     }
 
     let aiResponse = aiData.content[0].text;
-    console.log('AI response:', aiResponse);
+    console.log('AI response length:', aiResponse.length);
+    console.log('AI response preview:', aiResponse.substring(0, 100));
 
     // Extract any action triggers
     const { action, cleanedResponse } = extractVoiceAction(aiResponse);
@@ -252,12 +270,14 @@ export async function POST(request: NextRequest) {
                          action === 'HUMAN_HANDOFF';
 
     // Generate TwiML response
+    console.log('Generating TwiML, shouldHangup:', shouldHangup);
     const twiml = generateConversationTwiML({
       message: aiResponse,
       continueConversation: !shouldHangup,
       conversationUrl: `${getBaseUrl()}/api/voice/conversation`,
     });
 
+    console.log('TwiML generated, length:', twiml.length);
     console.log('Returning TwiML, continue:', !shouldHangup);
 
     return new NextResponse(twiml, {

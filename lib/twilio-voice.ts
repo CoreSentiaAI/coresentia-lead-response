@@ -38,7 +38,7 @@ export function generateGreetingTwiML(
     enhanced="true"
   >
     <Say voice="Google.en-AU-Neural2-C" language="en-AU">
-      <prosody rate="95%" pitch="+0%">${escapeXML(greeting)}</prosody>
+      <prosody rate="115%" pitch="+0%">${escapeXML(greeting)}</prosody>
     </Say>
   </Gather>
   <Say voice="Google.en-AU-Neural2-C" language="en-AU">Sorry, I didn't hear anything. Please call back when you're ready. Goodbye!</Say>
@@ -66,7 +66,7 @@ export function generateConversationTwiML(options: TwiMLOptions): string {
     return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Say voice="${voice}" language="${language}">
-    <prosody rate="95%" pitch="+0%">${escapeXML(message)}</prosody>
+    <prosody rate="115%" pitch="+0%">${escapeXML(message)}</prosody>
   </Say>
   <Hangup/>
 </Response>`;
@@ -87,7 +87,7 @@ export function generateConversationTwiML(options: TwiMLOptions): string {
     enhanced="true"
   >
     <Say voice="${voice}" language="${language}">
-      <prosody rate="95%" pitch="+0%">${escapeXML(message)}</prosody>
+      <prosody rate="115%" pitch="+0%">${escapeXML(message)}</prosody>
     </Say>
   </Gather>
   <Say voice="${voice}" language="${language}">Sorry, I didn't catch that. Let me connect you with the team.</Say>
@@ -130,7 +130,7 @@ export function generateErrorTwiML(errorType: 'timeout' | 'unclear' | 'system'):
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Say voice="Google.en-AU-Neural2-C" language="en-AU">
-    <prosody rate="95%" pitch="+0%">${escapeXML(messages[errorType])}</prosody>
+    <prosody rate="115%" pitch="+0%">${escapeXML(messages[errorType])}</prosody>
   </Say>
   <Hangup/>
 </Response>`;

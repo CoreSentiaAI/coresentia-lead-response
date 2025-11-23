@@ -123,7 +123,7 @@ export default function HomePage() {
                 </div>
                 <div className="pr-2">
                   <p className="text-xs font-bold text-slate-800">Lead Qualified</p>
-                  <p className="text-[10px] text-slate-500">Auto-booked to Calendar</p>
+                  <p className="text-[10px] text-slate-500">Ready to confirm</p>
                 </div>
               </div>
 
@@ -200,17 +200,17 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* Booking Confirm Card */}
+                  {/* Booking Pending Card */}
                   <div style={{
                     opacity: 0,
                     animation: 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 2.5s'
                   }} className="mt-2">
-                    <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-md flex items-center gap-3">
-                      <div className="bg-green-100 p-2 rounded-lg">
-                        <Calendar className="w-5 h-5 text-green-600" />
+                    <div className="bg-white p-3 rounded-xl border border-amber-100 shadow-md flex items-center gap-3">
+                      <div className="bg-amber-100 p-2 rounded-lg">
+                        <Calendar className="w-5 h-5 text-amber-600" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-slate-800">Booking Confirmed</p>
+                        <p className="text-xs font-bold text-slate-800">Booking Requested</p>
                         <p className="text-xs text-slate-500">Thu, 10:00 AM • Lawn Mowing</p>
                       </div>
                     </div>
@@ -408,11 +408,11 @@ export default function HomePage() {
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-slate-900 mb-2">Playing Phone Tag</h3>
                     <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                      "Can you do Tuesday?" "No." "Wednesday?" Stop the back-and-forth. The AI checks your calendar and locks in a time instantly.
+                      "Can you do Tuesday?" "No." "Wednesday?" Stop the back-and-forth. The AI checks your calendar, books the lead, then you confirm with one tap.
                     </p>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                      <span className="text-xs text-slate-500">Auto-Booking Enabled</span>
+                      <span className="text-xs text-slate-500">One-Tap Confirmation</span>
                     </div>
                   </div>
                 </div>
@@ -438,8 +438,8 @@ export default function HomePage() {
               </div>
               <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
                 <Calendar className="w-10 h-10 text-brand-accent mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-brand-primary">Auto Booking</h3>
-                <p className="text-sm text-text-secondary">Jobs booked automatically</p>
+                <h3 className="font-semibold mb-2 text-brand-primary">Smart Booking</h3>
+                <p className="text-sm text-text-secondary">AI books, you confirm with one tap</p>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
                 <Shield className="w-10 h-10 text-brand-accent mx-auto mb-3" />
@@ -490,11 +490,11 @@ export default function HomePage() {
                     2
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">AI responds instantly & books them in</h3>
+                    <h3 className="font-bold text-lg md:text-xl text-brand-navy mb-3">AI responds instantly & creates pending booking</h3>
                     <div className="bg-white border border-gray-300 rounded-lg p-3 md:p-4 text-sm space-y-2 md:space-y-3">
                       <p className="text-text-primary"><strong>AI:</strong> "I'd be happy to help! We have Thursday at 10am or Friday at 2pm. Which works for you?"</p>
                       <p className="text-gray-600"><strong>Lead:</strong> "Thursday 10am"</p>
-                      <p className="text-text-primary"><strong>AI:</strong> "Perfect! You're booked for Thursday 10am. I've sent a confirmation."</p>
+                      <p className="text-text-primary"><strong>AI:</strong> "Perfect! I've penciled you in for Thursday 10am. The team will confirm shortly via SMS."</p>
                     </div>
                   </div>
                 </div>
@@ -528,10 +528,10 @@ export default function HomePage() {
 
               <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-300 text-center">
                 <p className="text-brand-navy font-semibold text-base md:text-lg">
-                  That's it. You just booked a job without lifting a finger.
+                  That's it. One tap to confirm and you've booked a job.
                 </p>
                 <p className="text-text-primary mt-2 text-sm md:text-base">
-                  No phone tag. No missed calls. No back-and-forth. Just bookings.
+                  No phone tag. No missed calls. No back-and-forth. Just qualified leads ready to confirm.
                 </p>
               </div>
             </div>
@@ -599,7 +599,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
-                    <span className="text-text-primary">Qualifies leads and books appointments</span>
+                    <span className="text-text-primary">Qualifies leads and books appointments (pending your confirmation)</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-brand-sage mt-0.5 flex-shrink-0" />
@@ -740,18 +740,18 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   3
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Booking Confirmed</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">Booking Created</h3>
                 <p className="text-text-primary text-sm">
-                  Appointment booked into your dashboard, SMS sent to both parties
+                  Appointment added to dashboard, SMS sent to you for confirmation
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   4
                 </div>
-                <h3 className="font-semibold text-lg mb-2 text-brand-navy">You Take Over</h3>
+                <h3 className="font-semibold text-lg mb-2 text-brand-navy">You Confirm & Go</h3>
                 <p className="text-text-primary text-sm">
-                  Show up, do the work, quote, and get paid — your way
+                  Tap to confirm the booking, then show up and do the work
                 </p>
               </div>
             </div>

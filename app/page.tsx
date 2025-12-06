@@ -60,14 +60,10 @@ export default function HomePage() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat text-brand-primary">
-                Stop talking about AI.
-                <br />
-                <span className="bg-gradient-to-r from-brand-accent to-brand-primary bg-clip-text text-transparent">
-                  Start closing with it.
-                </span>
+                Never Miss Another Lead
               </h1>
               <p className="text-lg md:text-xl text-gray-700 max-w-xl mx-auto lg:mx-0">
-                Your AI receptionist responds 24/7, qualifies leads, and books jobs into your calendar—while you focus on the work.
+                Professional websites and AI automation for Australian service businesses. Get online, capture every lead, or do both.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -260,41 +256,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Problem + Solution Combined Section */}
-        <section className="relative z-10 bg-white py-10 px-6 border-t border-slate-200">
-          <div className="max-w-6xl mx-auto">
-            {/* Section Header */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy mb-4 leading-[1.2] font-montserrat">
-                Sound familiar?
-              </h2>
-              <p className="text-lg text-text-primary max-w-2xl mx-auto">
-                You're losing leads while you're on the tools. Your AI receptionist changes that.
-              </p>
-            </div>
-
-            {/* Tabbed Problem Interface */}
-            <ProblemTabs />
-          </div>
-        </section>
-
-        {/* How it works: Interactive Timeline */}
-        <section className="relative z-10 bg-white py-12 border-t border-slate-200">
-
-          <div className="max-w-7xl mx-auto px-6">
-
-            {/* Header */}
-            <div className="text-center mb-12 relative">
-              <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">The Process</span>
-              <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mb-6 font-montserrat">Simple. Automatic. Effective.</h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">Here's how it works in the real world.</p>
-            </div>
-
-            {/* Tabbed Timeline */}
-            <TimelineTabs />
-
-          </div>
-        </section>
 
         {/* Pricing Section */}
         <section className="relative z-10 bg-white py-12 border-t border-slate-200">
@@ -509,6 +470,25 @@ export default function HomePage() {
               </div>
 
             </div>
+          </div>
+        </section>
+
+        {/* AI Bot Showcase Section */}
+        <section className="relative z-10 bg-white py-12 border-t border-slate-200">
+          <div className="max-w-7xl mx-auto px-6">
+
+            {/* Header */}
+            <div className="text-center mb-12 relative">
+              <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-2 block">AI Automation</span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-brand-navy mb-6 font-montserrat">24/7 AI That Never Misses a Lead</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                Available standalone or bundled with your website. See how it works in the real world.
+              </p>
+            </div>
+
+            {/* Timeline showing bot in action */}
+            <TimelineTabs />
+
           </div>
         </section>
 

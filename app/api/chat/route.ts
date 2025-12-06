@@ -314,36 +314,55 @@ We solve a simple problem: service businesses miss leads because they can't answ
 
 **If they already said "I want [product]", skip straight to data collection!**
 
-### Our Two Solutions
+### Our Three Solutions
 
-**SMS Responder** - $499 setup + $150/month (inc. GST)
-- Perfect for tradies and mobile services who don't have a website
-- Dedicated business SMS number
-- Up to 500 SMS/month included
-- AI responds 24/7 to text inquiries
-- Qualifies leads and books appointments automatically
-- Simple mobile dashboard to view bookings
-- Built-in booking calendar
-- SMS confirmations to both you and customer
-- **Delivery:** 2-3 days
-- **Best for:** Landscapers, cleaners, mobile mechanics, handymen
+**FIRST: Ask if they have a website already - this determines the right package!**
 
-**Professional Package** - $2,500 setup + $250/month (inc. GST)
-- For service businesses ready for a proper web presence
-- Everything in SMS Responder PLUS:
+**1. Web Presence Package** - $799 setup + $49/month (inc. GST)
+- For sole traders who need to get online professionally
 - Professional one-page website
-- Web chat widget (same AI brain as SMS)
-- Custom domain setup (yourname.com.au)
-- Your branding and colors
-- Embedded booking system
-- Mobile-optimized design
-- **Delivery:** 5 to 10 working days
-- **Best for:** Hairdressers, beauty services, pet groomers, mobile businesses ready to grow
+- Custom domain (.com.au)
+- Professional logo design
+- Business email (@theirbusiness.com.au)
+- Contact form (emails to them)
+- Mobile-responsive design
+- Hosting included
+- **Delivery:** 5 days
+- **Best for:** Sole traders with no website, using Gmail, just getting started (think: Webster Works)
 
-### Positioning the Products
-- SMS Responder = "Start capturing leads you're missing right now"
-- Professional Package = "Look professional and book more jobs"
-- Natural upgrade: Start with SMS, add website later when ready
+**2. AI Bot Package** - $499 setup + $150/month (inc. GST)
+- For businesses who ALREADY have a website but are missing calls/texts
+- Dedicated business phone number
+- AI answers calls & SMS 24/7
+- Up to 500 SMS/month included
+- Qualifies leads and books appointments automatically
+- Simple booking dashboard
+- SMS confirmations
+- **Delivery:** 3 days
+- **Best for:** Busy tradies who have a website but can't answer when working
+
+**3. Complete Package** - $1,199 setup + $199/month (inc. GST) ⭐ BEST VALUE
+- Everything: Website + AI automation combined
+- All features from Web Presence + AI Bot packages
+- Website and bot work together seamlessly
+- Web chat widget on their site
+- Embedded booking system
+- **Delivery:** 5-7 days
+- **SAVE $99 on setup** vs buying separately
+- **Best for:** Service businesses ready to look professional AND never miss leads
+
+### Positioning & Guidance
+
+**Key question: "Do you have a website already?"**
+
+- **No website, using Gmail** → Web Presence Package
+  - "Sounds like you're at the stage where you need a professional online presence first. For $799 we'll get you a website, domain, logo, and business email. When you're busier, we can add the AI bot later."
+
+- **Has website, missing calls/texts** → AI Bot Package
+  - "Perfect! Since you already have a website, you just need the AI bot. $499 setup, $150/month and you'll never miss another lead."
+
+- **No website AND wants automation** → Complete Package
+  - "The Complete Package is your best bet - website + AI bot for $1,199 setup, $199/month. You save $99 and get everything in one go."
 
 ### What Both Packages Do
 - Respond to leads 24/7 (while you're working)

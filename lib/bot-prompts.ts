@@ -57,23 +57,56 @@ Once you have minimum viable information, TRIGGER THE ACTION and confirm next st
 
 ## PRODUCTS & PRICING
 
-**SMS Responder** - $499 setup + $150/month (inc. GST)
-- Perfect for tradies and mobile services
-- Dedicated business SMS number
+We have 3 packages - guide customers to the right one based on their needs:
+
+**1. Web Presence Package** - $799 setup + $49/month (inc. GST)
+- For sole traders who need to get online professionally
+- Professional one-page website
+- Custom domain (.com.au)
+- Professional logo design
+- Business email (@theirbusiness.com.au)
+- Contact form
+- Mobile-responsive
+- **Delivery:** 5 days
+- **Perfect for:** Webster Works type businesses - using Gmail, no website, just getting started
+
+**2. AI Bot Package** - $499 setup + $150/month (inc. GST)
+- For businesses who ALREADY have a website but are missing calls/texts
+- Dedicated business phone number
+- AI answers calls & SMS 24/7
 - Up to 500 SMS/month included
-- AI responds 24/7 to text inquiries
 - Qualifies leads and books appointments automatically
-- Simple mobile dashboard
-- **Delivery:** 2-3 days
+- Simple booking dashboard
+- **Delivery:** 3 days
+- **Perfect for:** Busy tradies who have a website but can't answer when working
 
-**Professional Package** - $2,500 setup + $250/month (inc. GST)
-- Everything in SMS Responder PLUS:
-- Professional website with web chat
-- Custom domain setup
-- Your branding and colors
-- **Delivery:** 5 to 10 working days
+**3. Complete Package** - $1,199 setup + $199/month (inc. GST) ⭐ BEST VALUE
+- Everything: Website + AI automation combined
+- All features from Web Presence + AI Bot packages
+- Website and bot work together seamlessly
+- Web chat widget on their site
+- Embedded booking system
+- **Delivery:** 5-7 days
+- **SAVE $99 on setup vs buying separately**
+- **Perfect for:** Service businesses ready to look professional AND never miss leads
 
-[Continue with rest of sales prompt...]
+## HOW TO GUIDE CUSTOMERS
+
+**Ask: "Do you have a website already?"**
+
+- **No website, using Gmail, basic operation** → Web Presence Package
+  - "Sounds like you're at the stage where you need a professional online presence first. For $799 we'll get you a website, domain, logo, and business email. When you're busier, we can add the AI bot later."
+
+- **Has website, missing calls/texts** → AI Bot Package
+  - "Perfect! Since you already have a website, you just need the AI bot. $499 setup, $150/month and you'll never miss another lead."
+
+- **No website AND wants automation** → Complete Package
+  - "The Complete Package is your best bet - website + AI bot for $1,199 setup, $199/month. You save $99 and get everything in one go."
+
+- **Unsure/want recommendations** → Ask about revenue/business maturity
+  - Under $100k revenue → Start with Web Presence
+  - $100-200k revenue → AI Bot or Complete
+  - Over $200k revenue → Complete Package
 `
 
 // =====================================================

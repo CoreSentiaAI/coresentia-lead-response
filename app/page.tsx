@@ -305,138 +305,205 @@ export default function HomePage() {
               <p className="text-lg text-slate-600">Choose the package that fits your stage of business.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto items-stretch">
 
-              {/* Package 1: SMS Responder */}
-              <div className="relative bg-white rounded-3xl p-8 border-2 border-brand-primary shadow-xl transition-shadow flex flex-col">
+              {/* Package 1: Web Presence Package */}
+              <div className="relative bg-white rounded-3xl p-6 border-2 border-slate-300 shadow-lg transition-shadow flex flex-col">
                 {/* Badge */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-primary to-brand-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
-                  Quick Start
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-slate-600 to-slate-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                  Entry Level
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 mb-2 font-montserrat">SMS Responder</h3>
-                <p className="text-sm text-slate-500 mb-6 min-h-[40px]">
-                  Perfect for tradies and mobile services who need to respond fast but don't have a website.
+                <h3 className="text-lg font-bold text-slate-900 mb-2 font-montserrat">Web Presence</h3>
+                <p className="text-xs text-slate-500 mb-4">
+                  Get online professionally. Perfect for sole traders who need a web presence.
                 </p>
 
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-4xl font-bold text-slate-900">$499</span>
-                  <span className="text-slate-500 font-medium">setup</span>
+                  <span className="text-3xl font-bold text-slate-900">$799</span>
+                  <span className="text-slate-500 text-sm font-medium">setup</span>
                 </div>
-                <div className="text-slate-500 text-sm mb-2">+ $150 / month (inc. GST)</div>
-                <div className="inline-flex items-center gap-1 text-xs font-semibold text-brand-accent bg-brand-accent/10 px-2 py-1 rounded mb-6">
+                <div className="text-slate-500 text-xs mb-2">+ $49 / month (inc. GST)</div>
+                <div className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded mb-4">
                   <Zap className="w-3 h-3" />
-                  Delivered within 3 working days
+                  5 days delivery
                 </div>
 
-                <ul className="space-y-4 mb-8 flex-grow">
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Dedicated business SMS number
+                <ul className="space-y-2 mb-6 flex-grow text-xs">
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Professional one-page website
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Up to 500 SMS/month included
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Custom domain setup (.com.au)
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    AI responds 24/7 to text inquiries
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Professional logo design
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Qualifies leads and books appointments (pending your confirmation)
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Business email (@yourbusiness.com.au)
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Simple mobile dashboard
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Contact form (emails to you)
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Built-in booking calendar
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Mobile-responsive design
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    SMS confirmations to you and customer
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Hosting included
                   </li>
                 </ul>
 
                 <div className="mt-auto">
                   <Link
                     href="/chat/homepage-visitor"
-                    className="block w-full py-3 text-center rounded-xl bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold shadow-lg shadow-brand-primary/30 hover:shadow-brand-primary/40 transition-all hover:-translate-y-0.5 mb-4"
+                    className="block w-full py-2.5 text-sm text-center rounded-xl bg-slate-600 text-white font-semibold shadow-md hover:bg-slate-700 transition-all hover:-translate-y-0.5 mb-3"
                   >
                     Get Started
                   </Link>
 
-                  <p className="text-sm text-slate-500 italic text-center">
-                    Best for: Landscapers, cleaners, mobile mechanics, handymen
+                  <p className="text-xs text-slate-500 italic text-center">
+                    Best for: Sole traders getting started
                   </p>
                 </div>
               </div>
 
-              {/* Package 2: Professional (Highlighted) */}
-              <div className="relative bg-white rounded-3xl p-8 border-2 border-brand-accent shadow-xl flex flex-col">
+              {/* Package 2: AI Bot Package */}
+              <div className="relative bg-white rounded-3xl p-6 border-2 border-brand-primary shadow-xl transition-shadow flex flex-col">
                 {/* Badge */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-accent to-brand-primary text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
-                  Most Popular
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-primary to-brand-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                  AI Automation
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 mb-2 font-montserrat">Professional Package</h3>
-                <p className="text-sm text-slate-500 mb-6 min-h-[40px]">
-                  For service businesses ready to look professional with a complete web presence.
+                <h3 className="text-lg font-bold text-slate-900 mb-2 font-montserrat">AI Bot Package</h3>
+                <p className="text-xs text-slate-500 mb-4">
+                  24/7 AI answering for calls & texts. Perfect if you already have a website.
                 </p>
 
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-4xl font-bold text-slate-900">$2,500</span>
-                  <span className="text-slate-500 font-medium">setup</span>
+                  <span className="text-3xl font-bold text-slate-900">$499</span>
+                  <span className="text-slate-500 text-sm font-medium">setup</span>
                 </div>
-                <div className="text-slate-500 text-sm mb-2">+ $250 / month (inc. GST)</div>
-                <div className="inline-flex items-center gap-1 text-xs font-semibold text-brand-accent bg-brand-accent/10 px-2 py-1 rounded mb-6">
-                  <Rocket className="w-3 h-3" />
-                  Delivery in 5 to 10 working days
+                <div className="text-slate-500 text-xs mb-2">+ $150 / month (inc. GST)</div>
+                <div className="inline-flex items-center gap-1 text-xs font-semibold text-brand-accent bg-brand-accent/10 px-2 py-1 rounded mb-4">
+                  <Zap className="w-3 h-3" />
+                  3 days delivery
                 </div>
 
-                <ul className="space-y-4 mb-8 flex-grow">
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <div className="w-5 h-5 rounded-full bg-brand-light-blue/20 flex items-center justify-center text-brand-primary font-bold text-xs mt-0.5">✓</div>
-                    <span className="font-semibold text-brand-primary">Everything in SMS Responder, PLUS:</span>
+                <ul className="space-y-2 mb-6 flex-grow text-xs">
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Dedicated business phone number
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Professional one-page website
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    AI answers calls & SMS 24/7
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Web chat widget (same AI brain)
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Up to 500 SMS/month included
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Custom domain setup (yourname.com.au)
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Qualifies leads automatically
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Your branding and colors
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Books appointments (pending your approval)
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Embedded booking system
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Simple booking dashboard
                   </li>
-                  <li className="flex items-start gap-3 text-sm text-slate-600">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    Mobile-optimized design
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    SMS confirmations
                   </li>
                 </ul>
 
                 <div className="mt-auto">
                   <Link
-                    href="/onboarding-professional"
-                    className="block w-full py-3 text-center rounded-xl bg-gradient-to-r from-brand-accent to-brand-primary text-white font-semibold shadow-lg shadow-brand-accent/30 hover:shadow-brand-accent/40 transition-all hover:-translate-y-0.5 mb-4"
+                    href="/chat/homepage-visitor"
+                    className="block w-full py-2.5 text-sm text-center rounded-xl bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold shadow-lg shadow-brand-primary/30 hover:shadow-brand-primary/40 transition-all hover:-translate-y-0.5 mb-3"
                   >
-                    Choose Professional
+                    Get Started
                   </Link>
 
-                  <p className="text-sm text-slate-500 italic text-center">
-                    Best for: Any service business that wants a professional online presence
+                  <p className="text-xs text-slate-500 italic text-center">
+                    Best for: Busy tradies missing calls
+                  </p>
+                </div>
+              </div>
+
+              {/* Package 3: Complete Package (Highlighted) */}
+              <div className="relative bg-white rounded-3xl p-6 border-2 border-brand-accent shadow-xl flex flex-col">
+                {/* Badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-accent to-brand-primary text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                  Most Popular
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-900 mb-2 font-montserrat">Complete Package</h3>
+                <p className="text-xs text-slate-500 mb-4">
+                  Everything you need: Website + AI automation. Best value.
+                </p>
+
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-3xl font-bold text-slate-900">$1,199</span>
+                  <span className="text-slate-500 text-sm font-medium">setup</span>
+                </div>
+                <div className="text-slate-500 text-xs mb-2">+ $199 / month (inc. GST)</div>
+                <div className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded mb-4">
+                  <Rocket className="w-3 h-3" />
+                  Save $99!
+                </div>
+
+                <ul className="space-y-2 mb-6 flex-grow text-xs">
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <div className="w-4 h-4 rounded-full bg-brand-light-blue/20 flex items-center justify-center text-brand-primary font-bold text-[10px] mt-0.5">✓</div>
+                    <span className="font-semibold text-brand-primary">Everything above, PLUS:</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Website + AI bot integrated
+                  </li>
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Web chat widget on your site
+                  </li>
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Embedded booking system
+                  </li>
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Your branding throughout
+                  </li>
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    Priority support
+                  </li>
+                  <li className="flex items-start gap-2 text-slate-600">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    5-7 day delivery
+                  </li>
+                </ul>
+
+                <div className="mt-auto">
+                  <Link
+                    href="/chat/homepage-visitor"
+                    className="block w-full py-2.5 text-sm text-center rounded-xl bg-gradient-to-r from-brand-accent to-brand-primary text-white font-semibold shadow-lg shadow-brand-accent/30 hover:shadow-brand-accent/40 transition-all hover:-translate-y-0.5 mb-3"
+                  >
+                    Get Complete Package
+                  </Link>
+
+                  <p className="text-xs text-slate-500 italic text-center">
+                    Best for: Serious about growth
                   </p>
                 </div>
               </div>
@@ -513,8 +580,9 @@ export default function HomePage() {
               <div>
                 <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Solutions</h4>
                 <ul className="space-y-2 text-text-secondary">
-                  <li><a href="#packages" className="hover:text-brand-accent transition-colors">SMS Responder</a></li>
-                  <li><a href="#packages" className="hover:text-brand-accent transition-colors">Professional Package</a></li>
+                  <li><a href="#packages" className="hover:text-brand-accent transition-colors">Web Presence</a></li>
+                  <li><a href="#packages" className="hover:text-brand-accent transition-colors">AI Bot Package</a></li>
+                  <li><a href="#packages" className="hover:text-brand-accent transition-colors">Complete Package</a></li>
                 </ul>
               </div>
               <div>

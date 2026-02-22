@@ -13,7 +13,7 @@ export default function HomePage() {
       <Header />
 
       {/* ========== HERO ========== */}
-      <section className="relative min-h-[85vh] flex items-center px-6 lg:px-8 pt-24 pb-8 overflow-hidden">
+      <section className="relative min-h-[100dvh] flex items-center px-6 lg:px-8 pt-24 pb-8 overflow-hidden">
         {/* Background: Atmospheric image */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
@@ -88,7 +88,7 @@ export default function HomePage() {
       </section>
 
       {/* ========== WHAT WE BUILD ========== */}
-      <section className="relative py-16 lg:py-20 px-6 lg:px-8">
+      <section className="relative py-[6vh] lg:py-[8vh] px-6 lg:px-8">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/section-bg.jpeg"
@@ -113,7 +113,7 @@ export default function HomePage() {
       </section>
 
       {/* ========== SELECTED WORK ========== */}
-      <section className="relative py-16 lg:py-20 px-6 lg:px-8">
+      <section className="relative py-[6vh] lg:py-[8vh] px-6 lg:px-8">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/section-bg.jpeg"
@@ -200,7 +200,7 @@ export default function HomePage() {
       </section>
 
       {/* ========== TRACK RECORD ========== */}
-      <section className="relative py-16 lg:py-20 px-6 lg:px-8">
+      <section className="relative py-[6vh] lg:py-[8vh] px-6 lg:px-8">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/section-bg.jpeg"
@@ -236,7 +236,7 @@ export default function HomePage() {
       </section>
 
       {/* ========== CONTACT ========== */}
-      <section id="contact" className="relative py-16 lg:py-20 px-6 lg:px-8">
+      <section id="contact" className="relative py-[6vh] lg:py-[8vh] px-6 lg:px-8">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/section-bg.jpeg"

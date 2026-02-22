@@ -12,7 +12,7 @@ export default function ProjectsPage() {
 
       <main className="pb-12">
         {/* Hero */}
-        <section className="relative min-h-[60vh] flex items-center px-6 lg:px-8 pt-24 pb-12 overflow-hidden">
+        <section className="relative min-h-[100dvh] flex items-center px-6 lg:px-8 pt-24 pb-12 overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none">
             <Image
               src="/hero-bg.jpeg"

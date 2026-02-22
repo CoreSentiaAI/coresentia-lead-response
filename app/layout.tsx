@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Montserrat, Inter } from 'next/font/google';
+import { Montserrat, Inter, Raleway, JetBrains_Mono } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 const montserrat = Montserrat({
@@ -15,20 +15,32 @@ const inter = Inter({
   weight: ['400', '600', '700']
 });
 
+const raleway = Raleway({
+  subsets: ['latin'],
+  variable: '--font-raleway',
+  weight: ['400', '500', '600', '700']
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  weight: ['400', '500', '700']
+});
+
 export const metadata: Metadata = {
-  title: 'CoreSentia - AI Receptionist for Australian Service Businesses | SMS Automation',
-  description: 'Never miss a lead again. CoreSentia provides 24/7 AI-powered SMS and web chat for tradies and service businesses. From $499 setup + $150/month. Australian owned, GST included.',
+  title: 'CoreSentia — AI-Native Application Development',
+  description: 'CoreSentia builds intelligent applications, AI automation, and production SaaS systems. Brisbane-based development studio specialising in AI-native software.',
   keywords: [
-    'AI receptionist Australia',
-    'SMS automation tradies',
-    'AI booking system',
-    'automated receptionist',
-    'tradie lead capture',
-    'AI chatbot Australia',
-    'business SMS automation',
-    'appointment booking AI',
+    'AI application development',
+    'SaaS development Australia',
+    'AI automation Brisbane',
+    'custom software development',
+    'AI-native applications',
+    'internal tools development',
+    'production AI systems',
     'CoreSentia',
-    'service business automation'
+    'Next.js development',
+    'Claude AI integration'
   ],
   authors: [{ name: 'CoreSentia', url: 'https://www.coresentia.com.au' }],
   creator: 'CoreSentia',
@@ -42,21 +54,21 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     url: 'https://www.coresentia.com.au',
     siteName: 'CoreSentia',
-    title: 'CoreSentia - AI Receptionist for Australian Service Businesses',
-    description: 'Never miss a lead again. 24/7 AI-powered SMS and web chat for tradies and service businesses. From $499 setup + $150/month.',
+    title: 'CoreSentia — AI-Native Application Development',
+    description: 'We build intelligent applications, AI automation, and production SaaS systems. Brisbane-based development studio.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'CoreSentia - AI Receptionist for Australian Businesses',
+        alt: 'CoreSentia — AI-Native Application Development',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CoreSentia - AI Receptionist for Australian Service Businesses',
-    description: 'Never miss a lead again. 24/7 AI-powered SMS and web chat for tradies and service businesses.',
+    title: 'CoreSentia — AI-Native Application Development',
+    description: 'We build intelligent applications, AI automation, and production SaaS systems.',
     images: ['/og-image.png'],
     creator: '@coresentia',
   },
@@ -72,7 +84,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'pending', // Will be updated after Google Search Console setup
+    google: 'pending',
   },
 };
 
@@ -90,7 +102,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} ${inter.variable}`}>
+      <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable}`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

@@ -2,17 +2,18 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import { ArrowRight, Calendar, Tag } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Blog - CoreSentia | AI Industry News & Business Automation Tips',
-  description: 'Stay updated on AI trends, automation strategies, and practical tips for Australian service businesses. Expert insights on using AI to grow your business.',
+  title: 'Blog - CoreSentia | AI Development Insights & Technical Writing',
+  description: 'Technical insights on AI development, automation architecture, and building production software. From the CoreSentia development studio.',
   alternates: {
     canonical: '/blog',
   },
   openGraph: {
-    title: 'CoreSentia Blog - AI Industry News & Automation Tips',
-    description: 'Expert insights on AI trends, automation, and technology for Australian service businesses.',
+    title: 'CoreSentia Blog - AI Development Insights',
+    description: 'Technical insights on AI development, automation, and building production software.',
     url: 'https://www.coresentia.com.au/blog',
   },
 }
@@ -50,58 +51,57 @@ async function getBlogPosts(): Promise<BlogPost[]> {
   return data || []
 }
 
-export const revalidate = 3600 // Revalidate every hour
+export const revalidate = 3600
 
 export default async function BlogPage() {
   const posts = await getBlogPosts()
 
   return (
-    <div className="min-h-screen bg-white text-text-primary font-opensans">
+    <div className="min-h-screen bg-dark-bg-primary text-dt-primary">
       <Header />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-32 pb-0">
         {/* Hero Section */}
-        <section className="py-12 px-6 bg-gradient-to-br from-brand-navy via-brand-navy to-brand-navy/90">
+        <section className="px-6 lg:px-8 pb-16">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 font-montserrat text-white">
-              CoreSentia Blog
+            <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-3 block">Blog</span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 font-raleway">
+              Insights & Technical Writing
             </h1>
-            <p className="text-lg text-white/80 max-w-2xl">
-              AI industry insights, automation strategies, and practical tips for Australian service businesses.
-              Stay ahead of the curve with expert analysis from CoreSentia.
+            <p className="text-lg text-dt-secondary max-w-2xl">
+              AI development insights, automation architecture, and lessons from building production software.
             </p>
           </div>
         </section>
 
         {/* Blog Posts */}
-        <section className="py-12 px-6">
+        <section className="px-6 lg:px-8 pb-20">
           <div className="max-w-4xl mx-auto">
             {posts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-text-secondary text-lg mb-4">
+                <p className="text-dt-secondary text-lg mb-4">
                   No blog posts published yet. Check back soon!
                 </p>
                 <Link
                   href="/"
-                  className="text-brand-orange hover:underline font-semibold"
+                  className="text-brand-accent hover:text-brand-highlight font-semibold transition-colors"
                 >
-                  Return to Homepage →
+                  Return to Homepage
                 </Link>
               </div>
             ) : (
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {posts.map((post) => (
                   <article
                     key={post.id}
-                    className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow"
+                    className="bg-dark-bg-tertiary border border-dark-border rounded-2xl p-6 hover:border-brand-primary/30 hover:glow-blue transition-all"
                   >
-                    {/* Category Badge */}
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs font-semibold text-brand-orange uppercase tracking-wider">
+                      <span className="text-xs font-semibold text-brand-accent uppercase tracking-wider">
                         {post.category.replace('-', ' ')}
                       </span>
-                      <span className="text-text-secondary text-sm">•</span>
-                      <div className="flex items-center gap-1 text-text-secondary text-sm">
+                      <span className="text-dt-tertiary text-sm">&middot;</span>
+                      <div className="flex items-center gap-1 text-dt-tertiary text-sm">
                         <Calendar className="w-4 h-4" />
                         {new Date(post.published_at).toLocaleDateString('en-AU', {
                           year: 'numeric',
@@ -111,29 +111,26 @@ export default async function BlogPage() {
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <h2 className="text-2xl font-bold text-brand-navy mb-3 font-montserrat">
+                    <h2 className="text-2xl font-bold text-dt-primary mb-3 font-raleway">
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="hover:text-brand-orange transition-colors"
+                        className="hover:text-brand-accent transition-colors"
                       >
                         {post.title}
                       </Link>
                     </h2>
 
-                    {/* Excerpt */}
-                    <p className="text-text-secondary mb-4 leading-relaxed">
+                    <p className="text-dt-secondary mb-4 leading-relaxed">
                       {post.excerpt}
                     </p>
 
-                    {/* Tags */}
                     {post.tags && post.tags.length > 0 && (
                       <div className="flex items-center gap-2 mb-4 flex-wrap">
-                        <Tag className="w-4 h-4 text-text-secondary" />
+                        <Tag className="w-4 h-4 text-dt-tertiary" />
                         {post.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs bg-gray-100 text-text-secondary px-2 py-1 rounded"
+                            className="text-xs bg-dark-bg-elevated text-dt-tertiary px-2 py-1 rounded border border-dark-border"
                           >
                             {tag}
                           </span>
@@ -141,10 +138,9 @@ export default async function BlogPage() {
                       </div>
                     )}
 
-                    {/* Read More */}
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-2 text-brand-orange hover:underline font-semibold"
+                      className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-highlight font-semibold text-sm transition-colors"
                     >
                       Read Full Article
                       <ArrowRight className="w-4 h-4" />
@@ -157,23 +153,26 @@ export default async function BlogPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 px-6 bg-gray-50">
+        <section className="py-16 px-6 bg-dark-bg-secondary border-t border-dark-border">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-brand-navy mb-4 font-montserrat">
-              Ready to Transform Your Business?
+            <h2 className="text-2xl font-bold text-dt-primary mb-4 font-raleway">
+              Have a Project in Mind?
             </h2>
-            <p className="text-text-secondary mb-6 max-w-2xl mx-auto">
-              Stop missing leads. Let CoreSentia's AI receptionist handle customer inquiries 24/7.
+            <p className="text-dt-secondary mb-6 max-w-2xl mx-auto">
+              We build intelligent applications, AI automation, and production SaaS systems.
             </p>
             <Link
-              href="/"
-              className="inline-block bg-brand-orange text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-orange/90 transition-colors"
+              href="/#contact"
+              className="inline-block btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden"
             >
-              Get Started Today
+              <span className="relative z-10">Get in Touch</span>
+              <span className="shimmer-span" />
             </Link>
           </div>
         </section>
       </main>
+
+      <Footer />
     </div>
   )
 }

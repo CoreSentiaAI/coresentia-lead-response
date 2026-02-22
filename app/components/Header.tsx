@@ -2,113 +2,115 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
-  const [hidden, setHidden] = useState(false)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    // Find the scroll container (the main content wrapper)
-    const scrollContainer = document.querySelector('.snap-y') as HTMLElement
-
-    if (!scrollContainer) return
-
     const onScroll = () => {
-      const currentScrollY = scrollContainer.scrollTop
-      const isMobile = window.innerWidth < 768
-
-      // Update scrolled state for styling
-      setScrolled(currentScrollY > 50)
-
-      // Mobile: Only show header when near top (< 50px), otherwise keep hidden
-      // Desktop: Show on scroll up, hide on scroll down
-      if (isMobile) {
-        if (currentScrollY > 50) {
-          setHidden(true)
-        } else {
-          setHidden(false)
-        }
-      } else {
-        // Desktop behavior: hide when scrolling down, show when scrolling up
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          setHidden(true)
-        } else {
-          setHidden(false)
-        }
-      }
-
-      setLastScrollY(currentScrollY)
+      setScrolled(window.scrollY > 50)
     }
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-    scrollContainer.addEventListener('scroll', onScroll)
-    return () => scrollContainer.removeEventListener('scroll', onScroll)
-  }, [lastScrollY])
+  // Close mobile menu on route change
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
+  const navLinks = [
+    { href: '/projects', label: 'Projects' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/about', label: 'About' },
+  ]
 
   return (
-    <header
-      style={{ backgroundColor: '#E5E7EB' }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
-      ${scrolled
-        ? 'shadow-lg border-b border-brand-accent/30'
-        : ''}
-      ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-center md:justify-between">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/CoreSentia_Logo_Black_Text.png"
-            alt="CoreSentia"
-            width={625}
-            height={125}
-            className="h-16 md:h-20 lg:h-28 w-auto transition-all duration-300"
-            priority
-          />
-        </Link>
+    <>
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
+        ${scrolled
+          ? 'bg-dark-bg-elevated/80 backdrop-blur-xl border-b border-dark-border shadow-lg shadow-black/20'
+          : 'bg-transparent'}`}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/CoreSentia_Transparent_Logo.png"
+              alt="CoreSentia"
+              width={625}
+              height={125}
+              className="h-9 md:h-11 w-auto transition-all duration-300"
+              priority
+            />
+          </Link>
 
-        <nav className="hidden md:flex items-center gap-2">
-          <Link
-            href="#packages"
-            className="text-sm font-medium tracking-wider text-brand-primary px-4 py-2
-              border-b-2 border-transparent hover:border-brand-accent hover:text-brand-accent
-              transition-all duration-200"
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-dt-tertiary px-4 py-2
+                  hover:text-dt-primary
+                  transition-colors duration-200"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/#contact"
+              className="ml-4 px-5 py-2 bg-brand-highlight text-dark-bg-primary font-medium rounded-lg
+                hover:bg-[#4dc4e8]
+                transition-colors duration-200 text-sm"
+            >
+              Start a Project
+            </Link>
+          </nav>
+
+          {/* Mobile Hamburger */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 text-dt-primary"
+            aria-label="Toggle menu"
           >
-            Packages
-          </Link>
-          <Link
-            href="/blog"
-            className="text-sm font-medium tracking-wider text-brand-primary px-4 py-2
-              border-b-2 border-transparent hover:border-brand-accent hover:text-brand-accent
-              transition-all duration-200"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/about"
-            className="text-sm font-medium tracking-wider text-brand-primary px-4 py-2
-              border-b-2 border-transparent hover:border-brand-accent hover:text-brand-accent
-              transition-all duration-200"
-          >
-            About
-          </Link>
-          <Link
-            href="/contact"
-            className="text-sm font-medium tracking-wider text-brand-primary px-4 py-2
-              border-b-2 border-transparent hover:border-brand-accent hover:text-brand-accent
-              transition-all duration-200"
-          >
-            Contact
-          </Link>
-          <Link
-            href="/chat/homepage-visitor"
-            className="ml-4 px-6 py-2 bg-brand-accent text-white font-semibold rounded-full
-              hover:bg-brand-accent-hover hover:shadow-lg
-              transition-all duration-300 transform hover:scale-105"
-          >
-            Get Started
-          </Link>
-        </nav>
-      </div>
-    </header>
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Overlay */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 bg-dark-bg-primary/95 backdrop-blur-xl md:hidden">
+          <div className="flex flex-col items-center justify-center h-full gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="text-2xl font-semibold text-dt-primary hover:text-brand-accent transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/#contact"
+              onClick={() => setMobileOpen(false)}
+              className="mt-4 px-8 py-3 bg-brand-highlight text-dark-bg-primary font-semibold rounded-full
+                hover:shadow-lg hover:shadow-brand-highlight/30 hover:bg-[#4dc4e8] transition-all duration-300 text-lg"
+            >
+              Get in Touch
+            </Link>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

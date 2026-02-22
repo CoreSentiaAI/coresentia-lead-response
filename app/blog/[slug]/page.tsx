@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 import { ArrowLeft, Calendar, Tag, User } from 'lucide-react'
 import MarkdownRenderer from '../components/MarkdownRenderer'
 
@@ -82,7 +83,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export const revalidate = 3600 // Revalidate every hour
+export const revalidate = 3600
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = await getBlogPost(params.slug)
@@ -92,16 +93,16 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   }
 
   return (
-    <div className="min-h-screen bg-white text-text-primary font-opensans">
+    <div className="min-h-screen bg-dark-bg-primary text-dt-primary">
       <Header />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-32 pb-0">
         {/* Back to Blog */}
-        <section className="py-6 px-6 border-b border-gray-200">
+        <section className="px-6 lg:px-8 pb-6">
           <div className="max-w-4xl mx-auto">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-brand-orange hover:underline font-semibold"
+              className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-highlight font-semibold text-sm transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
@@ -110,27 +111,24 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         </section>
 
         {/* Article Header */}
-        <article className="py-12 px-6">
+        <article className="px-6 lg:px-8 pb-20">
           <div className="max-w-4xl mx-auto">
-            {/* Category */}
             <div className="mb-4">
-              <span className="text-sm font-semibold text-brand-orange uppercase tracking-wider">
+              <span className="text-sm font-semibold text-brand-accent uppercase tracking-wider">
                 {post.category.replace('-', ' ')}
               </span>
             </div>
 
-            {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-brand-navy mb-6 font-montserrat leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-dt-primary mb-6 font-raleway leading-tight">
               {post.title}
             </h1>
 
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-text-secondary text-sm mb-8 pb-8 border-b border-gray-200">
+            <div className="flex flex-wrap items-center gap-4 text-dt-tertiary text-sm mb-8 pb-8 border-b border-dark-border">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
                 <span>{post.author}</span>
               </div>
-              <span>•</span>
+              <span>&middot;</span>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <time dateTime={post.published_at}>
@@ -143,7 +141,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               </div>
               {post.view_count > 0 && (
                 <>
-                  <span>•</span>
+                  <span>&middot;</span>
                   <span>{post.view_count} views</span>
                 </>
               )}
@@ -154,14 +152,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
             {/* Source Attribution */}
             {post.source_url && post.source_name && (
-              <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <p className="text-sm text-text-secondary">
+              <div className="mt-8 p-4 bg-dark-bg-tertiary rounded-lg border border-dark-border">
+                <p className="text-sm text-dt-secondary">
                   <strong>Source:</strong> This article references or builds upon content from{' '}
                   <a
                     href={post.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-orange hover:underline"
+                    className="text-brand-accent hover:text-brand-highlight transition-colors"
                   >
                     {post.source_name}
                   </a>
@@ -171,13 +169,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
-              <div className="mt-8 pt-8 border-t border-gray-200">
+              <div className="mt-8 pt-8 border-t border-dark-border">
                 <div className="flex items-center gap-3 flex-wrap">
-                  <Tag className="w-5 h-5 text-text-secondary" />
+                  <Tag className="w-5 h-5 text-dt-tertiary" />
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-sm bg-gray-100 text-text-secondary px-3 py-1 rounded"
+                      className="text-sm bg-dark-bg-elevated text-dt-tertiary px-3 py-1 rounded border border-dark-border"
                     >
                       {tag}
                     </span>
@@ -189,23 +187,26 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         </article>
 
         {/* CTA Section */}
-        <section className="py-12 px-6 bg-gray-50">
+        <section className="py-16 px-6 bg-dark-bg-secondary border-t border-dark-border">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-brand-navy mb-4 font-montserrat">
-              Ready to Transform Your Business?
+            <h2 className="text-2xl font-bold text-dt-primary mb-4 font-raleway">
+              Have a Project in Mind?
             </h2>
-            <p className="text-text-secondary mb-6 max-w-2xl mx-auto">
-              Stop missing leads. Let CoreSentia's AI receptionist handle customer inquiries 24/7.
+            <p className="text-dt-secondary mb-6 max-w-2xl mx-auto">
+              We build intelligent applications, AI automation, and production SaaS systems.
             </p>
             <Link
-              href="/"
-              className="inline-block bg-brand-orange text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-orange/90 transition-colors"
+              href="/#contact"
+              className="inline-block btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden"
             >
-              Get Started Today
+              <span className="relative z-10">Get in Touch</span>
+              <span className="shimmer-span" />
             </Link>
           </div>
         </section>
       </main>
+
+      <Footer />
     </div>
   )
 }

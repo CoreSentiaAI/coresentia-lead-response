@@ -4,143 +4,97 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 interface FAQItem {
   question: string
   answer: string
-  category: 'general' | 'features' | 'pricing' | 'technical'
+  category: 'general' | 'services' | 'process' | 'technical'
 }
 
 const faqs: FAQItem[] = [
   // General Questions
   {
     category: 'general',
-    question: "What exactly does CoreSentia do?",
-    answer: "CoreSentia is your AI-powered receptionist. We respond to SMS and web chat inquiries 24/7, qualify leads by asking the right questions, and book appointments into your calendar automatically. Think of us as the 'front gate' — we capture leads and get them into your pipeline, then you take over and manage the job your way."
+    question: "What does CoreSentia do?",
+    answer: "CoreSentia is an AI-native development studio. We design and build production software — SaaS platforms, AI automation systems, internal tools, and web applications. We take projects from concept to production using modern tech stacks like Next.js, Claude AI, Supabase, and Twilio."
   },
   {
     category: 'general',
     question: "Who is CoreSentia for?",
-    answer: "We're built for Australian service businesses — tradies, salon owners, pet groomers, mobile mechanics, cleaners, landscapers, and anyone who can't answer their phone while working. If you're missing leads because you're too busy, CoreSentia is for you."
+    answer: "We work with businesses that need custom software built properly — not templates or drag-and-drop solutions. Whether you need a SaaS platform, an AI-powered automation system, or internal tools to streamline operations, we build production-grade software that runs 24/7."
   },
   {
     category: 'general',
-    question: "How fast can I get set up?",
-    answer: "SMS Responder: 2-3 days. Professional Package: 5 to 10 working days. We gather your business information, customize the AI, set up your systems, and get you live fast."
+    question: "Where is CoreSentia based?",
+    answer: "We're Brisbane-based and Australian-owned (ABN: 69 267 271 132). We work with clients across Australia and can collaborate remotely."
+  },
+  {
+    category: 'general',
+    question: "What's your track record?",
+    answer: "We've built a $350K+ automations hub (55,000+ lines of production code) at GEM Energy, multiple production web applications, and an AI-powered receptionist system with voice, SMS, and web chat capabilities. Everything we build runs in production."
   },
 
-  // Features & Scope
+  // Services
   {
-    category: 'features',
-    question: "Does CoreSentia provide quotes or take payments?",
-    answer: "Not at this stage. Our focus is on lead capture and appointment booking. You provide quotes and handle payments during the appointment or via your existing process. We're the 'front gate' that gets customers into your pipeline — you handle the rest your way."
+    category: 'services',
+    question: "What types of projects do you take on?",
+    answer: "We specialise in three areas: SaaS Applications (full-stack web apps with auth, payments, dashboards), AI Automation (intelligent systems using Claude AI, automated workflows, conversational interfaces), and Internal Tools (custom dashboards, admin panels, operational tools)."
   },
   {
-    category: 'features',
-    question: "What happens after someone books an appointment?",
-    answer: "Once booked, the appointment appears in your dashboard, and we send SMS confirmations to both you and your customer. From there, you manage the job directly — rescheduling, quotes, payments, etc. We don't replace your workflow; we feed leads into it."
+    category: 'services',
+    question: "Do you still offer the AI Receptionist product?",
+    answer: "Yes! Our AI Receptionist is a live product available for Australian service businesses. It provides 24/7 AI-powered phone answering, SMS automation, and appointment booking. Visit the AI Receptionist project page for pricing and details."
   },
   {
-    category: 'features',
-    question: "Can I reschedule appointments through CoreSentia?",
-    answer: "Currently, if you need to reschedule, just text or call your customer directly (their number is in your dashboard). We're focused on lead capture first. We may add automated rescheduling in future if there's strong demand."
+    category: 'services',
+    question: "Can you build custom AI integrations?",
+    answer: "Absolutely. We have deep experience integrating Claude AI (Anthropic) into production systems — from natural language interfaces to automated decision-making and content generation. We can build custom AI features into any application."
   },
   {
-    category: 'features',
-    question: "What if a customer asks a complex question?",
-    answer: "The AI is smart and handles most common inquiries. If it encounters something complex or specific to your business, it will book a call/appointment for you to discuss details directly. You're always in control."
-  },
-  {
-    category: 'features',
-    question: "Do I need a website to use CoreSentia?",
-    answer: "No! The SMS Responder ($499 setup) works perfectly without a website. You just get a dedicated business SMS number that responds automatically. The Professional Package ($2,500 setup) includes a website if you want one."
-  },
-  {
-    category: 'features',
-    question: "Can customers reach a real person if they want?",
-    answer: "Absolutely. The AI can connect them with you directly. If someone says 'I want to speak to a person,' the AI will confirm and notify you immediately so you can reach out."
+    category: 'services',
+    question: "Do you build websites too?",
+    answer: "Yes, but not the template kind. We build custom web applications and marketing sites using Next.js and Tailwind CSS. If you need a WordPress site, we're probably not the right fit. If you need something custom and performant, we are."
   },
 
-  // Pricing
+  // Process
   {
-    category: 'pricing',
-    question: "What's the total cost?",
-    answer: "SMS Responder: $499 setup + $150/month (inc. GST). Professional Package: $2,500 setup + $250/month (inc. GST). No hidden fees, no per-conversation charges, no surprise bills. Just predictable monthly hosting."
+    category: 'process',
+    question: "How does your development process work?",
+    answer: "We start with a discovery call to understand your needs, then provide a clear scope and quote. Once approved, we build iteratively — shipping working software early and often. You get access to staging environments throughout the process."
   },
   {
-    category: 'pricing',
-    question: "Are there any lock-in contracts?",
-    answer: "No. Month-to-month billing. We keep you because it works, not because you're trapped. Cancel anytime with 30 days' notice."
+    category: 'process',
+    question: "How long does a typical project take?",
+    answer: "It depends on scope. A simple internal tool might take 1-2 weeks. A full SaaS platform could be 4-8 weeks. We'll give you a clear timeline during scoping. We don't do multi-month enterprise projects with vague timelines."
   },
   {
-    category: 'pricing',
-    question: "What's included in the monthly fee?",
-    answer: "Unlimited conversations, AI hosting, up to 500 SMS per month (incoming + outgoing combined), dashboard access, updates and improvements. We'll notify you if you're approaching your SMS limit. Additional messages are billed at $0.15 per SMS. The only other extra cost would be if you want custom features or integrations beyond the standard package."
-  },
-  {
-    category: 'pricing',
-    question: "Is there a free trial?",
-    answer: "Not currently, but we offer a low-risk pilot program for early customers. Get in touch to discuss."
-  },
-  {
-    category: 'pricing',
-    question: "Why is setup $499? What am I paying for?",
-    answer: "Setup includes: Twilio business phone number provisioning, AI customization for your business (services, pricing, availability), system configuration, testing, and training. It's 'done for you' — you don't need to build anything."
+    category: 'process',
+    question: "What's your pricing model?",
+    answer: "We quote per-project with clear deliverables. No hourly billing, no scope ambiguity. You know exactly what you're getting and what it costs before we start. For ongoing work, we offer monthly retainers."
   },
 
   // Technical
   {
     category: 'technical',
-    question: "What technology powers CoreSentia?",
-    answer: "We use Claude AI by Anthropic (the same technology powering Fortune 500 companies), Twilio for SMS infrastructure, and secure cloud hosting. Your data is encrypted and stored in Australia-compliant data centers."
+    question: "What tech stack do you use?",
+    answer: "Our primary stack is Next.js (React), TypeScript, Tailwind CSS, Supabase (PostgreSQL), and Vercel for hosting. For AI, we use Claude AI (Anthropic). For communications, Twilio (SMS/Voice). We choose tools based on what's best for each project."
   },
   {
     category: 'technical',
-    question: "What if the AI makes a mistake?",
-    answer: "Our AI is highly accurate, but it's smart enough to know when to escalate to you. For anything critical or uncertain, it will book an appointment for you to discuss details directly. You're always in control of final decisions."
+    question: "Do you provide hosting and maintenance?",
+    answer: "Yes. We can host and maintain applications we build, or hand them off to your team with full documentation. Most projects are deployed on Vercel with Supabase for the database — both are reliable, scalable platforms."
   },
   {
     category: 'technical',
-    question: "Can I customize what the AI says?",
-    answer: "Yes! During setup, we customize the AI to match your business — your services, pricing, availability, tone of voice, etc. After launch, you can request adjustments anytime."
+    question: "Can you work with our existing codebase?",
+    answer: "Yes, depending on the tech stack and code quality. We're comfortable picking up existing Next.js/React projects. For other stacks, we'd need to evaluate first. We'll be honest about whether we're the right fit."
   },
   {
     category: 'technical',
-    question: "Does it integrate with my calendar?",
-    answer: "Currently, bookings appear in your CoreSentia dashboard. We're building Google Calendar and Outlook integration. For now, you can manually add bookings to your calendar or sync them."
+    question: "What about security and data privacy?",
+    answer: "Security is baked into everything we build. We use encrypted databases, secure authentication (Supabase Auth), HTTPS everywhere, and follow OWASP best practices. All data is stored in compliance with Australian privacy requirements."
   },
-  {
-    category: 'technical',
-    question: "What if I already have a website?",
-    answer: "We can add our web chat widget to your existing site, or you can stick with SMS Responder only. The Professional Package is for businesses who want a fresh, professional one-page site built by us."
-  },
-  {
-    category: 'technical',
-    question: "What happens if my phone number changes?",
-    answer: "Your CoreSentia SMS number is separate from your personal phone. You can keep it forever, or port it to your own account later if you want full ownership."
-  },
-
-  // Business & Support
-  {
-    category: 'general',
-    question: "Where is CoreSentia based?",
-    answer: "We're Brisbane-based and Australian-owned (ABN: 69 267 271 132). We understand local businesses and work in your timezone."
-  },
-  {
-    category: 'general',
-    question: "What kind of support do I get?",
-    answer: "Hands-on support during setup and the first few weeks. After that, email support for technical issues, and we're always available if you need help or adjustments."
-  },
-  {
-    category: 'general',
-    question: "What if I want to cancel?",
-    answer: "Just give us 30 days' notice. No fees, no penalties. We'll help you transition if needed."
-  },
-  {
-    category: 'general',
-    question: "Can CoreSentia handle multiple staff or locations?",
-    answer: "The standard package is for single-person/single-location businesses. If you need multiple calendars or locations, get in touch — we can discuss custom setups."
-  }
 ]
 
 export default function FAQPage() {
@@ -155,103 +109,75 @@ export default function FAQPage() {
     setOpenIndex(openIndex === index ? null : index)
   }
 
+  const categories = [
+    { key: 'all', label: 'All Questions' },
+    { key: 'general', label: 'General' },
+    { key: 'services', label: 'Services' },
+    { key: 'process', label: 'Process' },
+    { key: 'technical', label: 'Technical' },
+  ]
+
   return (
-    <div className="min-h-screen bg-white text-text-primary font-opensans">
+    <div className="min-h-screen bg-dark-bg-primary text-dt-primary">
       <Header />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-32 pb-0">
         {/* Hero Section */}
-        <section className="py-12 px-6 bg-brand-navy text-white">
+        <section className="px-6 lg:px-8 pb-12">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 font-montserrat">
+            <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-3 block">FAQ</span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 font-raleway">
               Frequently Asked Questions
             </h1>
-            <p className="text-xl md:text-2xl font-light">
-              Everything you need to know about CoreSentia
+            <p className="text-xl text-dt-secondary">
+              Everything you need to know about working with CoreSentia
             </p>
           </div>
         </section>
 
         {/* Category Filter */}
-        <section className="py-8 px-6 bg-gray-50">
+        <section className="px-6 lg:px-8 pb-8">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-wrap gap-3 justify-center">
-              <button
-                onClick={() => setFilterCategory('all')}
-                className={`px-6 py-2 rounded-full font-medium transition ${
-                  filterCategory === 'all'
-                    ? 'bg-brand-navy text-white'
-                    : 'bg-white text-text-primary hover:bg-gray-100'
-                }`}
-              >
-                All Questions
-              </button>
-              <button
-                onClick={() => setFilterCategory('general')}
-                className={`px-6 py-2 rounded-full font-medium transition ${
-                  filterCategory === 'general'
-                    ? 'bg-brand-navy text-white'
-                    : 'bg-white text-text-primary hover:bg-gray-100'
-                }`}
-              >
-                General
-              </button>
-              <button
-                onClick={() => setFilterCategory('features')}
-                className={`px-6 py-2 rounded-full font-medium transition ${
-                  filterCategory === 'features'
-                    ? 'bg-brand-navy text-white'
-                    : 'bg-white text-text-primary hover:bg-gray-100'
-                }`}
-              >
-                Features & Scope
-              </button>
-              <button
-                onClick={() => setFilterCategory('pricing')}
-                className={`px-6 py-2 rounded-full font-medium transition ${
-                  filterCategory === 'pricing'
-                    ? 'bg-brand-navy text-white'
-                    : 'bg-white text-text-primary hover:bg-gray-100'
-                }`}
-              >
-                Pricing
-              </button>
-              <button
-                onClick={() => setFilterCategory('technical')}
-                className={`px-6 py-2 rounded-full font-medium transition ${
-                  filterCategory === 'technical'
-                    ? 'bg-brand-navy text-white'
-                    : 'bg-white text-text-primary hover:bg-gray-100'
-                }`}
-              >
-                Technical
-              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat.key}
+                  onClick={() => { setFilterCategory(cat.key); setOpenIndex(null) }}
+                  className={`px-6 py-2 rounded-full font-medium text-sm transition-all ${
+                    filterCategory === cat.key
+                      ? 'bg-gradient-to-r from-brand-primary to-brand-accent text-white shadow-lg shadow-brand-primary/20'
+                      : 'bg-dark-bg-tertiary text-dt-secondary border border-dark-border hover:border-brand-accent hover:text-dt-primary'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
             </div>
           </div>
         </section>
 
         {/* FAQ List */}
-        <section className="py-12 px-6">
+        <section className="px-6 lg:px-8 pb-20">
           <div className="max-w-4xl mx-auto">
-            <div className="space-y-4">
+            <div className="space-y-3">
               {filteredFAQs.map((faq, index) => (
                 <div
                   key={index}
-                  className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-brand-orange transition"
+                  className="bg-dark-bg-tertiary border border-dark-border rounded-xl overflow-hidden hover:border-brand-primary/30 transition-all"
                 >
                   <button
                     onClick={() => toggleFAQ(index)}
-                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition"
+                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-dark-bg-elevated/50 transition"
                   >
-                    <span className="font-semibold text-brand-navy pr-8">{faq.question}</span>
+                    <span className="font-semibold text-dt-primary pr-8">{faq.question}</span>
                     {openIndex === index ? (
-                      <ChevronUp className="w-5 h-5 text-brand-orange flex-shrink-0" />
+                      <ChevronUp className="w-5 h-5 text-brand-accent flex-shrink-0" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-text-secondary flex-shrink-0" />
+                      <ChevronDown className="w-5 h-5 text-dt-tertiary flex-shrink-0" />
                     )}
                   </button>
                   {openIndex === index && (
-                    <div className="px-6 pb-5 text-text-secondary leading-relaxed">
+                    <div className="px-6 pb-5 text-dt-secondary leading-relaxed text-sm">
                       {faq.answer}
                     </div>
                   )}
@@ -261,25 +187,26 @@ export default function FAQPage() {
           </div>
         </section>
 
-        {/* Still Have Questions CTA */}
-        <section className="py-16 px-6 bg-gray-50">
+        {/* CTA */}
+        <section className="py-16 px-6 bg-dark-bg-secondary border-t border-dark-border">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-brand-navy mb-6 font-montserrat">
+            <h2 className="text-3xl font-bold text-dt-primary mb-6 font-raleway">
               Still Have Questions?
             </h2>
-            <p className="text-xl text-text-secondary mb-8">
-              Chat with our AI or reach out directly
+            <p className="text-xl text-dt-secondary mb-8">
+              Get in touch and we&apos;ll be happy to help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/chat/homepage-visitor"
-                className="btn-primary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
+                href="/#contact"
+                className="btn-primary px-10 py-4 rounded-full font-semibold text-lg relative overflow-hidden"
               >
-                Chat With Us →
+                <span className="relative z-10">Get in Touch</span>
+                <span className="shimmer-span" />
               </Link>
               <Link
                 href="mailto:info@coresentia.com"
-                className="btn-secondary px-10 py-4 rounded-full font-semibold text-lg shadow-lg"
+                className="btn-secondary px-10 py-4 rounded-full font-semibold text-lg"
               >
                 Email Us
               </Link>
@@ -287,6 +214,8 @@ export default function FAQPage() {
           </div>
         </section>
       </main>
+
+      <Footer />
     </div>
   )
 }

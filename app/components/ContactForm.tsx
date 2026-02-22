@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { Check, Loader2 } from 'lucide-react'
 
-export default function QuoteForm() {
+export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -41,7 +41,7 @@ export default function QuoteForm() {
       const data = await response.json()
 
       if (!response.ok) {
-        const errorMsg = data.details ? `${data.error}: ${data.details}` : data.error || 'Failed to submit quote request'
+        const errorMsg = data.details ? `${data.error}: ${data.details}` : data.error || 'Failed to submit'
         throw new Error(errorMsg)
       }
 
@@ -67,22 +67,22 @@ export default function QuoteForm() {
           <Check className="w-8 h-8 text-green-400" />
         </div>
         <h3 className="text-2xl font-bold text-dt-primary mb-3 font-raleway">
-          Quote Request Received!
+          Message Received!
         </h3>
         <p className="text-lg text-dt-secondary mb-4">
-          Thanks for your interest! We&apos;ll review your request and get back to you within 24 hours.
+          Thanks for reaching out. We&apos;ll get back to you within 24 hours.
         </p>
         <p className="text-sm text-dt-tertiary">
-          Check your email for confirmation, or call us on{' '}
-          <a href="tel:+61489087491" className="text-brand-accent font-semibold">
-            +61 489 087 491
+          Or email us directly at{' '}
+          <a href="mailto:info@coresentia.com" className="text-brand-accent font-semibold">
+            info@coresentia.com
           </a>
         </p>
         <button
           onClick={() => setIsSuccess(false)}
           className="mt-6 px-6 py-2 text-brand-accent hover:text-brand-highlight font-semibold transition-colors"
         >
-          Submit Another Request
+          Send Another Message
         </button>
       </div>
     )
@@ -95,12 +95,12 @@ export default function QuoteForm() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-semibold text-dt-primary mb-2">
+          <label htmlFor="contact-name" className="block text-sm font-semibold text-dt-primary mb-2">
             Your Name <span className="text-brand-accent">*</span>
           </label>
           <input
             type="text"
-            id="name"
+            id="contact-name"
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -112,32 +112,12 @@ export default function QuoteForm() {
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm font-semibold text-dt-primary mb-2">
-            Phone Number <span className="text-brand-accent">*</span>
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
-              text-dt-primary placeholder-dt-tertiary
-              focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
-            placeholder="0412 XXX XXX"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-dt-primary mb-2">
+          <label htmlFor="contact-email" className="block text-sm font-semibold text-dt-primary mb-2">
             Email Address <span className="text-brand-accent">*</span>
           </label>
           <input
             type="email"
-            id="email"
+            id="contact-email"
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -148,12 +128,31 @@ export default function QuoteForm() {
             placeholder="john@example.com"
           />
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="businessType" className="block text-sm font-semibold text-dt-primary mb-2">
-            Business Type
+          <label htmlFor="contact-phone" className="block text-sm font-semibold text-dt-primary mb-2">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="contact-phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
+              text-dt-primary placeholder-dt-tertiary
+              focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
+            placeholder="0412 XXX XXX"
+          />
+        </div>
+        <div>
+          <label htmlFor="contact-type" className="block text-sm font-semibold text-dt-primary mb-2">
+            Project Type
           </label>
           <select
-            id="businessType"
+            id="contact-type"
             name="businessType"
             value={formData.businessType}
             onChange={handleChange}
@@ -162,25 +161,21 @@ export default function QuoteForm() {
               focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
           >
             <option value="">Select one...</option>
-            <option value="Landscaping">Landscaping</option>
-            <option value="Cleaning">Cleaning</option>
-            <option value="Hairdressing">Hairdressing / Beauty</option>
-            <option value="Mobile Mechanic">Mobile Mechanic</option>
-            <option value="Handyman">Handyman</option>
-            <option value="Plumbing">Plumbing</option>
-            <option value="Electrical">Electrical</option>
-            <option value="Pet Services">Pet Services / Grooming</option>
-            <option value="Other">Other Service Business</option>
+            <option value="SaaS Application">SaaS Application</option>
+            <option value="AI Automation">AI Automation</option>
+            <option value="Internal Tool">Internal Tool</option>
+            <option value="Website">Website</option>
+            <option value="Other">Other</option>
           </select>
         </div>
       </div>
 
       <div className="mb-6">
-        <label htmlFor="message" className="block text-sm font-semibold text-dt-primary mb-2">
-          Tell us about your needs (optional)
+        <label htmlFor="contact-message" className="block text-sm font-semibold text-dt-primary mb-2">
+          Tell us about your project
         </label>
         <textarea
-          id="message"
+          id="contact-message"
           name="message"
           value={formData.message}
           onChange={handleChange}
@@ -188,7 +183,7 @@ export default function QuoteForm() {
           className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
             text-dt-primary placeholder-dt-tertiary
             focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors resize-none"
-          placeholder="What services do you offer? What are your pain points with lead capture?"
+          placeholder="What are you looking to build? Any specific requirements or timeline?"
         />
       </div>
 
@@ -201,8 +196,8 @@ export default function QuoteForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-gradient-to-r from-brand-accent to-brand-primary text-white font-semibold py-4 rounded-full
-          hover:shadow-lg hover:shadow-brand-accent/30 transition-all transform hover:scale-105
+        className="w-full bg-brand-highlight text-dark-bg-primary font-semibold py-4 rounded-full
+          hover:shadow-lg hover:shadow-brand-highlight/30 hover:bg-[#4dc4e8] transition-all transform hover:scale-105
           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
           flex items-center justify-center gap-2 text-lg relative overflow-hidden"
       >
@@ -210,10 +205,10 @@ export default function QuoteForm() {
           {isSubmitting ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin inline mr-2" />
-              Submitting...
+              Sending...
             </>
           ) : (
-            'Request a Quote'
+            "Send Message"
           )}
         </span>
         {!isSubmitting && <span className="shimmer-span"></span>}

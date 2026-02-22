@@ -32,7 +32,7 @@ const faqs: FAQItem[] = [
   {
     category: 'general',
     question: "What's your track record?",
-    answer: "We've built a $350K+ automations hub (55,000+ lines of production code) at GEM Energy, multiple production web applications, and an AI-powered receptionist system with voice, SMS, and web chat capabilities. Everything we build runs in production."
+    answer: "We've built a $350K+ enterprise automation platform (57,000+ lines of production TypeScript, 13 integrated systems), an AI-powered photography SaaS, and a 24/7 AI receptionist with voice, SMS, and web chat. Everything we build runs in production."
   },
 
   // Services

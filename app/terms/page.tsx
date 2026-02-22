@@ -39,7 +39,7 @@ export default function TermsPage() {
 
             <h2 className="text-2xl font-bold text-dt-primary mt-8 mb-4">2. Description of Services</h2>
             <p className="text-dt-secondary mb-4">
-              CoreSentia provides AI-powered receptionist services, including:
+              CoreSentia provides AI-native software development services, including:
             </p>
             <ul className="list-disc list-inside text-dt-secondary mb-6 space-y-2">
               <li>SMS and web chat response systems</li>

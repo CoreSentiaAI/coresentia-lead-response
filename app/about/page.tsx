@@ -39,7 +39,7 @@ export default function AboutPage() {
                       CoreSentia was founded by Ramsay — a developer who spent years building enterprise automation systems, shipping production code, and seeing firsthand the gap between what businesses need and what most agencies deliver.
                     </p>
                     <p>
-                      After building a $350K+ automations hub (55,000+ lines of production code) at GEM Energy, multiple web applications, and an AI-powered receptionist system, the pattern became clear: businesses need developers who can build real, production-grade software — not just mockups and promises.
+                      After building a $350K+ enterprise automation platform (57,000+ lines of production code), an AI-powered photography SaaS, and a 24/7 AI receptionist system, the pattern became clear: businesses need developers who can build real, production-grade software — not just mockups and promises.
                     </p>
                     <p>
                       CoreSentia exists to be that partner. We take projects from concept to production, using modern tools like Next.js, Claude AI, Supabase, and Twilio. Every system we build is designed to run 24/7 in production.

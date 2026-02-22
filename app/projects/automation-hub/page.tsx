@@ -332,7 +332,7 @@ export default function AutomationHubPage() {
               <AnimateOnScroll delay={150}>
                 <div className="bg-dark-bg-tertiary border border-dark-border rounded-2xl p-8">
                   <div className="space-y-4 font-mono text-sm">
-                    <div className="text-brand-accent">// Platform architecture</div>
+                    <div className="text-brand-accent">{'// Platform architecture'}</div>
                     <div className="text-dt-secondary">
                       <span className="text-indigo-400">const</span> hub = {'{'}
                     </div>

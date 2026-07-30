@@ -29,10 +29,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'CoreSentia — AI-Native Application Development',
-  description: 'CoreSentia builds intelligent applications, AI automation, and production SaaS systems. Brisbane-based development studio specialising in AI-native software.',
+  description: 'CoreSentia builds the software that makes established businesses run better — process automation, systems integration, internal platforms, and AI-native software. Brisbane-based development studio.',
   keywords: [
-    'AI application development',
-    'SaaS development Australia',
+    'business process automation',
+    'systems integration Australia',
     'AI automation Brisbane',
     'custom software development',
     'AI-native applications',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     url: 'https://www.coresentia.com.au',
     siteName: 'CoreSentia',
     title: 'CoreSentia — AI-Native Application Development',
-    description: 'We build intelligent applications, AI automation, and production SaaS systems. Brisbane-based development studio.',
+    description: 'We build the software that makes established businesses run better — automation, integration, and AI-native systems. Brisbane.',
     images: [
       {
         url: '/og-image.png',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'CoreSentia — AI-Native Application Development',
-    description: 'We build intelligent applications, AI automation, and production SaaS systems.',
+    description: 'We build the software that makes established businesses run better — automation, integration, and AI-native systems.',
     images: ['/og-image.png'],
     creator: '@coresentia',
   },
@@ -101,7 +101,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Apply saved theme before paint. Dark is default; internal tools (admin,
+            dashboard, chat, etc.) are always dark, so the light class is skipped there. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('cs-theme');var guarded=/^\\/(admin|dashboard|chat|login|onboarding|xero-auth)/.test(location.pathname);if(t==='light'&&!guarded){document.documentElement.classList.add('light')}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable}`}>
         <AuthProvider>{children}</AuthProvider>
       </body>

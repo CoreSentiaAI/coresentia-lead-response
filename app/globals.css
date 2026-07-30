@@ -6,9 +6,6 @@
 @import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-rgb: 10, 10, 15;
-
   /* Brand Colors from Fiverr Guide */
   --brand-royal-blue: #2A50DF;
   --brand-medium-blue: #1099E7;
@@ -23,18 +20,67 @@
   --color-highlight: #62D4F9;
   --color-background: #2D3436;
 
-  /* Dark Surface Colors */
-  --surface-primary: #0a0a0f;
-  --surface-secondary: #0d0d14;
-  --surface-tertiary: #12121a;
-  --surface-elevated: #1a1a24;
-  --border-subtle: #1e1e2e;
-  --border-visible: #2a2a3e;
+  /* Theme tokens — dark is the default (no class on <html>).
+     The public site reads these via Tailwind surface/ink/line tokens;
+     admin, dashboard, and chat use the fixed dark.*/
+  --surface-base: #0a0a0f;
+  --surface-alt: #0d0d14;
+  --surface-card: #12121a;
+  --surface-raised: #1a1a24;
+  --line-soft: #1e1e2e;
+  --line-strong: #2a2a3e;
+  --ink-1: #ffffff;
+  --ink-2: #e0e0e8;
+  --ink-3: #b0b0c0;
 
-  /* Dark Text Colors — bright white, no faded greys */
-  --dt-primary: #ffffff;
-  --dt-secondary: #e0e0e8;
-  --dt-tertiary: #b0b0c0;
+  /* Legacy aliases still referenced by older utilities */
+  --surface-primary: var(--surface-base);
+  --surface-secondary: var(--surface-alt);
+  --surface-tertiary: var(--surface-card);
+  --surface-elevated: var(--surface-raised);
+  --border-subtle: var(--line-soft);
+  --border-visible: var(--line-strong);
+  --dt-primary: var(--ink-1);
+  --dt-secondary: var(--ink-2);
+  --dt-tertiary: var(--ink-3);
+}
+
+html.light {
+  --surface-base: #f7f7fa;
+  --surface-alt: #eef0f5;
+  --surface-card: #ffffff;
+  --surface-raised: #f1f2f7;
+  --line-soft: #e4e6ef;
+  --line-strong: #d0d4e2;
+  --ink-1: #10101a;
+  --ink-2: #3d4150;
+  --ink-3: #686d7e;
+}
+
+/* Translucent chrome — Tailwind alpha modifiers can't apply to var() tokens */
+.header-scrim {
+  background: rgba(26, 26, 36, 0.8);
+}
+
+html.light .header-scrim {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.overlay-scrim {
+  background: rgba(10, 10, 15, 0.96);
+}
+
+html.light .overlay-scrim {
+  background: rgba(247, 247, 250, 0.97);
+}
+
+/* Theme-scoped visibility helpers (e.g. swap logos, hide dark photo textures) */
+html.light .dark-only {
+  display: none !important;
+}
+
+html:not(.light) .light-only {
+  display: none !important;
 }
 
 /* Primary Color Classes */
@@ -94,8 +140,8 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: var(--ink-1);
+  background: var(--surface-base);
   font-family: var(--font-raleway), var(--font-inter), sans-serif;
 }
 
@@ -104,17 +150,17 @@ h1 {
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: var(--ink-1);
 }
 
-/* H2–H6 use Raleway with bright white + size hierarchy */
+/* H2–H6 use Raleway with theme ink + size hierarchy */
 h2 {
   font-family: var(--font-raleway);
   font-weight: 700;
   font-size: 2.25rem;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--ink-1);
 }
 
 h3 {
@@ -123,7 +169,7 @@ h3 {
   font-size: 1.75rem;
   line-height: 1.2;
   letter-spacing: -0.015em;
-  color: #ffffff;
+  color: var(--ink-1);
 }
 
 h4 {
@@ -132,7 +178,7 @@ h4 {
   font-size: 1.35rem;
   line-height: 1.3;
   letter-spacing: -0.01em;
-  color: #ffffff;
+  color: var(--ink-1);
 }
 
 h5 {
@@ -140,7 +186,7 @@ h5 {
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.4;
-  color: #ffffff;
+  color: var(--ink-1);
 }
 
 h6 {
@@ -162,6 +208,11 @@ p {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+html.light .glass-dark {
+  background: rgba(16, 16, 26, 0.03);
+  border: 1px solid rgba(16, 16, 26, 0.08);
 }
 
 .glass-blue {
@@ -220,6 +271,12 @@ p {
 
 .glow-accent {
   box-shadow: 0 0 15px rgba(16, 153, 231, 0.12), 0 0 30px rgba(16, 153, 231, 0.04);
+}
+
+/* In light mode glows read as smudges — swap for soft drop shadows */
+html.light .glow-blue,
+html.light .glow-accent {
+  box-shadow: 0 10px 30px rgba(20, 30, 80, 0.08);
 }
 
 /* Gradient text effect - using brand blues */

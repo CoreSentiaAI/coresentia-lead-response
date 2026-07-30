@@ -44,6 +44,23 @@ module.exports = {
           secondary: '#e0e0e8',
           tertiary: '#b0b0c0',
         },
+        // Theme-aware tokens for the public site (flip with html.light).
+        // Admin/dashboard/chat keep the fixed dark.* / dt.* tokens above.
+        surface: {
+          base: 'var(--surface-base)',
+          alt: 'var(--surface-alt)',
+          card: 'var(--surface-card)',
+          raised: 'var(--surface-raised)',
+        },
+        ink: {
+          1: 'var(--ink-1)',
+          2: 'var(--ink-2)',
+          3: 'var(--ink-3)',
+        },
+        line: {
+          soft: 'var(--line-soft)',
+          strong: 'var(--line-strong)',
+        },
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],

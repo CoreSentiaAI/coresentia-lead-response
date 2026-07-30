@@ -57,7 +57,7 @@ export default async function BlogPage() {
   const posts = await getBlogPosts()
 
   return (
-    <div className="min-h-screen bg-dark-bg-primary text-dt-primary">
+    <div className="min-h-screen bg-surface-base text-ink-1">
       <Header />
 
       <main className="pt-32 pb-0">
@@ -68,7 +68,7 @@ export default async function BlogPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4 font-raleway">
               Insights & Technical Writing
             </h1>
-            <p className="text-lg text-dt-secondary max-w-2xl">
+            <p className="text-lg text-ink-2 max-w-2xl">
               AI development insights, automation architecture, and lessons from building production software.
             </p>
           </div>
@@ -79,7 +79,7 @@ export default async function BlogPage() {
           <div className="max-w-4xl mx-auto">
             {posts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-dt-secondary text-lg mb-4">
+                <p className="text-ink-2 text-lg mb-4">
                   No blog posts published yet. Check back soon!
                 </p>
                 <Link
@@ -94,14 +94,14 @@ export default async function BlogPage() {
                 {posts.map((post) => (
                   <article
                     key={post.id}
-                    className="bg-dark-bg-tertiary border border-dark-border rounded-2xl p-6 hover:border-brand-primary/30 hover:glow-blue transition-all"
+                    className="bg-surface-card border border-line-soft rounded-2xl p-6 hover:border-brand-primary/30 hover:glow-blue transition-all"
                   >
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-xs font-semibold text-brand-accent uppercase tracking-wider">
                         {post.category.replace('-', ' ')}
                       </span>
-                      <span className="text-dt-tertiary text-sm">&middot;</span>
-                      <div className="flex items-center gap-1 text-dt-tertiary text-sm">
+                      <span className="text-ink-3 text-sm">&middot;</span>
+                      <div className="flex items-center gap-1 text-ink-3 text-sm">
                         <Calendar className="w-4 h-4" />
                         {new Date(post.published_at).toLocaleDateString('en-AU', {
                           year: 'numeric',
@@ -111,7 +111,7 @@ export default async function BlogPage() {
                       </div>
                     </div>
 
-                    <h2 className="text-2xl font-bold text-dt-primary mb-3 font-raleway">
+                    <h2 className="text-2xl font-bold text-ink-1 mb-3 font-raleway">
                       <Link
                         href={`/blog/${post.slug}`}
                         className="hover:text-brand-accent transition-colors"
@@ -120,17 +120,17 @@ export default async function BlogPage() {
                       </Link>
                     </h2>
 
-                    <p className="text-dt-secondary mb-4 leading-relaxed">
+                    <p className="text-ink-2 mb-4 leading-relaxed">
                       {post.excerpt}
                     </p>
 
                     {post.tags && post.tags.length > 0 && (
                       <div className="flex items-center gap-2 mb-4 flex-wrap">
-                        <Tag className="w-4 h-4 text-dt-tertiary" />
+                        <Tag className="w-4 h-4 text-ink-3" />
                         {post.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs bg-dark-bg-elevated text-dt-tertiary px-2 py-1 rounded border border-dark-border"
+                            className="text-xs bg-surface-raised text-ink-3 px-2 py-1 rounded border border-line-soft"
                           >
                             {tag}
                           </span>
@@ -153,12 +153,12 @@ export default async function BlogPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 px-6 bg-dark-bg-secondary border-t border-dark-border">
+        <section className="py-16 px-6 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-dt-primary mb-4 font-raleway">
+            <h2 className="text-2xl font-bold text-ink-1 mb-4 font-raleway">
               Have a Project in Mind?
             </h2>
-            <p className="text-dt-secondary mb-6 max-w-2xl mx-auto">
+            <p className="text-ink-2 mb-6 max-w-2xl mx-auto">
               We build intelligent applications, AI automation, and production SaaS systems.
             </p>
             <Link

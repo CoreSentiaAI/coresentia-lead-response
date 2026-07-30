@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   }
 
   return (
-    <div className="min-h-screen bg-dark-bg-primary text-dt-primary">
+    <div className="min-h-screen bg-surface-base text-ink-1">
       <Header />
 
       <main className="pt-32 pb-0">
@@ -119,11 +119,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-dt-primary mb-6 font-raleway leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-ink-1 mb-6 font-raleway leading-tight">
               {post.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-4 text-dt-tertiary text-sm mb-8 pb-8 border-b border-dark-border">
+            <div className="flex flex-wrap items-center gap-4 text-ink-3 text-sm mb-8 pb-8 border-b border-line-soft">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
                 <span>{post.author}</span>
@@ -152,8 +152,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
             {/* Source Attribution */}
             {post.source_url && post.source_name && (
-              <div className="mt-8 p-4 bg-dark-bg-tertiary rounded-lg border border-dark-border">
-                <p className="text-sm text-dt-secondary">
+              <div className="mt-8 p-4 bg-surface-card rounded-lg border border-line-soft">
+                <p className="text-sm text-ink-2">
                   <strong>Source:</strong> This article references or builds upon content from{' '}
                   <a
                     href={post.source_url}
@@ -169,13 +169,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
-              <div className="mt-8 pt-8 border-t border-dark-border">
+              <div className="mt-8 pt-8 border-t border-line-soft">
                 <div className="flex items-center gap-3 flex-wrap">
-                  <Tag className="w-5 h-5 text-dt-tertiary" />
+                  <Tag className="w-5 h-5 text-ink-3" />
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-sm bg-dark-bg-elevated text-dt-tertiary px-3 py-1 rounded border border-dark-border"
+                      className="text-sm bg-surface-raised text-ink-3 px-3 py-1 rounded border border-line-soft"
                     >
                       {tag}
                     </span>
@@ -187,12 +187,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         </article>
 
         {/* CTA Section */}
-        <section className="py-16 px-6 bg-dark-bg-secondary border-t border-dark-border">
+        <section className="py-16 px-6 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-dt-primary mb-4 font-raleway">
+            <h2 className="text-2xl font-bold text-ink-1 mb-4 font-raleway">
               Have a Project in Mind?
             </h2>
-            <p className="text-dt-secondary mb-6 max-w-2xl mx-auto">
+            <p className="text-ink-2 mb-6 max-w-2xl mx-auto">
               We build intelligent applications, AI automation, and production SaaS systems.
             </p>
             <Link

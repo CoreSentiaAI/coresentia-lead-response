@@ -62,17 +62,17 @@ export default function ContactForm() {
 
   if (isSuccess) {
     return (
-      <div className="bg-dark-bg-tertiary border border-green-500/30 rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto">
+      <div className="bg-surface-card border border-green-500/30 rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto">
         <div className="w-16 h-16 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="w-8 h-8 text-green-400" />
         </div>
-        <h3 className="text-2xl font-bold text-dt-primary mb-3 font-raleway">
+        <h3 className="text-2xl font-bold text-ink-1 mb-3 font-raleway">
           Message Received!
         </h3>
-        <p className="text-lg text-dt-secondary mb-4">
+        <p className="text-lg text-ink-2 mb-4">
           Thanks for reaching out. We&apos;ll get back to you within 24 hours.
         </p>
-        <p className="text-sm text-dt-tertiary">
+        <p className="text-sm text-ink-3">
           Or email us directly at{' '}
           <a href="mailto:info@coresentia.com" className="text-brand-accent font-semibold">
             info@coresentia.com
@@ -91,11 +91,11 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-dark-bg-tertiary border border-dark-border-light rounded-2xl p-6 md:p-10 max-w-2xl mx-auto"
+      className="bg-surface-card border border-line-strong rounded-2xl p-6 md:p-10 max-w-2xl mx-auto"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="contact-name" className="block text-sm font-semibold text-dt-primary mb-2">
+          <label htmlFor="contact-name" className="block text-sm font-semibold text-ink-1 mb-2">
             Your Name <span className="text-brand-accent">*</span>
           </label>
           <input
@@ -105,14 +105,14 @@ export default function ContactForm() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
-              text-dt-primary placeholder-dt-tertiary
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+              text-ink-1 placeholder-ink-3
               focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
             placeholder="John Smith"
           />
         </div>
         <div>
-          <label htmlFor="contact-email" className="block text-sm font-semibold text-dt-primary mb-2">
+          <label htmlFor="contact-email" className="block text-sm font-semibold text-ink-1 mb-2">
             Email Address <span className="text-brand-accent">*</span>
           </label>
           <input
@@ -122,8 +122,8 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
-              text-dt-primary placeholder-dt-tertiary
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+              text-ink-1 placeholder-ink-3
               focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
             placeholder="john@example.com"
           />
@@ -132,7 +132,7 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="contact-phone" className="block text-sm font-semibold text-dt-primary mb-2">
+          <label htmlFor="contact-phone" className="block text-sm font-semibold text-ink-1 mb-2">
             Phone Number
           </label>
           <input
@@ -141,14 +141,14 @@ export default function ContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
-              text-dt-primary placeholder-dt-tertiary
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+              text-ink-1 placeholder-ink-3
               focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
             placeholder="0412 XXX XXX"
           />
         </div>
         <div>
-          <label htmlFor="contact-type" className="block text-sm font-semibold text-dt-primary mb-2">
+          <label htmlFor="contact-type" className="block text-sm font-semibold text-ink-1 mb-2">
             Project Type
           </label>
           <select
@@ -156,14 +156,15 @@ export default function ContactForm() {
             name="businessType"
             value={formData.businessType}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
-              text-dt-primary
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+              text-ink-1
               focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
           >
             <option value="">Select one...</option>
-            <option value="SaaS Application">SaaS Application</option>
-            <option value="AI Automation">AI Automation</option>
-            <option value="Internal Tool">Internal Tool</option>
+            <option value="Process Automation">Process Automation</option>
+            <option value="Systems Integration">Systems Integration</option>
+            <option value="Internal Platform">Internal Platform / Tooling</option>
+            <option value="SaaS Application">SaaS Product</option>
             <option value="Website">Website</option>
             <option value="Other">Other</option>
           </select>
@@ -171,7 +172,7 @@ export default function ContactForm() {
       </div>
 
       <div className="mb-6">
-        <label htmlFor="contact-message" className="block text-sm font-semibold text-dt-primary mb-2">
+        <label htmlFor="contact-message" className="block text-sm font-semibold text-ink-1 mb-2">
           Tell us about your project
         </label>
         <textarea
@@ -180,8 +181,8 @@ export default function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          className="w-full px-4 py-3 bg-dark-bg-elevated border border-dark-border-light rounded-lg
-            text-dt-primary placeholder-dt-tertiary
+          className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+            text-ink-1 placeholder-ink-3
             focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors resize-none"
           placeholder="What are you looking to build? Any specific requirements or timeline?"
         />
@@ -196,25 +197,22 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-brand-highlight text-dark-bg-primary font-semibold py-4 rounded-full
-          hover:shadow-lg hover:shadow-brand-highlight/30 hover:bg-[#4dc4e8] transition-all transform hover:scale-105
-          disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
-          flex items-center justify-center gap-2 text-lg relative overflow-hidden"
+        className="w-full bg-brand-highlight text-dark-bg-primary font-semibold py-4 rounded-lg
+          hover:bg-[#4dc4e8] transition-colors
+          disabled:opacity-50 disabled:cursor-not-allowed
+          flex items-center justify-center gap-2 text-lg"
       >
-        <span className="relative z-10">
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin inline mr-2" />
-              Sending...
-            </>
-          ) : (
-            "Send Message"
-          )}
-        </span>
-        {!isSubmitting && <span className="shimmer-span"></span>}
+        {isSubmitting ? (
+          <>
+            <Loader2 className="w-5 h-5 animate-spin inline mr-2" />
+            Sending...
+          </>
+        ) : (
+          'Send Message'
+        )}
       </button>
 
-      <p className="text-center text-sm text-dt-tertiary mt-4">
+      <p className="text-center text-sm text-ink-3 mt-4">
         We&apos;ll respond within 24 hours. No spam, no hard sell.
       </p>
     </form>

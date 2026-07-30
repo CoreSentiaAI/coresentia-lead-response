@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import AnimateOnScroll from '../components/AnimateOnScroll'
@@ -54,10 +55,14 @@ export default function AboutPage() {
 
         {/* Our Story */}
         <section className="py-20 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
               <h2 className="text-3xl font-semibold mb-8 font-fraunces">The story</h2>
-              <div className="space-y-5 text-ink-2 leading-relaxed text-lg">
+            </AnimateOnScroll>
+            <div className="grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+              <div className="lg:col-span-3 order-2 lg:order-1">
+                <AnimateOnScroll>
+                  <div className="space-y-5 text-ink-2 leading-relaxed text-lg">
                 <p>
                   CoreSentia was founded by Ramsay Hatfield — an astrophotographer who
                   builds software. Years of standing alone in the dark, composing images
@@ -81,14 +86,34 @@ export default function AboutPage() {
                   operation actually runs — where the quotes stall, where the data gets
                   re-keyed, where the time disappears.
                 </p>
-                <p>
-                  CoreSentia exists to close that gap. We take projects from process
-                  mapping to production, and every system we build is designed to run 24/7
-                  without us standing next to it — honest, considered, and worth the
-                  effort.
-                </p>
+                    <p>
+                      CoreSentia exists to close that gap. We take projects from process
+                      mapping to production, and every system we build is designed to run
+                      24/7 without us standing next to it — honest, considered, and worth
+                      the effort.
+                    </p>
+                  </div>
+                </AnimateOnScroll>
               </div>
-            </AnimateOnScroll>
+
+              {/* The proof — his photograph */}
+              <AnimateOnScroll delay={100} className="lg:col-span-2 order-1 lg:order-2">
+                <figure>
+                  <div className="rounded-2xl overflow-hidden border border-line-soft">
+                    <Image
+                      src="/ramsay-milky-way.jpg"
+                      alt="The Milky Way galactic core over granite rock pools and cypress trees — astrophotography by Ramsay Hatfield"
+                      width={1708}
+                      height={2000}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  <figcaption className="mt-3 font-mono text-xs text-ink-3">
+                    The Milky Way core over granite country — photographed by Ramsay.
+                  </figcaption>
+                </figure>
+              </AnimateOnScroll>
+            </div>
           </div>
         </section>
 

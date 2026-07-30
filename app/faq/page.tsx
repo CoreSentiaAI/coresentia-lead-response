@@ -36,7 +36,7 @@ const faqs: FAQItem[] = [
     category: 'general',
     question: "What's your track record?",
     answer:
-      'Our flagship build is a $350K+ enterprise automation platform for a major Australian energy company — 57,000+ lines of production TypeScript connecting 13 business systems, processing hundreds of sales a month. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
+      'Our flagship build is an enterprise operations platform for a national Australian solar company — 300,000+ lines of production TypeScript, 500+ API endpoints, and 15+ integrated SaaS platforms, processing hundreds of sales a month. An equivalent agency build would scope well past $1M. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
   },
 
   // Services
@@ -76,7 +76,7 @@ const faqs: FAQItem[] = [
     category: 'process',
     question: 'How long does a typical project take?',
     answer:
-      "It depends on scope. A simple internal tool might take 1-2 weeks. A full platform could be 4-8 weeks. Our largest build — an enterprise automation platform with 13 integrations — went from first commit to production in 15 weeks. We'll give you a clear timeline during scoping.",
+      "It depends on scope. A simple internal tool might take 1-2 weeks. A full platform could be 4-8 weeks. Our largest build — an enterprise operations platform with 15+ integrations — went from first commit to production in 15 weeks, and kept growing from there. We'll give you a clear timeline during scoping.",
   },
   {
     category: 'process',

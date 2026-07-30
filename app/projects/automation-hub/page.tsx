@@ -37,17 +37,19 @@ export default function AutomationHubPage() {
               <div className="max-w-3xl">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold">Live in production</span>
-                  <span className="text-ink-3 text-xs">Enterprise automation &middot; Energy sector</span>
+                  <span className="text-ink-3 text-xs">Enterprise platform &middot; Solar industry</span>
                 </div>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-fraunces mb-6 leading-tight">
-                  Enterprise Automation Hub
+                  Enterprise Operations Platform
                 </h1>
 
                 <p className="text-lg md:text-xl text-ink-2 mb-8 leading-relaxed">
-                  Mission-critical sales automation platform connecting 13 business systems
-                  for a major Australian energy company. It processes hundreds of sales
-                  monthly, manages job pipelines end-to-end, and replaced a $40K/year CRM.
+                  Mission-critical operations platform for a national Australian solar
+                  company. What began as sales automation now runs the business
+                  end-to-end — 15+ integrated SaaS platforms, 500+ API endpoints, and
+                  every job managed from signed contract to final closeout. It processes
+                  hundreds of sales monthly and replaced a $40K/year CRM.
                 </p>
 
                 {/* Tech stack tags */}
@@ -69,10 +71,10 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
               {[
-                { value: '57K+', label: 'Lines of production TypeScript' },
-                { value: '97', label: 'API endpoints' },
-                { value: '13', label: 'Connected business systems' },
-                { value: '695', label: 'Git commits shipped' },
+                { value: '300K+', label: 'Lines of production TypeScript' },
+                { value: '500+', label: 'API endpoints' },
+                { value: '15+', label: 'Integrated SaaS platforms' },
+                { value: '2,100+', label: 'Git commits shipped' },
               ].map((stat, i) => (
                 <AnimateOnScroll key={stat.label} delay={i * 100}>
                   <div>
@@ -91,11 +93,11 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Two products in one platform</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">It started with sales automation</h2>
                 <p className="text-ink-2">
-                  A sales automation engine and a complete job management pipeline — both
-                  running on the same infrastructure, connected to every system the
-                  business uses.
+                  The first two products: a sales automation engine and a complete job
+                  management pipeline — both running on the same infrastructure, connected
+                  to every system the business uses.
                 </p>
               </div>
             </AnimateOnScroll>
@@ -171,6 +173,37 @@ export default function AutomationHubPage() {
                 </div>
               </AnimateOnScroll>
             </div>
+
+            {/* Platform domains */}
+            <AnimateOnScroll>
+              <div className="mt-12 pt-10 border-t border-line-soft">
+                <p className="text-ink-2 mb-6 max-w-2xl">
+                  <span className="text-ink-1 font-semibold">Then it kept growing.</span>{' '}
+                  Over nine months the platform absorbed one operational domain after
+                  another — each one replacing a manual process, a spreadsheet, or a
+                  licence the business no longer needed:
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    'Sales pipeline',
+                    'Job management',
+                    'Installation operations',
+                    'Scheduling & installer allocation',
+                    'Inventory & purchasing',
+                    'Commissions & finance',
+                    'Field safety & forms',
+                    'Fleet & asset management',
+                    'Helpdesk & internal ops',
+                    'Leave management',
+                    'Executive reporting',
+                  ].map((domain) => (
+                    <span key={domain} className="px-3 py-1.5 rounded-lg bg-surface-card border border-line-soft text-ink-2 text-sm">
+                      {domain}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </AnimateOnScroll>
           </div>
         </section>
 
@@ -180,22 +213,22 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">13 systems, one nervous system</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">15+ platforms, one nervous system</h2>
                 <p className="text-ink-2">
                   Every integration has its own authentication pattern, error handling, and
-                  retry logic. The Hub sits at the centre and orchestrates them all.
+                  retry logic. The platform sits at the centre and orchestrates them all.
                 </p>
               </div>
             </AnimateOnScroll>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { icon: Server, title: 'Quoting Platforms', description: 'Dual webhook receivers processing contracts from two separate quoting systems with isolated failure domains.' },
-                { icon: Database, title: 'CRM & Job Management', description: 'Bidirectional sync with CRM platforms. Auto-creates jobs, populates 28+ custom fields, and manages the full lifecycle.' },
-                { icon: Layers, title: 'Inventory Management', description: 'Smart product matching with fuzzy search. Creates draft sales orders with validation, supports bulk backlog processing.' },
-                { icon: Shield, title: 'Document Management', description: 'Auto-creates structured folder hierarchies in Google Drive. Archives signed contracts with permanent linking.' },
-                { icon: Bot, title: 'AI Engine', description: 'Claude AI validates incoming data, powers an internal Sales Coach bot, and provides intelligent job assistance.' },
-                { icon: GitBranch, title: 'Team Notifications', description: 'Real-time updates pushed to team chat. Every action logged with complete audit trail for compliance.' },
+                { icon: Server, title: 'Solar Design & Quoting', description: 'OpenSolar, Pylon, and SolarQuotes — webhook receivers processing signed contracts and inbound leads with isolated failure domains.' },
+                { icon: Database, title: 'CRM & Sales', description: 'HubSpot and Accelo — bidirectional sync that auto-creates jobs, populates 28+ custom fields, and manages the full lifecycle.' },
+                { icon: Layers, title: 'Field Service & Jobs', description: 'AroFlo, ServiceM8, and FastField — job dispatch, mobile field forms, and installation workflows in both directions.' },
+                { icon: Shield, title: 'Finance & Inventory', description: 'Xero, Unleashed, and Stripe — smart product matching, draft sales orders, invoicing, and commission reconciliation.' },
+                { icon: GitBranch, title: 'Google Workspace', description: 'Gmail, Drive, Chat, and Workspace admin — structured document hierarchies, contract archival, and real-time team notifications.' },
+                { icon: Bot, title: 'AI & Data', description: 'An AI layer validates incoming data before it propagates, and Nearmap aerial imagery feeds site assessment workflows.' },
               ].map((item, i) => (
                 <AnimateOnScroll key={item.title} delay={i * 80}>
                   <div className="bg-surface-card border border-line-soft rounded-xl p-6 h-full hover:border-brand-primary/20 transition-all">
@@ -252,9 +285,9 @@ export default function AutomationHubPage() {
                   <h3 className="text-lg font-bold font-raleway mb-4">Scale &amp; Architecture</h3>
                   <div className="space-y-3 font-mono text-sm">
                     {[
-                      '206 files across app, API, lib, and types',
-                      '97 API endpoints serving frontend and integrations',
-                      '37 database migrations tracking schema evolution',
+                      '1,300+ source files across app, API, lib, and types',
+                      '500+ API endpoints serving frontend and integrations',
+                      '289 database migrations tracking schema evolution',
                       'Dual-table architecture with isolated failure domains',
                       'Parallel processing with graceful degradation',
                       'Vercel serverless — auto-scaling, zero ops',
@@ -271,18 +304,79 @@ export default function AutomationHubPage() {
           </div>
         </section>
 
-        {/* The Build Story */}
+        {/* Design Philosophy */}
         <section className="relative bg-surface-alt py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
+          <div className="absolute inset-0 bg-noise pointer-events-none" />
+          <div className="max-w-7xl mx-auto relative z-10">
+            <AnimateOnScroll>
+              <div className="mb-4 max-w-2xl">
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">The ideas that keep it elegant</h2>
+                <p className="text-ink-2">
+                  A platform this size stays maintainable because of a few disciplines,
+                  applied without exception.
+                </p>
+              </div>
+            </AnimateOnScroll>
+
+            <div>
+              {[
+                {
+                  num: '01',
+                  title: 'One record of truth',
+                  description:
+                    'Every job lives as a single canonical record from lead to final closeout. Every module — sales, scheduling, field operations, finance — is a UI reading from and writing into that same record. There are no parallel truths to reconcile.',
+                },
+                {
+                  num: '02',
+                  title: 'Provenance on every write',
+                  description:
+                    'Every field records where it came from, who changed it, and why. When a manager asks "why does this say what it says?", the answer is one click away — not an archaeology project.',
+                },
+                {
+                  num: '03',
+                  title: 'Facts vs artifacts',
+                  description:
+                    'If someone would ask "what\'s the X on this job?" — it\'s a fact, and it lives on the record. Photos, signed PDFs, and checklist responses are artifacts, and hang off it. The distinction is what keeps a wide truth table elegant instead of chaotic.',
+                },
+                {
+                  num: '04',
+                  title: 'Forms are UIs, not submission blobs',
+                  description:
+                    'An installer filling out a site inspection isn\'t "submitting a form" — they\'re populating thirty facts on the job record that happen to be captured in the field. Design for the data, and the workflows take care of themselves.',
+                },
+              ].map((idea, i) => (
+                <AnimateOnScroll key={idea.num} delay={i * 80}>
+                  <div className="group grid md:grid-cols-12 gap-3 md:gap-8 py-7 border-b border-line-soft items-baseline">
+                    <div className="md:col-span-1 font-mono text-sm text-ink-3 group-hover:text-brand-accent transition-colors">
+                      {idea.num}
+                    </div>
+                    <h3 className="md:col-span-4 text-lg lg:text-xl font-semibold font-raleway">
+                      {idea.title}
+                    </h3>
+                    <p className="md:col-span-7 text-ink-2 leading-relaxed text-sm md:text-base">
+                      {idea.description}
+                    </p>
+                  </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* The Build Story */}
+        <section className="relative py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
           <div className="absolute inset-0 bg-noise pointer-events-none" />
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <AnimateOnScroll>
                 <div>
-                  <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-6">15 weeks from first commit to production</h2>
+                  <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-6">15 weeks to production. Nine months to a platform.</h2>
                   <p className="text-ink-2 leading-relaxed mb-6">
-                    An equivalent agency build would scope at $200-300K over 6-9 months. We
-                    shipped it in 15 weeks — with enterprise security, 13 integrations, and
-                    a custom CRM pipeline that alone would cost $50-80K to commission.
+                    The first version shipped in 15 weeks. Nine months after the first
+                    commit, the platform runs most of the business — 300,000+ lines of
+                    production code that an equivalent agency build would scope well past
+                    $1M, including a custom CRM pipeline that alone would cost $50-80K to
+                    commission.
                   </p>
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
@@ -324,22 +418,22 @@ export default function AutomationHubPage() {
                       <span className="text-indigo-400">const</span> hub = {'{'}
                     </div>
                     <div className="text-ink-2 pl-4">
-                      integrations: <span className="text-amber-500">13</span>,
+                      integrations: <span className="text-amber-500">15</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
-                      apiEndpoints: <span className="text-amber-500">97</span>,
+                      apiEndpoints: <span className="text-amber-500">500</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
-                      linesOfCode: <span className="text-green-500">&apos;57,000+&apos;</span>,
+                      linesOfCode: <span className="text-green-500">&apos;300,000+&apos;</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
-                      commits: <span className="text-amber-500">695</span>,
+                      commits: <span className="text-amber-500">2100</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
-                      buildTime: <span className="text-green-500">&apos;15 weeks&apos;</span>,
+                      buildTime: <span className="text-green-500">&apos;9 months, ongoing&apos;</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
-                      equivalentScope: <span className="text-green-500">&apos;$200-300K&apos;</span>,
+                      equivalentScope: <span className="text-green-500">&apos;$1M+&apos;</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
                       security: <span className="text-green-500">&apos;enterprise-grade&apos;</span>,

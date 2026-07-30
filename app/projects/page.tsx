@@ -46,7 +46,7 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        {/* Featured: Enterprise Automation Hub */}
+        {/* Featured: Enterprise Operations Platform */}
         <section className="px-6 lg:px-8 mb-8">
           <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
@@ -59,16 +59,16 @@ export default function ProjectsPage() {
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-4 flex-wrap">
                       <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold">Live</span>
-                      <span className="text-ink-3 text-xs">Enterprise automation &middot; Energy sector</span>
+                      <span className="text-ink-3 text-xs">Enterprise platform &middot; Solar industry</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-semibold font-fraunces mb-4 group-hover:text-brand-accent transition-colors">
-                      Enterprise Automation Hub
+                      Enterprise Operations Platform
                     </h2>
                     <p className="text-ink-2 mb-6 leading-relaxed max-w-2xl text-lg">
-                      Mission-critical sales and operations platform for a major Australian
-                      energy company. Connects thirteen business systems, processes hundreds
-                      of sales a month, and replaced a $40K/year CRM with a purpose-built
-                      job pipeline.
+                      Mission-critical operations platform for a national Australian solar
+                      company. Integrates 15+ SaaS platforms, processes hundreds of sales a
+                      month, and runs every job from signed contract to final closeout —
+                      replacing a $40K/year CRM along the way.
                     </p>
 
                     <div className="flex flex-wrap gap-2 mb-8">
@@ -81,16 +81,16 @@ export default function ProjectsPage() {
 
                     <div className="grid grid-cols-3 gap-8 max-w-md mb-8">
                       <div>
-                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">57K+</div>
+                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">300K+</div>
                         <div className="text-ink-3 text-xs mt-1">Lines of TypeScript</div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">97</div>
+                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">500+</div>
                         <div className="text-ink-3 text-xs mt-1">API endpoints</div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">13</div>
-                        <div className="text-ink-3 text-xs mt-1">Systems connected</div>
+                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">15+</div>
+                        <div className="text-ink-3 text-xs mt-1">SaaS platforms</div>
                       </div>
                     </div>
 
@@ -118,9 +118,9 @@ export default function ProjectsPage() {
                       </div>
                       <h3 className="text-2xl font-bold font-raleway mb-3 group-hover:text-amber-500 transition-colors">FirstLight</h3>
                       <p className="text-ink-2 mb-4 leading-relaxed">
-                        AI-powered conditions platform for nature photographers. Real-time
-                        weather, astronomy data, and intelligent shoot briefings across 150+
-                        curated Australian locations.
+                        A conditions-first decision engine for nature photographers.
+                        Ephemeris, weather, season, and place — synthesised into an honest
+                        answer about where to be and when, with AI briefings over the top.
                       </p>
                       <span className="inline-flex items-center gap-2 text-brand-accent font-semibold text-sm group-hover:gap-3 transition-all">
                         View case study <ArrowRight className="w-4 h-4" />

@@ -46,10 +46,10 @@ export default function FirstLightPage() {
                 </h1>
 
                 <p className="text-lg md:text-xl text-ink-2 mb-8 leading-relaxed">
-                  AI-powered photography conditions platform for nature photographers.
-                  Real-time weather, astronomy data, and Claude AI briefings — so
-                  photographers find the right location, at the right time, in the right
-                  conditions.
+                  The intelligent helper that tells a nature photographer where to be,
+                  when — and what the place is offering, honestly. A conditions-first
+                  decision engine that synthesises ephemeris, weather, season, place, and
+                  the photographer&apos;s own style into one honest answer.
                 </p>
 
                 <a
@@ -82,11 +82,12 @@ export default function FirstLightPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">One app instead of five</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">The decision is the product</h2>
                 <p className="text-ink-2">
-                  Photographers used to check weather apps, tide charts, moon phase
-                  calendars, sun position tools, and aurora trackers separately.
-                  FirstLight combines them all with AI-powered creative guidance.
+                  Weather apps, ephemeris tools, star charts, and forecast sites all hold
+                  the raw data — photographers used to check five of them and still guess.
+                  None of them make the call. FirstLight synthesises the lot for a
+                  specific shooting intent and hands back a decision.
                 </p>
               </div>
             </AnimateOnScroll>
@@ -152,12 +153,13 @@ export default function FirstLightPage() {
                     <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
                       <MapPin className="w-5 h-5 text-amber-500" />
                     </div>
-                    <h3 className="text-xl font-bold font-raleway">150+ Curated Locations</h3>
+                    <h3 className="text-xl font-bold font-raleway">Hand-Vetted Locations</h3>
                   </div>
                   <p className="text-ink-2 text-sm leading-relaxed mb-4">
-                    Handpicked photography spots across Australia — coastal, alpine,
-                    waterfalls, forests, astrophotography sites. Each with compass
-                    direction, Bortle rating, and condition indicators.
+                    A curated library of parks, dark-sky anchors, and shooting locations —
+                    every row personally vetted before it publishes. No scraped databases:
+                    if FirstLight says a viewpoint faces south-east, someone has stood
+                    there and checked.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {['Coastal', 'Alpine', 'Waterfall', 'Forest', 'Astro', 'Urban'].map((type) => (
@@ -210,9 +212,9 @@ export default function FirstLightPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
               {[
-                { value: '150+', label: 'Curated photography locations' },
+                { value: '8', label: 'Condition profiles — astro to seascape' },
                 { value: '7', label: 'Integrated data sources' },
-                { value: '24/7', label: 'Real-time conditions' },
+                { value: '16-day', label: 'Forecast horizon, honest about decay' },
                 { value: 'AI', label: 'Claude-powered briefings' },
               ].map((stat, i) => (
                 <AnimateOnScroll key={stat.label} delay={i * 100}>
@@ -263,8 +265,8 @@ export default function FirstLightPage() {
                   <div className="space-y-6">
                     {[
                       { principle: 'The UI gets out of the way', detail: 'Data forward, chrome minimal — conditions readable at a glance from a car seat at 4:30am.' },
-                      { principle: 'Premium but functional', detail: 'It has to feel as considered as the photographs its users make.' },
-                      { principle: 'Built for the field', detail: 'Gloved hands, low light, one bar of reception — the constraints shaped every screen.' },
+                      { principle: 'Honest first, encouraging second', detail: 'Confidence decays as the forecast horizon stretches, and the app says so. It will never call 100% cloud "prime astro" — trust is the product.' },
+                      { principle: 'The physics and the poetry', detail: 'A deterministic engine computes the ephemeris, dark windows, and scores. The AI narrates over the engine\'s output — it never invents what the physics didn\'t compute.' },
                     ].map((item, i) => (
                       <div key={item.principle} className={i > 0 ? 'pt-6 border-t border-line-soft' : ''}>
                         <div className="flex items-baseline gap-4">

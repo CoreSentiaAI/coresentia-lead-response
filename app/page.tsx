@@ -115,8 +115,8 @@ export default function HomePage() {
             {/* Right column — stats with left border anchor */}
             <div className="lg:col-span-2 hidden lg:flex flex-col gap-10 border-l border-line-soft pl-10 py-4">
               <div>
-                <div className="text-5xl font-bold font-mono text-ink-1 tracking-editorial">13</div>
-                <div className="text-sm text-ink-3 mt-2">business systems connected for one client</div>
+                <div className="text-5xl font-bold font-mono text-ink-1 tracking-editorial">15+</div>
+                <div className="text-sm text-ink-3 mt-2">SaaS platforms connected for one client</div>
               </div>
               <div>
                 <div className="text-5xl font-bold font-mono text-ink-1 tracking-editorial">6 min</div>
@@ -190,7 +190,7 @@ export default function HomePage() {
             </div>
           </AnimateOnScroll>
 
-          {/* Enterprise Automation Hub — editorial split */}
+          {/* Enterprise Operations Platform — editorial split */}
           <AnimateOnScroll>
             <Link href="/projects/automation-hub" className="block group">
               <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
@@ -198,16 +198,16 @@ export default function HomePage() {
                 <div className="lg:col-span-3">
                   <div className="flex items-center gap-3 mb-6">
                     <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold">Live</span>
-                    <span className="text-ink-3 text-xs">Enterprise automation</span>
+                    <span className="text-ink-3 text-xs">Enterprise platform &middot; Solar</span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold font-raleway mb-4 group-hover:text-brand-accent transition-colors">
-                    Enterprise Automation Hub
+                    Enterprise Operations Platform
                   </h3>
                   <p className="text-ink-2 mb-8 leading-relaxed max-w-xl">
-                    Mission-critical sales and operations platform for a major Australian
-                    energy company. Thirteen business systems connected, a custom CRM
-                    pipeline that replaced a $40K/year platform, and hundreds of sales
-                    processed every month — hands-free.
+                    Mission-critical operations platform for a national Australian solar
+                    company. Fifteen SaaS platforms integrated, 500+ API endpoints, a
+                    custom CRM pipeline that replaced a $40K/year platform — and hundreds
+                    of sales processed every month, hands-free.
                   </p>
                   <span className="inline-flex items-center gap-2 text-brand-accent font-semibold text-sm group-hover:gap-3 transition-all">
                     View case study <ArrowRight className="w-4 h-4" />
@@ -259,8 +259,8 @@ export default function HomePage() {
                   </h3>
                 </div>
                 <p className="lg:col-span-2 text-ink-2 text-sm leading-relaxed">
-                  AI-powered conditions platform for nature photographers — live weather,
-                  astronomy data, and intelligent shoot briefings across 150+ Australian locations.
+                  A conditions-first decision engine for nature photographers — ephemeris,
+                  weather, and place synthesised into an honest answer: where to be, and when.
                 </p>
               </div>
             </Link>
@@ -300,9 +300,9 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-4 gap-10 md:gap-12">
             {[
-              { value: '$350K+', label: 'In automation value delivered' },
-              { value: '80K+', label: 'Lines of production TypeScript shipped' },
-              { value: '20+', label: 'APIs and business systems integrated' },
+              { value: '$1M+', label: 'In platform value delivered' },
+              { value: '300K+', label: 'Lines of production TypeScript shipped' },
+              { value: '500+', label: 'API endpoints running in production' },
               { value: '24/7', label: 'Production systems, running right now' },
             ].map((stat, i) => (
               <AnimateOnScroll key={stat.label} delay={i * 100}>

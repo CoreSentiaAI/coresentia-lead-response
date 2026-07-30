@@ -59,12 +59,19 @@ export default function AboutPage() {
               <h2 className="text-3xl font-semibold mb-8 font-fraunces">The story</h2>
               <div className="space-y-5 text-ink-2 leading-relaxed text-lg">
                 <p>
-                  CoreSentia was founded by Ramsay — a developer who spent years inside a
-                  major Australian energy company, building the automation platform that
-                  runs its sales and installation operations. Not advising on it, not
-                  wireframing it: building it. 57,000 lines of production TypeScript,
-                  thirteen integrated business systems, hundreds of sales processed every
-                  month.
+                  CoreSentia was founded by Ramsay Hatfield — an astrophotographer who
+                  builds software. Years of standing alone in the dark, composing images
+                  of things most people never see, taught him a particular way of working:
+                  find the order in complexity, and make it feel right. He sees no real
+                  boundary between art and engineering — a well-designed system and a
+                  well-composed photograph are both acts of imposing clarity on chaos.
+                </p>
+                <p>
+                  He brought that eye inside a national Australian solar company, where he
+                  designed and built the operations platform that now runs the business —
+                  300,000+ lines of production TypeScript, fifteen integrated SaaS
+                  platforms, hundreds of sales processed every month. Not advising on it,
+                  not wireframing it: building it.
                 </p>
                 <p>
                   That experience shaped a simple conviction: the gap between what
@@ -77,7 +84,8 @@ export default function AboutPage() {
                 <p>
                   CoreSentia exists to close that gap. We take projects from process
                   mapping to production, and every system we build is designed to run 24/7
-                  without us standing next to it.
+                  without us standing next to it — honest, considered, and worth the
+                  effort.
                 </p>
               </div>
             </AnimateOnScroll>
@@ -119,8 +127,8 @@ export default function AboutPage() {
             <AnimateOnScroll>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {[
-                  { value: '$350K+', label: 'In automation value delivered' },
-                  { value: '80K+', label: 'Lines of production TypeScript shipped' },
+                  { value: '$1M+', label: 'In platform value delivered' },
+                  { value: '300K+', label: 'Lines of production TypeScript shipped' },
                   { value: '24/7', label: 'Production systems, running right now' },
                 ].map((stat) => (
                   <div key={stat.label}>

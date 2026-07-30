@@ -146,7 +146,7 @@ export default function FAQPage() {
         {/* Hero Section */}
         <section className="px-6 lg:px-8 pb-12">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 font-raleway">
+            <h1 className="text-4xl md:text-5xl font-semibold mb-6 font-fraunces">
               Questions, answered
             </h1>
             <p className="text-xl text-ink-2">
@@ -210,7 +210,7 @@ export default function FAQPage() {
         {/* CTA */}
         <section className="py-16 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-ink-1 mb-4 font-raleway">
+            <h2 className="text-3xl font-semibold text-ink-1 mb-4 font-fraunces">
               Still have questions?
             </h2>
             <p className="text-xl text-ink-2 mb-8">

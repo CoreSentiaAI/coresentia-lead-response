@@ -40,7 +40,7 @@ export default function AboutPage() {
         <section className="px-6 lg:px-8 pb-20">
           <div className="max-w-4xl mx-auto">
             <AnimateOnScroll>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-raleway">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 font-fraunces">
                 Software that ships
               </h1>
               <p className="text-xl text-ink-2 leading-relaxed max-w-2xl">
@@ -56,7 +56,7 @@ export default function AboutPage() {
         <section className="py-20 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-bold mb-8 font-raleway">The story</h2>
+              <h2 className="text-3xl font-semibold mb-8 font-fraunces">The story</h2>
               <div className="space-y-5 text-ink-2 leading-relaxed text-lg">
                 <p>
                   CoreSentia was founded by Ramsay — a developer who spent years inside a
@@ -88,7 +88,7 @@ export default function AboutPage() {
         <section className="py-20 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-4xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-bold mb-4 font-raleway">How we work</h2>
+              <h2 className="text-3xl font-semibold mb-4 font-fraunces">How we work</h2>
             </AnimateOnScroll>
             <div>
               {principles.map((p, i) => (
@@ -114,7 +114,7 @@ export default function AboutPage() {
         <section className="py-20 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-bold mb-10 font-raleway">Track record</h2>
+              <h2 className="text-3xl font-semibold mb-10 font-fraunces">Track record</h2>
             </AnimateOnScroll>
             <AnimateOnScroll>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -137,7 +137,7 @@ export default function AboutPage() {
         <section className="py-20 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-4xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-bold mb-4 font-raleway">
+              <h2 className="text-3xl font-semibold mb-4 font-fraunces">
                 Have a project in mind?
               </h2>
               <p className="text-xl text-ink-2 mb-8">

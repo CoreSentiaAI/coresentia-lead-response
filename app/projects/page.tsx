@@ -35,7 +35,7 @@ export default function ProjectsPage() {
           />
           <div className="max-w-7xl mx-auto w-full relative z-10">
             <AnimateOnScroll>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-raleway mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-fraunces mb-6">
                 Work
               </h1>
               <p className="text-lg text-ink-2 max-w-2xl">
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
                       <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold">Live</span>
                       <span className="text-ink-3 text-xs">Enterprise automation &middot; Energy sector</span>
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold font-raleway mb-4 group-hover:text-brand-accent transition-colors">
+                    <h2 className="text-3xl md:text-4xl font-semibold font-fraunces mb-4 group-hover:text-brand-accent transition-colors">
                       Enterprise Automation Hub
                     </h2>
                     <p className="text-ink-2 mb-6 leading-relaxed max-w-2xl text-lg">
@@ -147,7 +147,7 @@ export default function ProjectsPage() {
           <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
               <div className="border-t border-line-soft pt-12">
-                <h2 className="text-3xl font-bold font-raleway mb-4">Have a project in mind?</h2>
+                <h2 className="text-3xl font-semibold font-fraunces mb-4">Have a project in mind?</h2>
                 <p className="text-ink-2 mb-8 max-w-xl">
                   Tell us what your business needs to run better.
                 </p>

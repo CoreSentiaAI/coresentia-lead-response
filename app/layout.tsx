@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Montserrat, Inter, Raleway, JetBrains_Mono } from 'next/font/google';
+import { Montserrat, Inter, Raleway, JetBrains_Mono, Fraunces } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 const montserrat = Montserrat({
@@ -25,6 +25,12 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   weight: ['400', '500', '700']
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  axes: ['opsz'],
 });
 
 export const metadata: Metadata = {
@@ -111,7 +117,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable}`}>
+      <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

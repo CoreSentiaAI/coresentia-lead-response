@@ -119,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-ink-1 mb-6 font-raleway leading-tight">
+            <h1 className="text-4xl md:text-5xl font-semibold text-ink-1 mb-6 font-fraunces leading-tight">
               {post.title}
             </h1>
 
@@ -189,7 +189,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         {/* CTA Section */}
         <section className="py-16 px-6 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-ink-1 mb-4 font-raleway">
+            <h2 className="text-2xl font-semibold text-ink-1 mb-4 font-fraunces">
               Have a Project in Mind?
             </h2>
             <p className="text-ink-2 mb-6 max-w-2xl mx-auto">

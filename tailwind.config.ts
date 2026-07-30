@@ -63,10 +63,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-        raleway: ['Raleway', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        montserrat: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
+        raleway: ['var(--font-raleway)', 'Raleway', 'sans-serif'],
+        inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        mono: ['var(--font-mono)', 'JetBrains Mono', 'monospace'],
+        fraunces: ['var(--font-fraunces)', 'Georgia', 'serif'],
       },
       animation: {
         'fade-in': 'fadeIn 1s ease-out both',

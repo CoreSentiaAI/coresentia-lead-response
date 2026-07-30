@@ -78,7 +78,7 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
             {/* Left column — 60% */}
             <div className="lg:col-span-3">
-              <h1 className="text-display font-bold font-raleway">
+              <h1 className="text-display font-semibold font-fraunces">
                 We make<br />
                 good businesses<br />
                 run better
@@ -145,7 +145,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <AnimateOnScroll>
             <div className="mb-4 max-w-2xl">
-              <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">What we build</h2>
+              <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">What we build</h2>
               <p className="text-ink-2">
                 For businesses that are already making money — and losing time.
               </p>
@@ -186,7 +186,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <AnimateOnScroll>
             <div className="mb-10 max-w-2xl">
-              <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">Selected work</h2>
+              <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Selected work</h2>
             </div>
           </AnimateOnScroll>
 
@@ -294,7 +294,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <AnimateOnScroll>
             <div className="max-w-2xl">
-              <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-10">Track record</h2>
+              <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-10">Track record</h2>
             </div>
           </AnimateOnScroll>
 
@@ -332,7 +332,7 @@ export default function HomePage() {
             {/* Left — heading */}
             <div className="lg:col-span-2">
               <AnimateOnScroll>
-                <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">
                   Let&apos;s build<br />something.
                 </h2>
                 <p className="text-ink-2">

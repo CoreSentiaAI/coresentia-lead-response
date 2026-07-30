@@ -65,7 +65,7 @@ export default async function BlogPage() {
         <section className="px-6 lg:px-8 pb-16">
           <div className="max-w-4xl mx-auto">
             <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-3 block">Blog</span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 font-raleway">
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-fraunces">
               Insights & Technical Writing
             </h1>
             <p className="text-lg text-ink-2 max-w-2xl">
@@ -111,7 +111,7 @@ export default async function BlogPage() {
                       </div>
                     </div>
 
-                    <h2 className="text-2xl font-bold text-ink-1 mb-3 font-raleway">
+                    <h2 className="text-2xl font-semibold text-ink-1 mb-3 font-fraunces">
                       <Link
                         href={`/blog/${post.slug}`}
                         className="hover:text-brand-accent transition-colors"
@@ -155,7 +155,7 @@ export default async function BlogPage() {
         {/* CTA Section */}
         <section className="py-16 px-6 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-ink-1 mb-4 font-raleway">
+            <h2 className="text-2xl font-semibold text-ink-1 mb-4 font-fraunces">
               Have a Project in Mind?
             </h2>
             <p className="text-ink-2 mb-6 max-w-2xl mx-auto">

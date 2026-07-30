@@ -41,7 +41,7 @@ export default function FirstLightPage() {
                   <span className="text-ink-3 text-xs">Consumer SaaS &middot; AI-powered</span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-raleway mb-6 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-fraunces mb-6 leading-tight">
                   FirstLight
                 </h1>
 
@@ -82,7 +82,7 @@ export default function FirstLightPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">One app instead of five</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">One app instead of five</h2>
                 <p className="text-ink-2">
                   Photographers used to check weather apps, tide charts, moon phase
                   calendars, sun position tools, and aurora trackers separately.
@@ -118,7 +118,7 @@ export default function FirstLightPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">Built for photographers who notice every detail</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Built for photographers who notice every detail</h2>
               </div>
             </AnimateOnScroll>
 
@@ -233,7 +233,7 @@ export default function FirstLightPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <AnimateOnScroll>
                 <div>
-                  <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-6">Designed for people who notice design</h2>
+                  <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-6">Designed for people who notice design</h2>
                   <p className="text-ink-2 leading-relaxed mb-6">
                     Photographers have an eye for detail. The UI had to be premium but
                     functional — dark twilight gradients, golden accent tones that evoke
@@ -287,7 +287,7 @@ export default function FirstLightPage() {
         <section className="relative bg-surface-alt py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
-              <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">Have a project like this?</h2>
+              <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Have a project like this?</h2>
               <p className="text-ink-2 mb-8 max-w-xl">
                 We build production SaaS platforms with AI integration, real-time data,
                 and premium design.

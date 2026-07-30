@@ -11,7 +11,7 @@ export default function PrivacyPage() {
         {/* Hero Section */}
         <section className="px-6 lg:px-8 pb-12">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 font-raleway">
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-fraunces">
               Privacy Policy
             </h1>
             <p className="text-lg text-ink-3">
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
               CoreSentia (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is committed to protecting your privacy and the privacy of your customers. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you visit our website, engage us for a project, or use systems we build and host.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">1. Information We Collect</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">1. Information We Collect</h2>
 
             <h3 className="text-xl font-semibold text-ink-1 mt-6 mb-3">1.1 Website Enquiries</h3>
             <p className="text-ink-2 mb-4">When you contact us through this website, we collect:</p>
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
               <li><strong className="text-ink-1">Cookies:</strong> Essential cookies for authentication and session management</li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">2. How We Use Your Information</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">2. How We Use Your Information</h2>
             <p className="text-ink-2 mb-4">We use collected information to:</p>
             <ul className="list-disc list-inside text-ink-2 mb-6 space-y-2">
               <li><strong className="text-ink-1">Respond to Enquiries:</strong> Reply to your messages and scope potential projects</li>
@@ -78,7 +78,7 @@ export default function PrivacyPage() {
               <li><strong className="text-ink-1">Compliance:</strong> Meet legal obligations, prevent fraud, enforce our terms</li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">3. How We Share Your Information</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">3. How We Share Your Information</h2>
 
             <h3 className="text-xl font-semibold text-ink-1 mt-6 mb-3">3.1 Service Providers</h3>
             <p className="text-ink-2 mb-4">We share data with trusted third-party providers who supply the infrastructure our systems run on. Depending on the project, these typically include:</p>
@@ -110,7 +110,7 @@ export default function PrivacyPage() {
               <li>We <strong className="text-ink-1">never</strong> share one client&apos;s data with another client</li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">4. Data Security</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">4. Data Security</h2>
             <p className="text-ink-2 mb-4">We implement industry-standard security measures to protect your information:</p>
             <ul className="list-disc list-inside text-ink-2 mb-6 space-y-2">
               <li><strong className="text-ink-1">Encryption:</strong> Data encrypted in transit (HTTPS/TLS) and at rest</li>
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
               While we strive to protect your data, no internet transmission or storage system is 100% secure.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">5. Data Retention</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">5. Data Retention</h2>
             <ul className="list-disc list-inside text-ink-2 mb-6 space-y-2">
               <li><strong className="text-ink-1">Enquiries:</strong> Retained while we correspond with you and for a reasonable period afterwards</li>
               <li><strong className="text-ink-1">Active Engagements:</strong> Data retained for the duration of the engagement and any ongoing hosting arrangement</li>
@@ -130,7 +130,7 @@ export default function PrivacyPage() {
               <li><strong className="text-ink-1">Billing Data:</strong> Retained for 7 years as required by Australian tax law</li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">6. Your Rights</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">6. Your Rights</h2>
             <p className="text-ink-2 mb-4">Under the Australian Privacy Principles (APPs), you have the right to:</p>
             <ul className="list-disc list-inside text-ink-2 mb-6 space-y-2">
               <li><strong className="text-ink-1">Access:</strong> Request a copy of your data</li>
@@ -144,12 +144,12 @@ export default function PrivacyPage() {
               To exercise these rights, contact us at <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link>. We will respond within 30 days.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">7. Your Customers&apos; Data</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">7. Your Customers&apos; Data</h2>
             <p className="text-ink-2 mb-6">
               Where we host a system that processes your customers&apos; information, you are the data controller and we process that data on your behalf. Your customers can exercise their privacy rights by contacting you directly. You are responsible for responding to their requests and ensuring your use of the system complies with privacy laws.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">8. Cookies and Tracking</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">8. Cookies and Tracking</h2>
             <p className="text-ink-2 mb-4">We use cookies for:</p>
             <ul className="list-disc list-inside text-ink-2 mb-6 space-y-2">
               <li><strong className="text-ink-1">Essential Cookies:</strong> Authentication, session management (required)</li>
@@ -159,32 +159,32 @@ export default function PrivacyPage() {
               You can control cookies through your browser settings. Disabling essential cookies may affect service functionality.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">9. Third-Party Links</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">9. Third-Party Links</h2>
             <p className="text-ink-2 mb-6">
               Our services may contain links to third-party websites. We are not responsible for the privacy practices of these sites. Please review their privacy policies before providing any information.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">10. Children&apos;s Privacy</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">10. Children&apos;s Privacy</h2>
             <p className="text-ink-2 mb-6">
               CoreSentia is not intended for individuals under 18. We do not knowingly collect data from children. If you believe we have collected data from a child, contact us immediately.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">11. International Data Transfers</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">11. International Data Transfers</h2>
             <p className="text-ink-2 mb-6">
               Some of our service providers (e.g., Twilio, Anthropic) are based outside Australia. Data transferred to these providers is protected by contractual safeguards and compliance with international data protection standards.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">12. Changes to This Policy</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">12. Changes to This Policy</h2>
             <p className="text-ink-2 mb-6">
               We may update this Privacy Policy from time to time. Significant changes will be communicated via email. Continued use of our services after changes take effect constitutes acceptance of the updated policy.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">13. Complaints</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">13. Complaints</h2>
             <p className="text-ink-2 mb-6">
               If you have concerns about how we handle your data, please contact us first at <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link>. If you are not satisfied with our response, you can lodge a complaint with the Office of the Australian Information Commissioner (OAIC) at <a href="https://www.oaic.gov.au" className="text-brand-accent hover:text-brand-highlight transition-colors" target="_blank" rel="noopener noreferrer">www.oaic.gov.au</a>.
             </p>
 
-            <h2 className="text-2xl font-bold text-ink-1 mt-8 mb-4">14. Contact Us</h2>
+            <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">14. Contact Us</h2>
             <p className="text-ink-2 mb-6">
               For questions or concerns about this Privacy Policy, contact us at:<br />
               <strong className="text-ink-1">Email:</strong> <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link><br />

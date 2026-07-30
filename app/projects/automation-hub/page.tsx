@@ -40,7 +40,7 @@ export default function AutomationHubPage() {
                   <span className="text-ink-3 text-xs">Enterprise automation &middot; Energy sector</span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-raleway mb-6 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-fraunces mb-6 leading-tight">
                   Enterprise Automation Hub
                 </h1>
 
@@ -91,7 +91,7 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">Two products in one platform</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Two products in one platform</h2>
                 <p className="text-ink-2">
                   A sales automation engine and a complete job management pipeline — both
                   running on the same infrastructure, connected to every system the
@@ -180,7 +180,7 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">13 systems, one nervous system</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">13 systems, one nervous system</h2>
                 <p className="text-ink-2">
                   Every integration has its own authentication pattern, error handling, and
                   retry logic. The Hub sits at the centre and orchestrates them all.
@@ -217,7 +217,7 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">Enterprise-grade, no corners cut</h2>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Enterprise-grade, no corners cut</h2>
                 <p className="text-ink-2">
                   HMAC webhook validation, role-based access control, atomic database
                   operations, and comprehensive audit logging throughout.
@@ -278,7 +278,7 @@ export default function AutomationHubPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <AnimateOnScroll>
                 <div>
-                  <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-6">15 weeks from first commit to production</h2>
+                  <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-6">15 weeks from first commit to production</h2>
                   <p className="text-ink-2 leading-relaxed mb-6">
                     An equivalent agency build would scope at $200-300K over 6-9 months. We
                     shipped it in 15 weeks — with enterprise security, 13 integrations, and
@@ -359,7 +359,7 @@ export default function AutomationHubPage() {
         <section className="relative py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
-              <h2 className="text-3xl lg:text-4xl font-bold font-raleway mb-4">Need this kind of automation?</h2>
+              <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Need this kind of automation?</h2>
               <p className="text-ink-2 mb-8 max-w-xl">
                 We build mission-critical platforms that connect your entire business — at
                 a fraction of the traditional cost.

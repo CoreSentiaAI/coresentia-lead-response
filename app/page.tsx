@@ -21,9 +21,9 @@ const services = [
   },
   {
     num: '03',
-    title: 'Internal platforms',
+    title: 'SaaS replacement',
     description:
-      'Custom dashboards, job pipelines, and operational tools built around the way your team works — replacing the spreadsheets and the enterprise licences you only use 15% of.',
+      'The CRM you use 15% of. The per-seat licences that grow with headcount. We build custom platforms that replace the subscriptions you\'ve outgrown — designed around your team, owned outright, no seat fees, forever. We\'ve replaced a $40K/year enterprise CRM with a purpose-built pipeline in 12 days.',
   },
   {
     num: '04',
@@ -301,7 +301,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-4 gap-10 md:gap-12">
             {[
               { value: '$1M+', label: 'In platform value delivered' },
-              { value: '300K+', label: 'Lines of production TypeScript shipped' },
+              { value: '320K+', label: 'Lines of production TypeScript shipped' },
               { value: '500+', label: 'API endpoints running in production' },
               { value: '24/7', label: 'Production systems, running right now' },
             ].map((stat, i) => (

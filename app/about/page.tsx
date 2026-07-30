@@ -69,7 +69,7 @@ export default function AboutPage() {
                 <p>
                   He brought that eye inside a national Australian solar company, where he
                   designed and built the operations platform that now runs the business —
-                  300,000+ lines of production TypeScript, fifteen integrated SaaS
+                  320,000+ lines of production TypeScript, fifteen integrated SaaS
                   platforms, hundreds of sales processed every month. Not advising on it,
                   not wireframing it: building it.
                 </p>
@@ -128,7 +128,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {[
                   { value: '$1M+', label: 'In platform value delivered' },
-                  { value: '300K+', label: 'Lines of production TypeScript shipped' },
+                  { value: '320K+', label: 'Lines of production TypeScript shipped' },
                   { value: '24/7', label: 'Production systems, running right now' },
                 ].map((stat) => (
                   <div key={stat.label}>

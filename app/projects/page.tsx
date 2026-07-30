@@ -81,7 +81,7 @@ export default function ProjectsPage() {
 
                     <div className="grid grid-cols-3 gap-8 max-w-md mb-8">
                       <div>
-                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">300K+</div>
+                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">320K+</div>
                         <div className="text-ink-3 text-xs mt-1">Lines of TypeScript</div>
                       </div>
                       <div>

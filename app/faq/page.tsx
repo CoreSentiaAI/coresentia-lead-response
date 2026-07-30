@@ -36,7 +36,7 @@ const faqs: FAQItem[] = [
     category: 'general',
     question: "What's your track record?",
     answer:
-      'Our flagship build is an enterprise operations platform for a national Australian solar company — 300,000+ lines of production TypeScript, 500+ API endpoints, and 15+ integrated SaaS platforms, processing hundreds of sales a month. An equivalent agency build would scope well past $1M. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
+      'Our flagship build is an enterprise operations platform for a national Australian solar company — 320,000+ lines of production TypeScript, 500+ API endpoints, and 15+ integrated SaaS platforms, processing hundreds of sales a month. An equivalent agency build would scope well past $1M. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
   },
 
   // Services
@@ -45,6 +45,12 @@ const faqs: FAQItem[] = [
     question: 'What types of projects do you take on?',
     answer:
       'Four things, mostly: process automation (removing the manual steps between quote and cash), systems integration (making your CRM, accounting, inventory, and comms talk to each other), internal platforms (custom dashboards, pipelines, and tools built around your team), and AI-native software (products with intelligence designed in from the start).',
+  },
+  {
+    category: 'services',
+    question: 'Can you replace software we currently pay for?',
+    answer:
+      "Yes — this is one of the most valuable things we do. Most businesses pay for enterprise SaaS they use a fraction of, priced per seat, forever. We build custom replacements designed around how your team actually works: you own the code outright, there are no licence fees, and it does exactly what your business needs instead of what a vendor's roadmap decided. Our flagship example: a $40K/year enterprise CRM replaced with a purpose-built job pipeline, delivered in 12 days.",
   },
   {
     category: 'services',

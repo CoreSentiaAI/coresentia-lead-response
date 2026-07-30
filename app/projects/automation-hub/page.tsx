@@ -71,7 +71,7 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
               {[
-                { value: '300K+', label: 'Lines of production TypeScript' },
+                { value: '320K+', label: 'Lines of production TypeScript' },
                 { value: '500+', label: 'API endpoints' },
                 { value: '15+', label: 'Integrated SaaS platforms' },
                 { value: '2,100+', label: 'Git commits shipped' },
@@ -373,7 +373,7 @@ export default function AutomationHubPage() {
                   <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-6">15 weeks to production. Nine months to a platform.</h2>
                   <p className="text-ink-2 leading-relaxed mb-6">
                     The first version shipped in 15 weeks. Nine months after the first
-                    commit, the platform runs most of the business — 300,000+ lines of
+                    commit, the platform runs most of the business — 320,000+ lines of
                     production code that an equivalent agency build would scope well past
                     $1M, including a custom CRM pipeline that alone would cost $50-80K to
                     commission.
@@ -424,7 +424,7 @@ export default function AutomationHubPage() {
                       apiEndpoints: <span className="text-amber-500">500</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
-                      linesOfCode: <span className="text-green-500">&apos;300,000+&apos;</span>,
+                      linesOfCode: <span className="text-green-500">&apos;320,000+&apos;</span>,
                     </div>
                     <div className="text-ink-2 pl-4">
                       commits: <span className="text-amber-500">2100</span>,

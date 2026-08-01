@@ -36,9 +36,15 @@ const faqs: FAQItem[] = [
   },
   {
     category: 'general',
+    question: 'Why is your flagship client anonymised?',
+    answer:
+      "Because their operational data is theirs, not ours. We publish only aggregate, non-identifying facts about the systems we build — enough to demonstrate the engineering, never enough to expose the business behind it. Every client gets the same discretion, in writing.",
+  },
+  {
+    category: 'general',
     question: "What's your track record?",
     answer:
-      'Our flagship build is an enterprise operations platform for a national Australian solar company — 320,000+ lines of production TypeScript, 500+ API endpoints, and 15+ integrated SaaS platforms, processing hundreds of sales a month. An equivalent agency build would scope well past $1M. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
+      'Our flagship build is an enterprise operations platform for a national Australian solar company — 320,000+ lines of production TypeScript, 500+ API endpoints, and 15+ integrated SaaS platforms — hundreds of sales processed, hands-free. An equivalent agency build would scope well past $1M. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
   },
 
   // Services
@@ -58,7 +64,7 @@ const faqs: FAQItem[] = [
     category: 'services',
     question: 'Can you replace software we currently pay for?',
     answer:
-      "Yes — this is one of the most valuable things we do. Most businesses pay for enterprise SaaS they use a fraction of, priced per seat, forever. We build custom replacements designed around how your team actually works: you own the code outright, there are no licence fees, and it does exactly what your business needs instead of what a vendor's roadmap decided. Our flagship example: a $40K/year enterprise CRM replaced with a purpose-built job pipeline, delivered in 12 days.",
+      "Yes — this is one of the most valuable things we do. Most businesses pay for enterprise SaaS they use a fraction of, priced per seat, forever. We build custom replacements designed around how your team actually works: you own the code outright, there are no licence fees, and it does exactly what your business needs instead of what a vendor's roadmap decided. Our flagship example: a purpose-built job pipeline replacing an enterprise CRM — first version live within two weeks.",
   },
   {
     category: 'services',
@@ -90,7 +96,7 @@ const faqs: FAQItem[] = [
     category: 'process',
     question: 'How long does a typical project take?',
     answer:
-      "It depends on scope. A simple internal tool might take 1-2 weeks. A full platform could be 4-8 weeks. Our largest build — an enterprise operations platform with 15+ integrations — went from first commit to production in 15 weeks, and kept growing from there. We'll give you a clear timeline during scoping.",
+      "It depends on scope. A simple internal tool might take 1-2 weeks. A full platform could be 4-8 weeks. Our largest build — an enterprise operations platform with 15+ integrations — had its first automation live in production three weeks after the first commit, and kept growing from there. We'll give you a clear timeline during scoping.",
   },
   {
     category: 'process',

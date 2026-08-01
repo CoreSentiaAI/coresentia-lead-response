@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 
-/* Timing — one config object. The real sequence takes ~6 minutes in
+/* Timing — one config object. The real sequence takes minutes in
    production; this compresses it to ~14 seconds. */
 const ANIMATION = {
   stepGap: 1500,      // ms between sequence steps
@@ -13,7 +13,7 @@ const ANIMATION = {
 /* The sequence. Each step lands one log line and one mutation on the job page. */
 const STEPS = [
   { time: '16:42:07', source: 'webhook', text: 'contract signed — residential, $14,820' },
-  { time: '16:42:08', source: 'ai', text: 'validation passed — 23/23 checks' },
+  { time: '16:42:08', source: 'ai', text: 'validation passed — every field checked' },
   { time: '16:42:09', source: 'crm', text: 'job created — 28 fields populated' },
   { time: '16:42:11', source: 'pipeline', text: 'stage 1 of 17 — preliminary assessment' },
   { time: '16:42:12', source: 'drive', text: 'folder structure created, contract archived' },
@@ -147,7 +147,10 @@ export default function JobWriter() {
         </div>
         <Reveal on={at(DONE)} className="mt-6">
           <p className="font-serif text-base text-ink-1 normal-case tracking-normal">
-            Six minutes in production. Fourteen seconds here. No human touched any of it.
+            Minutes in production. Fourteen seconds here. No human touched any of it.
+          </p>
+          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] opacity-60">
+            real sequence &middot; illustrative data
           </p>
           <button
             onClick={replay}
@@ -175,7 +178,7 @@ export default function JobWriter() {
               {/* Validation */}
               <Reveal on={at(1)}>
                 <div className="font-mono text-[10px] uppercase tracking-[0.08em]">
-                  <span className="text-accent-ink">23/23 checks passed</span>
+                  <span className="text-accent-ink">all checks passed</span>
                   <span className="opacity-60"> &middot; data validated before it propagates</span>
                 </div>
               </Reveal>

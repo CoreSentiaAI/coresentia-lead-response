@@ -189,17 +189,16 @@ export default function FirstLightPage() {
             <div className="grid lg:grid-cols-12 gap-8 items-end">
               <AnimateOnScroll className="lg:col-span-5">
                 <div className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold font-display tracking-editorial">
-                  8
+                  7
                 </div>
                 <div className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3 mt-3">
-                  condition profiles — astro to seascape
+                  data sources, one honest answer
                 </div>
               </AnimateOnScroll>
               <AnimateOnScroll delay={100} className="lg:col-span-6 lg:col-start-7">
                 <p className="text-ink-2 text-lg leading-relaxed">
-                  <span className="font-mono text-ink-1">7</span> integrated data sources
-                  and a <span className="font-mono text-ink-1">16-day</span> forecast
-                  horizon that&apos;s honest about confidence decay — with{' '}
+                  Weather, ephemeris, astronomy, maps, and place — every location
+                  personally vetted before it publishes, with{' '}
                   <span className="font-mono text-ink-1">Claude</span>-powered briefings
                   over the top.
                 </p>

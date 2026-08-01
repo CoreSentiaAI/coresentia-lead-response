@@ -93,8 +93,9 @@ export default function AutomationHubPage() {
                   Mission-critical operations platform for a national Australian solar
                   company. What began as sales automation now runs the business
                   end-to-end — 15+ integrated SaaS platforms, 500+ API endpoints, and
-                  every job managed from signed contract to final closeout. It processes
-                  hundreds of sales monthly and replaced a $40K/year CRM.
+                  every job managed from signed contract to final closeout. Hundreds of
+                  sales processed, hands-free — on a custom pipeline built to replace
+                  the enterprise CRM at the centre of the old stack.
                 </p>
 
                 <div className="flex flex-wrap gap-2">
@@ -102,6 +103,10 @@ export default function AutomationHubPage() {
                     <Tag key={tag}>{tag}</Tag>
                   ))}
                 </div>
+
+                <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+                  Client anonymised by design &mdash; every engagement gets the same discretion.
+                </p>
               </div>
             </AnimateOnScroll>
           </div>
@@ -144,7 +149,7 @@ export default function AutomationHubPage() {
                 </div>
                 <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
                   This is the real sequence the platform runs when a contract is signed —
-                  compressed from six minutes to fourteen seconds. Watch it write the job
+                  compressed to fourteen seconds. Watch it write the job
                   page.
                 </p>
               </div>
@@ -183,7 +188,7 @@ export default function AutomationHubPage() {
                     When a contract is signed on the quoting platform, the Hub takes over.
                     It validates the data with AI, creates jobs in the CRM, dispatches tasks
                     to the field team, generates Google Drive folders, creates inventory
-                    orders, and updates the sales pipeline — all in under 6 minutes.
+                    orders, and updates the sales pipeline — all in minutes, hands-free.
                   </p>
                   <ul className="space-y-2 text-sm">
                     {[
@@ -208,13 +213,13 @@ export default function AutomationHubPage() {
                   <div className="mb-6">
                     <div className="font-mono text-xs text-accent-ink mb-2">/pipeline</div>
                     <h3 className="text-xl font-medium font-display">Job Management Hub</h3>
-                    <p className="text-ink-3 font-mono text-xs mt-1">custom CRM pipeline — replaced a $40K/year platform</p>
+                    <p className="text-ink-3 font-mono text-xs mt-1">custom CRM pipeline — the enterprise CRM replacement</p>
                   </div>
                   <p className="text-ink-2 text-base leading-relaxed mb-6">
                     A complete 17-stage installation pipeline across 7 phases — from
-                    preliminary assessment through to final closeout. Built in 12 days.
-                    Replaces an enterprise CRM the business was paying $40K/year for but
-                    only using 15-20% of.
+                    preliminary assessment through to final closeout. First version live
+                    within two weeks. Built to replace an enterprise CRM the business
+                    used a fraction of.
                   </p>
                   <ul className="space-y-2 text-sm">
                     {[
@@ -421,19 +426,18 @@ export default function AutomationHubPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <AnimateOnScroll>
                 <div>
-                  <h2 className="text-3xl lg:text-4xl font-semibold font-display mb-6">15 weeks to production. Nine months to a platform.</h2>
+                  <h2 className="text-3xl lg:text-4xl font-semibold font-display mb-6">Three weeks to production. Nine months to a platform.</h2>
                   <p className="text-ink-2 leading-relaxed mb-8">
-                    The first version shipped in 15 weeks. Nine months after the first
-                    commit, the platform runs most of the business — 320,000+ lines of
-                    production code that an equivalent agency build would scope well past
-                    $1M, including a custom CRM pipeline that alone would cost $50-80K to
-                    commission.
+                    The first automation was live in production three weeks after the
+                    first commit. The full v1 platform took fifteen weeks. Nine months
+                    in, it runs most of the business — 320,000+ lines of production code
+                    that an equivalent agency build would scope well past $1M.
                   </p>
                   <div className="space-y-6">
                     {[
                       { title: 'Iteration in hours, not sprint cycles', body: 'Same-day bug fixes. Features shaped with the people who use them, shipped while the conversation is still warm.' },
                       { title: 'Complete ownership', body: 'Client owns every line of code. No vendor lock-in, no external dependencies, no retainer agreements.' },
-                      { title: 'Replaced a $40K/year CRM', body: 'Custom Job Management Hub built in 12 days. 17 stages, task management, exit criteria — purpose-built for the business.' },
+                      { title: 'Built to replace an enterprise CRM', body: 'Custom Job Management Hub, first version live within two weeks. 17 stages, task management, exit criteria — purpose-built for the business.' },
                     ].map((item, i) => (
                       <div key={item.title} className="flex items-start gap-4">
                         <span className="font-mono text-xs text-ink-3 mt-1.5 shrink-0">0{i + 1}</span>

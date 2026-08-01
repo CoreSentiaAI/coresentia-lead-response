@@ -24,7 +24,7 @@ const services = [
     num: '03',
     title: 'SaaS replacement',
     description:
-      'Custom platforms that replace the subscriptions you’ve outgrown. Owned outright, no seat fees — a $40K/year CRM replaced in 12 days.',
+      'Custom platforms that replace the subscriptions you’ve outgrown. Owned outright, no seat fees — built to replace the enterprise CRM you use a fraction of.',
   },
   {
     num: '04',
@@ -113,7 +113,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-14 font-mono text-xs uppercase tracking-[0.08em] text-ink-1">
-                15+ SaaS platforms connected &middot; 6 min contract-to-job &middot; 24/7 in production
+                15+ SaaS platforms connected &middot; in production three weeks after first commit &middot; 24/7, hands-free
               </div>
             </div>
           </div>
@@ -215,8 +215,8 @@ export default function HomePage() {
                   <p className="text-ink-2 mb-8 leading-relaxed max-w-xl">
                     Mission-critical operations platform for a national Australian solar
                     company. Fifteen SaaS platforms integrated, 500+ API endpoints, a
-                    custom CRM pipeline that replaced a $40K/year platform — and hundreds
-                    of sales processed every month, hands-free.
+                    custom pipeline built to replace the enterprise CRM — and hundreds
+                    of sales processed, hands-free.
                   </p>
                   <span className="inline-flex items-center gap-2 text-accent-ink btn group-hover:gap-3 transition-all">
                     View case study &rarr;
@@ -228,7 +228,7 @@ export default function HomePage() {
                   <div className="bg-surface-card rounded p-6 border border-line-soft group-hover:border-accent transition-colors">
                     <div className="flex items-center justify-between mb-5">
                       <span className="font-mono text-xs text-ink-3">contract-to-job pipeline</span>
-                      <span className="font-mono text-xs text-accent-ink">~6 min</span>
+                      <span className="font-mono text-xs text-accent-ink">hands-free</span>
                     </div>
                     <div className="space-y-0">
                       {pipelineSteps.map((step, i) => (

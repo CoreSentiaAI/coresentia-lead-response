@@ -67,7 +67,7 @@ export default function ProjectsPage() {
                     Mission-critical operations platform for a national Australian solar
                     company. Integrates 15+ SaaS platforms, processes hundreds of sales a
                     month, and runs every job from signed contract to final closeout —
-                    replacing a $40K/year CRM along the way.
+                    replacing the enterprise CRM at the centre of the old stack.
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-8 font-mono text-[11px]">

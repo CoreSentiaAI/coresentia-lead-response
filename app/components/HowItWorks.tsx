@@ -191,7 +191,7 @@ function TrackerFrame({ tracking, running }: { tracking: boolean; running: boole
             transition: `opacity ${ANIMATION.duration}ms ease-out ${ANIMATION.frameFlip + ANIMATION.stagger * 4}ms, transform ${ANIMATION.duration}ms ease-out ${ANIMATION.frameFlip + ANIMATION.stagger * 4}ms`,
           }}
         >
-          team notified &middot; 6 min
+          team notified &middot; auto
         </div>
       </div>
     </div>

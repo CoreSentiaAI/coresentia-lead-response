@@ -36,7 +36,7 @@ const services = [
     num: '05',
     title: 'Company-native AI',
     description:
-      'A private AI workspace on your own data — every prompt logged, governed, owned by you. No staff pasting company data into public chatbots.',
+      'A private AI workspace on your own data — every prompt logged, governed, owned by you. We\u2019ve shipped this: a governed workspace where leadership asks in plain English and gets live dashboards back.',
   },
 ]
 

@@ -412,6 +412,27 @@ export default function AutomationHubPage() {
           </div>
         </section>
 
+        {/* Executive workspace — company-native AI, shipped */}
+        <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
+              <AnimateOnScroll className="lg:col-span-4">
+                <div className="section-label mb-3">Company-native AI</div>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-display">Ask the business a question</h2>
+              </AnimateOnScroll>
+              <AnimateOnScroll delay={100} className="lg:col-span-7 lg:col-start-6">
+                <p className="text-ink-2 leading-relaxed">
+                  The platform includes a governed executive workspace: leadership asks a
+                  question in plain English, and AI answers with live dashboards — built
+                  on the spot, on a read-only connection, with every query logged. That
+                  is what company-native AI means in practice: sanctioned, governed, and
+                  owned by the business.
+                </p>
+              </AnimateOnScroll>
+            </div>
+          </div>
+        </section>
+
         {/* Structure break — full bleed */}
         <section className="relative h-[40vh] lg:h-[52vh] overflow-hidden dark-only" aria-hidden>
           <Image

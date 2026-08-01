@@ -308,6 +308,12 @@ export default function AutomationHubPage() {
                 </AnimateOnScroll>
               ))}
             </div>
+
+            <AnimateOnScroll>
+              <p className="mt-10 text-ink-2 text-lg">
+                Different stack? Every integration above was learned from scratch.
+              </p>
+            </AnimateOnScroll>
           </div>
         </section>
 

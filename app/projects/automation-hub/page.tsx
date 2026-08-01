@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import AnimateOnScroll from '../../components/AnimateOnScroll'
+import JobWriter from '../../components/JobWriter'
 
 function Tag({ children }: { children: string }) {
   return (
@@ -127,6 +128,26 @@ export default function AutomationHubPage() {
                 </p>
               </AnimateOnScroll>
             </div>
+          </div>
+        </section>
+
+        {/* Watch a sale become a job — the platform writing a job page, live */}
+        <section className="py-32 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-7xl mx-auto">
+            <AnimateOnScroll>
+              <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-14">
+                <div className="lg:col-span-5">
+                  <div className="section-label mb-3">Live sequence</div>
+                  <h2 className="text-3xl lg:text-4xl font-semibold font-display">Watch a sale become a job</h2>
+                </div>
+                <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
+                  This is the real sequence the platform runs when a contract is signed —
+                  compressed from six minutes to fourteen seconds. Watch it write the job
+                  page.
+                </p>
+              </div>
+            </AnimateOnScroll>
+            <JobWriter />
           </div>
         </section>
 

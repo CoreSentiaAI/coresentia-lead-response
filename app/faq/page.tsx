@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Backdrop from '../components/Backdrop'
 
 interface FAQItem {
   question: string

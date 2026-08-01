@@ -22,7 +22,7 @@ export default function FirstLightPage() {
           <div className="max-w-7xl mx-auto">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-accent-ink hover:text-ink-1 font-medium text-sm transition-colors font-display"
+              className="inline-flex items-center gap-2 text-accent-ink hover:text-ink-1 btn transition-colors"
             >
               &larr; Back to work
             </Link>
@@ -57,7 +57,7 @@ export default function FirstLightPage() {
                   href="https://first-light.com.au"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
+                  className="inline-flex items-center gap-2 px-7 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
                     hover:bg-[#4dc4e8] transition-colors text-base"
                 >
                   Visit first-light.com.au &rarr;
@@ -101,7 +101,7 @@ export default function FirstLightPage() {
                 <AnimateOnScroll key={item.title} delay={i * 100}>
                   <div className="bg-surface-card border border-line-soft rounded p-6 h-full hover:border-accent transition-colors">
                     <div className="font-mono text-xs text-ink-3 mb-3">{item.num}</div>
-                    <h3 className="text-lg font-semibold font-display mb-2">{item.title}</h3>
+                    <h3 className="text-lg font-medium font-display mb-2">{item.title}</h3>
                     <p className="text-ink-2 text-sm leading-relaxed">{item.description}</p>
                   </div>
                 </AnimateOnScroll>
@@ -124,7 +124,7 @@ export default function FirstLightPage() {
               <AnimateOnScroll>
                 <div className="bg-surface-card border border-line-soft rounded p-8">
                   <div className="font-mono text-xs text-accent-ink mb-3">/scout</div>
-                  <h3 className="text-xl font-semibold font-display mb-3">Scout AI assistant</h3>
+                  <h3 className="text-xl font-medium font-display mb-3">Scout AI assistant</h3>
                   <p className="text-ink-2 text-base leading-relaxed mb-4">
                     A draggable, expandable AI chat panel powered by Claude. Photographers
                     ask natural questions and get location-aware, condition-aware creative
@@ -141,7 +141,7 @@ export default function FirstLightPage() {
               <AnimateOnScroll delay={100}>
                 <div className="bg-surface-card border border-line-soft rounded p-8">
                   <div className="font-mono text-xs text-accent-ink mb-3">/locations</div>
-                  <h3 className="text-xl font-semibold font-display mb-3">Hand-vetted locations</h3>
+                  <h3 className="text-xl font-medium font-display mb-3">Hand-vetted locations</h3>
                   <p className="text-ink-2 text-base leading-relaxed mb-4">
                     A curated library of parks, dark-sky anchors, and shooting locations —
                     every row personally vetted before it publishes. No scraped databases:
@@ -159,7 +159,7 @@ export default function FirstLightPage() {
               <AnimateOnScroll delay={200}>
                 <div className="bg-surface-card border border-line-soft rounded p-8">
                   <div className="font-mono text-xs text-ink-3 mb-3">/conditions</div>
-                  <h3 className="text-xl font-semibold font-display mb-3">Conditions dashboard</h3>
+                  <h3 className="text-xl font-medium font-display mb-3">Conditions dashboard</h3>
                   <p className="text-ink-2 text-base leading-relaxed">
                     Live conditions at a glance — weather, light times, moon phase, wind
                     maps, and satellite imagery. Designed for quick field checks with
@@ -171,7 +171,7 @@ export default function FirstLightPage() {
               <AnimateOnScroll delay={300}>
                 <div className="bg-surface-card border border-line-soft rounded p-8">
                   <div className="font-mono text-xs text-ink-3 mb-3">/profiles</div>
-                  <h3 className="text-xl font-semibold font-display mb-3">Style profiles</h3>
+                  <h3 className="text-xl font-medium font-display mb-3">Style profiles</h3>
                   <p className="text-ink-2 text-base leading-relaxed">
                     Photographers set their mood, subjects, and palette preferences. AI
                     briefings adapt — a moody seascape shooter gets different advice than a
@@ -274,7 +274,7 @@ export default function FirstLightPage() {
               </p>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
+                className="inline-flex items-center gap-2 px-7 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
                   hover:bg-[#4dc4e8] transition-colors"
               >
                 Start a project

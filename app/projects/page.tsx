@@ -85,7 +85,7 @@ export default function ProjectsPage() {
                     <span className="font-mono text-sm text-ink-2">500+ API endpoints &middot; 15+ SaaS platforms</span>
                   </div>
 
-                  <span className="inline-flex items-center gap-2 text-accent-ink font-medium font-display group-hover:gap-3 transition-all">
+                  <span className="inline-flex items-center gap-2 text-accent-ink btn group-hover:gap-3 transition-all">
                     View case study &rarr;
                   </span>
                 </div>
@@ -106,13 +106,13 @@ export default function ProjectsPage() {
                         <LiveTag />
                         <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Consumer SaaS</span>
                       </div>
-                      <h3 className="text-2xl font-semibold font-display mb-3 group-hover:text-accent-ink transition-colors">FirstLight</h3>
+                      <h3 className="text-2xl font-medium font-display mb-3 group-hover:text-accent-ink transition-colors">FirstLight</h3>
                       <p className="text-ink-2 mb-4 leading-relaxed">
                         A conditions-first decision engine for nature photographers.
                         Ephemeris, weather, season, and place — synthesised into an honest
                         answer about where to be and when, with AI briefings over the top.
                       </p>
-                      <span className="inline-flex items-center gap-2 text-accent-ink font-medium text-sm font-display group-hover:gap-3 transition-all">
+                      <span className="inline-flex items-center gap-2 text-accent-ink btn group-hover:gap-3 transition-all">
                         View case study &rarr;
                       </span>
                     </div>
@@ -143,7 +143,7 @@ export default function ProjectsPage() {
                 </p>
                 <Link
                   href="/#contact"
-                  className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
+                  className="inline-flex items-center gap-2 px-7 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
                     hover:bg-[#4dc4e8] transition-colors"
                 >
                   Get in touch &rarr;

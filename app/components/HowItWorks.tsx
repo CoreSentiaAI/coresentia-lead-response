@@ -245,7 +245,7 @@ export default function HowItWorks() {
         >
           0{i + 1}
         </span>
-        <h3 className="text-lg font-semibold font-display">{STAGES[i].label}</h3>
+        <h3 className="text-lg font-medium font-display">{STAGES[i].label}</h3>
       </div>
       <p className="text-ink-2 text-sm leading-relaxed">{STAGES[i].caption}</p>
     </div>

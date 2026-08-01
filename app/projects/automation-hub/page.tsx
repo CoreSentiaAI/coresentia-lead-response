@@ -50,7 +50,7 @@ export default function AutomationHubPage() {
           <div className="max-w-7xl mx-auto">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-accent-ink hover:text-ink-1 font-medium text-sm transition-colors font-display"
+              className="inline-flex items-center gap-2 text-accent-ink hover:text-ink-1 btn transition-colors"
             >
               &larr; Back to work
             </Link>
@@ -152,7 +152,7 @@ export default function AutomationHubPage() {
                 <div className="bg-surface-card border border-line-soft rounded p-8 h-full">
                   <div className="mb-6">
                     <div className="font-mono text-xs text-accent-ink mb-2">/engine</div>
-                    <h3 className="text-xl font-semibold font-display">Sales Automation Engine</h3>
+                    <h3 className="text-xl font-medium font-display">Sales Automation Engine</h3>
                     <p className="text-ink-3 font-mono text-xs mt-1">webhook-driven, zero manual entry</p>
                   </div>
                   <p className="text-ink-2 text-base leading-relaxed mb-6">
@@ -183,7 +183,7 @@ export default function AutomationHubPage() {
                 <div className="bg-surface-card border border-line-soft rounded p-8 h-full">
                   <div className="mb-6">
                     <div className="font-mono text-xs text-accent-ink mb-2">/pipeline</div>
-                    <h3 className="text-xl font-semibold font-display">Job Management Hub</h3>
+                    <h3 className="text-xl font-medium font-display">Job Management Hub</h3>
                     <p className="text-ink-3 font-mono text-xs mt-1">custom CRM pipeline — replaced a $40K/year platform</p>
                   </div>
                   <p className="text-ink-2 text-base leading-relaxed mb-6">
@@ -272,7 +272,7 @@ export default function AutomationHubPage() {
                 <AnimateOnScroll key={item.title} delay={i * 80}>
                   <div className="bg-surface-card border border-line-soft rounded p-6 h-full hover:border-accent transition-colors">
                     <div className="font-mono text-xs text-ink-3 mb-3">{item.num}</div>
-                    <h3 className="text-base font-semibold font-display mb-2">{item.title}</h3>
+                    <h3 className="text-base font-medium font-display mb-2">{item.title}</h3>
                     <p className="text-ink-2 text-sm leading-relaxed">{item.description}</p>
                   </div>
                 </AnimateOnScroll>
@@ -298,7 +298,7 @@ export default function AutomationHubPage() {
             <div className="grid lg:grid-cols-2 gap-6">
               <AnimateOnScroll>
                 <div className="bg-surface-card border border-line-soft rounded p-8">
-                  <h3 className="text-lg font-semibold font-display mb-4">Security &amp; reliability</h3>
+                  <h3 className="text-lg font-medium font-display mb-4">Security &amp; reliability</h3>
                   <div className="space-y-3 font-mono text-sm">
                     {[
                       'HMAC-SHA256 webhook signature validation',
@@ -319,7 +319,7 @@ export default function AutomationHubPage() {
 
               <AnimateOnScroll delay={150}>
                 <div className="bg-surface-card border border-line-soft rounded p-8">
-                  <h3 className="text-lg font-semibold font-display mb-4">Scale &amp; architecture</h3>
+                  <h3 className="text-lg font-medium font-display mb-4">Scale &amp; architecture</h3>
                   <div className="space-y-3 font-mono text-sm">
                     {[
                       '1,300+ source files across app, API, lib, and types',
@@ -362,7 +362,7 @@ export default function AutomationHubPage() {
                     <div className="md:col-span-1 font-mono text-sm text-ink-3 group-hover:text-accent-ink transition-colors">
                       {idea.num}
                     </div>
-                    <h3 className="md:col-span-4 text-lg lg:text-xl font-semibold font-display">
+                    <h3 className="md:col-span-4 text-lg lg:text-xl font-medium font-display">
                       {idea.title}
                     </h3>
                     <p className="md:col-span-7 text-ink-2 leading-relaxed text-base">
@@ -373,6 +373,20 @@ export default function AutomationHubPage() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Structure break — full bleed */}
+        <section className="relative h-[40vh] lg:h-[52vh] overflow-hidden dark-only" aria-hidden>
+          <Image
+            src="/structure-sweep.jpg"
+            alt=""
+            fill
+            className="object-cover object-center opacity-60"
+            quality={82}
+            sizes="100vw"
+          />
+          <div className="absolute inset-x-0 top-0 h-36" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-36" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
         </section>
 
         {/* The Build Story */}
@@ -447,7 +461,7 @@ export default function AutomationHubPage() {
               </p>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
+                className="inline-flex items-center gap-2 px-7 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
                   hover:bg-[#4dc4e8] transition-colors"
               >
                 Start a project

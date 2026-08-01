@@ -69,12 +69,12 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1 font-display">
+          <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-ink-3 px-4 py-2
+                className="btn text-ink-3 px-4 py-2
                   hover:text-ink-1
                   transition-colors duration-200"
               >
@@ -84,7 +84,7 @@ export default function Header() {
             <ThemeToggle className="ml-1" />
             <Link
               href="/#contact"
-              className="ml-3 px-5 py-2 bg-accent text-[#0d0d0c] font-medium rounded-sm
+              className="ml-3 px-5 py-2 btn bg-accent text-[#0d0d0c] font-medium rounded-sm
                 hover:bg-[#4dc4e8]
                 transition-colors duration-200 text-sm"
             >
@@ -123,7 +123,7 @@ export default function Header() {
             <Link
               href="/#contact"
               onClick={() => setMobileOpen(false)}
-              className="mt-4 px-8 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm
+              className="mt-4 px-8 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm
                 hover:bg-[#4dc4e8] transition-colors duration-300 text-lg"
             >
               Get in touch

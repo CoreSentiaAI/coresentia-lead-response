@@ -33,13 +33,13 @@ export default function Footer() {
           </Link>
 
           {/* Links */}
-          <nav className="flex items-center gap-1 text-sm text-ink-3 flex-wrap justify-center font-display">
+          <nav className="flex items-center gap-1 text-ink-3 flex-wrap justify-center">
             {links.map((link, i) => (
               <span key={link.href} className="flex items-center">
                 {i > 0 && <span className="mx-2 text-line-strong">&middot;</span>}
                 <Link
                   href={link.href}
-                  className="hover:text-ink-1 transition-colors"
+                  className="btn hover:text-ink-1 transition-colors"
                 >
                   {link.label}
                 </Link>

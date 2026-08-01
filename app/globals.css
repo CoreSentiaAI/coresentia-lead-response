@@ -181,7 +181,7 @@ h2 {
 
 h3 {
   font-family: var(--font-fraunces), Georgia, serif;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.5rem;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -225,6 +225,16 @@ h6 {
     font-size: 1.15rem;
     line-height: 1.7;
   }
+}
+
+/* Buttons and controls: mono uppercase — instrument labels, not display type.
+   Unlayered so it wins over font/size utilities left on the same element. */
+.btn {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 /* Mono section label per DESIGN.md */

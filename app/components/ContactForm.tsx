@@ -65,7 +65,7 @@ export default function ContactForm() {
       <div className="bg-surface-card border border-line-soft rounded p-8 md:p-12 max-w-2xl mx-auto">
         <div className="flex items-center gap-3 mb-3">
           <Check className="w-5 h-5 text-accent-ink" />
-          <h3 className="text-2xl font-semibold text-ink-1 font-display">
+          <h3 className="text-2xl font-medium text-ink-1 font-display">
             Message received.
           </h3>
         </div>
@@ -80,7 +80,7 @@ export default function ContactForm() {
         </p>
         <button
           onClick={() => setIsSuccess(false)}
-          className="mt-6 text-accent-ink hover:text-ink-1 font-medium transition-colors font-display text-sm"
+          className="mt-6 text-accent-ink hover:text-ink-1 btn transition-colors"
         >
           Send another message &rarr;
         </button>
@@ -95,7 +95,7 @@ export default function ContactForm() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="contact-name" className="block text-sm font-medium text-ink-1 mb-2 font-display">
+          <label htmlFor="contact-name" className="btn block text-ink-1 mb-2">
             Your Name <span className="text-accent-ink">*</span>
           </label>
           <input
@@ -112,7 +112,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="contact-email" className="block text-sm font-medium text-ink-1 mb-2 font-display">
+          <label htmlFor="contact-email" className="btn block text-ink-1 mb-2">
             Email Address <span className="text-accent-ink">*</span>
           </label>
           <input
@@ -132,7 +132,7 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="contact-phone" className="block text-sm font-medium text-ink-1 mb-2 font-display">
+          <label htmlFor="contact-phone" className="btn block text-ink-1 mb-2">
             Phone Number
           </label>
           <input
@@ -148,7 +148,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="contact-type" className="block text-sm font-medium text-ink-1 mb-2 font-display">
+          <label htmlFor="contact-type" className="btn block text-ink-1 mb-2">
             Project Type
           </label>
           <select
@@ -173,7 +173,7 @@ export default function ContactForm() {
       </div>
 
       <div className="mb-6">
-        <label htmlFor="contact-message" className="block text-sm font-medium text-ink-1 mb-2 font-display">
+        <label htmlFor="contact-message" className="btn block text-ink-1 mb-2">
           Tell us about your project
         </label>
         <textarea
@@ -198,7 +198,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-accent text-[#0d0d0c] font-medium py-4 rounded-sm font-display
+        className="w-full btn bg-accent text-[#0d0d0c] font-medium py-4 rounded-sm font-display
           hover:bg-[#4dc4e8] transition-colors
           disabled:opacity-50 disabled:cursor-not-allowed
           flex items-center justify-center gap-2 text-lg"

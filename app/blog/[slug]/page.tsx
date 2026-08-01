@@ -197,7 +197,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             </p>
             <Link
               href="/#contact"
-              className="inline-block px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display hover:bg-[#4dc4e8] transition-colors"
+              className="inline-block px-7 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm font-display hover:bg-[#4dc4e8] transition-colors"
             >
               <span className="relative z-10">Get in Touch</span>
               

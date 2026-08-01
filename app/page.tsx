@@ -64,13 +64,13 @@ export default function HomePage() {
 
       {/* ========== HERO ========== */}
       <section className="relative px-6 lg:px-8 pt-44 pb-32 lg:pt-56 lg:pb-44 overflow-hidden">
-        {/* Structure: spiral stair — light falls on the text side, curve sweeps into dark */}
+        {/* Structure: shallow steps in raking light (trial vs spiral stair — swap src to compare) */}
         <div className="absolute inset-0 z-0 pointer-events-none dark-only">
           <Image
-            src="/structure-stair.jpg"
+            src="/structure-steps.jpg"
             alt=""
             fill
-            className="object-cover object-center opacity-50"
+            className="object-cover object-center opacity-55"
             priority
             quality={82}
           />
@@ -92,20 +92,20 @@ export default function HomePage() {
               <p className="text-ink-2 max-w-md mb-8">
                 We map how your business works, then build the software that
                 makes it faster — automation, integration, and AI-native
-                systems. Brisbane.
+                systems.
               </p>
 
-              <div className="flex items-center gap-6 font-display">
+              <div className="flex items-center gap-6">
                 <Link
                   href="#contact"
-                  className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm
+                  className="px-7 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm
                     hover:bg-[#4dc4e8] transition-colors text-base"
                 >
                   Start a project
                 </Link>
                 <Link
                   href="/projects"
-                  className="text-ink-1 font-medium transition-opacity hover:opacity-70 text-sm group"
+                  className="btn text-ink-1 transition-opacity hover:opacity-70 group"
                 >
                   View the work <span className="inline-block group-hover:translate-x-0.5 transition-transform">&rarr;</span>
                 </Link>
@@ -141,7 +141,7 @@ export default function HomePage() {
                   <div className="lg:col-span-1 font-mono text-sm group-hover:text-accent-ink transition-colors">
                     {service.num}
                   </div>
-                  <h3 className="lg:col-span-4 text-xl lg:text-2xl font-semibold font-display">
+                  <h3 className="lg:col-span-4 text-xl lg:text-2xl font-medium font-display">
                     {service.title}
                   </h3>
                   <p className="lg:col-span-7 leading-snug text-base">
@@ -207,7 +207,7 @@ export default function HomePage() {
                     <LiveTag />
                     <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Enterprise platform &middot; Solar</span>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-semibold font-display mb-4 group-hover:text-accent-ink transition-colors">
+                  <h3 className="text-2xl md:text-3xl font-medium font-display mb-4 group-hover:text-accent-ink transition-colors">
                     Enterprise Operations Platform
                   </h3>
                   <p className="text-ink-2 mb-8 leading-relaxed max-w-xl">
@@ -216,7 +216,7 @@ export default function HomePage() {
                     custom CRM pipeline that replaced a $40K/year platform — and hundreds
                     of sales processed every month, hands-free.
                   </p>
-                  <span className="inline-flex items-center gap-2 text-accent-ink font-medium text-sm font-display group-hover:gap-3 transition-all">
+                  <span className="inline-flex items-center gap-2 text-accent-ink btn group-hover:gap-3 transition-all">
                     View case study &rarr;
                   </span>
                 </div>
@@ -259,7 +259,7 @@ export default function HomePage() {
                     <LiveTag />
                     <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Consumer SaaS</span>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-semibold font-display group-hover:text-accent-ink transition-colors">
+                  <h3 className="text-xl md:text-2xl font-medium font-display group-hover:text-accent-ink transition-colors">
                     FirstLight
                   </h3>
                 </div>
@@ -275,7 +275,7 @@ export default function HomePage() {
             <div className="mt-12 pt-8 border-t border-line-soft font-display">
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-sm border border-line-strong text-ink-2 text-sm font-medium
+                className="inline-flex items-center gap-2 px-6 py-2.5 btn rounded-sm border border-line-strong text-ink-2
                   hover:border-accent hover:text-accent-ink transition-colors"
               >
                 View all projects &rarr;

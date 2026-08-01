@@ -177,7 +177,7 @@ export default function AboutPage() {
                     <div className="md:col-span-1 font-mono text-sm text-ink-3 group-hover:text-accent-ink transition-colors">
                       {p.num}
                     </div>
-                    <h3 className="md:col-span-3 text-xl font-semibold font-display">
+                    <h3 className="md:col-span-3 text-xl font-medium font-display">
                       {p.title}
                     </h3>
                     <p className="md:col-span-8 md:col-start-5 text-ink-2 leading-relaxed text-base">
@@ -226,16 +226,16 @@ export default function AboutPage() {
               <p className="text-ink-2 mb-8">
                 Let&apos;s talk about what you need built.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 font-display">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/#contact"
-                  className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm hover:bg-[#4dc4e8] transition-colors text-center"
+                  className="px-7 py-3 btn bg-accent text-[#0d0d0c] font-medium rounded-sm hover:bg-[#4dc4e8] transition-colors text-center"
                 >
                   Get in touch
                 </Link>
                 <Link
                   href="/projects"
-                  className="px-7 py-3 rounded-sm border border-line-strong text-ink-1 font-medium hover:border-accent transition-colors text-center"
+                  className="px-7 py-3 btn rounded-sm border border-line-strong text-ink-1 hover:border-accent transition-colors text-center"
                 >
                   View the work
                 </Link>

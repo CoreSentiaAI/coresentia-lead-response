@@ -36,13 +36,14 @@
   --ink-2: #ffffff;
   --ink-3: #ffffff;
 
-  /* Accent system — logo azure promoted, other logo blues demoted.
+  /* Accent system — logo sky blue promoted (founder call, Aug 2026):
+     luminous against the B&W concrete where azure read as corporate blue.
      --accent: fills, buttons, markers (true logo hex, both themes)
      --accent-ink: text/links (AA-compliant per theme) */
-  --accent: #1099e7;
-  --accent-ink: #1099e7;
+  --accent: #62d4f9;
+  --accent-ink: #62d4f9;
   --blue-royal: #2a50df; /* demoted: deep border tints only */
-  --blue-sky: #62d4f9;   /* demoted: chart secondary / subtle tints only */
+  --blue-azure: #1099e7; /* demoted: chart secondary / subtle tints only */
 
   /* Legacy aliases still referenced by older utilities */
   --surface-primary: var(--surface-base);
@@ -235,8 +236,10 @@ h6 {
   color: var(--ink-3);
 }
 
+/* No global p font-family — public pages inherit Newsreader from .editorial,
+   admin inherits Raleway from body. (A raleway rule here was silently
+   overriding the serif body across the whole public site.) */
 p {
-  font-family: var(--font-raleway), var(--font-inter), sans-serif;
   line-height: 1.7;
 }
 

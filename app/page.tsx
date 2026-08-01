@@ -99,7 +99,7 @@ export default function HomePage() {
                 <Link
                   href="#contact"
                   className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm
-                    hover:bg-[#0d86cc] transition-colors text-base"
+                    hover:bg-[#4dc4e8] transition-colors text-base"
                 >
                   Start a project
                 </Link>

@@ -22,15 +22,15 @@ CoreSentia is one proven operator, not an agency. The site should feel like it w
 
 - Background: near-black warm — `#111110` (not pure `#000`, not blue-tinted). Light theme: warm paper `#F7F5F0` under the same rules; the theme toggle is a supported feature.
 - **Text: pure white `#FFFFFF`, no greys — founder rule.** All text is full-brightness; hierarchy comes from size, weight, and mono-vs-serif, never from dimming. Light theme: all text `#161615`. Grey/muted text classes are banned.
-- **One accent only: `#1099E7`** (logo azure — the most vibrant of the three logo blues, extracted from the logo asset, sat 0.93). Used sparingly: links, one CTA, active states, chart lines, the featured-service marker. Never large fills, never gradients.
-- **Demoted logo blues:** `#2A50DF` (royal) and `#62D4F9` (sky) may only appear as border tints, secondary-text tints, or subtle chart secondary series. Never as competing accents. Three equal blues = banned.
-- **Contrast:** `#1099E7` passes WCAG AA on `#111110` (6.1:1) — used directly for text on dark. On the light theme it fails (3.0:1), so text/links there use the darkened variant `--accent-ink: #0A72B2`; buttons and fills keep the true logo hex in both themes. Logo file untouched.
+- **One accent only: `#62D4F9`** (logo sky blue — founder call Aug 2026: luminous against the B&W concrete where azure read as corporate blue). Used sparingly: links, one CTA, active states, chart lines, the featured-service marker. Never large fills, never gradients. Button hover: `#4dc4e8`.
+- **Demoted logo blues:** `#2A50DF` (royal) and `#1099E7` (azure) may only appear as border tints, secondary-text tints, or subtle chart secondary series. Never as competing accents. Three equal blues = banned.
+- **Contrast:** `#62D4F9` passes WCAG AA on `#111110` (11.1:1) — used directly for text on dark. On the light theme it fails, so text/links there use the darkened variant `--accent-ink: #0A72B2`; buttons and fills keep the true logo hex in both themes. Logo file untouched.
 - **BANNED:** purple/blue gradients, gradient text, glow/bloom effects, glassmorphism (`backdrop-blur` on cards), neon borders, blue-black backgrounds (warm dark + cold blue accent is the deliberate pairing).
 
 ## Imagery — brutalist concrete photography
 
 - The image library is four licensed Adobe Stock photos plus the founder's own photography (his astro work, and a headshot when supplied). Nothing else — no other stock, no icons-as-images, no illustrations.
-- The four: spiral staircase (1629413118 — homepage hero), ribbed curved sweep (2093142889 — full-bleed mid-page break), coffered grid ceiling (637731154 — About hero), concrete lattice (2063741601 — reserve only).
+- The four: spiral staircase (1629413118 — homepage hero), ribbed curved sweep (2093142889 — full-bleed mid-page break), coffered grid ceiling (637731154 — About hero), concrete lattice (2063741601 — Work page hero). The founder may add more concrete/structural photos over time — same concept and treatment apply; drop sources in `marketing_images/`.
 - Concept: engineered structure — many repeated elements resolving into one form. Architectural stand-ins for what CoreSentia builds. Always large and editorial, never small decorations, thumbnails, or card backgrounds.
 - Treatment: true B&W, black point lifted to `#111110` so edges dissolve into the page (no visible rectangles); soft gradient masks over hard crops; directional darken gradient on the text side; ~3.5% film grain baked in; graded sources in `/public/structure-*.jpg`, served via next/image.
 - Max one photo visible per viewport; never two images adjacent. Currently dark-theme only (`.dark-only`) — light theme runs clean paper until a light grade is designed.

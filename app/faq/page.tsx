@@ -231,7 +231,7 @@ export default function FAQPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/#contact"
-                className="px-8 py-3.5 bg-accent text-[#0d0d0c] font-semibold rounded-sm hover:bg-[#0d86cc] transition-colors text-center"
+                className="px-8 py-3.5 bg-accent text-[#0d0d0c] font-semibold rounded-sm hover:bg-[#4dc4e8] transition-colors text-center"
               >
                 Get in touch
               </Link>

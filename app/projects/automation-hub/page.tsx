@@ -434,7 +434,7 @@ export default function AutomationHubPage() {
               <Link
                 href="/#contact"
                 className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
-                  hover:bg-[#0d86cc] transition-colors"
+                  hover:bg-[#4dc4e8] transition-colors"
               >
                 Start a project
               </Link>

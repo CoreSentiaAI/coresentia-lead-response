@@ -199,7 +199,7 @@ export default function ContactForm() {
         type="submit"
         disabled={isSubmitting}
         className="w-full bg-accent text-[#0d0d0c] font-medium py-4 rounded-sm font-display
-          hover:bg-[#0d86cc] transition-colors
+          hover:bg-[#4dc4e8] transition-colors
           disabled:opacity-50 disabled:cursor-not-allowed
           flex items-center justify-center gap-2 text-lg"
       >

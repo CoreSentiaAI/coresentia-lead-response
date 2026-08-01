@@ -229,7 +229,7 @@ export default function AboutPage() {
               <div className="flex flex-col sm:flex-row gap-4 font-display">
                 <Link
                   href="/#contact"
-                  className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm hover:bg-[#0d86cc] transition-colors text-center"
+                  className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm hover:bg-[#4dc4e8] transition-colors text-center"
                 >
                   Get in touch
                 </Link>

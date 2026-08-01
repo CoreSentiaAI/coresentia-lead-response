@@ -85,7 +85,7 @@ export default function Header() {
             <Link
               href="/#contact"
               className="ml-3 px-5 py-2 bg-accent text-[#0d0d0c] font-medium rounded-sm
-                hover:bg-[#0d86cc]
+                hover:bg-[#4dc4e8]
                 transition-colors duration-200 text-sm"
             >
               Start a project
@@ -124,7 +124,7 @@ export default function Header() {
               href="/#contact"
               onClick={() => setMobileOpen(false)}
               className="mt-4 px-8 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm
-                hover:bg-[#0d86cc] transition-colors duration-300 text-lg"
+                hover:bg-[#4dc4e8] transition-colors duration-300 text-lg"
             >
               Get in touch
             </Link>

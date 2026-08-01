@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Montserrat, Inter, Raleway, JetBrains_Mono, Fraunces } from 'next/font/google';
+import { Montserrat, Inter, Raleway, JetBrains_Mono, Instrument_Sans, Newsreader } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 const montserrat = Montserrat({
@@ -27,9 +27,15 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700']
 });
 
-const fraunces = Fraunces({
+const instrumentSans = Instrument_Sans({
   subsets: ['latin'],
-  variable: '--font-fraunces',
+  variable: '--font-instrument',
+});
+
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  variable: '--font-newsreader',
+  style: ['normal', 'italic'],
   axes: ['opsz'],
 });
 
@@ -40,6 +46,9 @@ export const metadata: Metadata = {
     'business process automation',
     'systems integration Australia',
     'AI automation Brisbane',
+    'private AI workspace',
+    'AI governance',
+    'company AI platform',
     'custom software development',
     'AI-native applications',
     'internal tools development',
@@ -117,7 +126,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}>
+      <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable} ${instrumentSans.variable} ${newsreader.variable}`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

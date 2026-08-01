@@ -33,7 +33,7 @@ export default function Footer() {
           </Link>
 
           {/* Links */}
-          <nav className="flex items-center gap-1 text-sm text-ink-3 flex-wrap justify-center">
+          <nav className="flex items-center gap-1 text-sm text-ink-3 flex-wrap justify-center font-display">
             {links.map((link, i) => (
               <span key={link.href} className="flex items-center">
                 {i > 0 && <span className="mx-2 text-line-strong">&middot;</span>}
@@ -50,13 +50,13 @@ export default function Footer() {
           {/* Contact */}
           <Link
             href="mailto:info@coresentia.com"
-            className="text-sm text-ink-3 hover:text-brand-accent transition-colors shrink-0"
+            className="text-sm text-ink-3 hover:text-accent-ink transition-colors shrink-0 font-mono"
           >
             info@coresentia.com
           </Link>
         </div>
 
-        <div className="mt-6 pt-6 border-t border-line-soft flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ink-3">
+        <div className="mt-6 pt-6 border-t border-line-soft flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ink-3 font-mono">
           <p>&copy; {new Date().getFullYear()} CoreSentia</p>
           <p>ABN: 69 267 271 132 &middot; Brisbane, Australia</p>
         </div>

@@ -1,47 +1,36 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import AnimateOnScroll from '../components/AnimateOnScroll'
 
+function LiveTag() {
+  return (
+    <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-2">
+      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+      Live
+    </span>
+  )
+}
+
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1">
       <Header />
 
-      <main className="pb-12">
+      <main className="pb-16">
         {/* Hero — compact, editorial */}
-        <section className="relative px-6 lg:px-8 pt-40 pb-16 lg:pt-48 lg:pb-20 overflow-hidden">
-          <div className="absolute inset-0 z-0 pointer-events-none dark-only">
-            <Image
-              src="/hero-bg.jpeg"
-              alt=""
-              fill
-              className="object-cover object-center opacity-30"
-              priority
-              quality={80}
-            />
-            <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-dark-bg-primary to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-dark-bg-primary to-transparent" />
-            <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-dark-bg-primary to-transparent" />
-          </div>
-          <div
-            className="absolute inset-0 z-0 pointer-events-none light-only"
-            style={{
-              background:
-                'radial-gradient(70% 60% at 90% 10%, rgba(42, 80, 223, 0.06) 0%, transparent 70%)',
-            }}
-          />
-          <div className="max-w-7xl mx-auto w-full relative z-10">
+        <section className="px-6 lg:px-8 pt-40 pb-16 lg:pt-48 lg:pb-20">
+          <div className="max-w-7xl mx-auto w-full">
             <AnimateOnScroll>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-fraunces mb-6">
-                Work
-              </h1>
-              <p className="text-lg text-ink-2 max-w-2xl">
-                Production systems we&apos;ve designed, built, and run — from enterprise
-                automation to consumer SaaS.
-              </p>
+              <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 items-end">
+                <h1 className="lg:col-span-4 text-5xl md:text-6xl lg:text-7xl font-semibold font-display">
+                  Work
+                </h1>
+                <p className="lg:col-span-6 lg:col-start-6 text-ink-2 max-w-2xl">
+                  Production systems we&apos;ve designed, built, and run — from enterprise
+                  automation to consumer SaaS.
+                </p>
+              </div>
             </AnimateOnScroll>
           </div>
         </section>
@@ -51,53 +40,40 @@ export default function ProjectsPage() {
           <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
               <Link href="/projects/automation-hub" className="block group">
-                <div className="relative bg-surface-card rounded-3xl p-8 md:p-12 border border-line-soft
-                  hover:border-brand-primary/30 transition-all duration-300 hover:glow-blue overflow-hidden">
-                  <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 dark-only"
-                    style={{ background: 'radial-gradient(circle, rgba(42, 80, 223, 0.5) 0%, transparent 70%)' }} />
-
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-4 flex-wrap">
-                      <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold">Live</span>
-                      <span className="text-ink-3 text-xs">Enterprise platform &middot; Solar industry</span>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-semibold font-fraunces mb-4 group-hover:text-brand-accent transition-colors">
-                      Enterprise Operations Platform
-                    </h2>
-                    <p className="text-ink-2 mb-6 leading-relaxed max-w-2xl text-lg">
-                      Mission-critical operations platform for a national Australian solar
-                      company. Integrates 15+ SaaS platforms, processes hundreds of sales a
-                      month, and runs every job from signed contract to final closeout —
-                      replacing a $40K/year CRM along the way.
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {['Next.js 15', 'TypeScript', 'PostgreSQL', 'Claude AI', 'OAuth 2.0', 'HMAC-SHA256'].map((tag) => (
-                        <span key={tag} className="px-3 py-1 rounded-full bg-surface-raised border border-line-soft text-ink-3 text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-8 max-w-md mb-8">
-                      <div>
-                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">320K+</div>
-                        <div className="text-ink-3 text-xs mt-1">Lines of TypeScript</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">500+</div>
-                        <div className="text-ink-3 text-xs mt-1">API endpoints</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold font-mono text-ink-1 tracking-editorial">15+</div>
-                        <div className="text-ink-3 text-xs mt-1">SaaS platforms</div>
-                      </div>
-                    </div>
-
-                    <span className="inline-flex items-center gap-2 text-brand-accent font-semibold group-hover:gap-3 transition-all">
-                      View case study <ArrowRight className="w-4 h-4" />
-                    </span>
+                <div className="relative bg-surface-card rounded p-8 md:p-12 border border-line-soft
+                  group-hover:border-accent transition-colors duration-300">
+                  <div className="flex items-center gap-4 mb-4 flex-wrap">
+                    <LiveTag />
+                    <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Enterprise platform &middot; Solar industry</span>
                   </div>
+                  <h2 className="text-3xl md:text-4xl font-semibold font-display mb-4 group-hover:text-accent-ink transition-colors">
+                    Enterprise Operations Platform
+                  </h2>
+                  <p className="text-ink-2 mb-6 leading-relaxed max-w-2xl text-lg">
+                    Mission-critical operations platform for a national Australian solar
+                    company. Integrates 15+ SaaS platforms, processes hundreds of sales a
+                    month, and runs every job from signed contract to final closeout —
+                    replacing a $40K/year CRM along the way.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-8 font-mono text-[11px]">
+                    {['Next.js 15', 'TypeScript', 'PostgreSQL', 'Claude AI', 'OAuth 2.0', 'HMAC-SHA256'].map((tag) => (
+                      <span key={tag} className="px-2.5 py-1 rounded-sm bg-surface-raised border border-line-soft text-ink-3">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* editorial stat line — one big, others inline */}
+                  <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 mb-8">
+                    <span className="text-5xl font-semibold font-display tracking-editorial">320K+</span>
+                    <span className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3">lines of TypeScript</span>
+                    <span className="font-mono text-sm text-ink-2">500+ API endpoints &middot; 15+ SaaS platforms</span>
+                  </div>
+
+                  <span className="inline-flex items-center gap-2 text-accent-ink font-medium font-display group-hover:gap-3 transition-all">
+                    View case study &rarr;
+                  </span>
                 </div>
               </Link>
             </AnimateOnScroll>
@@ -109,27 +85,27 @@ export default function ProjectsPage() {
           <div className="max-w-7xl mx-auto">
             <AnimateOnScroll delay={100}>
               <Link href="/projects/firstlight" className="block group">
-                <div className="bg-surface-card rounded-2xl p-8 md:p-10 border border-line-soft hover:border-amber-500/30 transition-all">
+                <div className="bg-surface-card rounded p-8 md:p-10 border border-line-soft group-hover:border-accent transition-colors">
                   <div className="grid lg:grid-cols-5 gap-6 lg:gap-12 items-start">
                     <div className="lg:col-span-3">
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold">Live</span>
-                        <span className="text-ink-3 text-xs">Consumer SaaS</span>
+                      <div className="flex items-center gap-4 mb-4">
+                        <LiveTag />
+                        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Consumer SaaS</span>
                       </div>
-                      <h3 className="text-2xl font-bold font-raleway mb-3 group-hover:text-amber-500 transition-colors">FirstLight</h3>
+                      <h3 className="text-2xl font-semibold font-display mb-3 group-hover:text-accent-ink transition-colors">FirstLight</h3>
                       <p className="text-ink-2 mb-4 leading-relaxed">
                         A conditions-first decision engine for nature photographers.
                         Ephemeris, weather, season, and place — synthesised into an honest
                         answer about where to be and when, with AI briefings over the top.
                       </p>
-                      <span className="inline-flex items-center gap-2 text-brand-accent font-semibold text-sm group-hover:gap-3 transition-all">
-                        View case study <ArrowRight className="w-4 h-4" />
+                      <span className="inline-flex items-center gap-2 text-accent-ink font-medium text-sm font-display group-hover:gap-3 transition-all">
+                        View case study &rarr;
                       </span>
                     </div>
                     <div className="lg:col-span-2">
-                      <div className="flex flex-wrap gap-2 lg:justify-end">
+                      <div className="flex flex-wrap gap-2 lg:justify-end font-mono text-[11px]">
                         {['Next.js 14', 'Claude AI', 'Supabase', 'Google Weather API', 'Google Maps'].map((tag) => (
-                          <span key={tag} className="px-2 py-0.5 rounded bg-surface-raised text-ink-3 text-xs border border-line-soft">
+                          <span key={tag} className="px-2.5 py-1 rounded-sm bg-surface-raised text-ink-3 border border-line-soft">
                             {tag}
                           </span>
                         ))}
@@ -147,16 +123,16 @@ export default function ProjectsPage() {
           <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
               <div className="border-t border-line-soft pt-12">
-                <h2 className="text-3xl font-semibold font-fraunces mb-4">Have a project in mind?</h2>
+                <h2 className="text-3xl font-semibold font-display mb-4">Have a project in mind?</h2>
                 <p className="text-ink-2 mb-8 max-w-xl">
                   Tell us what your business needs to run better.
                 </p>
                 <Link
                   href="/#contact"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-highlight text-dark-bg-primary font-semibold rounded-lg
-                    hover:bg-[#4dc4e8] transition-colors"
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
+                    hover:bg-[#0d86cc] transition-colors"
                 >
-                  Get in touch <ArrowRight className="w-4 h-4" />
+                  Get in touch &rarr;
                 </Link>
               </div>
             </AnimateOnScroll>

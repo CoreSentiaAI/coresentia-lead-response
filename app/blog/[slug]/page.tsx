@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   }
 
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1">
       <Header />
 
       <main className="pt-32 pb-0">
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           <div className="max-w-4xl mx-auto">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-highlight font-semibold text-sm transition-colors"
+              className="inline-flex items-center gap-2 text-accent-ink hover:text-ink-1 font-semibold text-sm transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
@@ -114,12 +114,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         <article className="px-6 lg:px-8 pb-20">
           <div className="max-w-4xl mx-auto">
             <div className="mb-4">
-              <span className="text-sm font-semibold text-brand-accent uppercase tracking-wider">
+              <span className="text-sm font-semibold text-accent-ink uppercase tracking-wider">
                 {post.category.replace('-', ' ')}
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-semibold text-ink-1 mb-6 font-fraunces leading-tight">
+            <h1 className="text-4xl md:text-5xl font-semibold text-ink-1 mb-6 font-display leading-tight">
               {post.title}
             </h1>
 
@@ -152,14 +152,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
             {/* Source Attribution */}
             {post.source_url && post.source_name && (
-              <div className="mt-8 p-4 bg-surface-card rounded-lg border border-line-soft">
+              <div className="mt-8 p-4 bg-surface-card rounded-sm border border-line-soft">
                 <p className="text-sm text-ink-2">
                   <strong>Source:</strong> This article references or builds upon content from{' '}
                   <a
                     href={post.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-accent hover:text-brand-highlight transition-colors"
+                    className="text-accent-ink hover:text-ink-1 transition-colors"
                   >
                     {post.source_name}
                   </a>
@@ -189,7 +189,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         {/* CTA Section */}
         <section className="py-16 px-6 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-semibold text-ink-1 mb-4 font-fraunces">
+            <h2 className="text-2xl font-semibold text-ink-1 mb-4 font-display">
               Have a Project in Mind?
             </h2>
             <p className="text-ink-2 mb-6 max-w-2xl mx-auto">
@@ -197,10 +197,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             </p>
             <Link
               href="/#contact"
-              className="inline-block btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden"
+              className="inline-block px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display hover:bg-[#0d86cc] transition-colors"
             >
               <span className="relative z-10">Get in Touch</span>
-              <span className="shimmer-span" />
+              
             </Link>
           </div>
         </section>

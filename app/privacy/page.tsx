@@ -4,14 +4,14 @@ import Footer from '../components/Footer'
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1">
       <Header />
 
       <main className="pt-32 pb-0">
         {/* Hero Section */}
         <section className="px-6 lg:px-8 pb-12">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-fraunces">
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-display">
               Privacy Policy
             </h1>
             <p className="text-lg text-ink-3">
@@ -23,12 +23,12 @@ export default function PrivacyPage() {
         {/* Privacy Content */}
         <section className="px-6 lg:px-8 pb-20">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-8 p-6 bg-surface-card rounded-xl border border-line-soft">
+            <div className="mb-8 p-6 bg-surface-card rounded border border-line-soft">
               <p className="text-base text-ink-2 mb-0">
                 <strong className="text-ink-1">CoreSentia</strong><br />
                 ABN: 69 267 271 132<br />
                 Brisbane, Queensland, Australia<br />
-                Email: <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link>
+                Email: <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link>
               </p>
             </div>
 
@@ -141,7 +141,7 @@ export default function PrivacyPage() {
               <li><strong className="text-ink-1">Withdraw Consent:</strong> Withdraw consent for data processing (may affect service availability)</li>
             </ul>
             <p className="text-ink-2 mb-6">
-              To exercise these rights, contact us at <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link>. We will respond within 30 days.
+              To exercise these rights, contact us at <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link>. We will respond within 30 days.
             </p>
 
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">7. Your Customers&apos; Data</h2>
@@ -181,13 +181,13 @@ export default function PrivacyPage() {
 
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">13. Complaints</h2>
             <p className="text-ink-2 mb-6">
-              If you have concerns about how we handle your data, please contact us first at <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link>. If you are not satisfied with our response, you can lodge a complaint with the Office of the Australian Information Commissioner (OAIC) at <a href="https://www.oaic.gov.au" className="text-brand-accent hover:text-brand-highlight transition-colors" target="_blank" rel="noopener noreferrer">www.oaic.gov.au</a>.
+              If you have concerns about how we handle your data, please contact us first at <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link>. If you are not satisfied with our response, you can lodge a complaint with the Office of the Australian Information Commissioner (OAIC) at <a href="https://www.oaic.gov.au" className="text-accent-ink hover:text-ink-1 transition-colors" target="_blank" rel="noopener noreferrer">www.oaic.gov.au</a>.
             </p>
 
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">14. Contact Us</h2>
             <p className="text-ink-2 mb-6">
               For questions or concerns about this Privacy Policy, contact us at:<br />
-              <strong className="text-ink-1">Email:</strong> <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link><br />
+              <strong className="text-ink-1">Email:</strong> <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link><br />
               <strong className="text-ink-1">ABN:</strong> 69 267 271 132<br />
               <strong className="text-ink-1">Location:</strong> Brisbane, Queensland, Australia
             </p>
@@ -208,7 +208,7 @@ export default function PrivacyPage() {
             </p>
             <Link
               href="mailto:info@coresentia.com"
-              className="text-brand-accent hover:text-brand-highlight font-semibold text-lg transition-colors"
+              className="text-accent-ink hover:text-ink-1 font-semibold text-lg transition-colors"
             >
               Contact Us
             </Link>

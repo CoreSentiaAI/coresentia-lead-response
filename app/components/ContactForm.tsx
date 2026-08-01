@@ -62,27 +62,27 @@ export default function ContactForm() {
 
   if (isSuccess) {
     return (
-      <div className="bg-surface-card border border-green-500/30 rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto">
-        <div className="w-16 h-16 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Check className="w-8 h-8 text-green-400" />
+      <div className="bg-surface-card border border-line-soft rounded p-8 md:p-12 max-w-2xl mx-auto">
+        <div className="flex items-center gap-3 mb-3">
+          <Check className="w-5 h-5 text-accent-ink" />
+          <h3 className="text-2xl font-semibold text-ink-1 font-display">
+            Message received.
+          </h3>
         </div>
-        <h3 className="text-2xl font-bold text-ink-1 mb-3 font-raleway">
-          Message Received!
-        </h3>
         <p className="text-lg text-ink-2 mb-4">
           Thanks for reaching out. We&apos;ll get back to you within 24 hours.
         </p>
         <p className="text-sm text-ink-3">
           Or email us directly at{' '}
-          <a href="mailto:info@coresentia.com" className="text-brand-accent font-semibold">
+          <a href="mailto:info@coresentia.com" className="text-accent-ink font-medium">
             info@coresentia.com
           </a>
         </p>
         <button
           onClick={() => setIsSuccess(false)}
-          className="mt-6 px-6 py-2 text-brand-accent hover:text-brand-highlight font-semibold transition-colors"
+          className="mt-6 text-accent-ink hover:text-ink-1 font-medium transition-colors font-display text-sm"
         >
-          Send Another Message
+          Send another message &rarr;
         </button>
       </div>
     )
@@ -91,12 +91,12 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-surface-card border border-line-strong rounded-2xl p-6 md:p-10 max-w-2xl mx-auto"
+      className="bg-surface-card border border-line-soft rounded p-6 md:p-10 max-w-2xl mx-auto"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="contact-name" className="block text-sm font-semibold text-ink-1 mb-2">
-            Your Name <span className="text-brand-accent">*</span>
+          <label htmlFor="contact-name" className="block text-sm font-medium text-ink-1 mb-2 font-display">
+            Your Name <span className="text-accent-ink">*</span>
           </label>
           <input
             type="text"
@@ -105,15 +105,15 @@ export default function ContactForm() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-sm
               text-ink-1 placeholder-ink-3
-              focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
+              focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
             placeholder="John Smith"
           />
         </div>
         <div>
-          <label htmlFor="contact-email" className="block text-sm font-semibold text-ink-1 mb-2">
-            Email Address <span className="text-brand-accent">*</span>
+          <label htmlFor="contact-email" className="block text-sm font-medium text-ink-1 mb-2 font-display">
+            Email Address <span className="text-accent-ink">*</span>
           </label>
           <input
             type="email"
@@ -122,9 +122,9 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-sm
               text-ink-1 placeholder-ink-3
-              focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
+              focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
             placeholder="john@example.com"
           />
         </div>
@@ -132,7 +132,7 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label htmlFor="contact-phone" className="block text-sm font-semibold text-ink-1 mb-2">
+          <label htmlFor="contact-phone" className="block text-sm font-medium text-ink-1 mb-2 font-display">
             Phone Number
           </label>
           <input
@@ -141,14 +141,14 @@ export default function ContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-sm
               text-ink-1 placeholder-ink-3
-              focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
+              focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
             placeholder="0412 XXX XXX"
           />
         </div>
         <div>
-          <label htmlFor="contact-type" className="block text-sm font-semibold text-ink-1 mb-2">
+          <label htmlFor="contact-type" className="block text-sm font-medium text-ink-1 mb-2 font-display">
             Project Type
           </label>
           <select
@@ -156,9 +156,9 @@ export default function ContactForm() {
             name="businessType"
             value={formData.businessType}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+            className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-sm
               text-ink-1
-              focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors"
+              focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
           >
             <option value="">Select one...</option>
             <option value="Process Automation">Process Automation</option>
@@ -173,7 +173,7 @@ export default function ContactForm() {
       </div>
 
       <div className="mb-6">
-        <label htmlFor="contact-message" className="block text-sm font-semibold text-ink-1 mb-2">
+        <label htmlFor="contact-message" className="block text-sm font-medium text-ink-1 mb-2 font-display">
           Tell us about your project
         </label>
         <textarea
@@ -182,9 +182,9 @@ export default function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-lg
+          className="w-full px-4 py-3 bg-surface-raised border border-line-strong rounded-sm
             text-ink-1 placeholder-ink-3
-            focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30 transition-colors resize-none"
+            focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors resize-none"
           placeholder="What are you looking to build? Any specific requirements or timeline?"
         />
       </div>
@@ -198,8 +198,8 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-brand-highlight text-dark-bg-primary font-semibold py-4 rounded-lg
-          hover:bg-[#4dc4e8] transition-colors
+        className="w-full bg-accent text-[#0d0d0c] font-medium py-4 rounded-sm font-display
+          hover:bg-[#0d86cc] transition-colors
           disabled:opacity-50 disabled:cursor-not-allowed
           flex items-center justify-center gap-2 text-lg"
       >
@@ -209,7 +209,7 @@ export default function ContactForm() {
             Sending...
           </>
         ) : (
-          'Send Message'
+          'Send message'
         )}
       </button>
 

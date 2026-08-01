@@ -4,14 +4,14 @@ import Footer from '../components/Footer'
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1">
       <Header />
 
       <main className="pt-32 pb-0">
         {/* Hero Section */}
         <section className="px-6 lg:px-8 pb-12">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-fraunces">
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-display">
               Terms of Service
             </h1>
             <p className="text-lg text-ink-3">
@@ -23,12 +23,12 @@ export default function TermsPage() {
         {/* Terms Content */}
         <section className="px-6 lg:px-8 pb-20">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-8 p-6 bg-surface-card rounded-xl border border-line-soft">
+            <div className="mb-8 p-6 bg-surface-card rounded border border-line-soft">
               <p className="text-base text-ink-2 mb-0">
                 <strong className="text-ink-1">CoreSentia</strong><br />
                 ABN: 69 267 271 132<br />
                 Brisbane, Queensland, Australia<br />
-                Email: <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link>
+                Email: <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link>
               </p>
             </div>
 
@@ -119,7 +119,7 @@ export default function TermsPage() {
 
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">11. Data and Privacy</h2>
             <p className="text-ink-2 mb-6">
-              Your use of the Services is also governed by our <Link href="/privacy" className="text-brand-accent hover:text-brand-highlight transition-colors">Privacy Policy</Link>, which explains how we collect, use, and protect your data and your customers&apos; data.
+              Your use of the Services is also governed by our <Link href="/privacy" className="text-accent-ink hover:text-ink-1 transition-colors">Privacy Policy</Link>, which explains how we collect, use, and protect your data and your customers&apos; data.
             </p>
 
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">12. Third-Party Services</h2>
@@ -160,7 +160,7 @@ export default function TermsPage() {
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">19. Contact Information</h2>
             <p className="text-ink-2 mb-6">
               For questions about these Terms, contact us at:<br />
-              Email: <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">info@coresentia.com</Link><br />
+              Email: <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link><br />
               ABN: 69 267 271 132
             </p>
 
@@ -180,7 +180,7 @@ export default function TermsPage() {
             </p>
             <Link
               href="mailto:info@coresentia.com"
-              className="text-brand-accent hover:text-brand-highlight font-semibold text-lg transition-colors"
+              className="text-accent-ink hover:text-ink-1 font-semibold text-lg transition-colors"
             >
               Contact Us
             </Link>

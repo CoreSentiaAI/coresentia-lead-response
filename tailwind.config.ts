@@ -61,13 +61,18 @@ module.exports = {
           soft: 'var(--line-soft)',
           strong: 'var(--line-strong)',
         },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          ink: 'var(--accent-ink)',
+        },
       },
       fontFamily: {
         montserrat: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
         raleway: ['var(--font-raleway)', 'Raleway', 'sans-serif'],
         inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
         mono: ['var(--font-mono)', 'JetBrains Mono', 'monospace'],
-        fraunces: ['var(--font-fraunces)', 'Georgia', 'serif'],
+        display: ['var(--font-instrument)', 'sans-serif'],
+        serif: ['var(--font-newsreader)', 'Georgia', 'serif'],
       },
       animation: {
         'fade-in': 'fadeIn 1s ease-out both',

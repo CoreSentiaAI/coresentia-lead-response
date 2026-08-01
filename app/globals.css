@@ -21,17 +21,26 @@
   --color-background: #2D3436;
 
   /* Theme tokens — dark is the default (no class on <html>).
+     Warm near-black per DESIGN.md — not blue-tinted.
      The public site reads these via Tailwind surface/ink/line tokens;
      admin, dashboard, and chat use the fixed dark.*/
-  --surface-base: #0a0a0f;
-  --surface-alt: #0d0d14;
-  --surface-card: #12121a;
-  --surface-raised: #1a1a24;
-  --line-soft: #1e1e2e;
-  --line-strong: #2a2a3e;
-  --ink-1: #ffffff;
-  --ink-2: #e0e0e8;
-  --ink-3: #b0b0c0;
+  --surface-base: #111110;
+  --surface-alt: #161614;
+  --surface-card: #191917;
+  --surface-raised: #201f1c;
+  --line-soft: #2a2925;
+  --line-strong: #3a3833;
+  --ink-1: #edeae4;
+  --ink-2: #b0aca3;
+  --ink-3: #8a867d;
+
+  /* Accent system — logo azure promoted, other logo blues demoted.
+     --accent: fills, buttons, markers (true logo hex, both themes)
+     --accent-ink: text/links (AA-compliant per theme) */
+  --accent: #1099e7;
+  --accent-ink: #1099e7;
+  --blue-royal: #2a50df; /* demoted: deep border tints only */
+  --blue-sky: #62d4f9;   /* demoted: chart secondary / subtle tints only */
 
   /* Legacy aliases still referenced by older utilities */
   --surface-primary: var(--surface-base);
@@ -46,32 +55,35 @@
 }
 
 html.light {
-  --surface-base: #f7f7fa;
-  --surface-alt: #eef0f5;
-  --surface-card: #ffffff;
-  --surface-raised: #f1f2f7;
-  --line-soft: #e4e6ef;
-  --line-strong: #d0d4e2;
-  --ink-1: #10101a;
-  --ink-2: #3d4150;
-  --ink-3: #686d7e;
+  /* Warm paper — same rules as dark, inverted */
+  --surface-base: #f7f5f0;
+  --surface-alt: #efece5;
+  --surface-card: #fcfbf8;
+  --surface-raised: #f1eee7;
+  --line-soft: #e2ded4;
+  --line-strong: #ccc7ba;
+  --ink-1: #191917;
+  --ink-2: #4a473f;
+  --ink-3: #7a766c;
+  /* #1099E7 fails AA as text on paper — darkened for text/links only */
+  --accent-ink: #0a72b2;
 }
 
 /* Translucent chrome — Tailwind alpha modifiers can't apply to var() tokens */
 .header-scrim {
-  background: rgba(26, 26, 36, 0.8);
+  background: rgba(17, 17, 16, 0.85);
 }
 
 html.light .header-scrim {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(247, 245, 240, 0.85);
 }
 
 .overlay-scrim {
-  background: rgba(10, 10, 15, 0.96);
+  background: rgba(17, 17, 16, 0.97);
 }
 
 html.light .overlay-scrim {
-  background: rgba(247, 247, 250, 0.97);
+  background: rgba(247, 245, 240, 0.97);
 }
 
 /* Theme-scoped visibility helpers (e.g. swap logos, hide dark photo textures) */
@@ -145,44 +157,44 @@ body {
   font-family: var(--font-raleway), var(--font-inter), sans-serif;
 }
 
-/* Display layer (h1/h2): Fraunces — editorial serif. Everything below stays Raleway. */
+/* Headers: Instrument Sans, 500/600, tight tracking per DESIGN.md */
 h1 {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-instrument), sans-serif;
   font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: var(--ink-1);
 }
 
 h2 {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-instrument), sans-serif;
   font-weight: 600;
   font-size: 2.25rem;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--ink-1);
 }
 
 h3 {
-  font-family: var(--font-raleway);
+  font-family: var(--font-instrument), sans-serif;
   font-weight: 600;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   line-height: 1.2;
   letter-spacing: -0.015em;
   color: var(--ink-1);
 }
 
 h4 {
-  font-family: var(--font-raleway);
-  font-weight: 600;
-  font-size: 1.35rem;
+  font-family: var(--font-instrument), sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
   line-height: 1.3;
   letter-spacing: -0.01em;
   color: var(--ink-1);
 }
 
 h5 {
-  font-family: var(--font-raleway);
+  font-family: var(--font-instrument), sans-serif;
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.4;
@@ -190,12 +202,35 @@ h5 {
 }
 
 h6 {
-  font-family: var(--font-raleway);
-  font-weight: 500;
-  font-size: 1rem;
+  font-family: var(--font-mono), monospace;
+  font-weight: 400;
+  font-size: 0.75rem;
   line-height: 1.5;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+}
+
+/* Editorial scope — public marketing pages only (admin keeps its own type).
+   Serif body against grotesk headers is the signature. Sizing lives in the
+   base layer so Tailwind text-* utilities still win where applied. */
+.editorial {
+  font-family: var(--font-newsreader), Georgia, serif;
+}
+
+@layer base {
+  .editorial p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+  }
+}
+
+/* Mono section label per DESIGN.md */
+.section-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
 }
 
 p {
@@ -246,11 +281,11 @@ html.light .glass-dark {
   pointer-events: none;
 }
 
-/* Display text - hero scale (tuned for Fraunces serif) */
+/* Display text - hero scale per DESIGN.md: large headers are LARGE */
 .text-display {
-  font-size: clamp(3rem, 8vw, 5.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
 }
 
 /* Subtle noise texture for premium feel */

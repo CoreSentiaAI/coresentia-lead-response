@@ -57,15 +57,15 @@ export default async function BlogPage() {
   const posts = await getBlogPosts()
 
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1">
       <Header />
 
       <main className="pt-32 pb-0">
         {/* Hero Section */}
         <section className="px-6 lg:px-8 pb-16">
           <div className="max-w-4xl mx-auto">
-            <span className="text-brand-accent font-semibold tracking-wider uppercase text-xs mb-3 block">Blog</span>
-            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-fraunces">
+            <span className="text-accent-ink font-semibold tracking-wider uppercase text-xs mb-3 block">Blog</span>
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4 font-display">
               Insights & Technical Writing
             </h1>
             <p className="text-lg text-ink-2 max-w-2xl">
@@ -84,7 +84,7 @@ export default async function BlogPage() {
                 </p>
                 <Link
                   href="/"
-                  className="text-brand-accent hover:text-brand-highlight font-semibold transition-colors"
+                  className="text-accent-ink hover:text-ink-1 font-semibold transition-colors"
                 >
                   Return to Homepage
                 </Link>
@@ -94,10 +94,10 @@ export default async function BlogPage() {
                 {posts.map((post) => (
                   <article
                     key={post.id}
-                    className="bg-surface-card border border-line-soft rounded-2xl p-6 hover:border-brand-primary/30 hover:glow-blue transition-all"
+                    className="bg-surface-card border border-line-soft rounded p-6 hover:border-accent transition-all"
                   >
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs font-semibold text-brand-accent uppercase tracking-wider">
+                      <span className="text-xs font-semibold text-accent-ink uppercase tracking-wider">
                         {post.category.replace('-', ' ')}
                       </span>
                       <span className="text-ink-3 text-sm">&middot;</span>
@@ -111,10 +111,10 @@ export default async function BlogPage() {
                       </div>
                     </div>
 
-                    <h2 className="text-2xl font-semibold text-ink-1 mb-3 font-fraunces">
+                    <h2 className="text-2xl font-semibold text-ink-1 mb-3 font-display">
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="hover:text-brand-accent transition-colors"
+                        className="hover:text-accent-ink transition-colors"
                       >
                         {post.title}
                       </Link>
@@ -140,7 +140,7 @@ export default async function BlogPage() {
 
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-highlight font-semibold text-sm transition-colors"
+                      className="inline-flex items-center gap-2 text-accent-ink hover:text-ink-1 font-semibold text-sm transition-colors"
                     >
                       Read Full Article
                       <ArrowRight className="w-4 h-4" />
@@ -155,7 +155,7 @@ export default async function BlogPage() {
         {/* CTA Section */}
         <section className="py-16 px-6 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-semibold text-ink-1 mb-4 font-fraunces">
+            <h2 className="text-2xl font-semibold text-ink-1 mb-4 font-display">
               Have a Project in Mind?
             </h2>
             <p className="text-ink-2 mb-6 max-w-2xl mx-auto">
@@ -163,10 +163,10 @@ export default async function BlogPage() {
             </p>
             <Link
               href="/#contact"
-              className="inline-block btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden"
+              className="inline-block px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display hover:bg-[#0d86cc] transition-colors"
             >
               <span className="relative z-10">Get in Touch</span>
-              <span className="shimmer-span" />
+              
             </Link>
           </div>
         </section>

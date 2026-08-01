@@ -1,47 +1,48 @@
 import Link from 'next/link'
-import { ArrowLeft, Sun, Moon, Camera, Cloud, MapPin, Bot, Compass, Eye } from 'lucide-react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import AnimateOnScroll from '../../components/AnimateOnScroll'
 
+function Tag({ children }: { children: string }) {
+  return (
+    <span className="px-2.5 py-1 rounded-sm bg-surface-raised border border-line-soft text-ink-3 font-mono text-[11px]">
+      {children}
+    </span>
+  )
+}
+
 export default function FirstLightPage() {
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1 relative overflow-x-hidden">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1 relative overflow-x-hidden">
       <Header />
 
-      <main className="pt-28 pb-0">
+      <main className="pt-32 pb-0">
         {/* Back to Work */}
         <section className="px-6 lg:px-8 mb-8">
           <div className="max-w-7xl mx-auto">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-brand-accent hover:text-brand-highlight font-semibold text-sm transition-colors"
+              className="inline-flex items-center gap-2 text-accent-ink hover:text-ink-1 font-medium text-sm transition-colors font-display"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Work
+              &larr; Back to work
             </Link>
           </div>
         </section>
 
         {/* Hero Section */}
-        <section className="relative px-6 lg:px-8 pb-16 overflow-hidden">
-          {/* Background orbs — golden/amber to match FirstLight's brand */}
-          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden dark-only">
-            <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full animate-glow-pulse"
-              style={{ background: 'radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, transparent 70%)' }} />
-            <div className="absolute bottom-0 -left-40 w-[400px] h-[400px] rounded-full"
-              style={{ background: 'radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%)' }} />
-          </div>
-
-          <div className="max-w-7xl mx-auto relative z-10">
+        <section className="px-6 lg:px-8 pb-16">
+          <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
               <div className="max-w-3xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold">Live</span>
-                  <span className="text-ink-3 text-xs">Consumer SaaS &middot; AI-powered</span>
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                    Live
+                  </span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Consumer SaaS &middot; AI-powered</span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-fraunces mb-6 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold font-display mb-6 leading-tight">
                   FirstLight
                 </h1>
 
@@ -56,19 +57,15 @@ export default function FirstLightPage() {
                   href="https://first-light.com.au"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-highlight text-dark-bg-primary font-semibold rounded-lg
-                    hover:bg-[#4dc4e8] transition-colors text-base"
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
+                    hover:bg-[#0d86cc] transition-colors text-base"
                 >
-                  Visit first-light.com.au
-                  <Eye className="w-4 h-4" />
+                  Visit first-light.com.au &rarr;
                 </a>
 
-                {/* Tech stack tags */}
                 <div className="flex flex-wrap gap-2 mt-8">
                   {['Next.js 14', 'Claude AI (Opus)', 'Supabase', 'Google Weather API', 'Google Maps', 'Tailwind CSS', 'Vercel'].map((tag) => (
-                    <span key={tag} className="px-3 py-1 rounded-full bg-surface-raised border border-line-soft text-ink-3 text-xs">
-                      {tag}
-                    </span>
+                    <Tag key={tag}>{tag}</Tag>
                   ))}
                 </div>
               </div>
@@ -77,13 +74,15 @@ export default function FirstLightPage() {
         </section>
 
         {/* What It Does */}
-        <section className="relative bg-surface-alt py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
-          <div className="absolute inset-0 bg-noise pointer-events-none" />
-          <div className="max-w-7xl mx-auto relative z-10">
+        <section className="bg-surface-alt py-32 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
-              <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">The decision is the product</h2>
-                <p className="text-ink-2">
+              <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-12">
+                <div className="lg:col-span-5">
+                  <div className="section-label mb-3">The product</div>
+                  <h2 className="text-3xl lg:text-4xl font-semibold font-display">The decision is the product</h2>
+                </div>
+                <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
                   Weather apps, ephemeris tools, star charts, and forecast sites all hold
                   the raw data — photographers used to check five of them and still guess.
                   None of them make the call. FirstLight synthesises the lot for a
@@ -94,17 +93,15 @@ export default function FirstLightPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
               {[
-                { icon: Cloud, title: 'Live Weather', description: 'Real-time conditions, cloud cover, wind, visibility, and precipitation — everything that affects a shoot.' },
-                { icon: Sun, title: 'Light Times', description: 'First light, golden hour, blue hour, sunrise, sunset — colour-coded and annotated with exact times.' },
-                { icon: Moon, title: 'Astronomy', description: 'Moon phase, rise/set times, Bortle rating for light pollution, and aurora probability for southern Australia.' },
-                { icon: Bot, title: 'AI Briefings', description: 'Claude AI generates personalised creative advice — composition, camera settings, weather reframing, and shot ideas.' },
+                { num: '01', title: 'Live weather', description: 'Real-time conditions, cloud cover, wind, visibility, and precipitation — everything that affects a shoot.' },
+                { num: '02', title: 'Light times', description: 'First light, golden hour, blue hour, sunrise, sunset — colour-coded and annotated with exact times.' },
+                { num: '03', title: 'Astronomy', description: 'Moon phase, rise/set times, Bortle rating for light pollution, and aurora probability for southern Australia.' },
+                { num: '04', title: 'AI briefings', description: 'Claude AI generates personalised creative advice — composition, camera settings, weather reframing, and shot ideas.' },
               ].map((item, i) => (
                 <AnimateOnScroll key={item.title} delay={i * 100}>
-                  <div className="bg-surface-card border border-line-soft rounded-2xl p-6 h-full hover:border-amber-500/20 transition-all">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-4">
-                      <item.icon className="w-6 h-6 text-amber-500" />
-                    </div>
-                    <h3 className="text-lg font-bold font-raleway mb-2">{item.title}</h3>
+                  <div className="bg-surface-card border border-line-soft rounded p-6 h-full hover:border-accent transition-colors">
+                    <div className="font-mono text-xs text-ink-3 mb-3">{item.num}</div>
+                    <h3 className="text-lg font-semibold font-display mb-2">{item.title}</h3>
                     <p className="text-ink-2 text-sm leading-relaxed">{item.description}</p>
                   </div>
                 </AnimateOnScroll>
@@ -114,48 +111,38 @@ export default function FirstLightPage() {
         </section>
 
         {/* Key Features */}
-        <section className="relative py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
-          <div className="absolute inset-0 bg-noise pointer-events-none" />
-          <div className="max-w-7xl mx-auto relative z-10">
+        <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
               <div className="mb-12 max-w-2xl">
-                <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Built for photographers who notice every detail</h2>
+                <div className="section-label mb-3">Features</div>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-display">Built for photographers who notice every detail</h2>
               </div>
             </AnimateOnScroll>
 
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="grid lg:grid-cols-2 gap-6">
               <AnimateOnScroll>
-                <div className="bg-surface-card border border-line-soft rounded-2xl p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-                      <Bot className="w-5 h-5 text-indigo-400" />
-                    </div>
-                    <h3 className="text-xl font-bold font-raleway">Scout AI Assistant</h3>
-                  </div>
-                  <p className="text-ink-2 text-sm leading-relaxed mb-4">
+                <div className="bg-surface-card border border-line-soft rounded p-8">
+                  <div className="font-mono text-xs text-accent-ink mb-3">/scout</div>
+                  <h3 className="text-xl font-semibold font-display mb-3">Scout AI assistant</h3>
+                  <p className="text-ink-2 text-base leading-relaxed mb-4">
                     A draggable, expandable AI chat panel powered by Claude. Photographers
                     ask natural questions and get location-aware, condition-aware creative
                     advice — not generic tourism tips.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {['Quick Brief', 'Shot Ideas', 'Best Times', 'Full Briefing'].map((action) => (
-                      <span key={action} className="px-3 py-1.5 rounded-lg bg-surface-raised border border-line-soft text-ink-3 text-xs">
-                        {action}
-                      </span>
+                      <Tag key={action}>{action}</Tag>
                     ))}
                   </div>
                 </div>
               </AnimateOnScroll>
 
               <AnimateOnScroll delay={100}>
-                <div className="bg-surface-card border border-line-soft rounded-2xl p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-amber-500" />
-                    </div>
-                    <h3 className="text-xl font-bold font-raleway">Hand-Vetted Locations</h3>
-                  </div>
-                  <p className="text-ink-2 text-sm leading-relaxed mb-4">
+                <div className="bg-surface-card border border-line-soft rounded p-8">
+                  <div className="font-mono text-xs text-accent-ink mb-3">/locations</div>
+                  <h3 className="text-xl font-semibold font-display mb-3">Hand-vetted locations</h3>
+                  <p className="text-ink-2 text-base leading-relaxed mb-4">
                     A curated library of parks, dark-sky anchors, and shooting locations —
                     every row personally vetted before it publishes. No scraped databases:
                     if FirstLight says a viewpoint faces south-east, someone has stood
@@ -163,39 +150,29 @@ export default function FirstLightPage() {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {['Coastal', 'Alpine', 'Waterfall', 'Forest', 'Astro', 'Urban'].map((type) => (
-                      <span key={type} className="px-3 py-1.5 rounded-lg bg-surface-raised border border-line-soft text-ink-3 text-xs">
-                        {type}
-                      </span>
+                      <Tag key={type}>{type}</Tag>
                     ))}
                   </div>
                 </div>
               </AnimateOnScroll>
 
               <AnimateOnScroll delay={200}>
-                <div className="bg-surface-card border border-line-soft rounded-2xl p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                      <Compass className="w-5 h-5 text-amber-500" />
-                    </div>
-                    <h3 className="text-xl font-bold font-raleway">Conditions Dashboard</h3>
-                  </div>
-                  <p className="text-ink-2 text-sm leading-relaxed">
+                <div className="bg-surface-card border border-line-soft rounded p-8">
+                  <div className="font-mono text-xs text-ink-3 mb-3">/conditions</div>
+                  <h3 className="text-xl font-semibold font-display mb-3">Conditions dashboard</h3>
+                  <p className="text-ink-2 text-base leading-relaxed">
                     Live conditions at a glance — weather, light times, moon phase, wind
-                    maps via Windy.com, and satellite imagery. Designed for quick field
-                    checks with large touch targets (44px minimum).
+                    maps, and satellite imagery. Designed for quick field checks with
+                    large touch targets (44px minimum).
                   </p>
                 </div>
               </AnimateOnScroll>
 
               <AnimateOnScroll delay={300}>
-                <div className="bg-surface-card border border-line-soft rounded-2xl p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-                      <Camera className="w-5 h-5 text-indigo-400" />
-                    </div>
-                    <h3 className="text-xl font-bold font-raleway">Style Profiles</h3>
-                  </div>
-                  <p className="text-ink-2 text-sm leading-relaxed">
+                <div className="bg-surface-card border border-line-soft rounded p-8">
+                  <div className="font-mono text-xs text-ink-3 mb-3">/profiles</div>
+                  <h3 className="text-xl font-semibold font-display mb-3">Style profiles</h3>
+                  <p className="text-ink-2 text-base leading-relaxed">
                     Photographers set their mood, subjects, and palette preferences. AI
                     briefings adapt — a moody seascape shooter gets different advice than a
                     bright landscape photographer for the same conditions.
@@ -206,53 +183,54 @@ export default function FirstLightPage() {
           </div>
         </section>
 
-        {/* Stats */}
-        <section className="relative bg-surface-alt py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
-          <div className="absolute inset-0 bg-noise pointer-events-none" />
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
-              {[
-                { value: '8', label: 'Condition profiles — astro to seascape' },
-                { value: '7', label: 'Integrated data sources' },
-                { value: '16-day', label: 'Forecast horizon, honest about decay' },
-                { value: 'AI', label: 'Claude-powered briefings' },
-              ].map((stat, i) => (
-                <AnimateOnScroll key={stat.label} delay={i * 100}>
-                  <div>
-                    <div className="text-4xl md:text-5xl font-bold font-mono text-ink-1 mb-2 tracking-editorial">{stat.value}</div>
-                    <div className="text-ink-3 text-sm">{stat.label}</div>
-                  </div>
-                </AnimateOnScroll>
-              ))}
+        {/* Stats — editorial */}
+        <section className="bg-surface-alt py-32 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-8 items-end">
+              <AnimateOnScroll className="lg:col-span-5">
+                <div className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold font-display tracking-editorial">
+                  8
+                </div>
+                <div className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3 mt-3">
+                  condition profiles — astro to seascape
+                </div>
+              </AnimateOnScroll>
+              <AnimateOnScroll delay={100} className="lg:col-span-6 lg:col-start-7">
+                <p className="text-ink-2 text-lg leading-relaxed">
+                  <span className="font-mono text-ink-1">7</span> integrated data sources
+                  and a <span className="font-mono text-ink-1">16-day</span> forecast
+                  horizon that&apos;s honest about confidence decay — with{' '}
+                  <span className="font-mono text-ink-1">Claude</span>-powered briefings
+                  over the top.
+                </p>
+              </AnimateOnScroll>
             </div>
           </div>
         </section>
 
         {/* Design Philosophy */}
-        <section className="relative py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
-          <div className="absolute inset-0 bg-noise pointer-events-none" />
-          <div className="max-w-7xl mx-auto relative z-10">
+        <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <AnimateOnScroll>
                 <div>
-                  <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-6">Designed for people who notice design</h2>
+                  <div className="section-label mb-3">Design</div>
+                  <h2 className="text-3xl lg:text-4xl font-semibold font-display mb-6">Designed for people who notice design</h2>
                   <p className="text-ink-2 leading-relaxed mb-6">
                     Photographers have an eye for detail. The UI had to be premium but
                     functional — dark twilight gradients, golden accent tones that evoke
-                    sunrise, glassmorphism cards, and a data-forward layout that gets out
-                    of the way.
+                    sunrise, and a data-forward layout that gets out of the way.
                   </p>
                   <ul className="space-y-3">
                     {[
                       'Dark mode twilight palette (#020408 → #0f172a)',
                       'Golden amber accents for warmth and urgency',
                       'Indigo accents for night and astro features',
-                      'Glassmorphism with subtle backdrop blur',
                       'Large touch targets for outdoor field use',
                       'Custom typography: Sora, Plus Jakarta Sans, IBM Plex Mono',
                     ].map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-ink-2 text-sm">
-                        <Sun className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                      <li key={item} className="flex items-start gap-3 text-ink-2 text-sm">
+                        <span className="font-mono text-ink-3 shrink-0">&mdash;</span>
                         {item}
                       </li>
                     ))}
@@ -261,7 +239,7 @@ export default function FirstLightPage() {
               </AnimateOnScroll>
 
               <AnimateOnScroll delay={150}>
-                <div className="bg-surface-card border border-line-soft rounded-2xl p-8 lg:p-10">
+                <div className="bg-surface-card border border-line-soft rounded p-8 lg:p-10">
                   <div className="space-y-6">
                     {[
                       { principle: 'The UI gets out of the way', detail: 'Data forward, chrome minimal — conditions readable at a glance from a car seat at 4:30am.' },
@@ -270,9 +248,9 @@ export default function FirstLightPage() {
                     ].map((item, i) => (
                       <div key={item.principle} className={i > 0 ? 'pt-6 border-t border-line-soft' : ''}>
                         <div className="flex items-baseline gap-4">
-                          <span className="font-mono text-xs text-amber-500 shrink-0">0{i + 1}</span>
+                          <span className="font-mono text-xs text-accent-ink shrink-0">0{i + 1}</span>
                           <div>
-                            <h4 className="font-semibold font-raleway text-base mb-1">{item.principle}</h4>
+                            <h4 className="font-semibold font-display text-base mb-1">{item.principle}</h4>
                             <p className="text-ink-2 text-sm leading-relaxed">{item.detail}</p>
                           </div>
                         </div>
@@ -286,18 +264,18 @@ export default function FirstLightPage() {
         </section>
 
         {/* CTA */}
-        <section className="relative bg-surface-alt py-16 lg:py-20 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-7xl mx-auto relative z-10">
+        <section className="bg-surface-alt py-16 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl lg:text-4xl font-semibold font-fraunces mb-4">Have a project like this?</h2>
+              <h2 className="text-3xl lg:text-4xl font-semibold font-display mb-4">Have a project like this?</h2>
               <p className="text-ink-2 mb-8 max-w-xl">
                 We build production SaaS platforms with AI integration, real-time data,
                 and premium design.
               </p>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-highlight text-dark-bg-primary font-semibold rounded-lg
-                  hover:bg-[#4dc4e8] transition-colors"
+                className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm font-display
+                  hover:bg-[#0d86cc] transition-colors"
               >
                 Start a project
               </Link>

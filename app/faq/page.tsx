@@ -48,6 +48,12 @@ const faqs: FAQItem[] = [
   },
   {
     category: 'services',
+    question: 'Do we have to use your tech stack?',
+    answer:
+      'No — we build on yours. Our default stack is Next.js, TypeScript, and PostgreSQL, but the process works wherever your governance points: Microsoft Azure, Google Cloud, AWS. If your security accreditations or enterprise clients require a particular environment, we build inside it — same process mapping, same platform, your infrastructure.',
+  },
+  {
+    category: 'services',
     question: 'Can you replace software we currently pay for?',
     answer:
       "Yes — this is one of the most valuable things we do. Most businesses pay for enterprise SaaS they use a fraction of, priced per seat, forever. We build custom replacements designed around how your team actually works: you own the code outright, there are no licence fees, and it does exactly what your business needs instead of what a vendor's roadmap decided. Our flagship example: a $40K/year enterprise CRM replaced with a purpose-built job pipeline, delivered in 12 days.",
@@ -145,14 +151,14 @@ export default function FAQPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1">
       <Header />
 
       <main className="pt-32 pb-0">
         {/* Hero Section */}
         <section className="px-6 lg:px-8 pb-12">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-semibold mb-6 font-fraunces">
+            <h1 className="text-4xl md:text-5xl font-semibold mb-6 font-display">
               Questions, answered
             </h1>
             <p className="text-xl text-ink-2">
@@ -169,10 +175,10 @@ export default function FAQPage() {
                 <button
                   key={cat.key}
                   onClick={() => { setFilterCategory(cat.key); setOpenIndex(null) }}
-                  className={`px-5 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`px-5 py-2 rounded-sm font-medium text-sm transition-all ${
                     filterCategory === cat.key
-                      ? 'bg-brand-highlight text-dark-bg-primary'
-                      : 'bg-surface-card text-ink-2 border border-line-soft hover:border-brand-accent hover:text-ink-1'
+                      ? 'bg-accent text-[#0d0d0c]'
+                      : 'bg-surface-card text-ink-2 border border-line-soft hover:border-accent hover:text-ink-1'
                   }`}
                 >
                   {cat.label}
@@ -189,7 +195,7 @@ export default function FAQPage() {
               {filteredFAQs.map((faq, index) => (
                 <div
                   key={faq.question}
-                  className="bg-surface-card border border-line-soft rounded-xl overflow-hidden hover:border-brand-primary/30 transition-all"
+                  className="bg-surface-card border border-line-soft rounded overflow-hidden hover:border-accent transition-all"
                 >
                   <button
                     onClick={() => toggleFAQ(index)}
@@ -197,7 +203,7 @@ export default function FAQPage() {
                   >
                     <span className="font-semibold text-ink-1 pr-8">{faq.question}</span>
                     {openIndex === index ? (
-                      <ChevronUp className="w-5 h-5 text-brand-accent flex-shrink-0" />
+                      <ChevronUp className="w-5 h-5 text-accent-ink flex-shrink-0" />
                     ) : (
                       <ChevronDown className="w-5 h-5 text-ink-3 flex-shrink-0" />
                     )}
@@ -216,7 +222,7 @@ export default function FAQPage() {
         {/* CTA */}
         <section className="py-16 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-semibold text-ink-1 mb-4 font-fraunces">
+            <h2 className="text-3xl font-semibold text-ink-1 mb-4 font-display">
               Still have questions?
             </h2>
             <p className="text-xl text-ink-2 mb-8">
@@ -225,13 +231,13 @@ export default function FAQPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/#contact"
-                className="px-8 py-3.5 bg-brand-highlight text-dark-bg-primary font-semibold rounded-lg hover:bg-[#4dc4e8] transition-colors text-center"
+                className="px-8 py-3.5 bg-accent text-[#0d0d0c] font-semibold rounded-sm hover:bg-[#0d86cc] transition-colors text-center"
               >
                 Get in touch
               </Link>
               <Link
                 href="mailto:info@coresentia.com"
-                className="px-8 py-3.5 rounded-lg border border-line-strong text-ink-1 font-semibold hover:border-brand-accent transition-colors text-center"
+                className="px-8 py-3.5 rounded-sm border border-line-strong text-ink-1 font-semibold hover:border-accent transition-colors text-center"
               >
                 Email us
               </Link>

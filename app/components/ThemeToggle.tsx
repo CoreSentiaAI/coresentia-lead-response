@@ -23,7 +23,7 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
     <button
       onClick={toggle}
       aria-label={light ? 'Switch to dark mode' : 'Switch to light mode'}
-      className={`p-2 rounded-lg text-ink-3 hover:text-ink-1 hover:bg-surface-raised transition-colors ${className}`}
+      className={`p-2 rounded-sm text-ink-3 hover:text-ink-1 hover:bg-surface-raised transition-colors ${className}`}
     >
       {light === null ? (
         <span className="block w-5 h-5" />

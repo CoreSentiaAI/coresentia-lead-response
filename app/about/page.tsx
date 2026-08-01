@@ -33,59 +33,62 @@ const principles = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-surface-base text-ink-1">
+    <div className="editorial min-h-screen bg-surface-base text-ink-1">
       <Header />
 
-      <main className="pt-32 pb-0">
+      <main className="pt-40 pb-0">
         {/* Hero Section */}
-        <section className="px-6 lg:px-8 pb-20">
-          <div className="max-w-4xl mx-auto">
+        <section className="px-6 lg:px-8 pb-24">
+          <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 font-fraunces">
-                Software that ships
-              </h1>
-              <p className="text-xl text-ink-2 leading-relaxed max-w-2xl">
-                CoreSentia is an AI-native development studio based in Brisbane. We build
-                the systems that make established businesses run better — automation,
-                integration, and production software.
-              </p>
+              <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 items-end">
+                <h1 className="lg:col-span-5 text-5xl md:text-6xl font-semibold font-display">
+                  Software that ships
+                </h1>
+                <p className="lg:col-span-6 lg:col-start-7 text-ink-2 leading-relaxed">
+                  CoreSentia is an AI-native development studio based in Brisbane. We build
+                  the systems that make established businesses run better — automation,
+                  integration, and production software.
+                </p>
+              </div>
             </AnimateOnScroll>
           </div>
         </section>
 
         {/* Our Story */}
-        <section className="py-20 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
+        <section className="py-16 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
           <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-semibold mb-8 font-fraunces">The story</h2>
+              <div className="section-label mb-3">The story</div>
+              <h2 className="text-3xl font-semibold mb-10 font-display">Order out of complexity</h2>
             </AnimateOnScroll>
             <div className="grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
               <div className="lg:col-span-3 order-2 lg:order-1">
                 <AnimateOnScroll>
-                  <div className="space-y-5 text-ink-2 leading-relaxed text-lg">
-                <p>
-                  CoreSentia was founded by Ramsay Hatfield — an astrophotographer who
-                  builds software. Years of standing alone in the dark, composing images
-                  of things most people never see, taught him a particular way of working:
-                  find the order in complexity, and make it feel right. He sees no real
-                  boundary between art and engineering — a well-designed system and a
-                  well-composed photograph are both acts of imposing clarity on chaos.
-                </p>
-                <p>
-                  He brought that eye inside a national Australian solar company, where he
-                  designed and built the operations platform that now runs the business —
-                  320,000+ lines of production TypeScript, fifteen integrated SaaS
-                  platforms, hundreds of sales processed every month. Not advising on it,
-                  not wireframing it: building it.
-                </p>
-                <p>
-                  That experience shaped a simple conviction: the gap between what
-                  businesses need and what most agencies deliver is enormous. Businesses
-                  don&apos;t need more mockups, decks, or discovery phases. They need
-                  working software in production, built by someone who understands how the
-                  operation actually runs — where the quotes stall, where the data gets
-                  re-keyed, where the time disappears.
-                </p>
+                  <div className="space-y-5 text-ink-2 leading-relaxed">
+                    <p>
+                      CoreSentia was founded by Ramsay Hatfield — an astrophotographer who
+                      builds software. Years of standing alone in the dark, composing images
+                      of things most people never see, taught him a particular way of working:
+                      find the order in complexity, and make it feel right. He sees no real
+                      boundary between art and engineering — a well-designed system and a
+                      well-composed photograph are both acts of imposing clarity on chaos.
+                    </p>
+                    <p>
+                      He brought that eye inside a national Australian solar company, where he
+                      designed and built the operations platform that now runs the business —
+                      320,000+ lines of production TypeScript, fifteen integrated SaaS
+                      platforms, hundreds of sales processed every month. Not advising on it,
+                      not wireframing it: building it.
+                    </p>
+                    <p>
+                      That experience shaped a simple conviction: the gap between what
+                      businesses need and what most agencies deliver is enormous. Businesses
+                      don&apos;t need more mockups, decks, or discovery phases. They need
+                      working software in production, built by someone who understands how the
+                      operation actually runs — where the quotes stall, where the data gets
+                      re-keyed, where the time disappears.
+                    </p>
                     <p>
                       CoreSentia exists to close that gap. We take projects from process
                       mapping to production, and every system we build is designed to run
@@ -99,7 +102,7 @@ export default function AboutPage() {
               {/* The proof — his photograph */}
               <AnimateOnScroll delay={100} className="lg:col-span-2 order-1 lg:order-2">
                 <figure>
-                  <div className="rounded-2xl overflow-hidden border border-line-soft">
+                  <div className="rounded overflow-hidden border border-line-soft">
                     <Image
                       src="/ramsay-milky-way.jpg"
                       alt="The Milky Way galactic core over granite rock pools and cypress trees — astrophotography by Ramsay Hatfield"
@@ -117,23 +120,54 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* AI section — how he works */}
+        <section className="py-32 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
+              <AnimateOnScroll className="lg:col-span-4">
+                <div className="section-label mb-3">Method</div>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-display">
+                  AI isn&apos;t a feature I add. It&apos;s how I work.
+                </h2>
+              </AnimateOnScroll>
+              <AnimateOnScroll delay={100} className="lg:col-span-7 lg:col-start-6">
+                <div className="space-y-5 text-ink-2 leading-relaxed">
+                  <p>
+                    Every platform I build is developed AI-natively — frontier models wired
+                    into the work from the first mapping session to production, governed and
+                    logged. I&apos;ve reorganised my entire working method around what these
+                    tools make possible. It&apos;s why one person ships what used to take a
+                    team, and why the platforms I deliver come with that same capability
+                    built in for your staff.
+                  </p>
+                  <p>
+                    Most businesses are still deciding whether to take AI seriously. You can
+                    hire someone who already has — and has the shipped platforms to prove it.
+                  </p>
+                </div>
+              </AnimateOnScroll>
+            </div>
+          </div>
+        </section>
+
         {/* How we work */}
-        <section className="py-20 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-4xl mx-auto">
+        <section className="py-16 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
+          <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-semibold mb-4 font-fraunces">How we work</h2>
+              <div className="section-label mb-3">Principles</div>
+              <h2 className="text-3xl font-semibold mb-4 font-display">How we work</h2>
             </AnimateOnScroll>
             <div>
               {principles.map((p, i) => (
                 <AnimateOnScroll key={p.num} delay={i * 80}>
                   <div className="group grid md:grid-cols-12 gap-3 md:gap-8 py-8 border-b border-line-soft items-baseline">
-                    <div className="md:col-span-1 font-mono text-sm text-ink-3 group-hover:text-brand-accent transition-colors">
+                    <div className="md:col-span-1 font-mono text-sm text-ink-3 group-hover:text-accent-ink transition-colors">
                       {p.num}
                     </div>
-                    <h3 className="md:col-span-4 text-xl font-semibold font-raleway">
+                    <h3 className="md:col-span-3 text-xl font-semibold font-display">
                       {p.title}
                     </h3>
-                    <p className="md:col-span-7 text-ink-2 leading-relaxed text-sm md:text-base">
+                    <p className="md:col-span-8 md:col-start-5 text-ink-2 leading-relaxed text-base">
                       {p.description}
                     </p>
                   </div>
@@ -144,50 +178,53 @@ export default function AboutPage() {
         </section>
 
         {/* Track Record */}
-        <section className="py-20 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
-          <div className="max-w-4xl mx-auto">
+        <section className="py-32 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-semibold mb-10 font-fraunces">Track record</h2>
+              <div className="section-label mb-3">Track record</div>
             </AnimateOnScroll>
-            <AnimateOnScroll>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                {[
-                  { value: '$1M+', label: 'In platform value delivered' },
-                  { value: '320K+', label: 'Lines of production TypeScript shipped' },
-                  { value: '24/7', label: 'Production systems, running right now' },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <div className="text-4xl md:text-5xl font-bold font-mono text-ink-1 mb-3 tracking-editorial">{stat.value}</div>
-                    <div className="text-ink-3 text-sm">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </AnimateOnScroll>
+            <div className="grid lg:grid-cols-12 gap-8 items-end">
+              <AnimateOnScroll className="lg:col-span-6">
+                <div className="text-[clamp(4rem,10vw,8rem)] leading-none font-semibold font-display tracking-editorial">
+                  320K+
+                </div>
+                <div className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3 mt-3">
+                  lines of production TypeScript shipped
+                </div>
+              </AnimateOnScroll>
+              <AnimateOnScroll delay={100} className="lg:col-span-5 lg:col-start-8">
+                <p className="text-ink-2 leading-relaxed">
+                  <span className="font-mono text-ink-1">$1M+</span> in platform value
+                  delivered, running <span className="font-mono text-ink-1">24/7</span> in
+                  production right now.
+                </p>
+              </AnimateOnScroll>
+            </div>
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-20 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-4xl mx-auto">
+        <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
-              <h2 className="text-3xl font-semibold mb-4 font-fraunces">
+              <h2 className="text-3xl font-semibold mb-4 font-display">
                 Have a project in mind?
               </h2>
-              <p className="text-xl text-ink-2 mb-8">
+              <p className="text-ink-2 mb-8">
                 Let&apos;s talk about what you need built.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 font-display">
                 <Link
                   href="/#contact"
-                  className="px-8 py-3.5 bg-brand-highlight text-dark-bg-primary font-semibold rounded-lg hover:bg-[#4dc4e8] transition-colors text-center"
+                  className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm hover:bg-[#0d86cc] transition-colors text-center"
                 >
                   Get in touch
                 </Link>
                 <Link
                   href="/projects"
-                  className="px-8 py-3.5 rounded-lg border border-line-strong text-ink-1 font-semibold hover:border-brand-accent transition-colors text-center"
+                  className="px-7 py-3 rounded-sm border border-line-strong text-ink-1 font-medium hover:border-accent transition-colors text-center"
                 >
-                  View our work
+                  View the work
                 </Link>
               </div>
             </AnimateOnScroll>
@@ -196,9 +233,9 @@ export default function AboutPage() {
 
         {/* Legal Info */}
         <section className="py-8 px-6 border-t border-line-soft">
-          <div className="max-w-4xl mx-auto text-sm text-ink-3">
+          <div className="max-w-6xl mx-auto text-sm text-ink-3 font-mono">
             <p>CoreSentia &middot; ABN: 69 267 271 132 &middot; Brisbane, Queensland, Australia &middot;{' '}
-              <Link href="mailto:info@coresentia.com" className="text-brand-accent hover:text-brand-highlight transition-colors">
+              <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">
                 info@coresentia.com
               </Link>
             </p>

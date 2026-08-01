@@ -58,18 +58,18 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-out
         ${scrolled
-          ? 'header-scrim backdrop-blur-xl border-b border-line-soft shadow-lg shadow-black/10'
+          ? 'header-scrim backdrop-blur-sm border-b border-line-soft'
           : 'bg-transparent'}`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <Logo className="h-9 md:h-11 w-auto transition-all duration-300" />
+            <Logo className="h-9 md:h-10 w-auto" />
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1 font-display">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -84,11 +84,11 @@ export default function Header() {
             <ThemeToggle className="ml-1" />
             <Link
               href="/#contact"
-              className="ml-3 px-5 py-2 bg-brand-highlight text-dark-bg-primary font-medium rounded-lg
-                hover:bg-[#4dc4e8]
+              className="ml-3 px-5 py-2 bg-accent text-[#0d0d0c] font-medium rounded-sm
+                hover:bg-[#0d86cc]
                 transition-colors duration-200 text-sm"
             >
-              Start a Project
+              Start a project
             </Link>
           </nav>
 
@@ -108,14 +108,14 @@ export default function Header() {
 
       {/* Mobile Overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 overlay-scrim backdrop-blur-xl md:hidden">
-          <div className="flex flex-col items-center justify-center h-full gap-8">
+        <div className="fixed inset-0 z-40 overlay-scrim md:hidden">
+          <div className="flex flex-col items-center justify-center h-full gap-8 font-display">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-2xl font-semibold text-ink-1 hover:text-brand-accent transition-colors"
+                className="text-2xl font-medium text-ink-1 hover:text-accent-ink transition-colors"
               >
                 {link.label}
               </Link>
@@ -123,10 +123,10 @@ export default function Header() {
             <Link
               href="/#contact"
               onClick={() => setMobileOpen(false)}
-              className="mt-4 px-8 py-3 bg-brand-highlight text-dark-bg-primary font-semibold rounded-full
-                hover:shadow-lg hover:shadow-brand-highlight/30 hover:bg-[#4dc4e8] transition-all duration-300 text-lg"
+              className="mt-4 px-8 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm
+                hover:bg-[#0d86cc] transition-colors duration-300 text-lg"
             >
-              Get in Touch
+              Get in touch
             </Link>
           </div>
         </div>

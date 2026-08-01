@@ -203,8 +203,9 @@ export default function FAQPage() {
         </section>
 
         {/* FAQ List */}
-        <section className="px-6 lg:px-8 pb-20">
-          <div className="max-w-4xl mx-auto">
+        <section className="relative overflow-hidden px-6 lg:px-8 pb-20">
+          <Backdrop src="/structure-struts.jpg" opacity={0.08} />
+          <div className="max-w-4xl mx-auto relative z-10">
             <div className="space-y-3">
               {filteredFAQs.map((faq, index) => (
                 <div

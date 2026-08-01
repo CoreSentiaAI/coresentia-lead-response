@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ContactForm from './components/ContactForm'
 import AnimateOnScroll from './components/AnimateOnScroll'
 import HowItWorks from './components/HowItWorks'
+import Backdrop from './components/Backdrop'
 
 const services = [
   {
@@ -120,8 +121,9 @@ export default function HomePage() {
       </section>
 
       {/* ========== WHAT WE BUILD ========== */}
-      <section className="relative py-16 px-6 lg:px-8 border-t border-line-soft">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative overflow-hidden py-16 px-6 lg:px-8 border-t border-line-soft">
+        <Backdrop src="/structure-struts.jpg" opacity={0.1} />
+        <div className="max-w-7xl mx-auto relative z-10">
           <AnimateOnScroll>
             <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-4">
               <div className="lg:col-span-4">
@@ -286,8 +288,9 @@ export default function HomePage() {
       </section>
 
       {/* ========== TRACK RECORD ========== */}
-      <section className="relative py-32 px-6 lg:px-8 border-t border-line-soft">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
+        <Backdrop src="/structure-curve.jpg" opacity={0.18} />
+        <div className="max-w-7xl mx-auto relative z-10">
           <AnimateOnScroll>
             <div className="section-label mb-3">Track record</div>
           </AnimateOnScroll>
@@ -316,8 +319,9 @@ export default function HomePage() {
       </section>
 
       {/* ========== CONTACT ========== */}
-      <section id="contact" className="relative py-16 px-6 lg:px-8 border-t border-line-soft">
-        <div className="max-w-7xl mx-auto">
+      <section id="contact" className="relative overflow-hidden py-16 px-6 lg:px-8 border-t border-line-soft">
+        <Backdrop src="/structure-shadowstairs.jpg" opacity={0.1} />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-start">
             <div className="lg:col-span-4">
               <AnimateOnScroll>

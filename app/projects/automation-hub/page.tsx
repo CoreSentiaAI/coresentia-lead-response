@@ -4,6 +4,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import AnimateOnScroll from '../../components/AnimateOnScroll'
 import JobWriter from '../../components/JobWriter'
+import Backdrop from '../../components/Backdrop'
 
 function Tag({ children }: { children: string }) {
   return (
@@ -107,8 +108,9 @@ export default function AutomationHubPage() {
         </section>
 
         {/* Scale — editorial, one number huge */}
-        <section className="bg-surface-alt py-32 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
+          <Backdrop src="/structure-curve.jpg" opacity={0.22} />
+          <div className="max-w-7xl mx-auto relative z-10">
             <div className="grid lg:grid-cols-12 gap-8 items-end">
               <AnimateOnScroll className="lg:col-span-6">
                 <div className="text-[clamp(4.5rem,12vw,10rem)] leading-none font-semibold font-display tracking-editorial">
@@ -152,8 +154,9 @@ export default function AutomationHubPage() {
         </section>
 
         {/* What It Does */}
-        <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative overflow-hidden py-16 px-6 lg:px-8 border-t border-line-soft">
+          <Backdrop src="/structure-struts.jpg" opacity={0.13} />
+          <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-12">
                 <div className="lg:col-span-5">
@@ -266,8 +269,9 @@ export default function AutomationHubPage() {
         </section>
 
         {/* Integration Architecture */}
-        <section className="bg-surface-alt py-32 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
+          <Backdrop src="/structure-grid.jpg" opacity={0.18} />
+          <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-12">
                 <div className="lg:col-span-5">
@@ -363,8 +367,9 @@ export default function AutomationHubPage() {
         </section>
 
         {/* Design Philosophy */}
-        <section className="bg-surface-alt py-32 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
+          <Backdrop src="/structure-shadowstairs.jpg" opacity={0.15} />
+          <div className="max-w-7xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="mb-4 max-w-2xl">
                 <div className="section-label mb-3">Design philosophy</div>

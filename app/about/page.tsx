@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import AnimateOnScroll from '../components/AnimateOnScroll'
+import Backdrop from '../components/Backdrop'
 
 const principles = [
   {
@@ -134,8 +135,9 @@ export default function AboutPage() {
         </section>
 
         {/* AI section — how he works */}
-        <section className="py-32 px-6 lg:px-8 border-t border-line-soft">
-          <div className="max-w-6xl mx-auto">
+        <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
+          <Backdrop src="/structure-curve.jpg" opacity={0.15} />
+          <div className="max-w-6xl mx-auto relative z-10">
             <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
               <AnimateOnScroll className="lg:col-span-4">
                 <div className="section-label mb-3">Method</div>
@@ -164,8 +166,9 @@ export default function AboutPage() {
         </section>
 
         {/* How we work */}
-        <section className="py-16 px-6 lg:px-8 bg-surface-alt border-t border-line-soft">
-          <div className="max-w-6xl mx-auto">
+        <section className="relative overflow-hidden py-16 px-6 lg:px-8 border-t border-line-soft">
+          <Backdrop src="/structure-shadowstairs.jpg" opacity={0.12} />
+          <div className="max-w-6xl mx-auto relative z-10">
             <AnimateOnScroll>
               <div className="section-label mb-3">Principles</div>
               <h2 className="text-3xl font-semibold mb-4 font-display">How we work</h2>

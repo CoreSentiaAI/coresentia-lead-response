@@ -156,11 +156,11 @@ export default function FAQPage() {
       <Header />
 
       <main className="pt-32 pb-0">
-        {/* Hero Section — shallow steps in raking light */}
+        {/* Hero Section — spiral stair, light on the text side */}
         <section className="relative px-6 lg:px-8 pt-10 pb-20 -mt-10 overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none dark-only">
             <Image
-              src="/structure-steps.jpg"
+              src="/structure-stair.jpg"
               alt=""
               fill
               className="object-cover object-center opacity-35"

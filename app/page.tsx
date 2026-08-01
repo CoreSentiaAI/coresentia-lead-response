@@ -64,7 +64,7 @@ export default function HomePage() {
 
       {/* ========== HERO ========== */}
       <section className="relative px-6 lg:px-8 pt-44 pb-32 lg:pt-56 lg:pb-44 overflow-hidden">
-        {/* Structure: shallow steps in raking light (trial vs spiral stair — swap src to compare) */}
+        {/* Structure: shallow steps in raking light — confirmed hero image */}
         <div className="absolute inset-0 z-0 pointer-events-none dark-only">
           <Image
             src="/structure-steps.jpg"

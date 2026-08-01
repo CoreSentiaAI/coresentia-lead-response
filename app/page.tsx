@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ContactForm from './components/ContactForm'
@@ -10,31 +11,31 @@ const services = [
     num: '01',
     title: 'Process automation',
     description:
-      'We map how work actually moves through your business — quotes, jobs, approvals, handoffs — then remove the manual steps. What took a team an afternoon happens in minutes, without anyone touching it.',
+      'We map how work moves through your business, then remove the manual steps.',
   },
   {
     num: '02',
     title: 'Systems integration',
     description:
-      'CRM, quoting, accounting, inventory, documents, team comms — most businesses run on systems that don’t talk to each other. We connect them into one pipeline with a single source of truth. And we build on your stack — Microsoft, Google, AWS — whatever your security and governance require.',
+      'CRM, quoting, accounting, inventory — one pipeline, one source of truth, on your stack: Microsoft, Google, AWS.',
   },
   {
     num: '03',
     title: 'SaaS replacement',
     description:
-      'The CRM you use 15% of. The per-seat licences that grow with headcount. We build custom platforms that replace the subscriptions you’ve outgrown — designed around your team, owned outright, no seat fees, forever. We’ve replaced a $40K/year enterprise CRM with a purpose-built pipeline in 12 days.',
+      'Custom platforms that replace the subscriptions you’ve outgrown. Owned outright, no seat fees — a $40K/year CRM replaced in 12 days.',
   },
   {
     num: '04',
     title: 'AI-native software',
     description:
-      'Systems with intelligence designed in from the start: validating data before it propagates, drafting the routine work, and answering questions your team used to dig for.',
+      'Intelligence designed in from the start — validating data, drafting the routine work, answering the questions your team used to dig for.',
   },
   {
     num: '05',
     title: 'Company-native AI',
     description:
-      'A private AI workspace built into your platform. Claude, GPT, or any frontier model — running against your own data: jobs, customers, documents, history. Every prompt and response logged for full auditability. No per-seat subscriptions, no staff pasting company data into public chatbots. Sanctioned AI, governed properly, owned by you.',
+      'A private AI workspace on your own data — every prompt logged, governed, owned by you. No staff pasting company data into public chatbots.',
   },
 ]
 
@@ -62,50 +63,57 @@ export default function HomePage() {
       <Header />
 
       {/* ========== HERO ========== */}
-      <section className="relative px-6 lg:px-8 pt-44 pb-32 lg:pt-56 lg:pb-40">
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-end">
-            {/* Headline — deliberately disproportionate */}
-            <div className="lg:col-span-8">
-              <h1 className="text-display font-semibold font-display">
-                We make<br />
-                good businesses<br />
-                run better
-              </h1>
+      <section className="relative px-6 lg:px-8 pt-44 pb-32 lg:pt-56 lg:pb-44 overflow-hidden">
+        {/* Structure: spiral stair — light falls on the text side, curve sweeps into dark */}
+        <div className="absolute inset-0 z-0 pointer-events-none dark-only">
+          <Image
+            src="/structure-stair.jpg"
+            alt=""
+            fill
+            className="object-cover object-center opacity-50"
+            priority
+            quality={82}
+          />
+          {/* directional darken on the text side + dissolve into the page */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(100deg, #111110 0%, rgba(17,17,16,0.82) 34%, rgba(17,17,16,0.25) 62%, rgba(17,17,16,0.05) 100%)' }} />
+          <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-48" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
+        </div>
 
-              <div className="mt-12 lg:mt-16">
-                <p className="text-ink-2 max-w-md mb-8">
-                  We map how your business works, then build the software that
-                  makes it faster — automation, integration, and AI-native
-                  systems. Brisbane.
-                </p>
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="max-w-4xl">
+            <h1 className="text-display font-semibold font-display">
+              We make<br />
+              good businesses<br />
+              run better
+            </h1>
 
-                <div className="flex items-center gap-6 font-display">
-                  <Link
-                    href="#contact"
-                    className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm
-                      hover:bg-[#0d86cc] transition-colors text-base"
-                  >
-                    Start a project
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="text-ink-3 hover:text-ink-1 font-medium transition-colors text-sm group"
-                  >
-                    View the work <span className="inline-block group-hover:translate-x-0.5 transition-transform">&rarr;</span>
-                  </Link>
-                </div>
+            <div className="mt-12 lg:mt-16">
+              <p className="text-ink-2 max-w-md mb-8">
+                We map how your business works, then build the software that
+                makes it faster — automation, integration, and AI-native
+                systems. Brisbane.
+              </p>
+
+              <div className="flex items-center gap-6 font-display">
+                <Link
+                  href="#contact"
+                  className="px-7 py-3 bg-accent text-[#0d0d0c] font-medium rounded-sm
+                    hover:bg-[#0d86cc] transition-colors text-base"
+                >
+                  Start a project
+                </Link>
+                <Link
+                  href="/projects"
+                  className="text-ink-1 font-medium transition-opacity hover:opacity-70 text-sm group"
+                >
+                  View the work <span className="inline-block group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                </Link>
               </div>
-            </div>
 
-            {/* One number huge, others small */}
-            <div className="lg:col-span-3 lg:col-start-10 hidden lg:block border-l border-line-soft pl-8">
-              <div className="text-7xl font-semibold font-display text-ink-1 tracking-editorial">15+</div>
-              <div className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3 mt-2 mb-8">
-                SaaS platforms connected for one client
+              <div className="mt-14 font-mono text-xs uppercase tracking-[0.08em] text-ink-1">
+                15+ SaaS platforms connected &middot; 6 min contract-to-job &middot; 24/7 in production
               </div>
-              <div className="font-mono text-sm text-ink-2">6 min &mdash; contract to scheduled job</div>
-              <div className="font-mono text-sm text-ink-2 mt-2">24/7 &mdash; in production right now</div>
             </div>
           </div>
         </div>
@@ -128,15 +136,15 @@ export default function HomePage() {
 
           <div>
             {services.map((service, i) => (
-              <AnimateOnScroll key={service.num} delay={i * 80}>
-                <div className="group grid lg:grid-cols-12 gap-4 lg:gap-8 py-8 lg:py-10 border-b border-line-soft items-baseline">
-                  <div className="lg:col-span-1 font-mono text-sm text-ink-3 group-hover:text-accent-ink transition-colors">
+              <AnimateOnScroll key={service.num} delay={i * 60}>
+                <div className="group grid lg:grid-cols-12 gap-2 lg:gap-8 py-5 border-b border-line-soft items-baseline">
+                  <div className="lg:col-span-1 font-mono text-sm group-hover:text-accent-ink transition-colors">
                     {service.num}
                   </div>
-                  <h3 className="lg:col-span-3 text-xl lg:text-2xl font-semibold font-display">
+                  <h3 className="lg:col-span-4 text-xl lg:text-2xl font-semibold font-display">
                     {service.title}
                   </h3>
-                  <p className="lg:col-span-8 lg:col-start-5 text-ink-2 leading-relaxed max-w-3xl text-base">
+                  <p className="lg:col-span-7 leading-snug text-base">
                     {service.description}
                   </p>
                 </div>
@@ -164,6 +172,20 @@ export default function HomePage() {
 
           <HowItWorks />
         </div>
+      </section>
+
+      {/* ========== STRUCTURE BREAK — full bleed ========== */}
+      <section className="relative h-[46vh] lg:h-[60vh] overflow-hidden dark-only" aria-hidden>
+        <Image
+          src="/structure-sweep.jpg"
+          alt=""
+          fill
+          className="object-cover object-center opacity-60"
+          quality={82}
+          sizes="100vw"
+        />
+        <div className="absolute inset-x-0 top-0 h-40" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+        <div className="absolute inset-x-0 bottom-0 h-40" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
       </section>
 
       {/* ========== SELECTED WORK ========== */}

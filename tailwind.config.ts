@@ -71,7 +71,7 @@ module.exports = {
         raleway: ['var(--font-raleway)', 'Raleway', 'sans-serif'],
         inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
         mono: ['var(--font-mono)', 'JetBrains Mono', 'monospace'],
-        display: ['var(--font-instrument)', 'sans-serif'],
+        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
         serif: ['var(--font-newsreader)', 'Georgia', 'serif'],
       },
       animation: {

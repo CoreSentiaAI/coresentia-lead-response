@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Montserrat, Inter, Raleway, JetBrains_Mono, Instrument_Sans, Newsreader } from 'next/font/google';
+import { Montserrat, Inter, Raleway, JetBrains_Mono, Fraunces, Newsreader } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 const montserrat = Montserrat({
@@ -27,9 +27,10 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700']
 });
 
-const instrumentSans = Instrument_Sans({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  variable: '--font-instrument',
+  variable: '--font-fraunces',
+  axes: ['opsz'],
 });
 
 const newsreader = Newsreader({
@@ -126,7 +127,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable} ${instrumentSans.variable} ${newsreader.variable}`}>
+      <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${newsreader.variable}`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

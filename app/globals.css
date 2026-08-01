@@ -30,9 +30,11 @@
   --surface-raised: #201f1c;
   --line-soft: #2a2925;
   --line-strong: #3a3833;
-  --ink-1: #edeae4;
-  --ink-2: #b0aca3;
-  --ink-3: #8a867d;
+  /* All text is white — no greys. Hierarchy comes from size, weight,
+     and mono-vs-serif, never from dimming (founder rule, Aug 2026). */
+  --ink-1: #ffffff;
+  --ink-2: #ffffff;
+  --ink-3: #ffffff;
 
   /* Accent system — logo azure promoted, other logo blues demoted.
      --accent: fills, buttons, markers (true logo hex, both themes)
@@ -62,9 +64,10 @@ html.light {
   --surface-raised: #f1eee7;
   --line-soft: #e2ded4;
   --line-strong: #ccc7ba;
-  --ink-1: #191917;
-  --ink-2: #4a473f;
-  --ink-3: #7a766c;
+  /* Light mode mirror of the no-grey rule: all text near-black */
+  --ink-1: #161615;
+  --ink-2: #161615;
+  --ink-3: #161615;
   /* #1099E7 fails AA as text on paper — darkened for text/links only */
   --accent-ink: #0a72b2;
 }
@@ -157,44 +160,43 @@ body {
   font-family: var(--font-raleway), var(--font-inter), sans-serif;
 }
 
-/* Headers: Instrument Sans, 500/600, tight tracking per DESIGN.md */
+/* Headers: Fraunces — characterful display serif, per founder (Instrument Sans retired as an AI-tell) */
 h1 {
-  font-family: var(--font-instrument), sans-serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 600;
   line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--ink-1);
-}
-
-h2 {
-  font-family: var(--font-instrument), sans-serif;
-  font-weight: 600;
-  font-size: 2.25rem;
-  line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--ink-1);
 }
 
-h3 {
-  font-family: var(--font-instrument), sans-serif;
+h2 {
+  font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  color: var(--ink-1);
-}
-
-h4 {
-  font-family: var(--font-instrument), sans-serif;
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 1.3;
+  font-size: 2.25rem;
+  line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--ink-1);
 }
 
+h3 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink-1);
+}
+
+h4 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--ink-1);
+}
+
 h5 {
-  font-family: var(--font-instrument), sans-serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.4;

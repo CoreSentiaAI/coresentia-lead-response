@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -155,9 +156,22 @@ export default function FAQPage() {
       <Header />
 
       <main className="pt-32 pb-0">
-        {/* Hero Section */}
-        <section className="px-6 lg:px-8 pb-12">
-          <div className="max-w-4xl mx-auto">
+        {/* Hero Section — shallow steps in raking light */}
+        <section className="relative px-6 lg:px-8 pt-10 pb-20 -mt-10 overflow-hidden">
+          <div className="absolute inset-0 z-0 pointer-events-none dark-only">
+            <Image
+              src="/structure-steps.jpg"
+              alt=""
+              fill
+              className="object-cover object-center opacity-35"
+              priority
+              quality={82}
+            />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, #111110 0%, rgba(17,17,16,0.85) 40%, rgba(17,17,16,0.3) 100%)' }} />
+            <div className="absolute inset-x-0 top-0 h-24" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+            <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
+          </div>
+          <div className="max-w-4xl mx-auto relative z-10">
             <h1 className="text-4xl md:text-5xl font-semibold mb-6 font-display">
               Questions, answered
             </h1>

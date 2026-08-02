@@ -81,8 +81,8 @@ export default function AboutPage() {
                 <AnimateOnScroll>
                   <div className="space-y-5 text-ink-2 leading-relaxed">
                     <p>
-                      I&apos;m Ramsay Hatfield, and CoreSentia is my studio. I spent the
-                      last few years inside a national Australian solar company, where I
+                      I&apos;m Ramsay Hatfield, and CoreSentia is my studio. I&apos;ve spent
+                      the last few years inside a national Australian solar company, where I
                       built the operations platform the business now runs on - 320,000+
                       lines of production TypeScript, fifteen integrated SaaS platforms,
                       hundreds of sales processed every month.

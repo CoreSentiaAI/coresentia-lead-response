@@ -10,19 +10,19 @@ const principles = [
     num: '01',
     title: 'Ship real code',
     description:
-      'No WordPress templates, no drag-and-drop, no six-month discovery phases. We write production code using modern frameworks, and working software shows up early in the engagement — not at the end.',
+      'No WordPress templates, no drag-and-drop, no six-month discovery phases. We write production code using modern frameworks, and working software shows up early in the engagement - not at the end.',
   },
   {
     num: '02',
     title: 'Map before you build',
     description:
-      'Software fails when it ignores how the business actually works. We start with the process — who touches what, where the time goes, what breaks — and let the system design follow.',
+      'Software fails when it ignores how the business actually works. We start with the process - who touches what, where the time goes, what breaks - and let the system design follow.',
   },
   {
     num: '03',
     title: 'AI-native thinking',
     description:
-      "We don't bolt AI on as an afterthought. We design systems with intelligence at the core — validating data before it propagates, drafting the routine work, answering the questions your team used to dig for.",
+      "We don't bolt AI on as an afterthought. We design systems with intelligence at the core - validating data before it propagates, drafting the routine work, answering the questions your team used to dig for.",
   },
   {
     num: '04',
@@ -38,7 +38,7 @@ export default function AboutPage() {
       <Header />
 
       <main className="pt-40 pb-0">
-        {/* Hero Section — coffered grid: repeated elements resolving into one form */}
+        {/* Hero Section - coffered grid: repeated elements resolving into one form */}
         <section className="relative px-6 lg:px-8 pb-24 overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none dark-only">
             <Image
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 </h1>
                 <p className="lg:col-span-6 lg:col-start-7 text-ink-2 leading-relaxed">
                   CoreSentia is an AI-native development studio based in Brisbane. We build
-                  the systems that make established businesses run better — automation,
+                  the systems that make established businesses run better - automation,
                   integration, and production software.
                 </p>
               </div>
@@ -81,16 +81,16 @@ export default function AboutPage() {
                 <AnimateOnScroll>
                   <div className="space-y-5 text-ink-2 leading-relaxed">
                     <p>
-                      CoreSentia was founded by Ramsay Hatfield — an astrophotographer who
+                      CoreSentia was founded by Ramsay Hatfield - an astrophotographer who
                       builds software. Years of standing alone in the dark, composing images
                       of things most people never see, taught him a particular way of working:
                       find the order in complexity, and make it feel right. He sees no real
-                      boundary between art and engineering — a well-designed system and a
+                      boundary between art and engineering - a well-designed system and a
                       well-composed photograph are both acts of imposing clarity on chaos.
                     </p>
                     <p>
                       He brought that eye inside a national Australian solar company, where he
-                      designed and built the operations platform that now runs the business —
+                      designed and built the operations platform that now runs the business -
                       320,000+ lines of production TypeScript, fifteen integrated SaaS
                       platforms, hundreds of sales processed every month. Not advising on it,
                       not wireframing it: building it.
@@ -100,33 +100,33 @@ export default function AboutPage() {
                       businesses need and what most agencies deliver is enormous. Businesses
                       don&apos;t need more mockups, decks, or discovery phases. They need
                       working software in production, built by someone who understands how the
-                      operation actually runs — where the quotes stall, where the data gets
+                      operation actually runs - where the quotes stall, where the data gets
                       re-keyed, where the time disappears.
                     </p>
                     <p>
                       CoreSentia exists to close that gap. We take projects from process
                       mapping to production, and every system we build is designed to run
-                      24/7 without us standing next to it — honest, considered, and worth
+                      24/7 without us standing next to it - honest, considered, and worth
                       the effort.
                     </p>
                   </div>
                 </AnimateOnScroll>
               </div>
 
-              {/* The proof — his photograph */}
+              {/* The proof - his photograph */}
               <AnimateOnScroll delay={100} className="lg:col-span-2 order-1 lg:order-2">
                 <figure>
                   <div className="rounded overflow-hidden border border-line-soft">
                     <Image
                       src="/ramsay-milky-way.jpg"
-                      alt="The Milky Way galactic core over granite rock pools and cypress trees — astrophotography by Ramsay Hatfield"
+                      alt="The Milky Way galactic core over granite rock pools and cypress trees - astrophotography by Ramsay Hatfield"
                       width={1708}
                       height={2000}
                       className="w-full h-auto"
                     />
                   </div>
                   <figcaption className="mt-3 font-mono text-xs text-ink-3">
-                    The Milky Way core over granite country — photographed by Ramsay.
+                    The Milky Way core over granite country - photographed by Ramsay.
                   </figcaption>
                 </figure>
               </AnimateOnScroll>
@@ -134,7 +134,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* AI section — how he works */}
+        {/* AI section - how he works */}
         <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
           <Backdrop src="/structure-curve.jpg" opacity={0.15} />
           <div className="max-w-6xl mx-auto relative z-10">
@@ -148,7 +148,7 @@ export default function AboutPage() {
               <AnimateOnScroll delay={100} className="lg:col-span-7 lg:col-start-6">
                 <div className="space-y-5 text-ink-2 leading-relaxed">
                   <p>
-                    Every platform I build is developed AI-natively — frontier models wired
+                    Every platform I build is developed AI-natively - frontier models wired
                     into the work from the first mapping session to production, governed and
                     logged. I&apos;ve reorganised my entire working method around what these
                     tools make possible. It&apos;s why one person ships what used to take a
@@ -157,7 +157,7 @@ export default function AboutPage() {
                   </p>
                   <p>
                     Most businesses are still deciding whether to take AI seriously. You can
-                    hire someone who already has — and has the shipped platforms to prove it.
+                    hire someone who already has - and has the shipped platforms to prove it.
                   </p>
                 </div>
               </AnimateOnScroll>

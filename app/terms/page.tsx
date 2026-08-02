@@ -86,7 +86,7 @@ export default function TermsPage() {
 
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">7. Intellectual Property</h2>
             <p className="text-ink-2 mb-4">
-              <strong className="text-ink-1">You own your system.</strong> On full payment, intellectual property in the custom software we build for you is assigned to you — source code, infrastructure configuration, and documentation.
+              <strong className="text-ink-1">You own your system.</strong> On full payment, intellectual property in the custom software we build for you is assigned to you - source code, infrastructure configuration, and documentation.
             </p>
             <p className="text-ink-2 mb-6">
               CoreSentia retains ownership of pre-existing tools, libraries, and generic components we bring to a project, which are licensed to you for use within your system. Third-party and open-source components remain subject to their own licences.

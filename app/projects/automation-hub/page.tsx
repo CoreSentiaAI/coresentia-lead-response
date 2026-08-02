@@ -19,25 +19,25 @@ const ideas = [
     num: '01',
     title: 'One record of truth',
     description:
-      'Every job lives as a single canonical record from lead to final closeout. Every module — sales, scheduling, field operations, finance — is a UI reading from and writing into that same record. There are no parallel truths to reconcile.',
+      'Every job lives as a single canonical record from lead to final closeout. Every module - sales, scheduling, field operations, finance - is a UI reading from and writing into that same record. There are no parallel truths to reconcile.',
   },
   {
     num: '02',
     title: 'Provenance on every write',
     description:
-      'Every field records where it came from, who changed it, and why. When a manager asks "why does this say what it says?", the answer is one click away — not an archaeology project.',
+      'Every field records where it came from, who changed it, and why. When a manager asks "why does this say what it says?", the answer is one click away - not an archaeology project.',
   },
   {
     num: '03',
     title: 'Facts vs artifacts',
     description:
-      'If someone would ask "what\'s the X on this job?" — it\'s a fact, and it lives on the record. Photos, signed PDFs, and checklist responses are artifacts, and hang off it. The distinction is what keeps a wide truth table elegant instead of chaotic.',
+      'If someone would ask "what\'s the X on this job?" - it\'s a fact, and it lives on the record. Photos, signed PDFs, and checklist responses are artifacts, and hang off it. The distinction is what keeps a wide truth table elegant instead of chaotic.',
   },
   {
     num: '04',
     title: 'Forms are UIs, not submission blobs',
     description:
-      'An installer filling out a site inspection isn\'t "submitting a form" — they\'re populating thirty facts on the job record that happen to be captured in the field. Design for the data, and the workflows take care of themselves.',
+      'An installer filling out a site inspection isn\'t "submitting a form" - they\'re populating thirty facts on the job record that happen to be captured in the field. Design for the data, and the workflows take care of themselves.',
   },
 ]
 
@@ -59,7 +59,7 @@ export default function AutomationHubPage() {
           </div>
         </section>
 
-        {/* Hero Section — concrete fins: repeated modules, one rhythm */}
+        {/* Hero Section - concrete fins: repeated modules, one rhythm */}
         <section className="relative px-6 lg:px-8 pb-16 pt-8 -mt-8 overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none dark-only">
             <Image
@@ -92,9 +92,9 @@ export default function AutomationHubPage() {
                 <p className="text-lg md:text-xl text-ink-2 mb-8 leading-relaxed">
                   Mission-critical operations platform for a national Australian solar
                   company. What began as sales automation now runs the business
-                  end-to-end — 15+ integrated SaaS platforms, 500+ API endpoints, and
+                  end-to-end - 15+ integrated SaaS platforms, 500+ API endpoints, and
                   every job managed from signed contract to final closeout. Hundreds of
-                  sales processed, hands-free — on a custom pipeline built to replace
+                  sales processed, hands-free - on a custom pipeline built to replace
                   the enterprise CRM at the centre of the old stack.
                 </p>
 
@@ -112,7 +112,7 @@ export default function AutomationHubPage() {
           </div>
         </section>
 
-        {/* Scale — editorial, one number huge */}
+        {/* Scale - editorial, one number huge */}
         <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
           <Backdrop src="/structure-curve.jpg" opacity={0.22} />
           <div className="max-w-7xl mx-auto relative z-10">
@@ -131,14 +131,14 @@ export default function AutomationHubPage() {
                   <span className="font-mono text-ink-1">15+</span> integrated SaaS
                   platforms. <span className="font-mono text-ink-1">2,100+</span> commits
                   and <span className="font-mono text-ink-1">289</span> database
-                  migrations — shipped by one person in nine months.
+                  migrations - shipped by one person in nine months.
                 </p>
               </AnimateOnScroll>
             </div>
           </div>
         </section>
 
-        {/* Watch a sale become a job — the platform writing a job page, live */}
+        {/* Watch a sale become a job - the platform writing a job page, live */}
         <section className="py-32 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-7xl mx-auto">
             <AnimateOnScroll>
@@ -148,7 +148,7 @@ export default function AutomationHubPage() {
                   <h2 className="text-3xl lg:text-4xl font-semibold font-display">Watch a sale become a job</h2>
                 </div>
                 <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
-                  This is the real sequence the platform runs when a contract is signed —
+                  This is the real sequence the platform runs when a contract is signed -
                   compressed to fourteen seconds. Watch it write the job
                   page.
                 </p>
@@ -170,7 +170,7 @@ export default function AutomationHubPage() {
                 </div>
                 <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
                   The first two products: a sales automation engine and a complete job
-                  management pipeline — both running on the same infrastructure, connected
+                  management pipeline - both running on the same infrastructure, connected
                   to every system the business uses.
                 </p>
               </div>
@@ -188,7 +188,7 @@ export default function AutomationHubPage() {
                     When a contract is signed on the quoting platform, the Hub takes over.
                     It validates the data with AI, creates jobs in the CRM, dispatches tasks
                     to the field team, generates Google Drive folders, creates inventory
-                    orders, and updates the sales pipeline — all in minutes, hands-free.
+                    orders, and updates the sales pipeline - all in minutes, hands-free.
                   </p>
                   <ul className="space-y-2 text-sm">
                     {[
@@ -213,10 +213,10 @@ export default function AutomationHubPage() {
                   <div className="mb-6">
                     <div className="font-mono text-xs text-accent-ink mb-2">/pipeline</div>
                     <h3 className="text-xl font-medium font-display">Job Management Hub</h3>
-                    <p className="text-ink-3 font-mono text-xs mt-1">custom CRM pipeline — the enterprise CRM replacement</p>
+                    <p className="text-ink-3 font-mono text-xs mt-1">custom CRM pipeline - the enterprise CRM replacement</p>
                   </div>
                   <p className="text-ink-2 text-base leading-relaxed mb-6">
-                    A complete 17-stage installation pipeline across 7 phases — from
+                    A complete 17-stage installation pipeline across 7 phases - from
                     preliminary assessment through to final closeout. First version live
                     within two weeks. Built to replace an enterprise CRM the business
                     used a fraction of.
@@ -226,7 +226,7 @@ export default function AutomationHubPage() {
                       '17 stages across 7 pipeline phases with linear progression',
                       'Per-stage task management with owner classification',
                       'Exit criteria validation with "warn don\'t block" philosophy',
-                      'Job Overview drawer — helicopter view of all stages',
+                      'Job Overview drawer - helicopter view of all stages',
                       'Inline-editable fields with optimistic UI updates',
                       'Activity timeline, SLA tracking, and full audit trail',
                     ].map((item) => (
@@ -246,7 +246,7 @@ export default function AutomationHubPage() {
                 <p className="text-ink-2 mb-6 max-w-2xl">
                   <span className="text-ink-1 font-medium">Then it kept growing.</span>{' '}
                   Over nine months the platform absorbed one operational domain after
-                  another — each one replacing a manual process, a spreadsheet, or a
+                  another - each one replacing a manual process, a spreadsheet, or a
                   licence the business no longer needed:
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -292,11 +292,11 @@ export default function AutomationHubPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { num: '01', title: 'Solar Design & Quoting', description: 'OpenSolar, Pylon, and SolarQuotes — webhook receivers processing signed contracts and inbound leads with isolated failure domains.' },
-                { num: '02', title: 'CRM & Sales', description: 'HubSpot and Accelo — bidirectional sync that auto-creates jobs, populates 28+ custom fields, and manages the full lifecycle.' },
-                { num: '03', title: 'Field Service & Jobs', description: 'AroFlo, ServiceM8, and FastField — job dispatch, mobile field forms, and installation workflows in both directions.' },
-                { num: '04', title: 'Finance & Inventory', description: 'Xero, Unleashed, and Stripe — smart product matching, draft sales orders, invoicing, and commission reconciliation.' },
-                { num: '05', title: 'Google Workspace', description: 'Gmail, Drive, Chat, and Workspace admin — structured document hierarchies, contract archival, and real-time team notifications.' },
+                { num: '01', title: 'Solar Design & Quoting', description: 'OpenSolar, Pylon, and SolarQuotes - webhook receivers processing signed contracts and inbound leads with isolated failure domains.' },
+                { num: '02', title: 'CRM & Sales', description: 'HubSpot and Accelo - bidirectional sync that auto-creates jobs, populates 28+ custom fields, and manages the full lifecycle.' },
+                { num: '03', title: 'Field Service & Jobs', description: 'AroFlo, ServiceM8, and FastField - job dispatch, mobile field forms, and installation workflows in both directions.' },
+                { num: '04', title: 'Finance & Inventory', description: 'Xero, Unleashed, and Stripe - smart product matching, draft sales orders, invoicing, and commission reconciliation.' },
+                { num: '05', title: 'Google Workspace', description: 'Gmail, Drive, Chat, and Workspace admin - structured document hierarchies, contract archival, and real-time team notifications.' },
                 { num: '06', title: 'AI & Data', description: 'An AI layer validates incoming data before it propagates, and Nearmap aerial imagery feeds site assessment workflows.' },
               ].map((item, i) => (
                 <AnimateOnScroll key={item.title} delay={i * 80}>
@@ -341,8 +341,8 @@ export default function AutomationHubPage() {
                       'RBAC with Google Workspace SSO',
                       'PostgreSQL atomic operations (race condition prevention)',
                       'OAuth 2.0 token management with auto-refresh',
-                      'Complete audit trail — every action logged',
-                      'Replay capability — reprocess any event at any time',
+                      'Complete audit trail - every action logged',
+                      'Replay capability - reprocess any event at any time',
                     ].map((item) => (
                       <div key={item} className="flex items-start gap-3">
                         <span className="text-accent-ink shrink-0">&mdash;</span>
@@ -363,7 +363,7 @@ export default function AutomationHubPage() {
                       '289 database migrations tracking schema evolution',
                       'Dual-table architecture with isolated failure domains',
                       'Parallel processing with graceful degradation',
-                      'Vercel serverless — auto-scaling, zero ops',
+                      'Vercel serverless - auto-scaling, zero ops',
                     ].map((item) => (
                       <div key={item} className="flex items-start gap-3">
                         <span className="text-ink-3 shrink-0">&mdash;</span>
@@ -412,7 +412,7 @@ export default function AutomationHubPage() {
           </div>
         </section>
 
-        {/* Executive workspace — company-native AI, shipped */}
+        {/* Executive workspace - company-native AI, shipped */}
         <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
@@ -423,7 +423,7 @@ export default function AutomationHubPage() {
               <AnimateOnScroll delay={100} className="lg:col-span-7 lg:col-start-6">
                 <p className="text-ink-2 leading-relaxed">
                   The platform includes a governed executive workspace: leadership asks a
-                  question in plain English, and AI answers with live dashboards — built
+                  question in plain English, and AI answers with live dashboards - built
                   on the spot, on a read-only connection, with every query logged. That
                   is what company-native AI means in practice: sanctioned, governed, and
                   owned by the business.
@@ -433,7 +433,7 @@ export default function AutomationHubPage() {
           </div>
         </section>
 
-        {/* Structure break — full bleed */}
+        {/* Structure break - full bleed */}
         <section className="relative h-[40vh] lg:h-[52vh] overflow-hidden dark-only" aria-hidden>
           <Image
             src="/structure-sweep.jpg"
@@ -457,14 +457,14 @@ export default function AutomationHubPage() {
                   <p className="text-ink-2 leading-relaxed mb-8">
                     The first automation was live in production three weeks after the
                     first commit. The full v1 platform took fifteen weeks. Nine months
-                    in, it runs most of the business — 320,000+ lines of production code
+                    in, it runs most of the business - 320,000+ lines of production code
                     that an equivalent agency build would scope well past $1M.
                   </p>
                   <div className="space-y-6">
                     {[
                       { title: 'Iteration in hours, not sprint cycles', body: 'Same-day bug fixes. Features shaped with the people who use them, shipped while the conversation is still warm.' },
                       { title: 'Complete ownership', body: 'Client owns every line of code. No vendor lock-in, no external dependencies, no retainer agreements.' },
-                      { title: 'Built to replace an enterprise CRM', body: 'Custom Job Management Hub, first version live within two weeks. 17 stages, task management, exit criteria — purpose-built for the business.' },
+                      { title: 'Built to replace an enterprise CRM', body: 'Custom Job Management Hub, first version live within two weeks. 17 stages, task management, exit criteria - purpose-built for the business.' },
                     ].map((item, i) => (
                       <div key={item.title} className="flex items-start gap-4">
                         <span className="font-mono text-xs text-ink-3 mt-1.5 shrink-0">0{i + 1}</span>
@@ -513,7 +513,7 @@ export default function AutomationHubPage() {
             <AnimateOnScroll>
               <h2 className="text-3xl lg:text-4xl font-semibold font-display mb-4">Need this kind of automation?</h2>
               <p className="text-ink-2 mb-8 max-w-xl">
-                We build mission-critical platforms that connect your entire business — at
+                We build mission-critical platforms that connect your entire business - at
                 a fraction of the traditional cost.
               </p>
               <Link

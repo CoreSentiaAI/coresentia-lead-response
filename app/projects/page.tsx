@@ -19,7 +19,7 @@ export default function ProjectsPage() {
       <Header />
 
       <main className="pb-16">
-        {/* Hero — concrete lattice: many nodes, one structure */}
+        {/* Hero - concrete lattice: many nodes, one structure */}
         <section className="relative px-6 lg:px-8 pt-40 pb-16 lg:pt-48 lg:pb-24 overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none dark-only">
             <Image
@@ -41,7 +41,7 @@ export default function ProjectsPage() {
                   Work
                 </h1>
                 <p className="lg:col-span-6 lg:col-start-6 text-ink-2 max-w-2xl">
-                  Production systems we&apos;ve designed, built, and run — from enterprise
+                  Production systems we&apos;ve designed, built, and run - from enterprise
                   automation to consumer SaaS.
                 </p>
               </div>
@@ -66,7 +66,7 @@ export default function ProjectsPage() {
                   <p className="text-ink-2 mb-6 leading-relaxed max-w-2xl text-lg">
                     Mission-critical operations platform for a national Australian solar
                     company. Integrates 15+ SaaS platforms, processes hundreds of sales a
-                    month, and runs every job from signed contract to final closeout —
+                    month, and runs every job from signed contract to final closeout -
                     replacing the enterprise CRM at the centre of the old stack.
                   </p>
 
@@ -78,7 +78,7 @@ export default function ProjectsPage() {
                     ))}
                   </div>
 
-                  {/* editorial stat line — one big, others inline */}
+                  {/* editorial stat line - one big, others inline */}
                   <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 mb-8">
                     <span className="text-5xl font-semibold font-display tracking-editorial">320K+</span>
                     <span className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3">lines of TypeScript</span>
@@ -109,7 +109,7 @@ export default function ProjectsPage() {
                       <h3 className="text-2xl font-medium font-display mb-3 group-hover:text-accent-ink transition-colors">FirstLight</h3>
                       <p className="text-ink-2 mb-4 leading-relaxed">
                         A conditions-first decision engine for nature photographers.
-                        Ephemeris, weather, season, and place — synthesised into an honest
+                        Ephemeris, weather, season, and place - synthesised into an honest
                         answer about where to be and when, with AI briefings over the top.
                       </p>
                       <span className="inline-flex items-center gap-2 text-accent-ink btn group-hover:gap-3 transition-all">

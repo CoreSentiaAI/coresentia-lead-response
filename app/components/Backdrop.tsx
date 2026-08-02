@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-/* Low-opacity concrete backdrop for text sections — texture instead of flat
+/* Low-opacity concrete backdrop for text sections - texture instead of flat
    tone. Dark theme only; edges dissolve into the page. The parent section
    needs `relative overflow-hidden`, and its content `relative z-10`. */
 export default function Backdrop({

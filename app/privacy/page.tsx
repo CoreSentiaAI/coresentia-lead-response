@@ -50,7 +50,7 @@ export default function PrivacyPage() {
             <ul className="list-disc list-inside text-ink-2 mb-6 space-y-2">
               <li><strong className="text-ink-1">Business Information:</strong> Business name, ABN, contact details, and details of the processes and systems in scope</li>
               <li><strong className="text-ink-1">Account and Billing Information:</strong> Names, email addresses, payment details</li>
-              <li><strong className="text-ink-1">System Access:</strong> Credentials and API access you provide so we can build and integrate your systems — handled under least-privilege access and removed at handover unless we host the system for you</li>
+              <li><strong className="text-ink-1">System Access:</strong> Credentials and API access you provide so we can build and integrate your systems - handled under least-privilege access and removed at handover unless we host the system for you</li>
             </ul>
 
             <h3 className="text-xl font-semibold text-ink-1 mt-6 mb-3">1.3 Systems We Build and Host</h3>

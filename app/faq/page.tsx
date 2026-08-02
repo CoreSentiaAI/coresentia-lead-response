@@ -20,7 +20,7 @@ const faqs: FAQItem[] = [
     category: 'general',
     question: 'What does CoreSentia do?',
     answer:
-      'We build software for established businesses that want to run better. That usually starts with mapping how work actually moves through the business, then automating the manual steps — connecting the systems you already use, building the internal platforms you wish existed, and designing AI into the workflow where it genuinely helps.',
+      'We build software for established businesses that want to run better. That usually starts with mapping how work actually moves through the business, then automating the manual steps - connecting the systems you already use, building the internal platforms you wish existed, and designing AI into the workflow where it genuinely helps.',
   },
   {
     category: 'general',
@@ -38,13 +38,13 @@ const faqs: FAQItem[] = [
     category: 'general',
     question: 'Why is your flagship client anonymised?',
     answer:
-      "Because their operational data is theirs, not ours. We publish only aggregate, non-identifying facts about the systems we build — enough to demonstrate the engineering, never enough to expose the business behind it. Every client gets the same discretion, in writing.",
+      "Because their operational data is theirs, not ours. We publish only aggregate, non-identifying facts about the systems we build - enough to demonstrate the engineering, never enough to expose the business behind it. Every client gets the same discretion, in writing.",
   },
   {
     category: 'general',
     question: "What's your track record?",
     answer:
-      'Our flagship build is an enterprise operations platform for a national Australian solar company — 320,000+ lines of production TypeScript, 500+ API endpoints, and 15+ integrated SaaS platforms — hundreds of sales processed, hands-free. An equivalent agency build would scope well past $1M. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
+      'Our flagship build is an enterprise operations platform for a national Australian solar company - 320,000+ lines of production TypeScript, 500+ API endpoints, and 15+ integrated SaaS platforms - hundreds of sales processed, hands-free. An equivalent agency build would scope well past $1M. We also run FirstLight, a consumer SaaS for nature photographers, and have shipped 24/7 conversational AI systems handling real phone calls and SMS. Everything we build runs in production.',
   },
 
   // Services
@@ -58,17 +58,17 @@ const faqs: FAQItem[] = [
     category: 'services',
     question: 'Do we have to use your tech stack?',
     answer:
-      'No — we build on yours. Our default stack is Next.js, TypeScript, and PostgreSQL, but the process works wherever your governance points: Microsoft Azure, Google Cloud, AWS. If your security accreditations or enterprise clients require a particular environment, we build inside it — same process mapping, same platform, your infrastructure.',
+      'No - we build on yours. Our default stack is Next.js, TypeScript, and PostgreSQL, but the process works wherever your governance points: Microsoft Azure, Google Cloud, AWS. If your security accreditations or enterprise clients require a particular environment, we build inside it - same process mapping, same platform, your infrastructure.',
   },
   {
     category: 'services',
     question: 'Can you replace software we currently pay for?',
     answer:
-      "Yes — this is one of the most valuable things we do. Most businesses pay for enterprise SaaS they use a fraction of, priced per seat, forever. We build custom replacements designed around how your team actually works: you own the code outright, there are no licence fees, and it does exactly what your business needs instead of what a vendor's roadmap decided. Our flagship example: a purpose-built job pipeline replacing an enterprise CRM — first version live within two weeks.",
+      "Yes - this is one of the most valuable things we do. Most businesses pay for enterprise SaaS they use a fraction of, priced per seat, forever. We build custom replacements designed around how your team actually works: you own the code outright, there are no licence fees, and it does exactly what your business needs instead of what a vendor's roadmap decided. Our flagship example: a purpose-built job pipeline replacing an enterprise CRM - first version live within two weeks.",
   },
   {
     category: 'services',
-    question: 'Can you build conversational AI — voice, SMS, chat?',
+    question: 'Can you build conversational AI - voice, SMS, chat?',
     answer:
       "Yes. We've shipped production systems that answer real phone calls, qualify leads over SMS, and book appointments end-to-end, 24/7. We build these as custom projects now, integrated with your existing phone numbers, calendars, and CRM.",
   },
@@ -76,7 +76,7 @@ const faqs: FAQItem[] = [
     category: 'services',
     question: 'Can you build custom AI integrations?',
     answer:
-      'Absolutely. We have deep experience integrating Claude AI (Anthropic) into production systems — validating data before it enters your pipeline, drafting routine work, powering internal assistants, and automated decision-making. We can build AI features into any application, including systems we didn\'t originally build.',
+      'Absolutely. We have deep experience integrating Claude AI (Anthropic) into production systems - validating data before it enters your pipeline, drafting routine work, powering internal assistants, and automated decision-making. We can build AI features into any application, including systems we didn\'t originally build.',
   },
   {
     category: 'services',
@@ -90,13 +90,13 @@ const faqs: FAQItem[] = [
     category: 'process',
     question: 'How does your development process work?',
     answer:
-      'We start with a discovery call to understand your business and map the process we\'re improving, then provide a clear scope and quote. Once approved, we build iteratively — shipping working software early and often. You get access to staging environments throughout, and we shape features with the people who\'ll actually use them.',
+      'We start with a discovery call to understand your business and map the process we\'re improving, then provide a clear scope and quote. Once approved, we build iteratively - shipping working software early and often. You get access to staging environments throughout, and we shape features with the people who\'ll actually use them.',
   },
   {
     category: 'process',
     question: 'How long does a typical project take?',
     answer:
-      "It depends on scope. A simple internal tool might take 1-2 weeks. A full platform could be 4-8 weeks. Our largest build — an enterprise operations platform with 15+ integrations — had its first automation live in production three weeks after the first commit, and kept growing from there. We'll give you a clear timeline during scoping.",
+      "It depends on scope. A simple internal tool might take 1-2 weeks. A full platform could be 4-8 weeks. Our largest build - an enterprise operations platform with 15+ integrations - had its first automation live in production three weeks after the first commit, and kept growing from there. We'll give you a clear timeline during scoping.",
   },
   {
     category: 'process',
@@ -116,13 +116,13 @@ const faqs: FAQItem[] = [
     category: 'technical',
     question: 'What tech stack do you use?',
     answer:
-      "Our primary stack is Next.js (React), TypeScript, Tailwind CSS, PostgreSQL (Supabase), and Vercel for hosting. For AI, we use Claude (Anthropic). We integrate with whatever your business already runs — CRMs, accounting platforms, quoting tools, Google Workspace — and we choose tools based on what's best for each project.",
+      "Our primary stack is Next.js (React), TypeScript, Tailwind CSS, PostgreSQL (Supabase), and Vercel for hosting. For AI, we use Claude (Anthropic). We integrate with whatever your business already runs - CRMs, accounting platforms, quoting tools, Google Workspace - and we choose tools based on what's best for each project.",
   },
   {
     category: 'technical',
     question: 'Do you provide hosting and maintenance?',
     answer:
-      'Yes. We can host and maintain applications we build, or hand them off to your team with full documentation. Most projects are deployed on Vercel with Supabase for the database — both are reliable, scalable platforms.',
+      'Yes. We can host and maintain applications we build, or hand them off to your team with full documentation. Most projects are deployed on Vercel with Supabase for the database - both are reliable, scalable platforms.',
   },
   {
     category: 'technical',
@@ -163,7 +163,7 @@ export default function FAQPage() {
       <Header />
 
       <main className="pt-32 pb-0">
-        {/* Hero Section — spiral stair, light on the text side */}
+        {/* Hero Section - spiral stair, light on the text side */}
         <section className="relative px-6 lg:px-8 pt-10 pb-20 -mt-10 overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none dark-only">
             <Image
@@ -241,7 +241,7 @@ export default function FAQPage() {
           </div>
         </section>
 
-        {/* Structure break — full bleed */}
+        {/* Structure break - full bleed */}
         <section className="relative h-[36vh] lg:h-[46vh] overflow-hidden dark-only" aria-hidden>
           <Image
             src="/structure-grid.jpg"

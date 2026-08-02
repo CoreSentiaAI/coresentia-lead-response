@@ -41,8 +41,8 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: 'CoreSentia — AI-Native Application Development',
-  description: 'CoreSentia builds the software that makes established businesses run better — process automation, systems integration, internal platforms, and AI-native software. Brisbane-based development studio.',
+  title: 'CoreSentia - AI-Native Application Development',
+  description: 'CoreSentia builds the software that makes established businesses run better - process automation, systems integration, internal platforms, and AI-native software. Brisbane-based development studio.',
   keywords: [
     'business process automation',
     'systems integration Australia',
@@ -70,21 +70,21 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     url: 'https://www.coresentia.com.au',
     siteName: 'CoreSentia',
-    title: 'CoreSentia — AI-Native Application Development',
-    description: 'We build the software that makes established businesses run better — automation, integration, and AI-native systems. Brisbane.',
+    title: 'CoreSentia - AI-Native Application Development',
+    description: 'We build the software that makes established businesses run better - automation, integration, and AI-native systems. Brisbane.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'CoreSentia — AI-Native Application Development',
+        alt: 'CoreSentia - AI-Native Application Development',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CoreSentia — AI-Native Application Development',
-    description: 'We build the software that makes established businesses run better — automation, integration, and AI-native systems.',
+    title: 'CoreSentia - AI-Native Application Development',
+    description: 'We build the software that makes established businesses run better - automation, integration, and AI-native systems.',
     images: ['/og-image.png'],
     creator: '@coresentia',
   },

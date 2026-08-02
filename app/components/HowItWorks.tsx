@@ -3,17 +3,17 @@ import { useEffect, useRef, useState } from 'react'
 
 /* All timing in one place per the brief */
 const ANIMATION = {
-  duration: 500,       // ms — base transition
-  stagger: 120,        // ms — between staggered children
-  pathDraw: 900,       // ms — SVG line drawing
-  frameFlip: 600,      // ms — track -> run crossfade
+  duration: 500,       // ms - base transition
+  stagger: 120,        // ms - between staggered children
+  pathDraw: 900,       // ms - SVG line drawing
+  frameFlip: 600,      // ms - track -> run crossfade
   threshold: 0.45,     // intersection ratio to activate a stage
 }
 
 const STAGES = [
   {
     label: 'Map',
-    caption: 'Stakeholder sessions, process mapped end-to-end. Every meeting transcribed — nothing lost.',
+    caption: 'Stakeholder sessions, process mapped end-to-end. Every meeting transcribed - nothing lost.',
   },
   {
     label: 'Build',
@@ -21,7 +21,7 @@ const STAGES = [
   },
   {
     label: 'Track',
-    caption: 'No Notion, no status decks. The platform is the project tracker — watch progress inside the tool you’re buying.',
+    caption: 'No Notion, no status decks. The platform is the project tracker - watch progress inside the tool you’re buying.',
   },
   {
     label: 'Run',
@@ -29,7 +29,7 @@ const STAGES = [
   },
 ]
 
-/* Stage 1 — people at a table, flowchart draws itself out */
+/* Stage 1 - people at a table, flowchart draws itself out */
 function MapVisual({ active }: { active: boolean }) {
   const draw = (delay: number) => ({
     strokeDasharray: 1,
@@ -63,7 +63,7 @@ function MapVisual({ active }: { active: boolean }) {
   )
 }
 
-/* Stage 2 — flowchart nodes snap into a dashboard grid */
+/* Stage 2 - flowchart nodes snap into a dashboard grid */
 function BuildVisual({ active }: { active: boolean }) {
   const cards = [
     { scatter: 'translate(-18px, -26px) rotate(-7deg)', label: 'jobs' },
@@ -97,7 +97,7 @@ function BuildVisual({ active }: { active: boolean }) {
   )
 }
 
-/* Stages 3 + 4 — the same frame, changing state. That's the point. */
+/* Stages 3 + 4 - the same frame, changing state. That's the point. */
 function TrackerFrame({ tracking, running }: { tracking: boolean; running: boolean }) {
   const cols = ['mapped', 'in build', 'live']
   return (
@@ -113,7 +113,7 @@ function TrackerFrame({ tracking, running }: { tracking: boolean; running: boole
         </span>
       </div>
 
-      {/* Track state — project board */}
+      {/* Track state - project board */}
       <div
         className="grid grid-cols-3 gap-2"
         style={{
@@ -143,7 +143,7 @@ function TrackerFrame({ tracking, running }: { tracking: boolean; running: boole
         ))}
       </div>
 
-      {/* Run state — live ops, same frame */}
+      {/* Run state - live ops, same frame */}
       <div
         className="absolute inset-x-3 top-11 bottom-3"
         style={{
@@ -153,7 +153,7 @@ function TrackerFrame({ tracking, running }: { tracking: boolean; running: boole
         }}
       >
         <div className="space-y-1.5">
-          {['job #4118 — contract signed', 'job #4117 — inventory ordered', 'job #4116 — install booked'].map((row, i) => (
+          {['job #4118 - contract signed', 'job #4117 - inventory ordered', 'job #4116 - install booked'].map((row, i) => (
             <div
               key={row}
               className="flex items-center gap-2 border border-line-strong rounded-sm bg-surface-raised px-2 py-1"
@@ -253,7 +253,7 @@ export default function HowItWorks() {
 
   return (
     <div>
-      {/* Progress line — desktop */}
+      {/* Progress line - desktop */}
       <div className="hidden lg:block h-px bg-line-soft mb-10 relative">
         <div
           className="absolute inset-y-0 left-0 bg-accent"
@@ -289,7 +289,7 @@ export default function HowItWorks() {
           <StageHeading i={3} />
         </div>
 
-        {/* Shared frame — one screen changing state, spans stages 3-4 */}
+        {/* Shared frame - one screen changing state, spans stages 3-4 */}
         <div className="order-6 lg:order-none lg:col-start-3 lg:col-span-2 lg:row-start-2">
           <TrackerFrame tracking={activated[2]} running={running} />
         </div>

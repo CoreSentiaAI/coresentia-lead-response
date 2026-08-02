@@ -18,25 +18,25 @@ const services = [
     num: '02',
     title: 'Systems integration',
     description:
-      'CRM, quoting, accounting, inventory — one pipeline, one source of truth, on your stack: Microsoft, Google, AWS.',
+      'CRM, quoting, accounting, inventory - one pipeline, one source of truth, on your stack: Microsoft, Google, AWS.',
   },
   {
     num: '03',
     title: 'SaaS replacement',
     description:
-      'Custom platforms that replace the subscriptions you’ve outgrown. Owned outright, no seat fees — built to replace the enterprise CRM you use a fraction of.',
+      'Custom platforms that replace the subscriptions you’ve outgrown. Owned outright, no seat fees - built to replace the enterprise CRM you use a fraction of.',
   },
   {
     num: '04',
     title: 'AI-native software',
     description:
-      'Intelligence designed in from the start — validating data, drafting the routine work, answering the questions your team used to dig for.',
+      'Intelligence designed in from the start - validating data, drafting the routine work, answering the questions your team used to dig for.',
   },
   {
     num: '05',
     title: 'Company-native AI',
     description:
-      'A private AI workspace on your own data — every prompt logged, governed, owned by you. We\u2019ve shipped this: a governed workspace where leadership asks in plain English and gets live dashboards back.',
+      'A private AI workspace on your own data - every prompt logged, governed, owned by you. We\u2019ve shipped this: a governed workspace where leadership asks in plain English and gets live dashboards back.',
   },
 ]
 
@@ -65,7 +65,7 @@ export default function HomePage() {
 
       {/* ========== HERO ========== */}
       <section className="relative px-6 lg:px-8 pt-44 pb-32 lg:pt-56 lg:pb-44 overflow-hidden">
-        {/* Structure: shallow steps in raking light — confirmed hero image */}
+        {/* Structure: shallow steps in raking light - confirmed hero image */}
         <div className="absolute inset-0 z-0 pointer-events-none dark-only">
           <Image
             src="/structure-steps.jpg"
@@ -91,9 +91,8 @@ export default function HomePage() {
 
             <div className="mt-12 lg:mt-16">
               <p className="text-ink-2 max-w-md mb-8">
-                We map how your business works, then build the software that
-                makes it faster — automation, integration, and AI-native
-                systems.
+                We replace the spreadsheets and SaaS sprawl your business runs
+                on with one intelligent platform - built in weeks, not years.
               </p>
 
               <div className="flex items-center gap-6">
@@ -131,7 +130,7 @@ export default function HomePage() {
                 <h2 className="text-3xl lg:text-4xl font-semibold font-display">What we build</h2>
               </div>
               <p className="lg:col-span-6 lg:col-start-6 text-ink-2 self-end">
-                For businesses that are already making money — and losing time.
+                For businesses that are already making money - and losing time.
               </p>
             </div>
           </AnimateOnScroll>
@@ -166,7 +165,7 @@ export default function HomePage() {
                 <h2 className="text-3xl lg:text-4xl font-semibold font-display">The build documents itself</h2>
               </div>
               <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
-                One process from first meeting to live platform. No status decks — you
+                One process from first meeting to live platform. No status decks - you
                 watch it happen inside the product.
               </p>
             </div>
@@ -176,7 +175,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ========== STRUCTURE BREAK — full bleed ========== */}
+      {/* ========== STRUCTURE BREAK - full bleed ========== */}
       <section className="relative h-[46vh] lg:h-[60vh] overflow-hidden dark-only" aria-hidden>
         <Image
           src="/structure-sweep.jpg"
@@ -200,7 +199,7 @@ export default function HomePage() {
             </div>
           </AnimateOnScroll>
 
-          {/* Enterprise Operations Platform — editorial split */}
+          {/* Enterprise Operations Platform - editorial split */}
           <AnimateOnScroll>
             <Link href="/projects/automation-hub" className="block group">
               <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
@@ -215,7 +214,7 @@ export default function HomePage() {
                   <p className="text-ink-2 mb-8 leading-relaxed max-w-xl">
                     Mission-critical operations platform for a national Australian solar
                     company. Fifteen SaaS platforms integrated, 500+ API endpoints, a
-                    custom pipeline built to replace the enterprise CRM — and hundreds
+                    custom pipeline built to replace the enterprise CRM - and hundreds
                     of sales processed, hands-free.
                   </p>
                   <span className="inline-flex items-center gap-2 text-accent-ink btn group-hover:gap-3 transition-all">
@@ -223,7 +222,7 @@ export default function HomePage() {
                   </span>
                 </div>
 
-                {/* Right — automation pipeline visual */}
+                {/* Right - automation pipeline visual */}
                 <div className="lg:col-span-2 hidden lg:block">
                   <div className="bg-surface-card rounded p-6 border border-line-soft group-hover:border-accent transition-colors">
                     <div className="flex items-center justify-between mb-5">
@@ -252,7 +251,7 @@ export default function HomePage() {
             </Link>
           </AnimateOnScroll>
 
-          {/* FirstLight — slim secondary row */}
+          {/* FirstLight - slim secondary row */}
           <AnimateOnScroll>
             <Link href="/projects/firstlight" className="block group mt-12 pt-10 border-t border-line-soft">
               <div className="grid lg:grid-cols-5 gap-4 lg:gap-12 items-baseline">
@@ -266,7 +265,7 @@ export default function HomePage() {
                   </h3>
                 </div>
                 <p className="lg:col-span-2 text-ink-2 text-sm leading-relaxed">
-                  A conditions-first decision engine for nature photographers — ephemeris,
+                  A conditions-first decision engine for nature photographers - ephemeris,
                   weather, and place synthesised into an honest answer: where to be, and when.
                 </p>
               </div>
@@ -309,7 +308,7 @@ export default function HomePage() {
                 <span className="font-mono text-ink-1">320K+</span> lines of production
                 TypeScript. <span className="font-mono text-ink-1">500+</span> API
                 endpoints. <span className="font-mono text-ink-1">15+</span> SaaS
-                platforms integrated — running{' '}
+                platforms integrated - running{' '}
                 <span className="font-mono text-ink-1">24/7</span> for businesses that
                 used to do it by hand.
               </p>

@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 
-/* Timing — one config object. The real sequence takes minutes in
+/* Timing - one config object. The real sequence takes minutes in
    production; this compresses it to ~14 seconds. */
 const ANIMATION = {
   stepGap: 1500,      // ms between sequence steps
@@ -12,10 +12,10 @@ const ANIMATION = {
 
 /* The sequence. Each step lands one log line and one mutation on the job page. */
 const STEPS = [
-  { time: '16:42:07', source: 'webhook', text: 'contract signed — residential, $14,820' },
-  { time: '16:42:08', source: 'ai', text: 'validation passed — every field checked' },
-  { time: '16:42:09', source: 'crm', text: 'job created — 28 fields populated' },
-  { time: '16:42:11', source: 'pipeline', text: 'stage 1 of 17 — preliminary assessment' },
+  { time: '16:42:07', source: 'webhook', text: 'contract signed - residential, $14,820' },
+  { time: '16:42:08', source: 'ai', text: 'validation passed - every field checked' },
+  { time: '16:42:09', source: 'crm', text: 'job created - 28 fields populated' },
+  { time: '16:42:11', source: 'pipeline', text: 'stage 1 of 17 - preliminary assessment' },
   { time: '16:42:12', source: 'drive', text: 'folder structure created, contract archived' },
   { time: '16:42:13', source: 'inventory', text: 'draft sales order SO-4119 raised' },
   { time: '16:42:14', source: 'field', text: 'site inspection dispatched' },
@@ -57,7 +57,7 @@ function Typed({ text, active, delay = 0 }: { text: string; active: boolean; del
   )
 }
 
-/* Reveal wrapper — opacity/translate only, per DESIGN.md */
+/* Reveal wrapper - opacity/translate only, per DESIGN.md */
 function Reveal({ on, children, className = '' }: { on: boolean; children: React.ReactNode; className?: string }) {
   return (
     <div
@@ -107,7 +107,7 @@ export default function JobWriter() {
       return
     }
     for (let s = step + 1; s <= DONE; s++) {
-      // the CRM step types four fields — give it extra room
+      // the CRM step types four fields - give it extra room
       const extra = s > 2 ? 1200 : 0
       timers.current.push(setTimeout(() => setStep(s), (s - step) * ANIMATION.stepGap + extra))
     }
@@ -183,7 +183,7 @@ export default function JobWriter() {
                 </div>
               </Reveal>
 
-              {/* Fields — typed in by the CRM step */}
+              {/* Fields - typed in by the CRM step */}
               <div className="grid grid-cols-2 gap-x-6 gap-y-3">
                 {[
                   { label: 'customer', value: 'S. Mitchell', delay: 0 },
@@ -221,7 +221,7 @@ export default function JobWriter() {
               {/* Documents */}
               <Reveal on={at(4)}>
                 <div className="flex flex-wrap gap-2 font-mono text-[10px]">
-                  {['contract.pdf — archived', 'site-photos/', 'approvals/'].map((doc) => (
+                  {['contract.pdf - archived', 'site-photos/', 'approvals/'].map((doc) => (
                     <span key={doc} className="px-2 py-1 rounded-sm border border-line-strong bg-surface-raised">
                       {doc}
                     </span>
@@ -246,7 +246,7 @@ export default function JobWriter() {
               {/* Task */}
               <Reveal on={at(6)}>
                 <div className="flex items-center justify-between border border-line-soft rounded-sm px-3 py-2 font-mono text-[11px]">
-                  <span>site inspection — dispatched to field team</span>
+                  <span>site inspection - dispatched to field team</span>
                   <span className="opacity-60">due Thu</span>
                 </div>
               </Reveal>

@@ -12,7 +12,7 @@ const services = [
     num: '01',
     title: 'Process automation',
     description:
-      "We find where work actually stalls - quotes, jobs, approvals, handoffs - and remove the manual steps. Bring us a blank page or your team's in flight or finished process map: either way, what your team keyed in by hand - now happens in seconds, automatically.",
+      "We find where work actually stalls - quotes, jobs, approvals, handoffs - and remove the manual steps. Bring us a blank page or your team's in-flight or finished process map: either way, what your team keyed in by hand - now happens in seconds, automatically.",
   },
   {
     num: '02',

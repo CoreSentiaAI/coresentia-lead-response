@@ -81,34 +81,29 @@ export default function AboutPage() {
                 <AnimateOnScroll>
                   <div className="space-y-5 text-ink-2 leading-relaxed">
                     <p>
-                      CoreSentia was founded by Ramsay Hatfield - an astrophotographer who
-                      builds software. Years of standing alone in the dark, composing images
-                      of things most people never see, taught him a particular way of working:
-                      find the order in complexity, and make it feel right. He sees no real
-                      boundary between art and engineering - a well-designed system and a
-                      well-composed photograph are both acts of imposing clarity on chaos.
+                      I&apos;m Ramsay Hatfield, and CoreSentia is my studio. I spent the
+                      last few years inside a national Australian solar company, where I
+                      built the operations platform the business now runs on - 320,000+
+                      lines of production TypeScript, fifteen integrated SaaS platforms,
+                      hundreds of sales processed every month.
                     </p>
                     <p>
-                      He brought that eye inside a national Australian solar company, where he
-                      designed and built the operations platform that now runs the business -
-                      320,000+ lines of production TypeScript, fifteen integrated SaaS
-                      platforms, hundreds of sales processed every month. Not advising on it,
-                      not wireframing it: building it.
+                      That work taught me where software earns its keep: in the gap between
+                      how a business thinks it runs and how it actually runs - where quotes
+                      stall, data gets re-keyed, and time quietly disappears. Closing that
+                      gap doesn&apos;t take more meetings or mockups. It takes working
+                      software in production, built by someone who&apos;s taken the time to
+                      understand the operation.
                     </p>
                     <p>
-                      That experience shaped a simple conviction: the gap between what
-                      businesses need and what most agencies deliver is enormous. Businesses
-                      don&apos;t need more mockups, decks, or discovery phases. They need
-                      working software in production, built by someone who understands how the
-                      operation actually runs - where the quotes stall, where the data gets
-                      re-keyed, where the time disappears.
+                      That&apos;s what CoreSentia does. I take projects from process mapping
+                      to production, and every system is built to run 24/7 without me
+                      standing next to it.
                     </p>
                     <p>
-                      CoreSentia exists to close that gap. We take projects all the way to
-                      production - running the transformation end to end, or building
-                      behind the change lead you already have. Every system we ship is
-                      designed to run 24/7 without us standing next to it - honest,
-                      considered, and worth the effort.
+                      Outside of software, I&apos;m a landscape and astrophotographer.
+                      It&apos;s the same instinct in a different medium - finding the order
+                      in complexity.
                     </p>
                   </div>
                 </AnimateOnScroll>

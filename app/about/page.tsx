@@ -109,9 +109,23 @@ export default function AboutPage() {
                 </AnimateOnScroll>
               </div>
 
-              {/* The proof - his photograph */}
+              {/* The founder, then the proof - both his photographs */}
               <AnimateOnScroll delay={100} className="lg:col-span-2 order-1 lg:order-2">
                 <figure>
+                  <div className="rounded overflow-hidden border border-line-soft">
+                    <Image
+                      src="/ramsay-headshot.jpg"
+                      alt="Ramsay Hatfield, founder of CoreSentia - black and white portrait with his framed prints behind him"
+                      width={1600}
+                      height={1201}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  <figcaption className="mt-3 font-mono text-xs text-ink-3">
+                    Ramsay Hatfield - founder. Photographed by Ramsay.
+                  </figcaption>
+                </figure>
+                <figure className="mt-8">
                   <div className="rounded overflow-hidden border border-line-soft">
                     <Image
                       src="/ramsay-milky-way.jpg"

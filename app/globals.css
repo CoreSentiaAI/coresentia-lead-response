@@ -20,8 +20,8 @@
   --color-highlight: #62D4F9;
   --color-background: #2D3436;
 
-  /* Theme tokens — dark is the default (no class on <html>).
-     Warm near-black per DESIGN.md — not blue-tinted.
+  /* Theme tokens - dark is the default (no class on <html>).
+     Warm near-black per DESIGN.md - not blue-tinted.
      The public site reads these via Tailwind surface/ink/line tokens;
      admin, dashboard, and chat use the fixed dark.*/
   --surface-base: #111110;
@@ -30,13 +30,13 @@
   --surface-raised: #201f1c;
   --line-soft: #2a2925;
   --line-strong: #3a3833;
-  /* All text is white — no greys. Hierarchy comes from size, weight,
+  /* All text is white - no greys. Hierarchy comes from size, weight,
      and mono-vs-serif, never from dimming (founder rule, Aug 2026). */
   --ink-1: #ffffff;
   --ink-2: #ffffff;
   --ink-3: #ffffff;
 
-  /* Accent system — logo sky blue promoted (founder call, Aug 2026):
+  /* Accent system - logo sky blue promoted (founder call, Aug 2026):
      luminous against the B&W concrete where azure read as corporate blue.
      --accent: fills, buttons, markers (true logo hex, both themes)
      --accent-ink: text/links (AA-compliant per theme) */
@@ -58,7 +58,7 @@
 }
 
 html.light {
-  /* Warm paper — same rules as dark, inverted */
+  /* Warm paper - same rules as dark, inverted */
   --surface-base: #f7f5f0;
   --surface-alt: #efece5;
   --surface-card: #fcfbf8;
@@ -69,11 +69,11 @@ html.light {
   --ink-1: #161615;
   --ink-2: #161615;
   --ink-3: #161615;
-  /* #1099E7 fails AA as text on paper — darkened for text/links only */
+  /* #1099E7 fails AA as text on paper - darkened for text/links only */
   --accent-ink: #0a72b2;
 }
 
-/* Translucent chrome — Tailwind alpha modifiers can't apply to var() tokens */
+/* Translucent chrome - Tailwind alpha modifiers can't apply to var() tokens */
 .header-scrim {
   background: rgba(17, 17, 16, 0.85);
 }
@@ -161,7 +161,7 @@ body {
   font-family: var(--font-raleway), var(--font-inter), sans-serif;
 }
 
-/* Headers: Fraunces — characterful display serif, per founder (Instrument Sans retired as an AI-tell) */
+/* Headers: Fraunces - characterful display serif, per founder (Instrument Sans retired as an AI-tell) */
 h1 {
   font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 600;
@@ -213,7 +213,7 @@ h6 {
   letter-spacing: 0.08em;
 }
 
-/* Editorial scope — public marketing pages only (admin keeps its own type).
+/* Editorial scope - public marketing pages only (admin keeps its own type).
    Serif body against grotesk headers is the signature. Sizing lives in the
    base layer so Tailwind text-* utilities still win where applied. */
 .editorial {
@@ -227,7 +227,7 @@ h6 {
   }
 }
 
-/* Buttons and controls: mono uppercase — instrument labels, not display type.
+/* Buttons and controls: mono uppercase - instrument labels, not display type.
    Unlayered so it wins over font/size utilities left on the same element. */
 .btn {
   font-family: var(--font-mono), monospace;
@@ -246,7 +246,7 @@ h6 {
   color: var(--ink-3);
 }
 
-/* No global p font-family — public pages inherit Newsreader from .editorial,
+/* No global p font-family - public pages inherit Newsreader from .editorial,
    admin inherits Raleway from body. (A raleway rule here was silently
    overriding the serif body across the whole public site.) */
 p {
@@ -323,7 +323,7 @@ html.light .glass-dark {
   box-shadow: 0 0 15px rgba(16, 153, 231, 0.12), 0 0 30px rgba(16, 153, 231, 0.04);
 }
 
-/* In light mode glows read as smudges — swap for soft drop shadows */
+/* In light mode glows read as smudges - swap for soft drop shadows */
 html.light .glow-blue,
 html.light .glow-accent {
   box-shadow: 0 10px 30px rgba(20, 30, 80, 0.08);

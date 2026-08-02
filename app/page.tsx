@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import ContactForm from './components/ContactForm'
 import AnimateOnScroll from './components/AnimateOnScroll'
-import HowItWorks from './components/HowItWorks'
+import PipelineLoop from './components/PipelineLoop'
 import Backdrop from './components/Backdrop'
 
 const services = [
@@ -40,23 +40,30 @@ const services = [
   },
 ]
 
-const pipelineSteps = [
-  { label: 'Contract signed', detail: 'webhook received' },
-  { label: 'Data validated', detail: 'AI quality checks' },
-  { label: 'Job created in CRM', detail: '28+ fields populated' },
-  { label: 'Field team dispatched', detail: 'tasks + documents' },
-  { label: 'Inventory ordered', detail: 'draft sales order' },
-  { label: 'Team notified', detail: 'real-time chat update' },
+const processStages = [
+  {
+    num: '01',
+    label: 'Map',
+    caption:
+      'Stakeholder sessions, process mapped end-to-end - or we build straight from the map your team already owns.',
+  },
+  {
+    num: '02',
+    label: 'Build',
+    caption: 'Your platform takes shape module by module. Humans stay in the loop.',
+  },
+  {
+    num: '03',
+    label: 'Track',
+    caption:
+      'No Notion, no status decks. The platform is the project tracker - watch progress inside the tool you’re buying.',
+  },
+  {
+    num: '04',
+    label: 'Run',
+    caption: 'The tracker becomes the operating system. SaaS subscriptions retire behind it.',
+  },
 ]
-
-function LiveTag({ children = 'Live' }: { children?: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-2">
-      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-      {children}
-    </span>
-  )
-}
 
 export default function HomePage() {
   return (
@@ -119,6 +126,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ========== ONE PIPELINE ========== */}
+      <section className="relative py-16 px-6 lg:px-8 border-t border-line-soft">
+        <div className="max-w-7xl mx-auto">
+          <AnimateOnScroll>
+            <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-10">
+              <div className="lg:col-span-5">
+                <div className="section-label mb-3">One pipeline</div>
+                <h2 className="text-3xl lg:text-4xl font-semibold font-display">
+                  Every business runs on the same pipeline
+                </h2>
+              </div>
+              <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
+                The product changes. The spine doesn&apos;t. Watch one platform run five
+                very different businesses - and watch what it takes off their hands as
+                the work gets more complex.
+              </p>
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll>
+            <PipelineLoop />
+          </AnimateOnScroll>
+
+          <AnimateOnScroll>
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-ink-3">
+                five illustrative businesses &middot; one real method
+              </span>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 btn text-accent-ink hover:opacity-70 transition-opacity group"
+              >
+                Built from real systems - view the work{' '}
+                <span className="inline-block group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+              </Link>
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
       {/* ========== WHAT WE BUILD ========== */}
       <section className="relative overflow-hidden py-16 px-6 lg:px-8 border-t border-line-soft">
         <Backdrop src="/structure-struts.jpg" opacity={0.1} />
@@ -155,26 +202,33 @@ export default function HomePage() {
               </AnimateOnScroll>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ========== HOW IT WORKS ========== */}
-      <section className="relative py-32 px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+          {/* Process - condensed strip */}
           <AnimateOnScroll>
-            <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-14">
-              <div className="lg:col-span-5">
-                <div className="section-label mb-3">Process</div>
-                <h2 className="text-3xl lg:text-4xl font-semibold font-display">The build documents itself</h2>
+            <div className="mt-14 pt-10">
+              <div className="grid lg:grid-cols-12 gap-4 lg:gap-8 mb-8">
+                <div className="lg:col-span-5">
+                  <div className="section-label mb-3">Process</div>
+                  <h3 className="text-xl lg:text-2xl font-medium font-display">The build documents itself</h3>
+                </div>
+                <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
+                  One process from first meeting to live platform. No status decks - you
+                  watch it happen inside the product.
+                </p>
               </div>
-              <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
-                One process from first meeting to live platform. No status decks - you
-                watch it happen inside the product.
-              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
+                {processStages.map((stage) => (
+                  <div key={stage.num} className="border-t border-line-soft pt-4">
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <span className="font-mono text-sm text-accent-ink">{stage.num}</span>
+                      <span className="text-lg font-medium font-display">{stage.label}</span>
+                    </div>
+                    <p className="text-sm leading-snug text-ink-2">{stage.caption}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </AnimateOnScroll>
-
-          <HowItWorks />
         </div>
       </section>
 
@@ -190,103 +244,6 @@ export default function HomePage() {
         />
         <div className="absolute inset-x-0 top-0 h-40" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
         <div className="absolute inset-x-0 bottom-0 h-40" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
-      </section>
-
-      {/* ========== SELECTED WORK ========== */}
-      <section className="relative py-16 px-6 lg:px-8 border-t border-line-soft">
-        <div className="max-w-7xl mx-auto">
-          <AnimateOnScroll>
-            <div className="mb-12">
-              <div className="section-label mb-3">Work</div>
-              <h2 className="text-3xl lg:text-4xl font-semibold font-display">Selected work</h2>
-            </div>
-          </AnimateOnScroll>
-
-          {/* Enterprise Operations Platform - editorial split */}
-          <AnimateOnScroll>
-            <Link href="/projects/automation-hub" className="block group">
-              <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-                <div className="lg:col-span-3">
-                  <div className="flex items-center gap-4 mb-6">
-                    <LiveTag />
-                    <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Enterprise platform &middot; Solar</span>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-medium font-display mb-4 group-hover:text-accent-ink transition-colors">
-                    Enterprise Operations Platform
-                  </h3>
-                  <p className="text-ink-2 mb-8 leading-relaxed max-w-xl">
-                    Mission-critical operations platform for a national Australian solar
-                    company. Fifteen SaaS platforms integrated, 500+ API endpoints, a
-                    custom pipeline built to replace the enterprise CRM - and hundreds
-                    of sales processed, hands-free.
-                  </p>
-                  <span className="inline-flex items-center gap-2 text-accent-ink btn group-hover:gap-3 transition-all">
-                    View case study &rarr;
-                  </span>
-                </div>
-
-                {/* Right - automation pipeline visual */}
-                <div className="lg:col-span-2 hidden lg:block">
-                  <div className="bg-surface-card rounded p-6 border border-line-soft group-hover:border-accent transition-colors">
-                    <div className="flex items-center justify-between mb-5">
-                      <span className="font-mono text-xs text-ink-3">contract-to-job pipeline</span>
-                      <span className="font-mono text-xs text-accent-ink">hands-free</span>
-                    </div>
-                    <div className="space-y-0">
-                      {pipelineSteps.map((step, i) => (
-                        <div key={step.label} className="flex gap-4">
-                          <div className="flex flex-col items-center">
-                            <div className={`w-1.5 h-1.5 rounded-full mt-2 ${i === 0 ? 'bg-accent' : 'bg-line-strong'}`} />
-                            {i < pipelineSteps.length - 1 && (
-                              <div className="w-px flex-1 bg-line-soft my-1" />
-                            )}
-                          </div>
-                          <div className={i < pipelineSteps.length - 1 ? 'pb-4' : ''}>
-                            <div className="text-sm text-ink-1 font-medium leading-tight font-display">{step.label}</div>
-                            <div className="font-mono text-xs text-ink-3 mt-0.5">{step.detail}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </AnimateOnScroll>
-
-          {/* FirstLight - slim secondary row */}
-          <AnimateOnScroll>
-            <Link href="/projects/firstlight" className="block group mt-12 pt-10 border-t border-line-soft">
-              <div className="grid lg:grid-cols-5 gap-4 lg:gap-12 items-baseline">
-                <div className="lg:col-span-3">
-                  <div className="flex items-center gap-4 mb-3">
-                    <LiveTag />
-                    <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">Consumer SaaS</span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-medium font-display group-hover:text-accent-ink transition-colors">
-                    FirstLight
-                  </h3>
-                </div>
-                <p className="lg:col-span-2 text-ink-2 text-sm leading-relaxed">
-                  A conditions-first decision engine for nature photographers - ephemeris,
-                  weather, and place synthesised into an honest answer: where to be, and when.
-                </p>
-              </div>
-            </Link>
-          </AnimateOnScroll>
-
-          <AnimateOnScroll>
-            <div className="mt-12 pt-8 border-t border-line-soft font-display">
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 px-6 py-2.5 btn rounded-sm border border-line-strong text-ink-2
-                  hover:border-accent hover:text-accent-ink transition-colors"
-              >
-                View all projects &rarr;
-              </Link>
-            </div>
-          </AnimateOnScroll>
-        </div>
       </section>
 
       {/* ========== TRACK RECORD ========== */}

@@ -30,48 +30,21 @@ type Industry = {
   details: string[] // one line per stage, in STAGES order
 }
 
-/* Ordered by climbing complexity - the variables count is the quiet argument. */
+/* Ordered from most to least complex - the variables count is the quiet argument. */
 const INDUSTRIES: Industry[] = [
   {
-    kind: 'local trade',
-    sector: 'Garden maintenance',
-    vars: 12,
+    kind: 'large-scale contractor',
+    sector: 'Industrial engineering',
+    vars: 150,
+    plus: true,
     details: [
-      'web form - fortnightly garden care, two properties',
-      'client record created - address, access notes, gate code',
-      'quote drafted from site photos - $190 per visit, sent',
-      'accepted by SMS - card saved for auto-billing',
-      'recurring slot locked - every second Tuesday',
-      'crew checklist done - before and after photos attached',
-      'invoice sent and paid - review request queued',
-    ],
-  },
-  {
-    kind: 'independent practitioner',
-    sector: 'Allied health',
-    vars: 26,
-    details: [
-      'referral received - GP care plan attached',
-      'patient record created - history, consent, Medicare details',
-      'fees confirmed - intake forms sent automatically',
-      'intake signed digitally - file complete before session one',
-      'six sessions booked - reminders queued',
-      'session notes filed - care plan updated',
-      'claim lodged, gap invoiced - rebooking prompt sent',
-    ],
-  },
-  {
-    kind: 'building trade',
-    sector: 'Home renovations',
-    vars: 58,
-    details: [
-      'phone inquiry transcribed - kitchen and laundry',
-      'project record created - rooms, finishes, budget band',
-      'itemised quote assembled - forty line items, sent',
-      'contract signed - deposit received and receipted',
-      'trades sequenced - certifier and skip bins booked',
-      'stage claims tracked - variations priced and logged',
-      'final claim issued - handover pack delivered',
+      'tender shortlisted - scope pack ingested',
+      'project stood up - WBS, compliance register, contacts',
+      'estimate built - procurement schedule attached',
+      'contract executed - milestones baselined',
+      'crews and plant scheduled - long-lead items ordered',
+      'progress claims certified - QA records filed',
+      'milestone invoiced - retention tracked to release',
     ],
   },
   {
@@ -89,18 +62,45 @@ const INDUSTRIES: Industry[] = [
     ],
   },
   {
-    kind: 'large-scale contractor',
-    sector: 'Industrial engineering',
-    vars: 150,
-    plus: true,
+    kind: 'building trade',
+    sector: 'Home renovations',
+    vars: 58,
     details: [
-      'tender shortlisted - scope pack ingested',
-      'project stood up - WBS, compliance register, contacts',
-      'estimate built - procurement schedule attached',
-      'contract executed - milestones baselined',
-      'crews and plant scheduled - long-lead items ordered',
-      'progress claims certified - QA records filed',
-      'milestone invoiced - retention tracked to release',
+      'phone inquiry transcribed - kitchen and laundry',
+      'project record created - rooms, finishes, budget band',
+      'itemised quote assembled - forty line items, sent',
+      'contract signed - deposit received and receipted',
+      'trades sequenced - certifier and skip bins booked',
+      'stage claims tracked - variations priced and logged',
+      'final claim issued - handover pack delivered',
+    ],
+  },
+  {
+    kind: 'independent practitioner',
+    sector: 'Allied health',
+    vars: 26,
+    details: [
+      'referral received - GP care plan attached',
+      'patient record created - history, consent, Medicare details',
+      'fees confirmed - intake forms sent automatically',
+      'intake signed digitally - file complete before session one',
+      'six sessions booked - reminders queued',
+      'session notes filed - care plan updated',
+      'claim lodged, gap invoiced - rebooking prompt sent',
+    ],
+  },
+  {
+    kind: 'local trade',
+    sector: 'Garden maintenance',
+    vars: 12,
+    details: [
+      'web form - fortnightly garden care, two properties',
+      'client record created - address, access notes, gate code',
+      'quote drafted from site photos - $190 per visit, sent',
+      'accepted by SMS - card saved for auto-billing',
+      'recurring slot locked - every second Tuesday',
+      'crew checklist done - before and after photos attached',
+      'invoice sent and paid - review request queued',
     ],
   },
 ]
@@ -173,10 +173,8 @@ export default function PipelineLoop() {
         if (entry.isIntersecting) {
           setTick((t) => {
             if (t >= 0) return t
-            // Reduced motion: land on the completed final business, no loop
-            return reducedMotion()
-              ? (INDUSTRIES.length - 1) * TICKS_PER_CYCLE + STAGES.length - 1
-              : 0
+            // Reduced motion: land on the first business completed, no loop
+            return reducedMotion() ? STAGES.length - 1 : 0
           })
         }
       },

@@ -139,8 +139,8 @@ export default function HomePage() {
               </div>
               <p className="lg:col-span-6 lg:col-start-7 text-ink-2 self-end">
                 The product changes. The spine doesn&apos;t. Watch one platform run five
-                very different businesses - and watch what it takes off their hands as
-                the work gets more complex.
+                very different businesses - from utility-scale engineering down to the
+                local garden round.
               </p>
             </div>
           </AnimateOnScroll>

@@ -12,7 +12,7 @@ const services = [
     num: '01',
     title: 'Process automation',
     description:
-      "We find where work actually stalls - quotes, jobs, approvals, handoffs - and remove the manual steps. Bring us a blank page or your team's in-flight or finished process map: either way, what your team keyed in by hand - now happens in seconds, automatically.",
+      'We find where work actually stalls or gets bottlenecked - quotes, job management, approvals, handoffs. We remove the manual steps - what your team used to do manually now happens in seconds, automatically.',
   },
   {
     num: '02',
@@ -166,6 +166,20 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ========== STRUCTURE BREAK - full bleed ========== */}
+      <section className="relative h-[46vh] lg:h-[60vh] overflow-hidden dark-only" aria-hidden>
+        <Image
+          src="/structure-sweep.jpg"
+          alt=""
+          fill
+          className="object-cover object-center opacity-60"
+          quality={82}
+          sizes="100vw"
+        />
+        <div className="absolute inset-x-0 top-0 h-40" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+        <div className="absolute inset-x-0 bottom-0 h-40" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
+      </section>
+
       {/* ========== WHAT WE BUILD ========== */}
       <section className="relative overflow-hidden py-16 px-6 lg:px-8 border-t border-line-soft">
         <Backdrop src="/structure-struts.jpg" opacity={0.1} />
@@ -230,20 +244,6 @@ export default function HomePage() {
             </div>
           </AnimateOnScroll>
         </div>
-      </section>
-
-      {/* ========== STRUCTURE BREAK - full bleed ========== */}
-      <section className="relative h-[46vh] lg:h-[60vh] overflow-hidden dark-only" aria-hidden>
-        <Image
-          src="/structure-sweep.jpg"
-          alt=""
-          fill
-          className="object-cover object-center opacity-60"
-          quality={82}
-          sizes="100vw"
-        />
-        <div className="absolute inset-x-0 top-0 h-40" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
-        <div className="absolute inset-x-0 bottom-0 h-40" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
       </section>
 
       {/* ========== TRACK RECORD ========== */}

@@ -12,7 +12,7 @@ const services = [
     num: '01',
     title: 'Process automation',
     description:
-      'We map how work moves through your business, then remove the manual steps.',
+      "We find where work actually stalls - quotes, jobs, approvals, handoffs - and remove the manual steps. Bring us a blank page or your team's in flight or finished process map: either way, what your team keyed in by hand - now happens in seconds, automatically.",
   },
   {
     num: '02',
@@ -130,7 +130,10 @@ export default function HomePage() {
                 <h2 className="text-3xl lg:text-4xl font-semibold font-display">What we build</h2>
               </div>
               <p className="lg:col-span-6 lg:col-start-6 text-ink-2 self-end">
-                For businesses that are already making money - and losing time.
+                For businesses that are already making money - and losing time. Come with
+                a blank page or a half-finished process map - we run the whole
+                transformation end to end, or plug in as the build engine behind your
+                internal change lead.
               </p>
             </div>
           </AnimateOnScroll>

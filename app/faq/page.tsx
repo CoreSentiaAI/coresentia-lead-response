@@ -20,7 +20,7 @@ const faqs: FAQItem[] = [
     category: 'general',
     question: 'What does CoreSentia do?',
     answer:
-      'We build software for established businesses that want to run better. That usually starts with mapping how work actually moves through the business, then automating the manual steps - connecting the systems you already use, building the internal platforms you wish existed, and designing AI into the workflow where it genuinely helps.',
+      'We build software for established businesses that want to run better. That starts with how work actually moves through the business - mapped by us, or by the transformation team you already have - then we automate the manual steps: connecting the systems you already use, building the internal platforms you wish existed, and designing AI into the workflow where it genuinely helps.',
   },
   {
     category: 'general',
@@ -90,7 +90,13 @@ const faqs: FAQItem[] = [
     category: 'process',
     question: 'How does your development process work?',
     answer:
-      'We start with a discovery call to understand your business and map the process we\'re improving, then provide a clear scope and quote. Once approved, we build iteratively - shipping working software early and often. You get access to staging environments throughout, and we shape features with the people who\'ll actually use them.',
+      'We start with a discovery call to understand your business and the process we\'re improving - we map it with you, or work straight from the map your transformation team has already built - then provide a clear scope and quote. Once approved, we build iteratively - shipping working software early and often. You get access to staging environments throughout, and we shape features with the people who\'ll actually use them.',
+  },
+  {
+    category: 'process',
+    question: 'We already have a transformation program running. Can you work with our internal team?',
+    answer:
+      "Yes - that's one of our two standard modes. Your change lead owns the roadmap and the process map; we deliver the platform behind it. You keep the business knowledge in-house, and get working software instead of another slide deck. The other mode is end to end: we map, then build. Both end the same way - a system in production that your team owns.",
   },
   {
     category: 'process',

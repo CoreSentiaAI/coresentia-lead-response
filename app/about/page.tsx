@@ -14,9 +14,9 @@ const principles = [
   },
   {
     num: '02',
-    title: 'Map before you build',
+    title: 'Start from how the business works',
     description:
-      'Software fails when it ignores how the business actually works. We start with the process - who touches what, where the time goes, what breaks - and let the system design follow.',
+      'Software fails when it ignores how the business actually runs. We can do the mapping - who touches what, where the time goes, what breaks. If your transformation team is already doing it or has done it, we build straight from their map. The system design follows the process either way.',
   },
   {
     num: '03',
@@ -104,10 +104,11 @@ export default function AboutPage() {
                       re-keyed, where the time disappears.
                     </p>
                     <p>
-                      CoreSentia exists to close that gap. We take projects from process
-                      mapping to production, and every system we build is designed to run
-                      24/7 without us standing next to it - honest, considered, and worth
-                      the effort.
+                      CoreSentia exists to close that gap. We take projects all the way to
+                      production - running the transformation end to end, or building
+                      behind the change lead you already have. Every system we ship is
+                      designed to run 24/7 without us standing next to it - honest,
+                      considered, and worth the effort.
                     </p>
                   </div>
                 </AnimateOnScroll>
@@ -149,7 +150,7 @@ export default function AboutPage() {
                 <div className="space-y-5 text-ink-2 leading-relaxed">
                   <p>
                     Every platform I build is developed AI-natively - frontier models wired
-                    into the work from the first mapping session to production, governed and
+                    into the work from the first working session to production, governed and
                     logged. I&apos;ve reorganised my entire working method around what these
                     tools make possible. It&apos;s why one person ships what used to take a
                     team, and why the platforms I deliver come with that same capability

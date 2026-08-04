@@ -1,11 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { SMALL_SITES_LIVE } from '../lib/site'
 
 export default function Footer() {
   const links = [
     { href: '/projects', label: 'Work' },
     { href: '/about', label: 'About' },
     { href: '/faq', label: 'FAQ' },
+    // Footer-only entry point to the productised small-site tier - never in the header nav
+    ...(SMALL_SITES_LIVE
+      ? [{ href: '/small-business-websites', label: 'Small business websites' }]
+      : []),
     { href: '/terms', label: 'Terms' },
     { href: '/privacy', label: 'Privacy' },
   ]

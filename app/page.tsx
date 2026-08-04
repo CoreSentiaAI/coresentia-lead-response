@@ -6,6 +6,7 @@ import ContactForm from './components/ContactForm'
 import AnimateOnScroll from './components/AnimateOnScroll'
 import PipelineLoop from './components/PipelineLoop'
 import Backdrop from './components/Backdrop'
+import { SMALL_SITES_LIVE } from './lib/site'
 
 const services = [
   {
@@ -24,7 +25,10 @@ const services = [
     num: '03',
     title: 'SaaS replacement',
     description:
-      'Custom platforms that replace the subscriptions you’ve outgrown. Owned outright, no seat fees - built to replace the enterprise CRM you use a fraction of.',
+      'Custom platforms that replace the subscriptions you’ve outgrown. Owned outright, no seat fees - built to replace the enterprise CRM you use a fraction of.' +
+      (SMALL_SITES_LIVE
+        ? ' That includes the small end - dated or DIY sites rebuilt as fast, owned, zero-subscription sites, sometimes as the first step in something bigger.'
+        : ''),
   },
   {
     num: '04',

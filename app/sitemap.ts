@@ -1,9 +1,21 @@
 import { MetadataRoute } from 'next'
+import { SMALL_SITES_LIVE } from './lib/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.coresentia.com.au'
 
   return [
+    // Small-site tier joins the sitemap only once launched (SMALL_SITES_LIVE)
+    ...(SMALL_SITES_LIVE
+      ? [
+          {
+            url: `${baseUrl}/small-business-websites`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.7,
+          },
+        ]
+      : []),
     {
       url: baseUrl,
       lastModified: new Date(),

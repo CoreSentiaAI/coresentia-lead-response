@@ -3,11 +3,7 @@ import Image from 'next/image'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ContactForm from '../components/ContactForm'
-import {
-  SMALL_SITES_LIVE,
-  CORESENTIA_MOBILE_DISPLAY,
-  CORESENTIA_MOBILE_E164,
-} from '../lib/site'
+import { SMALL_SITES_LIVE } from '../lib/site'
 
 export const metadata: Metadata = {
   title: 'Small Business Websites Brisbane - $990, Live in a Week | CoreSentia',
@@ -32,7 +28,7 @@ const included = [
 ]
 
 const steps = [
-  'Text or call - tell us your business name and trade. Five minutes.',
+  'Fill in the form below - your business name and trade is enough. Two minutes.',
   'We build the whole thing and send you a private preview link to look at on your phone. Change anything you like.',
   'Happy? We put it live on your own domain. Done inside a week.',
 ]
@@ -67,19 +63,6 @@ const proofCards: {
   afterSrc: string
 }[] = []
 
-function CallButton() {
-  return (
-    <a
-      href={`tel:${CORESENTIA_MOBILE_E164}`}
-      className="btn flex sm:inline-flex w-full sm:w-auto items-center justify-center
-        bg-accent text-[#0d0d0c] font-medium rounded-sm px-10 py-5
-        hover:bg-[#4dc4e8] transition-colors"
-    >
-      Call {CORESENTIA_MOBILE_DISPLAY}
-    </a>
-  )
-}
-
 export default function SmallBusinessWebsitesPage() {
   return (
     <div className="editorial min-h-screen bg-surface-base text-ink-1">
@@ -99,13 +82,14 @@ export default function SmallBusinessWebsitesPage() {
               locals Google you. You own all of it.
             </p>
 
-            <div className="mt-9 flex flex-col sm:flex-row sm:items-center gap-5">
-              <CallButton />
+            <div className="mt-9">
               <a
-                href={`sms:${CORESENTIA_MOBILE_E164}`}
-                className="btn text-ink-1 hover:opacity-70 transition-opacity text-center sm:text-left"
+                href="#contact"
+                className="btn flex sm:inline-flex w-full sm:w-auto items-center justify-center
+                  bg-accent text-[#0d0d0c] font-medium rounded-sm px-10 py-5
+                  hover:bg-[#4dc4e8] transition-colors"
               >
-                or text us your business name &rarr;
+                Get started
               </a>
             </div>
           </div>
@@ -223,40 +207,13 @@ export default function SmallBusinessWebsitesPage() {
         <section id="contact" className="px-6 py-16 border-t border-line-soft">
           <div className="max-w-2xl mx-auto">
             <div className="section-label mb-3">Get started</div>
-            <h2 className="text-2xl sm:text-3xl font-semibold font-display mb-6">
-              Start with a call or a text.
+            <h2 className="text-2xl sm:text-3xl font-semibold font-display mb-4">
+              Tell us your business name and trade.
             </h2>
-
-            <a
-              href={`tel:${CORESENTIA_MOBILE_E164}`}
-              className="block font-display font-semibold text-[clamp(2.4rem,10vw,4rem)] leading-none tracking-editorial hover:text-accent-ink transition-colors"
-            >
-              {CORESENTIA_MOBILE_DISPLAY}
-            </a>
-
-            <div className="mt-8">
-              <CallButton />
-            </div>
-
-            <p className="mt-5 text-base">
-              or{' '}
-              <a
-                href={`sms:${CORESENTIA_MOBILE_E164}`}
-                className="text-accent-ink underline underline-offset-4"
-              >
-                text us
-              </a>{' '}
-              your business name and we&apos;ll take it from there.
+            <p className="text-base mb-8">
+              We&apos;ll take it from there and get back to you within 24 hours.
             </p>
-
-            {/* Secondary contact path only - no booking calendars, no qualification forms */}
-            <div className="mt-14 pt-10 border-t border-line-soft">
-              <p className="text-base mb-6">
-                Rather type it out? Leave your details and we&apos;ll call you
-                back.
-              </p>
-              <ContactForm />
-            </div>
+            <ContactForm />
           </div>
         </section>
 

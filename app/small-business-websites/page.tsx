@@ -70,8 +70,22 @@ export default function SmallBusinessWebsitesPage() {
 
       <main>
         {/* ========== HERO ========== */}
-        <section className="px-6 pt-36 pb-14 lg:pt-44 lg:pb-20">
-          <div className="max-w-2xl mx-auto">
+        <section className="relative px-6 pt-36 pb-14 lg:pt-44 lg:pb-24 overflow-hidden">
+          {/* Structure: concrete curve in raking light - softest form in the set, right for this audience */}
+          <div className="absolute inset-0 z-0 pointer-events-none dark-only">
+            <Image
+              src="/structure-curve.jpg"
+              alt=""
+              fill
+              className="object-cover object-center opacity-30"
+              priority
+              quality={82}
+            />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(115deg, #111110 0%, rgba(17,17,16,0.85) 45%, rgba(17,17,16,0.3) 100%)' }} />
+            <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+            <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
+          </div>
+          <div className="max-w-2xl mx-auto relative z-10">
             <div className="section-label mb-4">Small business websites</div>
             <h1 className="text-4xl sm:text-5xl font-semibold font-display">
               A proper website for your trade or small business.
@@ -202,6 +216,20 @@ export default function SmallBusinessWebsitesPage() {
             </div>
           </section>
         )}
+
+        {/* ========== STRUCTURE BREAK - full bleed ========== */}
+        <section className="relative h-[36vh] lg:h-[46vh] overflow-hidden dark-only" aria-hidden>
+          <Image
+            src="/structure-sweep.jpg"
+            alt=""
+            fill
+            className="object-cover object-center opacity-60"
+            quality={82}
+            sizes="100vw"
+          />
+          <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
+        </section>
 
         {/* ========== CTA ========== */}
         <section id="contact" className="px-6 py-16 border-t border-line-soft">

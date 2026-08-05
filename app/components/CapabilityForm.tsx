@@ -156,7 +156,7 @@ export default function CapabilityForm() {
       </button>
 
       <p className="text-center text-sm text-ink-3 mt-4">
-        One email with the PDF attached. No follow-up sequence, no list.
+        The PDF lands in your inbox. No automated follow-ups, no list.
       </p>
     </form>
   )

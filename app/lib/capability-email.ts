@@ -100,7 +100,7 @@ export function renderCapabilityEmail({ greeting, leadIn, includeRequestNote }: 
             <td style="padding: 20px 8px 0; font-family: 'Courier New', Courier, monospace; font-size: 11px; letter-spacing: 1px; line-height: 1.7; color: ${INK};">
               CoreSentia &middot; ABN 69 267 271 132 &middot; Brisbane, Queensland, Australia${
                 includeRequestNote
-                  ? `<br>You are receiving this one email because you requested our capability document at coresentia.com.au. No follow-up sequence, no list.`
+                  ? `<br>You are receiving this because you requested our capability document at coresentia.com.au. No automated follow-ups, no list.`
                   : ''
               }
             </td>

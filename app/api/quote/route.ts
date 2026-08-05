@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { sendSMS } from '@/lib/twilio'
+import { attributionLines } from '@/app/lib/attribution'
 
 // Form submissions are delivered by email (plus SMS when ADMIN_PHONE is set).
 // No database write - the old leads table was retired Aug 2026. If enquiry
@@ -21,7 +22,7 @@ const transporter = nodemailer.createTransport({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, phone, email, businessType, message } = body
+    const { name, phone, email, businessType, message, page, utm } = body
 
     // Validation - phone is optional in the form, so not required here
     if (!name || !email) {
@@ -36,6 +37,7 @@ export async function POST(request: NextRequest) {
       `Email: ${email.trim()}`,
       `Phone: ${phone?.trim() || 'Not provided'}`,
       `Project type: ${businessType || 'Not specified'}`,
+      ...attributionLines(page, utm),
       '',
       message?.trim() || 'No message provided.',
     ].join('\n')

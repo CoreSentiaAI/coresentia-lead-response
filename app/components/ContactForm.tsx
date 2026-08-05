@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Check, Loader2 } from 'lucide-react'
+import { getUtm, trackLead } from '../lib/track'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -35,7 +36,11 @@ export default function ContactForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          page: window.location.pathname,
+          utm: getUtm(),
+        }),
       })
 
       const data = await response.json()
@@ -45,6 +50,7 @@ export default function ContactForm() {
         throw new Error(errorMsg)
       }
 
+      trackLead('contact', window.location.pathname)
       setIsSuccess(true)
       setFormData({
         name: '',

@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Montserrat, Inter, Raleway, JetBrains_Mono, Fraunces, Newsreader } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
+import Analytics from './components/Analytics';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -129,6 +130,7 @@ export default function RootLayout({
       </head>
       <body className={`${montserrat.variable} ${inter.variable} ${raleway.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${newsreader.variable}`}>
         <AuthProvider>{children}</AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

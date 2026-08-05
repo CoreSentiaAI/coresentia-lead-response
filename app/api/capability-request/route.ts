@@ -5,6 +5,7 @@ import {
   CAPABILITY_PDF_FILENAME,
   CAPABILITY_PDF_PATH,
 } from '@/app/lib/capability-email'
+import { attributionLines } from '@/app/lib/attribution'
 
 // Email-gated capability document. No database - the notification email to
 // info@ is the lead record while enquiry volume stays low.
@@ -24,7 +25,7 @@ const transporter = nodemailer.createTransport({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, company } = body
+    const { name, email, company, page, utm } = body
 
     if (!name || !email) {
       return NextResponse.json(
@@ -97,6 +98,7 @@ export async function POST(request: NextRequest) {
           `Name: ${cleanName}`,
           `Email: ${cleanEmail}`,
           `Company: ${cleanCompany || 'Not provided'}`,
+          ...attributionLines(page, utm),
           '',
           'The document was delivered automatically. Reply to this email to follow up with them directly.',
         ].join('\n'),

@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Check, Loader2 } from 'lucide-react'
+import { getUtm, trackLead } from '../lib/track'
 
 export default function CapabilityForm() {
   const [formData, setFormData] = useState({
@@ -31,7 +32,11 @@ export default function CapabilityForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          page: window.location.pathname,
+          utm: getUtm(),
+        }),
       })
 
       const data = await response.json()
@@ -41,6 +46,7 @@ export default function CapabilityForm() {
         throw new Error(errorMsg)
       }
 
+      trackLead('capability', window.location.pathname)
       setIsSuccess(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong')

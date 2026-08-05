@@ -1,78 +1,98 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import nodemailer from 'nodemailer'
 import { sendSMS } from '@/lib/twilio'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+// Form submissions are delivered by email (plus SMS when ADMIN_PHONE is set).
+// No database write - the old leads table was retired Aug 2026. If enquiry
+// volume grows, re-add a storage step here.
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@coresentia.com'
+const SMTP_USER = process.env.SMTP_USER || ADMIN_EMAIL
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.SMTP_PORT || '587', 10),
+  secure: false,
+  auth: {
+    user: SMTP_USER,
+    pass: process.env.SMTP_PASSWORD || process.env.GOOGLE_APP_PASSWORD,
+  },
+})
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { name, phone, email, businessType, message } = body
 
-    // Validation
-    if (!name || !phone || !email) {
+    // Validation - phone is optional in the form, so not required here
+    if (!name || !email) {
       return NextResponse.json(
-        { error: 'Name, phone, and email are required' },
+        { error: 'Name and email are required' },
         { status: 400 }
       )
     }
 
-    // Initialize Supabase client
-    const supabase = createClient(supabaseUrl, supabaseServiceKey)
+    const emailBody = [
+      `Name: ${name.trim()}`,
+      `Email: ${email.trim()}`,
+      `Phone: ${phone?.trim() || 'Not provided'}`,
+      `Project type: ${businessType || 'Not specified'}`,
+      '',
+      message?.trim() || 'No message provided.',
+    ].join('\n')
 
-    // Create lead in database
-    const { data: lead, error: leadError } = await supabase
-      .from('leads')
-      .insert({
-        name: name.trim(),
-        first_name: name.trim().split(' ')[0],
-        last_name: name.trim().split(' ').slice(1).join(' ') || '',
-        phone: phone.trim(),
-        email: email.trim(),
-        company: businessType || 'Not specified',
-        initial_message: message || 'Quote request via web form',
-        source: 'web_form',
-        status: 'new',
-        business_id: null, // No business association for quote requests
+    // Send email notification
+    let emailSent = false
+    try {
+      await transporter.sendMail({
+        from: `"CoreSentia website" <${SMTP_USER}>`,
+        to: ADMIN_EMAIL,
+        replyTo: email.trim(),
+        subject: `New enquiry from ${name.trim()}${businessType ? ` - ${businessType}` : ''}`,
+        text: emailBody,
       })
-      .select()
-      .single()
+      emailSent = true
+    } catch (emailError) {
+      console.error('Failed to send enquiry email:', emailError)
+    }
 
-    if (leadError) {
-      console.error('Error creating lead:', leadError)
-      console.error('Lead error details:', JSON.stringify(leadError, null, 2))
+    // Send SMS notification (best effort)
+    let smsSent = false
+    const adminPhone = process.env.ADMIN_PHONE
+    if (adminPhone) {
+      try {
+        const smsResult = await sendSMS({
+          to: adminPhone,
+          body: `🎯 NEW ENQUIRY
+
+Name: ${name}
+Phone: ${phone || 'Not provided'}
+Email: ${email}
+Project: ${businessType || 'Not specified'}
+${message ? `Message: ${message}` : ''}`,
+        })
+        smsSent = smsResult.success
+        if (!smsResult.success) {
+          console.error('Failed to send admin SMS notification:', smsResult.error)
+        }
+      } catch (smsError) {
+        console.error('Failed to send admin SMS notification:', smsError)
+      }
+    }
+
+    // Fail loudly only if nothing was delivered at all
+    if (!emailSent && !smsSent) {
       return NextResponse.json(
-        { error: 'Failed to submit quote request', details: leadError.message || 'Unknown error' },
+        {
+          error: 'Failed to submit your message',
+          details: `Please email ${ADMIN_EMAIL} directly`,
+        },
         { status: 500 }
       )
     }
 
-    // Send SMS notification to admin
-    const adminPhone = process.env.ADMIN_PHONE
-    if (adminPhone) {
-      try {
-        const smsMessage = `🎯 NEW QUOTE REQUEST
-
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
-Business: ${businessType || 'Not specified'}
-${message ? `Message: ${message}` : ''}
-
-View: https://www.coresentia.com.au/admin`
-
-        await sendSMS({ to: adminPhone, body: smsMessage })
-      } catch (smsError) {
-        console.error('Failed to send admin SMS notification:', smsError)
-        // Don't fail the request if SMS fails
-      }
-    }
-
     return NextResponse.json({
       success: true,
-      leadId: lead.id,
-      message: 'Quote request submitted successfully',
+      message: 'Enquiry submitted successfully',
     })
   } catch (error) {
     console.error('Quote form error:', error)

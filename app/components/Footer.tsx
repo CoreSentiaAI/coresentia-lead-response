@@ -8,7 +8,7 @@ export default function Footer() {
     { href: '/about', label: 'About' },
     { href: '/faq', label: 'FAQ' },
     { href: '/capability', label: 'Capability document' },
-    // Footer-only entry point to the productised small-site tier - never in the header nav
+    // Productised small-site tier - also in the header nav (Header.tsx), both gated on this flag
     ...(SMALL_SITES_LIVE
       ? [{ href: '/small-business-websites', label: 'Small business websites' }]
       : []),

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import ThemeToggle from './ThemeToggle'
+import { SMALL_SITES_LIVE } from '../lib/site'
 
 function Logo({ className }: { className: string }) {
   return (
@@ -54,6 +55,10 @@ export default function Header() {
     { href: '/projects', label: 'Work' },
     { href: '/about', label: 'About' },
     { href: '/capability', label: 'Capability' },
+    // Productised small-site tier - gated on the same flag as the footer link
+    ...(SMALL_SITES_LIVE
+      ? [{ href: '/small-business-websites', label: 'Small business websites' }]
+      : []),
   ]
 
   return (

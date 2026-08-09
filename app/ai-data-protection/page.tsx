@@ -241,11 +241,8 @@ export default function AiDataProtectionPage() {
                   No provider can promise absolute zero risk for data it
                   actually processes: even under commercial terms, a 30-day
                   retention window and standard legal-process exceptions exist.
-                  Knowing that is the point. It is why the sealed posture
-                  exists for material that cannot carry any risk at all, and
-                  why governed access is scoped, logged and read-only wherever
-                  possible - the protection is matched to what the data
-                  actually is.
+                  That is what the postures are for - matching the protection
+                  to the data.
                 </p>
                 <p className="leading-snug text-base">
                   Whatever the posture, you will know exactly what is

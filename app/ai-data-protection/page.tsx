@@ -76,7 +76,7 @@ export default function AiDataProtectionPage() {
               </h1>
               <p className="text-ink-2 leading-relaxed max-w-xl mb-8">
                 AI-native development is how we work - it is why platforms ship
-                in weeks, not years. This page sets out, in plain terms, how
+                in weeks, not months. This page sets out, in plain terms, how
                 client information is protected in that process: what is
                 guaranteed, and what we deliberately never do.
               </p>

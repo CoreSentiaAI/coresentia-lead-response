@@ -46,8 +46,10 @@ const postures = [
     label: 'Sovereign',
     title: 'Onshore, for work that cannot leave',
     points: [
-      'For government-adjacent or sovereignty-bound material: deployment runs via Amazon Bedrock in the AWS Sydney region - data stays in Australia, inputs and outputs are never shared with the model’s developer, and nothing is used to train any model.',
+      'For government-adjacent or sovereignty-bound material: deployment runs via Amazon Bedrock in the AWS Sydney region - model, inference compute and data all in Australian data centres, with inputs and outputs never shared with the model’s developer and never used to train any model.',
+      'Residency is engineered, not assumed: the deployment is pinned to a single region. AWS commits not to move customer content outside your chosen region, and regions do not fail over offshore on their own - cross-region features exist only if we deliberately enable them.',
       'Bedrock sits within AWS’s IRAP-assessed scope - the assessment framework Australian government agencies rely on.',
+      'The honest jurisdictional limit: a US-headquartered provider remains subject to lawful orders wherever the data sits. Where even that is unacceptable, the sealed posture - or a build inside your own sovereign-approved environment - is the answer.',
       'Moving between postures is always a decision made with you, in writing - never a default.',
     ],
     summary: null,

@@ -6,32 +6,18 @@ import Footer from '../components/Footer'
 import AnimateOnScroll from '../components/AnimateOnScroll'
 
 // Public statement of the AI data-protection posture. Framed as a choice of
-// posture (sealed / governed / sovereign) - never an absolute "data never
+// posture (governed / sovereign / sealed - a descending curve of access) - never an absolute "data never
 // enters the AI" promise, which would rule out the governed live-access mode
 // where AI earns most. Sovereignty remains a first-class selling point.
 export const metadata: Metadata = {
   title: 'AI & data protection - CoreSentia',
   description:
-    'How CoreSentia governs AI access to client data: sealed builds on synthetic data, governed access to live systems under commercial terms, and an onshore IRAP-scope path for sovereignty-bound work. Your data goes exactly as far as you decide.',
+    'How CoreSentia governs AI access to client data: governed access to live systems under commercial terms, an onshore IRAP-scope path for sovereignty-bound work, and sealed builds where nothing real enters the AI. Your data goes exactly as far as you decide.',
 }
 
 const postures = [
   {
     num: '01',
-    label: 'Sealed',
-    title: 'Real data never goes in',
-    points: [
-      'The posture for confidentiality-bound work: all AI-assisted development runs against synthetic test data - fabricated records that mimic the shape of real data but contain none of it.',
-      'Production credentials are kept out of reach of AI tooling - not in configuration, not in connected services, not in the working environment.',
-      'When real data needs loading or migrating, a person runs conventional scripts against systems the AI cannot reach.',
-      'Client deliverables, reports and records are never placed anywhere AI tooling can read.',
-      'The honest cost: development runs slower - the AI works against stand-ins, and people handle everything it cannot see.',
-    ],
-    summary:
-      'In this posture, the honest answer to "what does the AI provider receive of our data?" is: nothing.',
-  },
-  {
-    num: '02',
     label: 'Governed',
     title: 'AI works with your live systems, under terms',
     points: [
@@ -44,17 +30,31 @@ const postures = [
       'In this posture your data is processed on Anthropic’s servers, and the protection is contractual. When geography itself is the requirement, the next posture removes even that.',
   },
   {
-    num: '03',
+    num: '02',
     label: 'Sovereign',
     title: 'Onshore, for work that cannot leave',
     points: [
       'Same AI, different venue: the models run on AWS-operated infrastructure via Amazon Bedrock in the Sydney region - and Anthropic, the model’s developer, never receives your data at all. Inputs and outputs stay in Australian data centres and are never used to train any model.',
       'Residency is engineered, not assumed: the deployment is pinned to a single region. AWS commits not to move customer content outside your chosen region, and regions do not fail over offshore on their own - cross-region features exist only if we deliberately enable them.',
       'Bedrock sits within AWS’s IRAP-assessed scope - the assessment framework Australian government agencies rely on.',
-      'The honest jurisdictional limit: a US-headquartered provider remains subject to lawful orders wherever the data sits. Where even that is unacceptable, the sealed posture - or a build inside your own sovereign-approved environment - is the answer.',
+      'The honest jurisdictional limit: a US-headquartered provider remains subject to lawful orders wherever the data sits. Where even that is unacceptable, the next posture - or a build inside your own sovereign-approved environment - is the answer.',
       'Moving between postures is always a decision made with you, in writing - never a default.',
     ],
     summary: null,
+  },
+  {
+    num: '03',
+    label: 'Sealed',
+    title: 'Real data never goes in',
+    points: [
+      'The posture for confidentiality-bound work: all AI-assisted development runs against synthetic test data - fabricated records that mimic the shape of real data but contain none of it.',
+      'Production credentials are kept out of reach of AI tooling - not in configuration, not in connected services, not in the working environment.',
+      'When real data needs loading or migrating, a person runs conventional scripts against systems the AI cannot reach.',
+      'Client deliverables, reports and records are never placed anywhere AI tooling can read.',
+      'The honest cost: development runs slower - the AI works against stand-ins, and people handle everything it cannot see.',
+    ],
+    summary:
+      'In this posture, the honest answer to "what does the AI provider receive of our data?" is: nothing.',
   },
 ]
 
@@ -96,9 +96,9 @@ export default function AiDataProtectionPage() {
               <p className="text-ink-2 leading-relaxed mb-8">
                 AI-native development is how we work - it is why platforms ship
                 in weeks, not months. How far the AI reaches into your business
-                is a decision we make with you, in writing: sealed away from
-                real data entirely, working with your live systems under
-                governed terms, or fully onshore. This page sets out the
+                is a decision we make with you, in writing: working with your
+                live systems under governed terms, fully onshore, or sealed
+                away from real data entirely. This page sets out the
                 postures and the protections behind them.
               </p>
               <div className="flex items-center gap-6">
@@ -160,7 +160,7 @@ export default function AiDataProtectionPage() {
             <AnimateOnScroll>
               <div className="section-label mb-3">Three postures</div>
               <h2 className="text-3xl font-semibold mb-8 font-display">
-                Sealed, governed, or sovereign
+                Governed, sovereign, or sealed
               </h2>
             </AnimateOnScroll>
             <div>

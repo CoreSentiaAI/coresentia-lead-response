@@ -285,6 +285,20 @@ export default function AiDataProtectionPage() {
           </div>
         </section>
 
+        {/* Structure break - full bleed, pre-CTA */}
+        <section className="relative h-[36vh] lg:h-[46vh] overflow-hidden dark-only" aria-hidden>
+          <Image
+            src="/structure-grid.jpg"
+            alt=""
+            fill
+            className="object-cover object-center opacity-50"
+            quality={82}
+            sizes="100vw"
+          />
+          <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
+        </section>
+
         {/* CTA */}
         <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-6xl mx-auto">

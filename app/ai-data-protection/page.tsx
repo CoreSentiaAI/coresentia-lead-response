@@ -90,7 +90,7 @@ export default function AiDataProtectionPage() {
               <h1 className="text-4xl md:text-6xl font-semibold font-display max-w-3xl mb-6">
                 AI builds the software. Your data never meets it.
               </h1>
-              <p className="text-ink-2 leading-relaxed max-w-xl mb-8">
+              <p className="text-ink-2 leading-relaxed mb-8">
                 AI-native development is how we work - it is why platforms ship
                 in weeks, not months. This page sets out, in plain terms, how
                 client information is protected in that process: what is
@@ -120,7 +120,7 @@ export default function AiDataProtectionPage() {
           <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
               <div className="section-label mb-3">The short version</div>
-              <p className="text-2xl lg:text-3xl font-display leading-snug max-w-3xl">
+              <p className="text-2xl lg:text-3xl font-display leading-snug">
                 Your data does not enter the AI. AI tools are used to build your
                 systems, working only against fabricated test data. Real data is
                 handled by conventional software and people - never submitted to
@@ -136,7 +136,7 @@ export default function AiDataProtectionPage() {
           <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
               <div className="section-label mb-3">First, the reality</div>
-              <p className="text-ink-2 leading-relaxed max-w-2xl">
+              <p className="text-ink-2 leading-relaxed">
                 When a developer works with an AI coding assistant, everything
                 the AI is shown - prompts, files it reads, query results - is
                 transmitted to the AI provider&apos;s servers. So the meaningful
@@ -241,7 +241,7 @@ export default function AiDataProtectionPage() {
           <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
               <div className="section-label mb-3">Who this is for</div>
-              <p className="text-ink-2 leading-relaxed max-w-2xl mb-6">
+              <p className="text-ink-2 leading-relaxed mb-6">
                 If your client agreements carry data-sovereignty obligations -
                 government work, regulated industries, confidentiality you
                 cannot delegate - this is the operating model we bring, on your
@@ -254,7 +254,7 @@ export default function AiDataProtectionPage() {
                 </Link>
                 .
               </p>
-              <p className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3 max-w-2xl">
+              <p className="font-mono text-xs uppercase tracking-[0.08em] text-ink-3">
                 Vendor facts on this page - terms, retention, certifications,
                 regions - are accurate as at August 2026. References:{' '}
                 <a href="https://www.anthropic.com/legal/commercial-terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-ink-1 transition-colors">Anthropic commercial terms</a>,{' '}
@@ -272,7 +272,7 @@ export default function AiDataProtectionPage() {
               <h2 className="text-3xl lg:text-4xl font-semibold font-display mb-4">
                 Bring your governance. We&apos;ll meet it.
               </h2>
-              <p className="text-ink-2 max-w-xl mb-8">
+              <p className="text-ink-2 mb-8">
                 Tell us the agreements you operate under and we will show you,
                 in writing, how the build honours them - before any work
                 starts.

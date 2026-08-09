@@ -141,16 +141,14 @@ export default function AiDataProtectionPage() {
             <AnimateOnScroll>
               <div className="section-label mb-3">First, the reality</div>
               <p className="text-ink-2 leading-relaxed">
-                When a developer works with an AI assistant, whatever the AI is
-                shown - prompts, files it reads, query results - is transmitted
-                to the AI provider&apos;s servers. Nothing more, nothing less:
-                the AI sees exactly what we choose to show it, and that choice
-                follows your business requirements. There is a genuine
-                trade-off inside the choice - the more the AI can see, the
-                faster it builds and the more it can do for you; the less it
-                sees, the stronger the isolation. The three postures below are
-                how that trade-off is made deliberately, under known terms -
-                and which one you run is your call, not ours.
+                When a developer works with an AI assistant, what the AI can
+                see is locked by your agreement with us - it reads what you
+                have approved, and nothing else. Want rapid development, give
+                the AI access under governed terms. Want a sealed database,
+                nothing is shared at all - and the build runs slower. Both are
+                honest choices with known costs. The three postures below
+                exist so that choice is made deliberately - and which one you
+                run is your call, not ours.
               </p>
             </AnimateOnScroll>
           </div>

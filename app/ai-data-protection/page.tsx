@@ -33,6 +33,7 @@ const layers = [
     label: 'Contractual',
     title: 'Business terms with the AI provider',
     points: [
+      'We standardise on a single, named AI vendor: Claude, by Anthropic - frontier-capability models from the safety-focused AI lab. One tool, one set of published terms, one accountable relationship - not a scatter of AI services with different policies.',
       'All AI-assisted work runs under a business account governed by Anthropic’s commercial terms and data processing addendum - never consumer or personal accounts.',
       'Under those terms Anthropic may not train models on customer content. Content is treated as confidential, and clients retain all rights to inputs and outputs.',
       'Server-side retention defaults to deletion within 30 days, encrypted in transit and at rest. Anthropic holds SOC 2 Type II, ISO 27001 and ISO 42001 certifications.',

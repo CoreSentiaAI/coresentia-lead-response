@@ -127,11 +127,9 @@ export default function AiDataProtectionPage() {
               <div className="section-label mb-3">The short version</div>
               <p className="text-2xl lg:text-3xl font-display leading-snug">
                 Your data does not have to enter the AI. Every engagement
-                chooses a posture deliberately - sealed away from real data
-                entirely, governed access to live systems, or fully onshore for
-                sovereignty-bound work. Access buys speed, sealing buys
-                isolation - a trade you control, agreed in writing, never an
-                accident.
+                chooses a posture deliberately: governed access to live systems
+                and data, fully onshore for sovereignty-bound work, or sealed
+                away from real data entirely.
               </p>
             </AnimateOnScroll>
           </div>

@@ -25,6 +25,7 @@ const postures = [
       'Production credentials are kept out of reach of AI tooling - not in configuration, not in connected services, not in the working environment.',
       'When real data needs loading or migrating, a person runs conventional scripts against systems the AI cannot reach.',
       'Client deliverables, reports and records are never placed anywhere AI tooling can read.',
+      'The honest cost: development runs slower - the AI works against stand-ins, and people handle everything it cannot see.',
     ],
     summary:
       'In this posture, the honest answer to "what does the AI provider receive of our data?" is: nothing.',
@@ -34,7 +35,7 @@ const postures = [
     label: 'Governed',
     title: 'AI works with your live systems, under terms',
     points: [
-      'The posture most businesses choose, because it is where AI earns the most: reading your data to answer questions, automate work and keep systems in sync.',
+      'The posture most businesses choose, because access buys the most: development at full speed, and an AI that reads your data to answer questions, automate work and keep systems in sync.',
       'We standardise on a single, named AI vendor: Claude, by Anthropic - frontier-capability models from the safety-focused AI lab. One tool, one set of published terms, one accountable relationship - not a scatter of AI services with different policies.',
       'Everything runs under a business account governed by Anthropic’s commercial terms and data processing addendum - never consumer or personal accounts. Anthropic may not train models on customer content, retention defaults to deletion within 30 days, and Anthropic holds SOC 2 Type II, ISO 27001 and ISO 42001 certifications.',
       'Access is engineered, not assumed: scoped, read-only where possible, logged, and guarded - the AI touches what its role allows and nothing else.',
@@ -128,8 +129,9 @@ export default function AiDataProtectionPage() {
                 Your data does not have to enter the AI. Every engagement
                 chooses a posture deliberately - sealed away from real data
                 entirely, governed access to live systems, or fully onshore for
-                sovereignty-bound work. It is a choice made in writing, never
-                an accident.
+                sovereignty-bound work. Access buys speed, sealing buys
+                isolation - a trade you control, agreed in writing, never an
+                accident.
               </p>
             </AnimateOnScroll>
           </div>
@@ -139,7 +141,7 @@ export default function AiDataProtectionPage() {
         <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-6xl mx-auto">
             <AnimateOnScroll>
-              <div className="section-label mb-3">First, the reality</div>
+              <div className="section-label mb-3">The premise</div>
               <p className="text-ink-2 leading-relaxed">
                 When a developer works with an AI assistant, what the AI can
                 see is locked by your agreement with us - it reads what you

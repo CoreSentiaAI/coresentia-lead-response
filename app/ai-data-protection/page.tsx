@@ -39,14 +39,15 @@ const postures = [
       'Everything runs under a business account governed by Anthropic’s commercial terms and data processing addendum - never consumer or personal accounts. Anthropic may not train models on customer content, retention defaults to deletion within 30 days, and Anthropic holds SOC 2 Type II, ISO 27001 and ISO 42001 certifications.',
       'Access is engineered, not assumed: scoped, read-only where possible, logged, and guarded - the AI touches what its role allows and nothing else.',
     ],
-    summary: null,
+    summary:
+      'In this posture your data is processed on Anthropic’s servers, and the protection is contractual. When geography itself is the requirement, the next posture removes even that.',
   },
   {
     num: '03',
     label: 'Sovereign',
     title: 'Onshore, for work that cannot leave',
     points: [
-      'For government-adjacent or sovereignty-bound material: deployment runs via Amazon Bedrock in the AWS Sydney region - model, inference compute and data all in Australian data centres, with inputs and outputs never shared with the model’s developer and never used to train any model.',
+      'Same AI, different venue: the models run on AWS-operated infrastructure via Amazon Bedrock in the Sydney region - and Anthropic, the model’s developer, never receives your data at all. Inputs and outputs stay in Australian data centres and are never used to train any model.',
       'Residency is engineered, not assumed: the deployment is pinned to a single region. AWS commits not to move customer content outside your chosen region, and regions do not fail over offshore on their own - cross-region features exist only if we deliberately enable them.',
       'Bedrock sits within AWS’s IRAP-assessed scope - the assessment framework Australian government agencies rely on.',
       'The honest jurisdictional limit: a US-headquartered provider remains subject to lawful orders wherever the data sits. Where even that is unacceptable, the sealed posture - or a build inside your own sovereign-approved environment - is the answer.',

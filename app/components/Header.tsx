@@ -55,6 +55,7 @@ export default function Header() {
     { href: '/projects', label: 'Work' },
     { href: '/about', label: 'About' },
     { href: '/capability', label: 'Capability' },
+    { href: '/ai-data-protection', label: 'AI & data protection' },
     // Productised small-site tier - gated on the same flag as the footer link
     ...(SMALL_SITES_LIVE
       ? [{ href: '/small-business-websites', label: 'Small business websites' }]

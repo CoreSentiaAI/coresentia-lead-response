@@ -6,7 +6,7 @@ import { attributionLines } from '@/app/lib/attribution'
 // Form submissions are delivered by email (plus SMS when ADMIN_PHONE is set).
 // No database write - the old leads table was retired Aug 2026. If enquiry
 // volume grows, re-add a storage step here.
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@coresentia.com'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@coresentia.com.au'
 const SMTP_USER = process.env.SMTP_USER || ADMIN_EMAIL
 
 const transporter = nodemailer.createTransport({

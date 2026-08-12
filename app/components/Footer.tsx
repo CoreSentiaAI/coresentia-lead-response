@@ -56,10 +56,10 @@ export default function Footer() {
 
           {/* Contact */}
           <Link
-            href="mailto:info@coresentia.com"
+            href="mailto:info@coresentia.com.au"
             className="text-sm text-ink-3 hover:text-accent-ink transition-colors shrink-0 font-mono"
           >
-            info@coresentia.com
+            info@coresentia.com.au
           </Link>
         </div>
 

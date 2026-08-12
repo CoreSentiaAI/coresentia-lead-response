@@ -278,7 +278,7 @@ export default function FAQPage() {
                 Get in touch
               </Link>
               <Link
-                href="mailto:info@coresentia.com"
+                href="mailto:info@coresentia.com.au"
                 className="px-8 py-3.5 rounded-sm border border-line-strong text-ink-1 font-semibold hover:border-accent transition-colors text-center"
               >
                 Email us

@@ -96,11 +96,11 @@ export default function ProfessionalOnboardingPage() {
         setSubmitted(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        alert('There was an error submitting your form. Please try again or email us at info@coresentia.com');
+        alert('There was an error submitting your form. Please try again or email us at info@coresentia.com.au');
       }
     } catch (error) {
       console.error('Submission error:', error);
-      alert('There was an error submitting your form. Please try again or email us at info@coresentia.com');
+      alert('There was an error submitting your form. Please try again or email us at info@coresentia.com.au');
     } finally {
       setSubmitting(false);
     }
@@ -307,7 +307,7 @@ export default function ProfessionalOnboardingPage() {
                   />
                   <p className="text-sm text-gray-600 mt-2">
                     <Upload className="w-4 h-4 inline-block mr-1" />
-                    Please email logo files (PNG, SVG, AI) to info@coresentia.com with subject "Logo - {formData.businessName || 'Your Business'}"
+                    Please email logo files (PNG, SVG, AI) to info@coresentia.com.au with subject "Logo - {formData.businessName || 'Your Business'}"
                   </p>
                 </div>
               )}
@@ -551,7 +551,7 @@ export default function ProfessionalOnboardingPage() {
                 <div className="bg-white p-4 rounded border border-gray-200">
                   <p className="text-sm text-gray-600">
                     <Upload className="w-4 h-4 inline-block mr-1" />
-                    Please email 3-5 high-quality photos to info@coresentia.com with subject "Photos - {formData.businessName || 'Your Business'}"
+                    Please email 3-5 high-quality photos to info@coresentia.com.au with subject "Photos - {formData.businessName || 'Your Business'}"
                   </p>
                 </div>
               )}
@@ -904,10 +904,10 @@ export default function ProfessionalOnboardingPage() {
               <h4 className="font-semibold mb-4 font-montserrat text-brand-primary">Connect</h4>
               <p className="text-text-secondary mb-4">Brisbane, Australia</p>
               <Link
-                href="mailto:info@coresentia.com"
+                href="mailto:info@coresentia.com.au"
                 className="text-brand-accent hover:text-brand-accent-hover transition-colors"
               >
-                info@coresentia.com
+                info@coresentia.com.au
               </Link>
             </div>
           </div>

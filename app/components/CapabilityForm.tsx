@@ -70,8 +70,8 @@ export default function CapabilityForm() {
         </p>
         <p className="text-sm text-ink-3">
           Or email us directly at{' '}
-          <a href="mailto:info@coresentia.com" className="text-accent-ink font-medium">
-            info@coresentia.com
+          <a href="mailto:info@coresentia.com.au" className="text-accent-ink font-medium">
+            info@coresentia.com.au
           </a>{' '}
           and we&apos;ll send it over.
         </p>

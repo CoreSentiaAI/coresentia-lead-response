@@ -88,7 +88,7 @@ export function renderCapabilityEmail({ greeting, leadIn, includeRequestNote }: 
               <p style="${serifBody} margin: 0 0 4px;">Ramsay Hatfield</p>
               <div style="${monoLabel} margin-bottom: 14px;">Founder, CoreSentia</div>
               <div style="font-family: 'Courier New', Courier, monospace; font-size: 12px; letter-spacing: 1px; color: ${INK};">
-                <a href="mailto:info@coresentia.com" style="color: ${ACCENT}; text-decoration: none;">info@coresentia.com</a>
+                <a href="mailto:info@coresentia.com.au" style="color: ${ACCENT}; text-decoration: none;">info@coresentia.com.au</a>
                 &nbsp;&middot;&nbsp;
                 <a href="https://www.coresentia.com.au" style="color: ${ACCENT}; text-decoration: none;">coresentia.com.au</a>
               </div>

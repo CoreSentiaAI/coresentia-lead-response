@@ -296,7 +296,7 @@ export default function CapabilityDocumentPage() {
             <hr className="cap-rule" />
             <div className="cap-mono" style={{ marginTop: '4mm', display: 'flex', justifyContent: 'space-between' }}>
               <span>coresentia.com.au</span>
-              <span>info@coresentia.com</span>
+              <span>info@coresentia.com.au</span>
               <span>Brisbane, Queensland</span>
             </div>
           </div>
@@ -525,7 +525,7 @@ export default function CapabilityDocumentPage() {
           >
             <div>
               <div className="cap-mono" style={{ marginBottom: '1.5mm' }}>Email</div>
-              <div className="cap-body-sm" style={{ color: ACCENT }}>info@coresentia.com</div>
+              <div className="cap-body-sm" style={{ color: ACCENT }}>info@coresentia.com.au</div>
             </div>
             <div>
               <div className="cap-mono" style={{ marginBottom: '1.5mm' }}>Web</div>

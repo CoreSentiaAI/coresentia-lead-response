@@ -28,7 +28,7 @@ export default function TermsPage() {
                 <strong className="text-ink-1">CoreSentia</strong><br />
                 ABN: 69 267 271 132<br />
                 Brisbane, Queensland, Australia<br />
-                Email: <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link>
+                Email: <Link href="mailto:info@coresentia.com.au" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com.au</Link>
               </p>
             </div>
 
@@ -160,7 +160,7 @@ export default function TermsPage() {
             <h2 className="text-2xl font-semibold text-ink-1 mt-8 mb-4">19. Contact Information</h2>
             <p className="text-ink-2 mb-6">
               For questions about these Terms, contact us at:<br />
-              Email: <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com</Link><br />
+              Email: <Link href="mailto:info@coresentia.com.au" className="text-accent-ink hover:text-ink-1 transition-colors">info@coresentia.com.au</Link><br />
               ABN: 69 267 271 132
             </p>
 
@@ -179,7 +179,7 @@ export default function TermsPage() {
               Questions about our Terms?
             </p>
             <Link
-              href="mailto:info@coresentia.com"
+              href="mailto:info@coresentia.com.au"
               className="text-accent-ink hover:text-ink-1 font-semibold text-lg transition-colors"
             >
               Contact Us

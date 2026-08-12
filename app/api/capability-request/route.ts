@@ -9,7 +9,7 @@ import { attributionLines } from '@/app/lib/attribution'
 
 // Email-gated capability document. No database - the notification email to
 // info@ is the lead record while enquiry volume stays low.
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@coresentia.com'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@coresentia.com.au'
 const SMTP_USER = process.env.SMTP_USER || ADMIN_EMAIL
 
 const transporter = nodemailer.createTransport({

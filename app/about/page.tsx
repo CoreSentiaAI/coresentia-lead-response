@@ -261,8 +261,8 @@ export default function AboutPage() {
         <section className="py-8 px-6 border-t border-line-soft">
           <div className="max-w-6xl mx-auto text-sm text-ink-3 font-mono">
             <p>CoreSentia &middot; ABN: 69 267 271 132 &middot; Brisbane, Queensland, Australia &middot;{' '}
-              <Link href="mailto:info@coresentia.com" className="text-accent-ink hover:text-ink-1 transition-colors">
-                info@coresentia.com
+              <Link href="mailto:info@coresentia.com.au" className="text-accent-ink hover:text-ink-1 transition-colors">
+                info@coresentia.com.au
               </Link>
             </p>
           </div>

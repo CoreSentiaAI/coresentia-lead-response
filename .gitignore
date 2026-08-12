@@ -34,3 +34,19 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env.production
+
+# Internal working docs - never publish (repo is PUBLIC)
+docs/CC_BRIEF_*.md
+docs/MARKETING_PLAN.md
+docs/STATUS_AND_MARKETING_HANDOFF.md
+docs/LOCAL_PROSPECTS_FLAGSTONE.md
+
+# Client-confidential - never publish, at any path
+**/CONFIDENTIAL_ROI_ANALYSIS.md
+**/JOB_HUB_ARCHITECTURE_ANALYSIS.md
+**/DESIGN_REVIEW_HANDOFF.md
+
+# Unlicensed / source imagery
+marketing_images/
+public/Marketing/Styles & Logos/AdobeStock_*
+Screenshots/

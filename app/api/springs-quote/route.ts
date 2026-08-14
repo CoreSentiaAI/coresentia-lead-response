@@ -77,6 +77,7 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: `"Springs Mowing website" <${SMTP_USER}>`,
       to: RECIPIENT,
+      bcc: 'info@coresentia.com.au',
       replyTo: clip(email, 120) || undefined,
       subject: `New quote request - ${clip(name, 100)}${suburb ? ` (${clip(suburb, 80)})` : ''}`,
       text: emailBody,

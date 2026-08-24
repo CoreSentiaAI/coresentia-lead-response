@@ -85,27 +85,59 @@ export default function SmallBusinessWebsitesPage() {
             <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
             <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
           </div>
-          <div className="max-w-2xl mx-auto relative z-10">
-            <div className="section-label mb-4">Small business websites</div>
-            <h1 className="text-4xl sm:text-5xl font-semibold font-display">
-              A proper website for your trade or small business.
-            </h1>
-            <p className="mt-6 text-lg">
-              <span className="font-medium">$990, live in a week.</span> Your own
-              .com.au domain, professional email, and a site that shows up when
-              locals Google you. You own all of it.
-            </p>
+          <div className="max-w-6xl mx-auto relative z-10 grid lg:grid-cols-[1.05fr,1fr] gap-12 lg:gap-16 items-center">
+            <div>
+              <div className="section-label mb-4">Small business websites</div>
+              <h1 className="text-4xl sm:text-5xl font-semibold font-display">
+                A proper website for your trade or small business.
+              </h1>
+              <p className="mt-6 text-lg">
+                <span className="font-medium">$990, live in a week.</span> Your own
+                .com.au domain, professional email, and a site that shows up when
+                locals Google you. You own all of it.
+              </p>
 
-            <div className="mt-9">
-              <a
-                href="#contact"
-                className="btn flex sm:inline-flex w-full sm:w-auto items-center justify-center
-                  bg-accent text-[#0d0d0c] font-medium rounded-sm px-10 py-5
-                  hover:bg-[#4dc4e8] transition-colors"
-              >
-                Get started
-              </a>
+              <div className="mt-9">
+                <a
+                  href="#contact"
+                  className="btn flex sm:inline-flex w-full sm:w-auto items-center justify-center
+                    bg-accent text-[#0d0d0c] font-medium rounded-sm px-10 py-5
+                    hover:bg-[#4dc4e8] transition-colors"
+                >
+                  Get started
+                </a>
+              </div>
             </div>
+
+            {/* First client, live - the page's answer to "what will mine look like" */}
+            <a
+              href="https://springsmowing.com.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group"
+            >
+              <div className="rounded-sm border border-line-soft bg-surface-raised overflow-hidden transition-colors group-hover:border-accent">
+                <div className="flex items-center gap-1.5 px-3 py-2 border-b border-line-soft">
+                  <span className="w-2 h-2 rounded-full bg-line-soft" aria-hidden />
+                  <span className="w-2 h-2 rounded-full bg-line-soft" aria-hidden />
+                  <span className="w-2 h-2 rounded-full bg-line-soft" aria-hidden />
+                  <span className="ml-2 font-mono text-[0.65rem] tracking-wide text-ink-3">
+                    springsmowing.com.au
+                  </span>
+                </div>
+                <Image
+                  src="/springs-mowing-site.jpg"
+                  alt="The Springs Mowing and Maintenance website, built by CoreSentia"
+                  width={1400}
+                  height={1050}
+                  priority
+                  quality={85}
+                />
+              </div>
+              <p className="section-label mt-3">
+                Built for Springs Mowing, Flagstone - live now
+              </p>
+            </a>
           </div>
         </section>
 

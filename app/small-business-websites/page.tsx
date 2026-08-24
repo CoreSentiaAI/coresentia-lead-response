@@ -96,9 +96,9 @@ export default function SmallBusinessWebsitesPage() {
               priority
               quality={86}
             />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(115deg, #F7F5F0 0%, rgba(247,245,240,0.85) 45%, rgba(247,245,240,0.25) 100%)' }} />
-            <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #F7F5F0, transparent)' }} />
-            <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #F7F5F0, transparent)' }} />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, #F7F5F0 0%, rgba(247,245,240,0.9) 35%, rgba(247,245,240,0) 62%)' }} />
+            <div className="absolute inset-x-0 top-0 h-20" style={{ background: 'linear-gradient(to bottom, #F7F5F0, transparent)' }} />
+            <div className="absolute inset-x-0 bottom-0 h-20" style={{ background: 'linear-gradient(to top, #F7F5F0, transparent)' }} />
           </div>
           <div className="max-w-6xl mx-auto relative z-10 grid lg:grid-cols-[1.05fr,1fr] gap-12 lg:gap-16 items-center">
             <div>

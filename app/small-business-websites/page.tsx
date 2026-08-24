@@ -135,7 +135,7 @@ export default function SmallBusinessWebsitesPage() {
                 />
               </div>
               <p className="section-label mt-3">
-                Built for Springs Mowing, Flagstone - live now
+                Springs Mowing, Flagstone - live now
               </p>
             </a>
           </div>

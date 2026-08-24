@@ -135,7 +135,10 @@ export default function SmallBusinessWebsitesPage() {
                 />
               </div>
               <p className="section-label mt-3">
-                Springs Mowing, Flagstone - live now
+                Springs Mowing, Flagstone -{' '}
+                <span className="text-accent-ink group-hover:underline underline-offset-4">
+                  see the live site
+                </span>
               </p>
             </a>
           </div>

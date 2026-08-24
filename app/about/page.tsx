@@ -157,6 +157,25 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Full-bleed astro break - his own image, shown in both themes.
+            Content, not texture: real alt, visible credit. */}
+        <section className="relative h-[44vh] lg:h-[58vh] overflow-hidden">
+          <Image
+            src="/astro-core.jpg"
+            alt="The core of the Milky Way with the Lagoon Nebula, photographed by Ramsay Hatfield"
+            fill
+            className="object-cover"
+            style={{ objectPosition: 'center 62%' }}
+            quality={82}
+            sizes="100vw"
+          />
+          <div className="absolute inset-x-0 top-0 h-24" style={{ background: 'linear-gradient(to bottom, var(--surface-base), transparent)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, var(--surface-base), transparent)' }} />
+          <p className="absolute bottom-4 right-6 font-mono text-xs text-ink-3 z-10">
+            The galactic core in Sagittarius - photographed by Ramsay.
+          </p>
+        </section>
+
         {/* AI section - how he works */}
         <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
           <Backdrop src="/structure-curve.jpg" opacity={0.15} />

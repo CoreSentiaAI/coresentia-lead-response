@@ -91,6 +91,20 @@ export default function HomePage() {
           <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
           <div className="absolute inset-x-0 bottom-0 h-48" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
         </div>
+        {/* Same steps relit for paper - high-key twin, scrim only over the text side */}
+        <div className="absolute inset-0 z-0 pointer-events-none light-only">
+          <Image
+            src="/structure-steps-light.jpg"
+            alt=""
+            fill
+            className="object-cover object-center"
+            priority
+            quality={86}
+          />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, #F7F5F0 0%, rgba(247,245,240,0.9) 35%, rgba(247,245,240,0) 62%)' }} />
+          <div className="absolute inset-x-0 top-0 h-20" style={{ background: 'linear-gradient(to bottom, #F7F5F0, transparent)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, #F7F5F0, transparent)' }} />
+        </div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="max-w-4xl">
@@ -182,6 +196,18 @@ export default function HomePage() {
         />
         <div className="absolute inset-x-0 top-0 h-40" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
         <div className="absolute inset-x-0 bottom-0 h-40" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
+      </section>
+      <section className="relative h-[46vh] lg:h-[60vh] overflow-hidden light-only" aria-hidden>
+        <Image
+          src="/structure-sweep-light.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          quality={86}
+          sizes="100vw"
+        />
+        <div className="absolute inset-x-0 top-0 h-24" style={{ background: 'linear-gradient(to bottom, #F7F5F0, transparent)' }} />
+        <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, #F7F5F0, transparent)' }} />
       </section>
 
       {/* ========== WHAT WE BUILD ========== */}

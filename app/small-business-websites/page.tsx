@@ -280,6 +280,18 @@ export default function SmallBusinessWebsitesPage() {
           <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #111110, transparent)' }} />
           <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #111110, transparent)' }} />
         </section>
+        <section className="relative h-[36vh] lg:h-[46vh] overflow-hidden light-only" aria-hidden>
+          <Image
+            src="/structure-sweep-light.jpg"
+            alt=""
+            fill
+            className="object-cover object-center"
+            quality={86}
+            sizes="100vw"
+          />
+          <div className="absolute inset-x-0 top-0 h-24" style={{ background: 'linear-gradient(to bottom, #F7F5F0, transparent)' }} />
+          <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, #F7F5F0, transparent)' }} />
+        </section>
 
         {/* ========== CTA ========== */}
         <section id="contact" className="px-6 py-16 border-t border-line-soft">

@@ -52,7 +52,7 @@ const faqs = [
   },
   {
     q: 'What if I need more than a website later?',
-    a: "Most people don't, at first. When you do - showing up better on Google, an easy way to ask happy customers for a review, keeping track of jobs - we add it one piece at a time, priced when it's needed, never as a package.",
+    a: 'Rank higher on Google, get more reviews, automate your scheduling - we can help.',
   },
 ]
 

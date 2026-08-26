@@ -50,6 +50,10 @@ const faqs = [
     q: 'What if I already have a website?',
     a: 'We rebuild it properly on your own domain and switch it over with no downtime.',
   },
+  {
+    q: 'What if I need more than a website later?',
+    a: "Most people don't, at first. When you do - showing up better on Google, an easy way to ask happy customers for a review, keeping track of jobs - we add it one piece at a time, priced when it's needed, never as a package.",
+  },
 ]
 
 // Proof cards go live once the first real rebuild (Springs Mowing) ships.

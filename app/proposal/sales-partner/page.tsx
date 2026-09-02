@@ -54,7 +54,7 @@ const tax = [
   {
     num: '01',
     title: 'Get an ABN',
-    body: "Sole trader, free, online, usually same day. Without one on the invoice I have to withhold 47%.",
+    body: "Sole trader, free, online, usually same day. Without one on your invoice to me, I have to withhold 47%.",
   },
   {
     num: '02',
@@ -74,7 +74,7 @@ const tax = [
   {
     num: '05',
     title: 'Super',
-    body: "Yours to look after. We're not sure whether the contractor super rules bite on commission. If they do, we sort it then.",
+    body: "Yours to look after. The ATO's contractor super rule catches people paid for their time who can't hand the work to anyone else. You're paid per client locked in, nothing by the hour, and the one-pager will say you can bring in help. That sits outside the rule.",
   },
 ]
 
@@ -129,6 +129,7 @@ const onePage = [
   'Who owns each client',
   "What you're paid on upsells to clients I found",
   'What happens if one of us stops',
+  "You're paid per result and can bring in help",
 ]
 
 export default function SalesPartnerProposalPage({

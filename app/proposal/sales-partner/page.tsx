@@ -38,7 +38,7 @@ const menu = [
   {
     num: '03',
     title: 'Custom builds',
-    body: "Bespoke software for a bigger business with a real operations problem. Ten to fifty staff, running on spreadsheets and three tools that don't talk to each other. Quoted per job, somewhere between $20K and $80K, six to twelve weeks. Three of these in a year and we're talking real money.",
+    body: "Bespoke software for a bigger business with a real operations problem. Ten to fifty staff, running on spreadsheets and three tools that don't talk to each other. Quoted per job, somewhere between $10K and $40K, six to twelve weeks. Three of these in a year and we're talking real money.",
     examples: [
       'A solar installer: quote to schedule to invoice in one system, wired into the tools they already run',
       'An electrical contractor with five crews: job tracking, timesheets, and a dashboard the owner actually looks at',
@@ -408,7 +408,7 @@ function Proposal() {
             <AnimateOnScroll className="lg:col-span-8" delay={80}>
               <p className="text-lg max-w-xl">
                 A few hours a week gets us the first paying clients. It won&apos;t
-                get either of us out for a year or more.
+                get either of us out of the day jobs for a year or more.
               </p>
               <p className="mt-6 text-lg max-w-xl">
                 Mates and money. One page, written down first:

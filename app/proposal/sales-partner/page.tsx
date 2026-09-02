@@ -26,15 +26,55 @@ const menu = [
   },
   {
     num: '02',
-    title: 'What comes after',
-    body: 'Google ranking, review capture, scheduling, job tracking. Priced monthly, one piece at a time, once the client asks for it.',
+    title: 'Iterative upsells',
+    body: 'Each client starts with the website. Then one small piece at a time, as the business asks for it. Each piece is a monthly fee, and each one makes us more central to how the business runs. Your cut is getting the client to say yes to the next piece.',
+    examples: [
+      'A text to every customer after a job, asking for a Google review',
+      'The Google listing kept current, so they rank for their suburb',
+      'Quotes followed up automatically',
+      'Scheduling and job tracking, built once and sold to every trade after',
+    ],
   },
   {
     num: '03',
     title: 'Custom builds',
-    body: 'Automation, integration, replacing software they pay for. Quoted per job. This is where one deal pays properly.',
+    body: "Bespoke software for a bigger business with a real operations problem. Ten to fifty staff, running on spreadsheets and three tools that don't talk to each other. Quoted per job, somewhere between $20K and $80K, six to twelve weeks. Three of these in a year and we're talking real money.",
+    examples: [
+      'A solar installer: quote to schedule to invoice in one system, wired into the tools they already run',
+      'An electrical contractor with five crews: job tracking, timesheets, and a dashboard the owner actually looks at',
+      'A fencing company: online quoting, automatic follow-ups, invoices pushed straight into their accounting software',
+      'Any business paying for software it hates: build the replacement, they own it',
+    ],
     href: '/projects/automation-hub',
     linkText: 'The proof',
+  },
+]
+
+const tax = [
+  {
+    num: '01',
+    title: 'Get an ABN',
+    body: "Sole trader, free, online, usually same day. Without one on the invoice I have to withhold 47%.",
+  },
+  {
+    num: '02',
+    title: 'Invoice me',
+    body: "Commission on each locked-in client. I pay the invoice. That's it.",
+  },
+  {
+    num: '03',
+    title: 'GST',
+    body: "Not needed under $75K a year. Don't register until you have to.",
+  },
+  {
+    num: '04',
+    title: 'Income tax',
+    body: 'Commission sits on top of your salary at your marginal rate. Put some aside.',
+  },
+  {
+    num: '05',
+    title: 'Super',
+    body: "Yours to look after. We're not sure whether the contractor super rules bite on commission. If they do, we sort it then.",
   },
 ]
 
@@ -193,6 +233,21 @@ function Proposal() {
                     </h3>
                     <div className="md:col-span-8 md:col-start-5">
                       <p className="text-ink-2 leading-relaxed text-base">{m.body}</p>
+                      {m.examples && (
+                        <ul className="mt-4">
+                          {m.examples.map((ex) => (
+                            <li
+                              key={ex}
+                              className="flex gap-3 py-2 border-t border-line-soft text-base leading-relaxed"
+                            >
+                              <span className="font-mono text-xs text-accent-ink pt-1.5 shrink-0" aria-hidden>
+                                +
+                              </span>
+                              {ex}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       {m.href && (
                         <Link
                           href={m.href}
@@ -291,20 +346,52 @@ function Proposal() {
             <AnimateOnScroll delay={200}>
               <div className="mt-16 max-w-2xl">
                 <p className="text-lg">
-                  Small sites are pocket money per client. The monthly line
-                  compounds. The custom-build line is where one deal pays
-                  properly.
+                  Year one is small money. Five websites pay you $1,485 up
+                  front and about $100 a month between them, for as long as
+                  they stay. Every upsell adds to the monthly line, and that
+                  line compounds.
                 </p>
                 <p className="mt-6 text-lg">
-                  One $30K custom build pays you $6,000. Five websites pay you
-                  $1,485 up front and about $100 a month between them, for as
-                  long as they stay.
+                  One $30K custom build pays you $6,000. Three of those in a
+                  year is $18,000, and it stops being money dribbling in.
                 </p>
                 <p className="mt-6 text-lg">
                   Commission only for the first 60 days. Payment after you
                   lock in three new clients.
                 </p>
               </div>
+            </AnimateOnScroll>
+          </div>
+        </section>
+
+        {/* ========== TAX ========== */}
+        <section className="py-24 px-6 lg:px-8 border-t border-line-soft">
+          <div className="max-w-6xl mx-auto">
+            <AnimateOnScroll>
+              <div className="section-label mb-3">Your side of the paperwork</div>
+              <h2 className="text-3xl sm:text-4xl font-semibold font-display mb-4">
+                Tax
+              </h2>
+            </AnimateOnScroll>
+            <div>
+              {tax.map((t, i) => (
+                <AnimateOnScroll key={t.num} delay={i * 80}>
+                  <div className="group grid md:grid-cols-12 gap-3 md:gap-8 py-8 border-b border-line-soft items-baseline">
+                    <div className="md:col-span-1 font-mono text-sm text-ink-3 group-hover:text-accent-ink transition-colors">
+                      {t.num}
+                    </div>
+                    <h3 className="md:col-span-3 text-xl font-medium font-display">
+                      {t.title}
+                    </h3>
+                    <p className="md:col-span-8 md:col-start-5 text-ink-2 leading-relaxed text-base">
+                      {t.body}
+                    </p>
+                  </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
+            <AnimateOnScroll delay={200}>
+              <p className="mt-8 text-base max-w-xl">Run it past your accountant.</p>
             </AnimateOnScroll>
           </div>
         </section>

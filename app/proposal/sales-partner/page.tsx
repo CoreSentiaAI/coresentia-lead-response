@@ -74,7 +74,7 @@ const tax = [
   {
     num: '05',
     title: 'Super',
-    body: "Yours to look after. The ATO's contractor super rule catches people paid for their time who can't hand the work to anyone else. You're paid per client locked in, nothing by the hour, and the one-pager will say you can bring in help. That sits outside the rule.",
+    body: "Yours to look after. The ATO's contractor super rule catches people paid for their time who can't hand the work to anyone else. You're paid per client locked in, nothing by the hour, and our written agreement will say you can bring in help. That sits outside the rule.",
   },
 ]
 

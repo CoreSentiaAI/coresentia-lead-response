@@ -46,13 +46,13 @@ const yourJob = [
   },
   {
     num: '02',
-    title: 'Ring the leads',
+    title: 'Respond to web leads',
     body: 'A webform comes in, you call within the hour.',
   },
   {
     num: '03',
-    title: 'Text the people you already pay',
-    body: "Your mowing guy, pool guy, mechanic, the kids' swim school. 'My mate builds these, want a look?'",
+    title: 'Bring it up with anyone you know',
+    body: 'Anyone who might be interested. The gardener, the house cleaner, the babysitter. Any small business that needs a digital presence.',
   },
   {
     num: '04',
@@ -62,7 +62,7 @@ const yourJob = [
   {
     num: '05',
     title: 'Hold the price',
-    body: "I waive fees. You won't.",
+    body: "Lock in the client so we make money. No freebies like I've done with Springs Mowing.",
   },
   {
     num: '06',
@@ -176,6 +176,10 @@ function Proposal() {
               <h2 className="text-3xl sm:text-4xl font-semibold font-display mb-4">
                 The menu
               </h2>
+              <p className="text-lg max-w-2xl mb-4">
+                Small business to start. SME software and product pipeline
+                rebuilds as we grow.
+              </p>
             </AnimateOnScroll>
             <div>
               {menu.map((m, i) => (
@@ -238,9 +242,9 @@ function Proposal() {
         <section className="py-24 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8">
             <AnimateOnScroll className="lg:col-span-4">
-              <div className="section-label mb-3">Everything else</div>
+              <div className="section-label mb-3">Ramsay&apos;s job</div>
               <h2 className="text-3xl sm:text-4xl font-semibold font-display">
-                My job
+                Everything else
               </h2>
             </AnimateOnScroll>
             <AnimateOnScroll className="lg:col-span-8" delay={80}>
@@ -291,8 +295,8 @@ function Proposal() {
                   properly.
                 </p>
                 <p className="mt-6 text-lg">
-                  Commission only for the first 90 days. One target: three
-                  paying clients at list price. Hit it and we talk partnership.
+                  Commission only for the first 60 days. Payment after you
+                  lock in three new clients.
                 </p>
               </div>
             </AnimateOnScroll>

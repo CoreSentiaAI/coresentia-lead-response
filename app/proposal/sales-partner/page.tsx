@@ -82,7 +82,7 @@ const myJob = [
 const money = [
   { figure: '30%', of: 'of every small-site build' },
   { figure: '25%', of: 'of monthly fees on any rung, for as long as the client stays' },
-  { figure: '15%', of: 'of invoiced value on custom builds you source and close' },
+  { figure: '20%', of: 'of invoiced value on custom builds you source and close' },
 ]
 
 const onePage = [
@@ -294,6 +294,11 @@ function Proposal() {
                   Small sites are pocket money per client. The monthly line
                   compounds. The custom-build line is where one deal pays
                   properly.
+                </p>
+                <p className="mt-6 text-lg">
+                  One $30K custom build pays you $6,000. Five websites pay you
+                  $1,485 up front and about $100 a month between them, for as
+                  long as they stay.
                 </p>
                 <p className="mt-6 text-lg">
                   Commission only for the first 60 days. Payment after you

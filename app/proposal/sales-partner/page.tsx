@@ -162,7 +162,8 @@ function Proposal() {
             </h1>
             <p className="mt-8 text-xl max-w-2xl">
               You&apos;ve seen the Springs Mowing site. Building it is the easy part
-              for me. The hard part is picking up the phone. That&apos;s you.
+              for me. What I find hard is selling the product, getting clients.
+              That&apos;s where you come in and work your TD magic.
             </p>
           </div>
         </section>

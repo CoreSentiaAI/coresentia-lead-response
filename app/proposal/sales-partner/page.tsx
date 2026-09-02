@@ -259,8 +259,9 @@ function Proposal() {
                 ))}
               </ul>
               <p className="mt-8 text-base max-w-xl">
-                The emails haven&apos;t gone out because I hate bugging people.
-                They go out because you&apos;re ringing.
+                You get the client interested, I show them the goods, they
+                accept, we build the client base. If we work hard, there is
+                endless potential - we wave goodbye to the day jobs.
               </p>
             </AnimateOnScroll>
           </div>

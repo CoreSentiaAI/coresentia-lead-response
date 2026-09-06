@@ -176,6 +176,39 @@ export default function AboutPage() {
           </p>
         </section>
 
+        {/* The same sky, closer - the two specks of colour in the wide shot, resolved */}
+        <section className="py-16 px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+              <AnimateOnScroll className="lg:col-span-4">
+                <div className="section-label mb-3">Closer</div>
+                <p className="text-ink-2 leading-relaxed">
+                  Those two specks of colour left of centre in the wide shot are the Lagoon
+                  and Trifid nebulae. Here they are up close.
+                </p>
+              </AnimateOnScroll>
+              <AnimateOnScroll delay={100} className="lg:col-span-8">
+                <figure>
+                  <div className="rounded overflow-hidden border border-line-soft">
+                    <Image
+                      src="/astro-lagoon-trifid.jpg"
+                      alt="The Lagoon and Trifid nebulae in Sagittarius, pink and blue against a dense star field - astrophotography by Ramsay Hatfield"
+                      width={2048}
+                      height={1632}
+                      sizes="(min-width: 1024px) 768px, 100vw"
+                      quality={86}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  <figcaption className="mt-3 font-mono text-xs text-ink-3">
+                    The Lagoon and Trifid nebulae - photographed by Ramsay.
+                  </figcaption>
+                </figure>
+              </AnimateOnScroll>
+            </div>
+          </div>
+        </section>
+
         {/* AI section - how he works */}
         <section className="relative overflow-hidden py-32 px-6 lg:px-8 border-t border-line-soft">
           <Backdrop src="/structure-curve.jpg" opacity={0.15} />

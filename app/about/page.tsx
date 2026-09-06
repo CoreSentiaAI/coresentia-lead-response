@@ -157,51 +157,43 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Full-bleed astro break - his own image, shown in both themes.
-            Content, not texture: real alt, visible credit. */}
-        <section className="relative h-[44vh] lg:h-[58vh] overflow-hidden">
-          <Image
-            src="/astro-core.jpg"
-            alt="The core of the Milky Way with the Lagoon Nebula, photographed by Ramsay Hatfield"
-            fill
-            className="object-cover"
-            style={{ objectPosition: 'center 62%' }}
-            quality={82}
-            sizes="100vw"
-          />
-          <div className="absolute inset-x-0 top-0 h-24" style={{ background: 'linear-gradient(to bottom, var(--surface-base), transparent)' }} />
-          <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, var(--surface-base), transparent)' }} />
-          <p className="absolute bottom-4 right-6 font-mono text-xs text-ink-3 z-10">
-            The galactic core in Sagittarius - photographed by Ramsay.
-          </p>
-        </section>
-
-        {/* The same sky, closer - the two specks of colour in the wide shot, resolved */}
-        <section className="py-16 px-6 lg:px-8">
+        {/* Two of his frames, same patch of sky - the wide core, then the two nebulae inside it, close.
+            Both boxes share one aspect so the pair sits level; the core shot gives up a sliver at the sides. */}
+        <section className="py-16 px-6 lg:px-8 border-t border-line-soft">
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-              <AnimateOnScroll className="lg:col-span-4">
-                <div className="section-label mb-3">Closer</div>
-                <p className="text-ink-2 leading-relaxed">
-                  Those two specks of colour left of centre in the wide shot are the Lagoon
-                  and Trifid nebulae. Here they are up close.
-                </p>
-              </AnimateOnScroll>
-              <AnimateOnScroll delay={100} className="lg:col-span-8">
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-10 items-start">
+              <AnimateOnScroll>
                 <figure>
-                  <div className="rounded overflow-hidden border border-line-soft">
+                  <div className="relative aspect-[2048/1632] rounded overflow-hidden border border-line-soft">
                     <Image
-                      src="/astro-lagoon-trifid.jpg"
-                      alt="The Lagoon and Trifid nebulae in Sagittarius, pink and blue against a dense star field - astrophotography by Ramsay Hatfield"
-                      width={2048}
-                      height={1632}
-                      sizes="(min-width: 1024px) 768px, 100vw"
-                      quality={86}
-                      className="w-full h-auto"
+                      src="/astro-core.jpg"
+                      alt="The core of the Milky Way in Sagittarius, with the Lagoon and Trifid nebulae as two small specks of colour left of centre - astrophotography by Ramsay Hatfield"
+                      fill
+                      sizes="(min-width: 768px) 560px, 100vw"
+                      quality={82}
+                      className="object-cover"
                     />
                   </div>
                   <figcaption className="mt-3 font-mono text-xs text-ink-3">
-                    The Lagoon and Trifid nebulae - photographed by Ramsay.
+                    The galactic core in Sagittarius. The two specks of colour left of centre
+                    are the Lagoon and Trifid nebulae - photographed by Ramsay.
+                  </figcaption>
+                </figure>
+              </AnimateOnScroll>
+              <AnimateOnScroll delay={100}>
+                <figure>
+                  <div className="relative aspect-[2048/1632] rounded overflow-hidden border border-line-soft">
+                    <Image
+                      src="/astro-lagoon-trifid.jpg"
+                      alt="The Lagoon and Trifid nebulae in Sagittarius, pink and blue against a dense star field - astrophotography by Ramsay Hatfield"
+                      fill
+                      sizes="(min-width: 768px) 560px, 100vw"
+                      quality={86}
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="mt-3 font-mono text-xs text-ink-3">
+                    The same two nebulae, up close - photographed by Ramsay.
                   </figcaption>
                 </figure>
               </AnimateOnScroll>

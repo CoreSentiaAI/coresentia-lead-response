@@ -191,7 +191,7 @@ function Proposal() {
     {
       num: '07',
       title: 'Accounts',
-      body: `Everything in ${client}'s name and on ${client}'s card. I never hold your keys.`,
+      body: `Every platform account in ${client}'s name and on ${client}'s card. I never hold your keys. AI development tools run on CoreSentia's own account and are recharged at cost with an agreed monthly cap.`,
     },
     {
       num: '08',
@@ -212,7 +212,7 @@ function Proposal() {
 
   const youProvide = [
     'One process owner who can make decisions on the spot. Half a day a week during mapping.',
-    `Accounts in ${client}'s name: Claude Team, Vercel, Supabase, GitHub.`,
+    `Accounts in ${client}'s name: Vercel, Supabase, GitHub.`,
     'One DNS record on your existing domain.',
     `API access to ${erp}.`,
     'The people who use each module decide when it is done.',

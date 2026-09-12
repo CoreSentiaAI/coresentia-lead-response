@@ -451,3 +451,62 @@ html.light .glow-accent {
 .select-arrow {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23161615' stroke-width='1.5'/%3E%3C/svg%3E");
 }
+
+/* ---- Demo project-management tool (/demo) ----
+   Its own light palette and type, independent of the marketing site tokens.
+   Neutral canvas, white surfaces, one blue, soft semantic lozenges. */
+.pm {
+  --pm-canvas: #f4f5f7;
+  --pm-surface: #ffffff;
+  --pm-hover: #f7f8fa;
+  --pm-border: #e1e4e8;
+  --pm-border-strong: #c9ced6;
+  --pm-text: #1c2430;
+  --pm-muted: #5b6675;
+  --pm-faint: #8a94a3;
+  --pm-primary: #2d5bd1;
+  --pm-primary-hover: #2449a8;
+  --pm-primary-soft: #e9effb;
+  font-family: var(--font-pm), 'IBM Plex Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--pm-text);
+  background: var(--pm-canvas);
+  -webkit-font-smoothing: antialiased;
+}
+
+.pm h1,
+.pm h2,
+.pm h3,
+.pm h4 {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--pm-text);
+}
+
+.pm p {
+  line-height: 1.5;
+}
+
+.pm input,
+.pm select,
+.pm textarea,
+.pm button {
+  font-family: inherit;
+}
+
+.pm ::placeholder {
+  color: var(--pm-faint);
+}
+
+.pm .select-arrow {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235b6675' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+.pm .scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--pm-border-strong) transparent;
+}

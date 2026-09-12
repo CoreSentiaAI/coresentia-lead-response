@@ -1,13 +1,8 @@
-// Fictional seed data for the demo tenant: an HV engineering / EPC contractor
-// called Halden Power Engineering. Every person, supplier, project and number
-// here is made up. Nothing is drawn from any client.
+// Fictional seed data for the demo: an HV engineering / EPC contractor.
+// Every person, supplier, project and number here is made up. Nothing is
+// drawn from any client.
 
 import type { Brief, Person, Project, PurchaseOrder, Supplier } from './types'
-
-export const TENANT = {
-  name: 'Halden Power Engineering',
-  short: 'Halden',
-}
 
 export const PEOPLE: Person[] = [
   { id: 'helen', name: 'Helen Marsh', role: 'Head of Finance - change lead' },
@@ -32,10 +27,10 @@ export const SUPPLIERS: Supplier[] = [
 ]
 
 export const PROJECTS: Project[] = [
-  { id: 'p1', code: 'HPE-2041', name: 'Marlow Creek BESS', manager: 'Tom Aldridge' },
-  { id: 'p2', code: 'HPE-2038', name: 'Wandera Plains Solar Farm', manager: 'Tom Aldridge' },
-  { id: 'p3', code: 'HPE-2045', name: 'Kingsholme 132kV Substation', manager: 'Tom Aldridge' },
-  { id: 'p4', code: 'HPE-2050', name: 'Brennan Range Wind Connection', manager: 'Tom Aldridge' },
+  { id: 'p1', code: 'P-2041', name: 'Marlow Creek BESS', manager: 'Tom Aldridge' },
+  { id: 'p2', code: 'P-2038', name: 'Wandera Plains Solar Farm', manager: 'Tom Aldridge' },
+  { id: 'p3', code: 'P-2045', name: 'Kingsholme 132kV Substation', manager: 'Tom Aldridge' },
+  { id: 'p4', code: 'P-2050', name: 'Brennan Range Wind Connection', manager: 'Tom Aldridge' },
 ]
 
 // ---------- Tracker briefs ----------
@@ -65,6 +60,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Requests arrived by email, Teams and hallway. No shared list. Priority was decided by whoever asked last.',
     lockDate: '2026-06-17',
+    targetDate: '2026-06-24',
     previewUrl: '/demo/tracker',
     readmeUrl: '#readme-tracker',
     internalOwner: 'Helen Marsh',
@@ -99,6 +95,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'The project list lived in a spreadsheet on SharePoint with three copies in circulation.',
     lockDate: '2026-06-26',
+    targetDate: '2026-07-24',
     previewUrl: 'https://halden-platform-git-project-register.vercel.app',
     readmeUrl: '#readme-project-register',
     internalOwner: 'Tom Aldridge',
@@ -135,7 +132,8 @@ export const BRIEFS: Brief[] = [
     currentState:
       'PO template in Excel, emailed for signature, re-keyed into the ERP by accounts. About 40 a week. No view of committed cost until the invoice lands.',
     lockDate: '2026-07-28',
-    previewUrl: '/demo/purchase-orders',
+    targetDate: '2026-09-18',
+    previewUrl: '/demo/platform/purchase-orders',
     readmeUrl: '#readme-purchase-orders',
     internalOwner: 'Priya Nair',
     feedback: fb([
@@ -179,6 +177,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Reported 9 Sep 10:40. Fixed on production 13:15. Cause: line entry accepted inc GST prices with no flag.',
     lockDate: null,
+    targetDate: null,
     previewUrl: '',
     readmeUrl: '#readme-purchase-orders',
     internalOwner: 'Priya Nair',
@@ -206,6 +205,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Paper diary in the site office, photographed to Teams on Fridays. Some weeks missing.',
     lockDate: '2026-08-20',
+    targetDate: '2026-09-25',
     previewUrl: 'https://halden-platform-git-site-diary.vercel.app',
     readmeUrl: '',
     internalOwner: 'Marcus Reid',
@@ -239,6 +239,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Claims assembled in Excel from four sources over two days each month. Version confusion on the client side.',
     lockDate: '2026-08-25',
+    targetDate: '2026-10-02',
     previewUrl: 'https://halden-platform-git-progress-claims.vercel.app',
     readmeUrl: '',
     internalOwner: 'Dana Kowalski',
@@ -271,6 +272,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Variations tracked in the project manager inbox. Two were found unclaimed at project close.',
     lockDate: '2026-09-01',
+    targetDate: '2026-09-30',
     previewUrl: '',
     readmeUrl: '',
     internalOwner: 'Dana Kowalski',
@@ -299,6 +301,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Compliance folder on SharePoint, checked by hand before mobilisation. Expired insurance found on site twice this year.',
     lockDate: '2026-09-10',
+    targetDate: '2026-10-16',
     previewUrl: '',
     readmeUrl: '',
     internalOwner: 'Marcus Reid',
@@ -326,6 +329,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Pack assembled in PowerPoint over three days from ERP exports and emails.',
     lockDate: null,
+    targetDate: '2026-11-06',
     previewUrl: '',
     readmeUrl: '',
     internalOwner: 'Helen Marsh',
@@ -352,6 +356,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Accounts re-keys every approved PO. About four hours a week and the odd typo.',
     lockDate: null,
+    targetDate: '2026-10-23',
     previewUrl: '',
     readmeUrl: '',
     internalOwner: 'Sam Okafor',
@@ -378,6 +383,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Raised during the claims preview. The claim builder currently asks for these values again.',
     lockDate: null,
+    targetDate: '2026-10-23',
     previewUrl: '',
     readmeUrl: '',
     internalOwner: 'Dana Kowalski',
@@ -401,6 +407,7 @@ export const BRIEFS: Brief[] = [
     outcome: 'Photos taken on site attach to the day entry with location and time.',
     currentState: 'Photos sit on personal phones.',
     lockDate: null,
+    targetDate: '2026-11-13',
     previewUrl: '',
     readmeUrl: '',
     internalOwner: 'Marcus Reid',
@@ -426,6 +433,7 @@ export const BRIEFS: Brief[] = [
     currentState:
       'Receipting is a signature on a delivery docket. The match is done by accounts from memory.',
     lockDate: null,
+    targetDate: '2026-11-20',
     previewUrl: '',
     readmeUrl: '',
     internalOwner: 'Priya Nair',
@@ -772,3 +780,6 @@ export const PURCHASE_ORDERS: PurchaseOrder[] = [
 ]
 
 export const NEXT_PO_SEQUENCE = 416
+
+// Module names offered when a new request is raised.
+export const MODULES = ['Tracker', 'Project Register', 'Purchase Orders', 'Progress Claims', 'Variations Log', 'Site Diary', 'Subcontractor Onboarding', 'ERP Sync', 'Board Reporting']

@@ -1,5 +1,5 @@
-import TrackerBoard from '../../_components/TrackerBoard'
+import Tracker from '../../_components/Tracker'
 
 export default function TrackerPage() {
-  return <TrackerBoard />
+  return <Tracker />
 }

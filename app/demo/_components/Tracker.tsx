@@ -1,0 +1,426 @@
+'use client'
+import { useEffect, useMemo, useState } from 'react'
+import { useDemo } from '../_lib/store'
+import { STAGES, type Brief, type Stage, type WorkType } from '../_lib/types'
+import { fmtDate } from '../_lib/format'
+import { PRIORITY_TONE, STAGE_TONE, TONES, WORK_TYPE_TONE } from '../_lib/tones'
+import { Avatar, Button, Card, Chip, PageHeader, Person, Tabs, inputClass, selectClass } from './ui'
+import BriefDetail from './BriefDetail'
+import NewRequest from './NewRequest'
+
+type View = 'board' | 'table' | 'calendar'
+const WORK_TYPES: WorkType[] = ['module', 'integration', 'hotfix']
+const PRIORITY_RANK = { P1: 0, P2: 1, P3: 2 }
+
+const HOW = [
+  ['Single intake', 'Every request enters Mapping. Nothing reaches the builder by direct message.'],
+  ['Ranked, not first come', 'The change lead sets priority against everything else on the board.'],
+  ['Locked before build', 'The approved brief is what gets built. New ideas go back to Mapping.'],
+  ['Hotfix path', 'Production bugs skip the queue, get fixed in hours and stay visible.'],
+]
+
+export function signOffLabel(b: Brief) {
+  if (b.signOff === 'signed off') return 'Signed off'
+  if (b.signOff === 'awaiting') return 'Awaiting sign-off'
+  return 'Not yet'
+}
+
+export default function Tracker() {
+  const { state } = useDemo()
+  const [view, setView] = useState<View>('board')
+  const [search, setSearch] = useState('')
+  const [module, setModule] = useState('')
+  const [workType, setWorkType] = useState('')
+  const [owner, setOwner] = useState('')
+  const [integrationCycle, setIntegrationCycle] = useState(false)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [newOpen, setNewOpen] = useState(false)
+
+  const modules = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.module))).sort(), [state.briefs])
+  const owners = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.owner))).sort(), [state.briefs])
+
+  const q = search.trim().toLowerCase()
+  const visible = state.briefs.filter(
+    (b) =>
+      (!q || `${b.title} ${b.module} ${b.owner}`.toLowerCase().includes(q)) &&
+      (!module || b.module === module) &&
+      (!owner || b.owner === owner) &&
+      (integrationCycle ? b.workType === 'integration' : !workType || b.workType === workType),
+  )
+  const filtered = Boolean(q || module || owner || workType || integrationCycle)
+  const selected = state.briefs.find((b) => b.id === selectedId) ?? null
+
+  return (
+    <div>
+      <PageHeader
+        title="Tracker"
+        subtitle="Requests come in on the left, get ranked, and move through eight stages to done."
+        tabs={
+          <Tabs
+            value={view}
+            onChange={setView}
+            options={[
+              { value: 'board', label: 'Board' },
+              { value: 'table', label: 'Table' },
+              { value: 'calendar', label: 'Calendar' },
+            ]}
+          />
+        }
+        actions={
+          <Button variant="primary" onClick={() => setNewOpen(true)}>
+            New request
+          </Button>
+        }
+      />
+
+      <div className="px-6 lg:px-8 py-5">
+        <Card className="px-5 py-4">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-3">
+            {HOW.map(([title, body], i) => (
+              <div key={title} className="flex gap-3">
+                <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-pm-primary-soft text-pm-primary text-[11px] font-semibold inline-flex items-center justify-center">{i + 1}</span>
+                <div>
+                  <div className="text-[13px] font-semibold">{title}</div>
+                  <div className="text-[12.5px] text-pm-muted leading-snug">{body}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <div className="mt-5 flex flex-wrap items-center gap-2.5">
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search briefs" className={inputClass + ' max-w-[224px]'} aria-label="Search briefs" />
+          <select value={module} onChange={(e) => setModule(e.target.value)} className={selectClass} aria-label="Filter by module">
+            <option value="">All modules</option>
+            {modules.map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
+            ))}
+          </select>
+          <select value={integrationCycle ? 'integration' : workType} onChange={(e) => setWorkType(e.target.value)} disabled={integrationCycle} className={selectClass} aria-label="Filter by work type">
+            <option value="">All work types</option>
+            {WORK_TYPES.map((t) => (
+              <option key={t} value={t}>
+                {t[0].toUpperCase() + t.slice(1)}
+              </option>
+            ))}
+          </select>
+          <select value={owner} onChange={(e) => setOwner(e.target.value)} className={selectClass} aria-label="Filter by owner">
+            <option value="">All owners</option>
+            {owners.map((o) => (
+              <option key={o} value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+          <Button variant={integrationCycle ? 'primary' : 'secondary'} onClick={() => setIntegrationCycle((v) => !v)} aria-pressed={integrationCycle}>
+            Integration cycle
+          </Button>
+          {filtered && (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setSearch('')
+                setModule('')
+                setOwner('')
+                setWorkType('')
+                setIntegrationCycle(false)
+              }}
+            >
+              Clear
+            </Button>
+          )}
+          <span className="ml-auto text-[12.5px] text-pm-muted">
+            {visible.length} of {state.briefs.length} briefs
+          </span>
+        </div>
+        {integrationCycle && <p className="mt-2 text-[12.5px] text-pm-muted">Integration cycle: cross-module links only. Every third or fourth cycle builds these and nothing else.</p>}
+
+        <div className="mt-4">
+          {view === 'board' && <BoardView briefs={visible} onOpen={setSelectedId} />}
+          {view === 'table' && <TableView briefs={visible} onOpen={setSelectedId} />}
+          {view === 'calendar' && <CalendarView briefs={visible} onOpen={setSelectedId} />}
+        </div>
+      </div>
+
+      <BriefDetail brief={selected} onClose={() => setSelectedId(null)} />
+      <NewRequest open={newOpen} onClose={() => setNewOpen(false)} />
+    </div>
+  )
+}
+
+// ---------- Board ----------
+
+function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="w-full text-left bg-pm-surface border border-pm-border rounded-md p-3 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:border-pm-border-strong hover:shadow-[0_3px_8px_rgba(16,24,40,0.08)] transition"
+    >
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[11px] font-medium text-pm-muted truncate">{brief.module}</span>
+        <Chip tone={PRIORITY_TONE[brief.priority]}>{brief.priority}</Chip>
+      </div>
+      <div className="mt-1.5 text-[13.5px] font-medium leading-snug">{brief.title}</div>
+      <div className="mt-3 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <Chip tone={WORK_TYPE_TONE[brief.workType]}>{brief.workType}</Chip>
+          <span className="text-[11.5px] text-pm-muted whitespace-nowrap">{brief.days}d</span>
+        </div>
+        <Avatar name={brief.owner} size={22} />
+      </div>
+      {brief.signOff !== 'not started' && (
+        <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px]" style={{ color: brief.signOff === 'signed off' ? TONES.green.fg : TONES.amber.fg }}>
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: brief.signOff === 'signed off' ? TONES.green.dot : TONES.amber.dot }} />
+          {signOffLabel(brief)}
+        </div>
+      )}
+    </button>
+  )
+}
+
+function BoardView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) => void }) {
+  return (
+    <div className="overflow-x-auto pb-3 scrollbar-thin">
+      <div className="grid grid-flow-col auto-cols-[minmax(150px,1fr)] gap-2">
+        {STAGES.map((stage) => {
+          const cards = briefs.filter((b) => b.stage === stage).sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority])
+          return (
+            <div key={stage} className="rounded-md bg-[#eaedf1] p-2 min-h-[26rem]">
+              <div className="flex items-center justify-between px-1 pb-2">
+                <span className="flex items-center gap-2 text-[12.5px] font-semibold">
+                  <span className="h-2 w-2 rounded-full" style={{ background: TONES[STAGE_TONE[stage]].dot }} />
+                  {stage}
+                </span>
+                <span className="text-[12px] text-pm-muted">{cards.length}</span>
+              </div>
+              <div className="space-y-2">
+                {cards.map((b) => (
+                  <BoardCard key={b.id} brief={b} onOpen={() => onOpen(b.id)} />
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ---------- Table ----------
+
+type SortKey = 'title' | 'module' | 'stage' | 'workType' | 'priority' | 'owner' | 'days' | 'lockDate' | 'targetDate' | 'signOff'
+
+const COLUMNS: { key: SortKey; label: string; align?: 'right' }[] = [
+  { key: 'title', label: 'Brief' },
+  { key: 'module', label: 'Module' },
+  { key: 'stage', label: 'Stage' },
+  { key: 'workType', label: 'Type' },
+  { key: 'priority', label: 'Priority' },
+  { key: 'owner', label: 'Owner' },
+  { key: 'days', label: 'Days', align: 'right' },
+  { key: 'lockDate', label: 'Locked' },
+  { key: 'targetDate', label: 'Target' },
+  { key: 'signOff', label: 'Sign-off' },
+]
+
+function sortValue(b: Brief, key: SortKey): string | number {
+  if (key === 'stage') return STAGES.indexOf(b.stage)
+  if (key === 'priority') return PRIORITY_RANK[b.priority]
+  if (key === 'days') return b.days
+  const v = b[key]
+  return v ?? ''
+}
+
+function TableView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) => void }) {
+  const [sortKey, setSortKey] = useState<SortKey>('stage')
+  const [dir, setDir] = useState<1 | -1>(1)
+  const rows = [...briefs].sort((a, b) => {
+    const x = sortValue(a, sortKey)
+    const y = sortValue(b, sortKey)
+    if (x === y) return PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority]
+    return (x < y ? -1 : 1) * dir
+  })
+  const toggle = (key: SortKey) => {
+    if (key === sortKey) setDir((d) => (d === 1 ? -1 : 1))
+    else {
+      setSortKey(key)
+      setDir(1)
+    }
+  }
+  return (
+    <Card className="overflow-x-auto scrollbar-thin">
+      <table className="w-full min-w-[1040px] text-[13px]">
+        <thead>
+          <tr className="bg-pm-hover border-b border-pm-border">
+            {COLUMNS.map((c) => (
+              <th key={c.key} className={`px-3 py-2.5 text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted whitespace-nowrap ${c.align === 'right' ? 'text-right' : 'text-left'}`}>
+                <button type="button" onClick={() => toggle(c.key)} className="inline-flex items-center gap-1 hover:text-pm-text">
+                  {c.label}
+                  {sortKey === c.key && <span className="text-pm-faint">{dir === 1 ? '↑' : '↓'}</span>}
+                </button>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((b) => (
+            <tr key={b.id} onClick={() => onOpen(b.id)} className="border-b border-pm-border last:border-b-0 hover:bg-pm-hover cursor-pointer">
+              <td className="px-3 py-2.5 font-medium max-w-[26rem]">{b.title}</td>
+              <td className="px-3 py-2.5 text-pm-muted whitespace-nowrap">{b.module}</td>
+              <td className="px-3 py-2.5">
+                <Chip tone={STAGE_TONE[b.stage]} dot>
+                  {b.stage}
+                </Chip>
+              </td>
+              <td className="px-3 py-2.5">
+                <Chip tone={WORK_TYPE_TONE[b.workType]}>{b.workType}</Chip>
+              </td>
+              <td className="px-3 py-2.5">
+                <Chip tone={PRIORITY_TONE[b.priority]}>{b.priority}</Chip>
+              </td>
+              <td className="px-3 py-2.5 whitespace-nowrap">
+                <Person name={b.owner} />
+              </td>
+              <td className="px-3 py-2.5 text-right font-pm-mono text-[12.5px]">{b.days}</td>
+              <td className="px-3 py-2.5 whitespace-nowrap text-pm-muted">{b.lockDate ? fmtDate(b.lockDate) : ''}</td>
+              <td className="px-3 py-2.5 whitespace-nowrap text-pm-muted">{b.targetDate ? fmtDate(b.targetDate) : ''}</td>
+              <td className="px-3 py-2.5 whitespace-nowrap text-pm-muted">{signOffLabel(b)}</td>
+            </tr>
+          ))}
+          {rows.length === 0 && (
+            <tr>
+              <td colSpan={COLUMNS.length} className="px-3 py-8 text-center text-pm-muted">
+                Nothing matches those filters.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </Card>
+  )
+}
+
+// ---------- Calendar ----------
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const key = (y: number, m: number, d: number) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+
+type CalItem = { brief: Brief; kind: 'target' | 'lock' | 'hotfix' }
+
+function CalendarView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) => void }) {
+  const [mounted, setMounted] = useState(false)
+  const [cursor, setCursor] = useState(() => {
+    const d = new Date()
+    return { y: d.getFullYear(), m: d.getMonth() }
+  })
+  useEffect(() => setMounted(true), [])
+
+  const items = useMemo(() => {
+    const map = new Map<string, CalItem[]>()
+    const push = (k: string, item: CalItem) => map.set(k, [...(map.get(k) ?? []), item])
+    for (const b of briefs) {
+      if (b.workType === 'hotfix') {
+        const at = b.changeLog[0]?.at
+        if (at) push(at.slice(0, 10), { brief: b, kind: 'hotfix' })
+        continue
+      }
+      if (b.targetDate) push(b.targetDate, { brief: b, kind: 'target' })
+      if (b.lockDate) push(b.lockDate, { brief: b, kind: 'lock' })
+    }
+    return map
+  }, [briefs])
+
+  if (!mounted) return <Card className="min-h-[30rem]" />
+
+  const now = new Date()
+  const todayKey = key(now.getFullYear(), now.getMonth(), now.getDate())
+  const first = new Date(cursor.y, cursor.m, 1)
+  const lead = (first.getDay() + 6) % 7
+  const daysInMonth = new Date(cursor.y, cursor.m + 1, 0).getDate()
+  const cells = Math.ceil((lead + daysInMonth) / 7) * 7
+  const days = Array.from({ length: cells }, (_, i) => {
+    const d = new Date(cursor.y, cursor.m, i - lead + 1)
+    return { date: d, inMonth: d.getMonth() === cursor.m, k: key(d.getFullYear(), d.getMonth(), d.getDate()) }
+  })
+  const move = (delta: number) => {
+    const d = new Date(cursor.y, cursor.m + delta, 1)
+    setCursor({ y: d.getFullYear(), m: d.getMonth() })
+  }
+
+  return (
+    <Card>
+      <div className="flex flex-wrap items-center gap-3 px-4 py-3 border-b border-pm-border">
+        <div className="text-[15px] font-semibold">
+          {MONTHS[cursor.m]} {cursor.y}
+        </div>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="sm" onClick={() => move(-1)} aria-label="Previous month">
+            Prev
+          </Button>
+          <Button variant="ghost" size="sm" onClick={() => setCursor({ y: now.getFullYear(), m: now.getMonth() })}>
+            Today
+          </Button>
+          <Button variant="ghost" size="sm" onClick={() => move(1)} aria-label="Next month">
+            Next
+          </Button>
+        </div>
+        <div className="ml-auto flex flex-wrap items-center gap-2 text-[12px] text-pm-muted">
+          <Chip tone="green" dot>
+            Target production date
+          </Chip>
+          <Chip tone="purple" dot>
+            Brief locked
+          </Chip>
+          <Chip tone="red" dot>
+            Hotfix logged
+          </Chip>
+        </div>
+      </div>
+      <div className="grid grid-cols-7 border-b border-pm-border">
+        {WEEKDAYS.map((d) => (
+          <div key={d} className="px-2 py-2 text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted">
+            {d}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-7">
+        {days.map((d, i) => {
+          const list = items.get(d.k) ?? []
+          const weekend = i % 7 >= 5
+          const today = d.k === todayKey
+          return (
+            <div key={d.k} className={`min-h-[104px] border-b border-r border-pm-border p-1.5 ${weekend ? 'bg-pm-hover' : ''} ${!d.inMonth ? 'opacity-45' : ''} ${i % 7 === 6 ? 'border-r-0' : ''}`}>
+              <div className={`inline-flex items-center justify-center h-6 min-w-6 px-1 rounded-full text-[12px] ${today ? 'bg-pm-primary text-white font-semibold' : 'text-pm-muted'}`}>{d.date.getDate()}</div>
+              <div className="mt-1 space-y-1">
+                {list.map((it) => {
+                  const tone = it.kind === 'hotfix' ? 'red' : it.kind === 'lock' ? 'purple' : STAGE_TONE[it.brief.stage]
+                  const t = TONES[tone]
+                  return (
+                    <button
+                      key={it.brief.id + it.kind}
+                      type="button"
+                      onClick={() => onOpen(it.brief.id)}
+                      title={it.brief.title}
+                      className="w-full text-left flex items-center gap-1.5 rounded-[4px] px-1.5 py-1 text-[11.5px] font-medium leading-none truncate hover:brightness-95"
+                      style={{ background: t.bg, color: t.fg }}
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: t.dot }} />
+                      <span className="truncate">
+                        {it.kind === 'lock' ? 'Lock: ' : it.kind === 'hotfix' ? 'Hotfix: ' : ''}
+                        {it.brief.title}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </Card>
+  )
+}

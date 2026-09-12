@@ -43,6 +43,7 @@ export type Brief = {
   outcome: string
   currentState: string
   lockDate: string | null
+  targetDate: string | null
   previewUrl: string
   readmeUrl: string
   internalOwner: string

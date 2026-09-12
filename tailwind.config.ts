@@ -65,6 +65,20 @@ module.exports = {
           DEFAULT: 'var(--accent)',
           ink: 'var(--accent-ink)',
         },
+        // Demo project-management tool (/demo) - its own light palette, see .pm in globals.css
+        pm: {
+          canvas: 'var(--pm-canvas)',
+          surface: 'var(--pm-surface)',
+          hover: 'var(--pm-hover)',
+          border: 'var(--pm-border)',
+          'border-strong': 'var(--pm-border-strong)',
+          text: 'var(--pm-text)',
+          muted: 'var(--pm-muted)',
+          faint: 'var(--pm-faint)',
+          primary: 'var(--pm-primary)',
+          'primary-hover': 'var(--pm-primary-hover)',
+          'primary-soft': 'var(--pm-primary-soft)',
+        },
       },
       fontFamily: {
         montserrat: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
@@ -73,6 +87,8 @@ module.exports = {
         mono: ['var(--font-mono)', 'JetBrains Mono', 'monospace'],
         display: ['var(--font-fraunces)', 'Georgia', 'serif'],
         serif: ['var(--font-newsreader)', 'Georgia', 'serif'],
+        pm: ['var(--font-pm)', 'IBM Plex Sans', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        'pm-mono': ['var(--font-pm-mono)', 'IBM Plex Mono', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 1s ease-out both',

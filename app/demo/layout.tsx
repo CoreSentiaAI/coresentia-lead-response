@@ -1,18 +1,22 @@
 import type { Metadata } from 'next'
+import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import ForceLight from './_components/ForceLight'
 
-// Demo tenant. Unlisted, noindex, always light mode, fictional data.
-// Access is gated per page group (see (app)/layout.tsx and page.tsx).
+// Demo project-management tool. Unlisted, noindex, always light, fictional
+// data, its own type and palette (see .pm in globals.css).
+
+const plexSans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-pm' })
+const plexMono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-pm-mono' })
 
 export const metadata: Metadata = {
-  title: 'Demo tenant | CoreSentia',
-  description: 'A clickable demo of the CoreSentia operating model.',
+  title: 'Demo | CoreSentia',
+  description: 'An example project management tool.',
   robots: { index: false, follow: false, nocache: true },
 }
 
 export default function DemoLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="editorial min-h-screen bg-surface-base text-ink-1">
+    <div className={`pm ${plexSans.variable} ${plexMono.variable} min-h-screen`}>
       <ForceLight />
       {children}
     </div>

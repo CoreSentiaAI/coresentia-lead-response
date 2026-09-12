@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react'
 import { useDemo } from '../_lib/store'
 import { STAGES, type Brief, type Stage } from '../_lib/types'
 import { fmtDate, fmtDateTime } from '../_lib/format'
-import { Field, Label, Modal, Tag, btnLink, btnPrimary, btnSecondary, inputClass, selectClass } from './ui'
-import { WorkTypeTag } from './TrackerBoard'
+import { DECISION_TONE, PRIORITY_TONE, STAGE_TONE, WORK_TYPE_TONE } from '../_lib/tones'
+import { Avatar, Button, Card, Chip, Field, Modal, ModalHeader, Person, SectionTitle, inputClass, selectClass } from './ui'
+import { signOffLabel } from './Tracker'
 
-// Brief detail as a large centred modal. Left: what the brief is, the
-// actions, and test feedback. Right: the change log on its own scroll.
+// Brief detail. Left: what it is, the actions, test feedback. Right: the change log.
 export default function BriefDetail({ brief, onClose }: { brief: Brief | null; onClose: () => void }) {
   const { run, actor } = useDemo()
   const [target, setTarget] = useState<Stage>('Mapping')
@@ -30,31 +30,28 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
 
   return (
     <Modal open onClose={onClose}>
-      {/* Header */}
-      <div className="flex items-start justify-between gap-6 px-6 lg:px-10 pt-6 pb-5 border-b border-line-soft">
-        <div className="min-w-0">
-          <div className="font-mono text-[0.68rem] uppercase tracking-[0.1em]">{brief.module}</div>
-          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold font-display leading-tight">{brief.title}</h2>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <Tag tone="accent">{brief.stage}</Tag>
-            <WorkTypeTag type={brief.workType} />
-            <Tag>{brief.priority}</Tag>
-            <Tag>{brief.days} days</Tag>
-            <Tag tone={brief.signOff === 'signed off' ? 'fill' : 'line'}>
-              {brief.signOff === 'signed off' ? 'Signed off' : brief.signOff === 'awaiting' ? 'Awaiting sign-off' : 'Sign-off pending'}
-            </Tag>
-          </div>
-        </div>
-        <button type="button" onClick={onClose} className={btnLink + ' shrink-0 pt-1'}>
-          Close
-        </button>
-      </div>
+      <ModalHeader
+        kicker={brief.module}
+        title={brief.title}
+        onClose={onClose}
+        chips={
+          <>
+            <Chip tone={STAGE_TONE[brief.stage]} dot>
+              {brief.stage}
+            </Chip>
+            <Chip tone={WORK_TYPE_TONE[brief.workType]}>{brief.workType}</Chip>
+            <Chip tone={PRIORITY_TONE[brief.priority]}>{brief.priority}</Chip>
+            <Chip tone="grey">{brief.days} days</Chip>
+            <Chip tone={brief.signOff === 'signed off' ? 'green' : brief.signOff === 'awaiting' ? 'amber' : 'grey'} dot>
+              {signOffLabel(brief)}
+            </Chip>
+          </>
+        }
+      />
 
-      {/* Body: one scroll on small screens, two independent scrolls on large */}
       <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-hidden lg:grid lg:grid-cols-12">
-        <div className="lg:col-span-7 lg:overflow-y-auto px-6 lg:px-10 py-6 lg:py-8 lg:border-r border-line-soft">
-          {/* Actions */}
-          <div className="flex flex-wrap items-end gap-3 border border-line-soft rounded-sm p-4 bg-surface-card">
+        <div className="lg:col-span-7 lg:overflow-y-auto px-6 lg:px-8 py-6 lg:border-r border-pm-border scrollbar-thin">
+          <Card className="p-4 flex flex-wrap items-end gap-3">
             <Field label="Move to">
               <select value={target} onChange={(e) => setTarget(e.target.value as Stage)} className={selectClass + ' min-w-[11rem]'}>
                 {STAGES.map((s) => (
@@ -64,88 +61,87 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                 ))}
               </select>
             </Field>
-            <button type="button" onClick={() => run({ type: 'moveBrief', id: brief.id, stage: target })} disabled={target === brief.stage} className={btnPrimary}>
+            <Button variant="primary" onClick={() => run({ type: 'moveBrief', id: brief.id, stage: target })} disabled={target === brief.stage}>
               Move
-            </button>
-            {canSignOff && (
-              <button type="button" onClick={() => run({ type: 'signOffBrief', id: brief.id })} className={btnSecondary}>
-                Sign off as {actor.name}
-              </button>
-            )}
-            <span className="font-mono text-[0.62rem] w-full">Every move writes to the change log as {actor.name}.</span>
-          </div>
+            </Button>
+            {canSignOff && <Button onClick={() => run({ type: 'signOffBrief', id: brief.id })}>Sign off as {actor.name}</Button>}
+            <span className="w-full text-[12px] text-pm-muted">Every move writes to the change log as {actor.name}.</span>
+          </Card>
 
-          <div className="mt-8 grid md:grid-cols-2 gap-8">
+          <div className="mt-6 grid md:grid-cols-2 gap-6">
             <section>
-              <Label className="mb-2">Business outcome</Label>
-              <p className="text-base leading-relaxed">{brief.outcome}</p>
+              <SectionTitle>Business outcome</SectionTitle>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed">{brief.outcome}</p>
             </section>
             <section>
-              <Label className="mb-2">Current state</Label>
-              <p className="text-base leading-relaxed">{brief.currentState}</p>
+              <SectionTitle>Current state</SectionTitle>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed">{brief.currentState || 'Not mapped yet.'}</p>
             </section>
           </div>
 
-          <section className="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-5">
+          <section className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
             <Field label="Owner (SME)">
-              <div className="text-sm">{brief.owner}</div>
+              <Person name={brief.owner} />
             </Field>
             <Field label="Internal owner">
-              <div className="text-sm">{brief.internalOwner || 'Not yet named'}</div>
-            </Field>
-            <Field label="Lock date">
-              <div className="text-sm">{brief.lockDate ? fmtDate(brief.lockDate) : brief.workType === 'hotfix' ? 'Hotfix path, no lock' : 'Not locked'}</div>
+              {brief.internalOwner ? <Person name={brief.internalOwner} /> : <span className="text-pm-muted">Not yet named</span>}
             </Field>
             <Field label="Sign-off by">
-              <div className="text-sm">{brief.signOffBy.join(', ') || 'Not set'}</div>
+              <div>{brief.signOffBy.join(', ') || 'Not set'}</div>
+            </Field>
+            <Field label="Lock date">
+              <div>{brief.lockDate ? fmtDate(brief.lockDate) : brief.workType === 'hotfix' ? 'Hotfix path, no lock' : 'Not locked'}</div>
+            </Field>
+            <Field label="Target date">
+              <div>{brief.targetDate ? fmtDate(brief.targetDate) : 'Not set'}</div>
             </Field>
             <Field label="README">
               {brief.readmeUrl ? (
-                <a href={brief.readmeUrl} className={btnLink}>
+                <a href={brief.readmeUrl} className="font-medium text-pm-primary hover:underline underline-offset-4">
                   Module README
                 </a>
               ) : (
-                <div className="text-sm">Not yet written</div>
+                <span className="text-pm-muted">Not yet written</span>
               )}
             </Field>
             <Field label="Preview URL" className="sm:col-span-2 md:col-span-3">
               <div className="flex gap-2 max-w-xl">
                 <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://" className={inputClass} />
-                <button type="button" onClick={() => run({ type: 'setPreviewUrl', id: brief.id, url: url.trim() })} disabled={url.trim() === brief.previewUrl} className={btnSecondary + ' py-2'}>
+                <Button onClick={() => run({ type: 'setPreviewUrl', id: brief.id, url: url.trim() })} disabled={url.trim() === brief.previewUrl}>
                   Save
-                </button>
+                </Button>
               </div>
               {brief.previewUrl && (
-                <a href={brief.previewUrl} target={brief.previewUrl.startsWith('/') ? undefined : '_blank'} rel="noreferrer" className={btnLink + ' mt-2 inline-block'}>
+                <a href={brief.previewUrl} target={brief.previewUrl.startsWith('/') ? undefined : '_blank'} rel="noreferrer" className="mt-2 inline-block text-[12.5px] font-medium text-pm-primary hover:underline underline-offset-4">
                   Open preview
                 </a>
               )}
             </Field>
           </section>
 
-          <section className="mt-10">
-            <div className="flex items-baseline justify-between">
-              <Label>Test feedback</Label>
-              <span className="font-mono text-[0.62rem]">{openFeedback} open</span>
-            </div>
-            <ul className="mt-3 divide-y divide-line-soft border-t border-b border-line-soft">
-              {brief.feedback.length === 0 && <li className="py-3 font-mono text-xs">No feedback yet. It goes here, never in chat.</li>}
+          <section className="mt-8">
+            <SectionTitle right={`${openFeedback} open`}>Test feedback</SectionTitle>
+            <ul className="mt-2 divide-y divide-pm-border border-t border-b border-pm-border">
+              {brief.feedback.length === 0 && <li className="py-3 text-[12.5px] text-pm-muted">No feedback yet. It goes here, never in chat.</li>}
               {brief.feedback.map((f) => (
-                <li key={f.id} className="py-3 flex items-start gap-4">
-                  <div className="flex-1">
-                    <div className="text-sm leading-relaxed">{f.text}</div>
-                    <div className="mt-1 font-mono text-[0.62rem]">
+                <li key={f.id} className="py-3 flex items-start gap-3">
+                  <Avatar name={f.author} size={24} className="mt-0.5" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] leading-relaxed">{f.text}</div>
+                    <div className="mt-0.5 text-[11.5px] text-pm-muted">
                       {f.author}, {fmtDateTime(f.at)}
                     </div>
                   </div>
-                  <button type="button" onClick={() => run({ type: 'toggleFeedback', id: brief.id, feedbackId: f.id })} className="shrink-0">
-                    <Tag tone={f.status === 'addressed' ? 'fill' : 'line'}>{f.status}</Tag>
+                  <button type="button" onClick={() => run({ type: 'toggleFeedback', id: brief.id, feedbackId: f.id })} className="shrink-0" title="Toggle status">
+                    <Chip tone={f.status === 'addressed' ? DECISION_TONE.approved : 'amber'} dot>
+                      {f.status}
+                    </Chip>
                   </button>
                 </li>
               ))}
             </ul>
             <form
-              className="mt-4 flex gap-2 max-w-xl"
+              className="mt-3 flex gap-2 max-w-xl"
               onSubmit={(e) => {
                 e.preventDefault()
                 const text = feedback.trim()
@@ -155,27 +151,26 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
               }}
             >
               <input value={feedback} onChange={(e) => setFeedback(e.target.value)} placeholder={`Feedback as ${actor.name}`} className={inputClass} />
-              <button type="submit" disabled={!feedback.trim()} className={btnSecondary + ' py-2'}>
+              <Button type="submit" disabled={!feedback.trim()}>
                 Add
-              </button>
+              </Button>
             </form>
           </section>
         </div>
 
-        <div className="lg:col-span-5 lg:overflow-y-auto px-6 lg:px-10 py-6 lg:py-8 bg-surface-alt">
-          <div className="flex items-baseline justify-between">
-            <Label>Change log</Label>
-            <span className="font-mono text-[0.62rem]">{log.length} entries</span>
-          </div>
-          <ol className="mt-3 border-t border-line-soft">
-            {log.map((e) => (
-              <li key={e.id} className="grid grid-cols-[7.5rem_1fr] gap-4 py-3 border-b border-line-soft">
-                <div className="font-mono text-[0.62rem] leading-relaxed pt-0.5">
-                  {fmtDateTime(e.at)}
-                  <br />
-                  {e.who}
+        <div className="lg:col-span-5 lg:overflow-y-auto px-6 lg:px-8 py-6 bg-pm-hover scrollbar-thin">
+          <SectionTitle right={`${log.length} entries`}>Change log</SectionTitle>
+          <ol className="mt-3">
+            {log.map((e, i) => (
+              <li key={e.id} className="relative flex gap-3 pb-4">
+                {i < log.length - 1 && <span className="absolute left-[11px] top-6 bottom-0 w-px bg-pm-border" />}
+                <Avatar name={e.who} size={24} className="relative mt-0.5" />
+                <div className="min-w-0">
+                  <div className="text-[13px] leading-relaxed">{e.action}</div>
+                  <div className="mt-0.5 text-[11.5px] text-pm-muted">
+                    {e.who}, {fmtDateTime(e.at)}
+                  </div>
                 </div>
-                <div className="text-sm leading-relaxed">{e.action}</div>
               </li>
             ))}
           </ol>

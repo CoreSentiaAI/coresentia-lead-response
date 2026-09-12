@@ -1,86 +1,181 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import Link from 'next/link'
+import { TONES, avatarColor, initials, type Tone } from '../_lib/tones'
 
-// Small shared pieces for the demo screens, styled to the site's flat-card
-// language: 1px lines, radius no larger than 4px, mono for controls.
+// Primitives for the demo project-management tool. Dense, neutral, one blue.
 
-const fieldBase =
-  'px-3 py-2 bg-surface-raised border border-line-strong rounded-sm font-mono text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors'
+const RING = 'focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(45,91,209,0.3)]'
 
-export const inputClass = fieldBase + ' w-full'
+const VARIANTS = {
+  primary: 'bg-pm-primary text-white border border-transparent hover:bg-pm-primary-hover',
+  secondary: 'bg-pm-surface text-pm-text border border-pm-border hover:bg-pm-hover hover:border-pm-border-strong',
+  ghost: 'bg-transparent text-pm-muted border border-transparent hover:bg-pm-hover hover:text-pm-text',
+  danger: 'bg-pm-surface text-[#9b2c2c] border border-pm-border hover:bg-[#fce8e8] hover:border-[#f0c2c2]',
+} as const
 
-// Selects size to content unless a caller adds w-full
-export const selectClass = fieldBase + ' pr-8 appearance-none bg-no-repeat bg-[right_0.6rem_center] bg-[length:0.6rem] select-arrow'
+const SIZES = { md: 'h-9 px-3.5 text-[13px]', sm: 'h-8 px-3 text-[12.5px]' } as const
 
-export const btnPrimary =
-  'btn inline-flex items-center justify-center bg-accent text-[#0d0d0c] font-medium rounded-sm px-5 py-3 hover:bg-[#4dc4e8] transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: keyof typeof VARIANTS; size?: keyof typeof SIZES }
 
-export const btnSecondary =
-  'btn inline-flex items-center justify-center border border-line-strong rounded-sm px-5 py-3 hover:border-accent transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
-
-export const btnLink = 'btn text-accent-ink hover:underline underline-offset-4'
-
-type Tone = 'line' | 'accent' | 'fill'
-
-export function Tag({ children, tone = 'line', className = '' }: { children: React.ReactNode; tone?: Tone; className?: string }) {
-  const tones: Record<Tone, string> = {
-    line: 'border border-line-strong',
-    accent: 'border border-accent text-accent-ink',
-    fill: 'bg-accent text-[#0d0d0c] border border-accent',
-  }
+export function Button({ variant = 'secondary', size = 'md', className = '', type = 'button', ...props }: ButtonProps) {
   return (
-    <span className={`inline-flex items-center font-mono text-[0.62rem] uppercase tracking-[0.08em] leading-none px-1.5 py-1 rounded-sm whitespace-nowrap ${tones[tone]} ${className}`}>
+    <button
+      type={type}
+      className={`inline-flex items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${RING} ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
+      {...props}
+    />
+  )
+}
+
+export function Chip({ tone, children, dot = false, className = '' }: { tone: Tone; children: ReactNode; dot?: boolean; className?: string }) {
+  const t = TONES[tone]
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 h-[22px] px-2 rounded-[4px] text-[12px] font-medium leading-none whitespace-nowrap ${className}`}
+      style={{ background: t.bg, color: t.fg }}
+    >
+      {dot && <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: t.dot }} />}
       {children}
     </span>
   )
 }
 
-export function Label({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`section-label ${className}`}>{children}</div>
+export function Avatar({ name, size = 24, className = '' }: { name: string; size?: number; className?: string }) {
+  return (
+    <span
+      title={name}
+      className={`inline-flex items-center justify-center rounded-full text-white font-semibold shrink-0 ${className}`}
+      style={{ width: size, height: size, fontSize: Math.round(size * 0.42), background: avatarColor(name) }}
+    >
+      {initials(name)}
+    </span>
+  )
 }
 
-export function Field({ label, children, className = '' }: { label: string; children: React.ReactNode; className?: string }) {
+export function Person({ name, size = 22, className = '' }: { name: string; size?: number; className?: string }) {
+  return (
+    <span className={`inline-flex items-center gap-2 min-w-0 ${className}`}>
+      <Avatar name={name} size={size} />
+      <span className="truncate">{name}</span>
+    </span>
+  )
+}
+
+export const inputClass =
+  'h-9 w-full rounded-md border border-pm-border bg-pm-surface px-3 text-[13px] text-pm-text focus:border-pm-primary focus:outline-none focus:ring-2 focus:ring-[rgba(45,91,209,0.2)] transition-colors'
+
+export const selectClass =
+  'h-9 rounded-md border border-pm-border bg-pm-surface pl-3 pr-8 text-[13px] text-pm-text appearance-none bg-no-repeat bg-[right_0.6rem_center] bg-[length:0.6rem] select-arrow focus:border-pm-primary focus:outline-none focus:ring-2 focus:ring-[rgba(45,91,209,0.2)] transition-colors'
+
+export const textareaClass =
+  'w-full min-h-[88px] rounded-md border border-pm-border bg-pm-surface px-3 py-2 text-[13px] text-pm-text focus:border-pm-primary focus:outline-none focus:ring-2 focus:ring-[rgba(45,91,209,0.2)] transition-colors'
+
+export function Kicker({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return <div className={`text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted ${className}`}>{children}</div>
+}
+
+export function Field({ label, children, hint, className = '' }: { label: string; children: ReactNode; hint?: string; className?: string }) {
   return (
     <div className={className}>
-      <Label className="mb-1.5">{label}</Label>
+      <Kicker className="mb-1.5">{label}</Kicker>
       {children}
+      {hint && <div className="mt-1.5 text-[12px] text-pm-muted">{hint}</div>}
     </div>
   )
 }
 
-export function SlideOver({ open, onClose, children, width = 'max-w-2xl' }: { open: boolean; onClose: () => void; children: React.ReactNode; width?: string }) {
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open, onClose])
+export function Card({ children, className = '' }: { children?: ReactNode; className?: string }) {
+  return <div className={`bg-pm-surface border border-pm-border rounded-md shadow-[0_1px_2px_rgba(16,24,40,0.04)] ${className}`}>{children}</div>
+}
 
-  if (!open) return null
+export function StatCard({ label, value, hint }: { label: string; value: ReactNode; hint?: string }) {
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0 bg-[rgba(22,22,21,0.35)]" />
-      <div className={`relative h-full w-full ${width} bg-surface-base border-l border-line-strong overflow-y-auto`}>
-        <div className="sticky top-0 z-10 flex justify-end px-6 pt-4 bg-surface-base">
-          <button type="button" onClick={onClose} className={btnLink}>
-            Close
-          </button>
+    <Card className="p-4">
+      <Kicker>{label}</Kicker>
+      <div className="mt-1.5 text-[22px] font-semibold leading-none tracking-[-0.01em]">{value}</div>
+      {hint && <div className="mt-1.5 text-[12px] text-pm-muted">{hint}</div>}
+    </Card>
+  )
+}
+
+export function SectionTitle({ children, right }: { children: ReactNode; right?: ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4">
+      <h3 className="text-[13px] font-semibold">{children}</h3>
+      {right && <div className="text-[12px] text-pm-muted">{right}</div>}
+    </div>
+  )
+}
+
+export function EmptyText({ children }: { children: ReactNode }) {
+  return <div className="py-3 text-[12.5px] text-pm-muted">{children}</div>
+}
+
+export function Tabs<T extends string>({ value, onChange, options }: { value: T; onChange: (v: T) => void; options: { value: T; label: string }[] }) {
+  return (
+    <div className="inline-flex rounded-md border border-pm-border bg-pm-surface p-0.5">
+      {options.map((o) => (
+        <button
+          key={o.value}
+          type="button"
+          onClick={() => onChange(o.value)}
+          aria-pressed={value === o.value}
+          className={`h-8 px-3 rounded-[5px] text-[12.5px] font-medium transition-colors ${RING} ${value === o.value ? 'bg-pm-primary-soft text-pm-primary' : 'text-pm-muted hover:text-pm-text'}`}
+        >
+          {o.label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+export function PageHeader({
+  title,
+  subtitle,
+  crumbs,
+  tabs,
+  actions,
+}: {
+  title: string
+  subtitle?: string
+  crumbs?: { label: string; href?: string }[]
+  tabs?: ReactNode
+  actions?: ReactNode
+}) {
+  return (
+    <div className="bg-pm-surface border-b border-pm-border px-6 lg:px-8 pt-5 pb-4">
+      {crumbs && crumbs.length > 0 && (
+        <div className="flex items-center gap-1.5 text-[12px] text-pm-muted mb-2">
+          {crumbs.map((c, i) => (
+            <span key={c.label} className="flex items-center gap-1.5">
+              {i > 0 && <span className="text-pm-faint">/</span>}
+              {c.href ? (
+                <Link href={c.href} className="hover:text-pm-text">
+                  {c.label}
+                </Link>
+              ) : (
+                <span>{c.label}</span>
+              )}
+            </span>
+          ))}
         </div>
-        <div className="px-6 pb-16 pt-2">{children}</div>
+      )}
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <div className="min-w-0">
+          <h1 className="text-[20px] font-semibold leading-tight">{title}</h1>
+          {subtitle && <p className="mt-0.5 text-[13px] text-pm-muted">{subtitle}</p>}
+        </div>
+        <div className="ml-auto flex flex-wrap items-center gap-3">
+          {tabs}
+          {actions}
+        </div>
       </div>
     </div>
   )
 }
 
-export function Empty({ children }: { children: React.ReactNode }) {
-  return <div className="font-mono text-xs py-3">{children}</div>
-}
-
-// Centred popout that uses most of the screen. Header stays put; the body
-// is the caller's to lay out (see BriefDetail for a two-column version).
-export function Modal({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) {
+export function Modal({ open, onClose, children, size = 'xl' }: { open: boolean; onClose: () => void; children: ReactNode; size?: 'xl' | 'md' }) {
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -96,16 +191,29 @@ export function Modal({ open, onClose, children }: { open: boolean; onClose: () 
   }, [open, onClose])
 
   if (!open) return null
+  const box = size === 'xl' ? 'max-w-[1480px] h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-3rem)] lg:h-[calc(100vh-4rem)]' : 'max-w-[640px] max-h-[calc(100vh-3rem)]'
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-8">
-      <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0 bg-[rgba(22,22,21,0.45)]" />
-      <div
-        role="dialog"
-        aria-modal="true"
-        className="relative w-full max-w-[1560px] h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-3rem)] lg:h-[calc(100vh-4rem)] bg-surface-base border border-line-strong rounded-sm flex flex-col overflow-hidden"
-      >
+      <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0 bg-[rgba(16,24,40,0.45)]" />
+      <div role="dialog" aria-modal="true" className={`relative w-full ${box} bg-pm-surface border border-pm-border rounded-lg shadow-[0_24px_64px_rgba(16,24,40,0.28)] flex flex-col overflow-hidden`}>
         {children}
       </div>
+    </div>
+  )
+}
+
+export function ModalHeader({ kicker, title, subtitle, chips, onClose }: { kicker?: string; title: string; subtitle?: ReactNode; chips?: ReactNode; onClose: () => void }) {
+  return (
+    <div className="flex items-start justify-between gap-6 px-6 lg:px-8 py-5 border-b border-pm-border">
+      <div className="min-w-0">
+        {kicker && <Kicker>{kicker}</Kicker>}
+        <h2 className="mt-1 text-[20px] font-semibold leading-tight">{title}</h2>
+        {subtitle && <div className="mt-1 text-[13px] text-pm-muted">{subtitle}</div>}
+        {chips && <div className="mt-3 flex flex-wrap items-center gap-2">{chips}</div>}
+      </div>
+      <Button variant="ghost" size="sm" onClick={onClose} className="shrink-0">
+        Close
+      </Button>
     </div>
   )
 }

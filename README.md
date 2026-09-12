@@ -534,12 +534,12 @@ Proprietary - © 2025 CoreSentia
 
 **Built with:** Next.js • React • TypeScript • Tailwind CSS • Claude AI • Supabase
 
-## Demo tenant (/demo)
+## Demo (/demo)
 
-A clickable demo of the CoreSentia operating model for screen-sharing: a tracker board and a purchase-orders module for a fictional HV engineering contractor. Two working screens, nothing else.
+An example project management tool for screen-sharing: a tracker with board, table and calendar views, and a platform section holding a working purchase-orders module. Fictional data for a made-up HV contractor. No client name anywhere.
 
-- **Where**: `app/demo/`. Route group `(app)` holds the gated screens; `page.tsx` is the sign-in page.
+- **Where**: `app/demo/`. Route group `(app)` holds the gated screens (`/demo/tracker`, `/demo/platform`, `/demo/platform/purchase-orders`); `page.tsx` is the sign-in page.
 - **Data**: no database. The seed is `app/demo/_lib/seed.ts` (all fictional). State lives in the browser (`localStorage` key `cs-demo-state`) via `app/demo/_lib/store.tsx`.
-- **Reset**: "Reset demo data" in the demo header, or clear that localStorage key. Editing the seed file changes the starting point for every visitor.
+- **Reset**: "Reset demo data" in the sidebar, or clear that localStorage key. Editing the seed file changes the starting point for every visitor.
 - **Access**: set `DEMO_PASSWORD` in the environment (Vercel or `.env.local`). Unset, the gate fails closed. The "Sign in with Microsoft" button is inert; `MicrosoftSignInButton.tsx` is where a real Entra ID sign-in gets wired.
-- **Theme**: always light. Not indexed, not in the sitemap, disallowed in robots.
+- **Look**: its own light palette and type (IBM Plex Sans and Mono, tokens under `.pm` in `globals.css` and `pm.*` in the Tailwind config), independent of the marketing site. Not indexed, not in the sitemap, disallowed in robots.

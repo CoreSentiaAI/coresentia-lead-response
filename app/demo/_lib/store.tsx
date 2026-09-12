@@ -5,13 +5,13 @@
 // returns everything to the seed.
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer } from 'react'
-import type { Brief, Person, PoLine, PurchaseOrder, Stage } from './types'
-import { ACTORS, BRIEFS, DEFAULT_ACTOR, NEXT_PO_SEQUENCE, PEOPLE, PROJECTS, PURCHASE_ORDERS, SUPPLIERS } from './seed'
+import type { Brief, Person, PoLine, Priority, PurchaseOrder, Stage, WorkType } from './types'
+import { ACTORS, BRIEFS, DEFAULT_ACTOR, MODULES, NEXT_PO_SEQUENCE, PEOPLE, PROJECTS, PURCHASE_ORDERS, SUPPLIERS } from './seed'
 import { lineTotals, newId } from './format'
 import { routeFor } from './routing'
 
 const STORAGE_KEY = 'cs-demo-state'
-const VERSION = 1
+const VERSION = 2
 
 type State = {
   version: number
@@ -35,6 +35,7 @@ type Action =
   | { type: 'reset' }
   | { type: 'hydrate'; state: State }
   | { type: 'setActingAs'; id: string }
+  | ({ type: 'addBrief'; title: string; module: string; owner: string; priority: Priority; workType: WorkType; days: number; targetDate: string | null; outcome: string } & Stamp)
   | ({ type: 'moveBrief'; id: string; stage: Stage } & Stamp)
   | ({ type: 'addFeedback'; id: string; text: string } & Stamp)
   | ({ type: 'toggleFeedback'; id: string; feedbackId: string } & Stamp)
@@ -65,6 +66,31 @@ function reducer(state: State, action: Action): State {
       return action.state
     case 'setActingAs':
       return { ...state, actingAs: action.id }
+
+    case 'addBrief': {
+      const brief: Brief = {
+        id: newId('brief'),
+        title: action.title,
+        module: action.module,
+        owner: action.owner,
+        priority: action.priority,
+        workType: action.workType,
+        days: action.days,
+        signOff: 'not started',
+        signOffBy: [action.owner],
+        stage: 'Mapping',
+        outcome: action.outcome,
+        currentState: '',
+        lockDate: null,
+        targetDate: action.targetDate,
+        previewUrl: '',
+        readmeUrl: '',
+        internalOwner: '',
+        feedback: [],
+        changeLog: [logEntry(action, 'Request raised. Entered Mapping.')],
+      }
+      return { ...state, briefs: [brief, ...state.briefs] }
+    }
 
     case 'moveBrief':
       return updateBrief(state, action.id, (b) => {
@@ -291,4 +317,4 @@ export function useDemo(): Ctx {
   return ctx
 }
 
-export { PEOPLE, SUPPLIERS, PROJECTS }
+export { PEOPLE, SUPPLIERS, PROJECTS, MODULES }

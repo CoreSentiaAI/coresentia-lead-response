@@ -1,8 +1,8 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { COOKIE_NAME, DEMO_HOME, expectedToken, isOpen } from './gate'
-import { TENANT } from './_lib/seed'
 import EntrySignIn from './_components/EntrySignIn'
 
 // /demo: the sign-in page. Already signed in lands on the tracker.
@@ -10,23 +10,18 @@ export default function DemoEntryPage({ searchParams }: { searchParams?: { wrong
   if (isOpen(cookies().get(COOKIE_NAME)?.value)) redirect(DEMO_HOME)
 
   return (
-    <main className="px-6 lg:px-8 pt-16 pb-24 lg:pt-24">
-      <div className="max-w-6xl mx-auto">
-        <Image
-          src="/CoreSentia_Logo_Black_Text.png"
-          alt="CoreSentia"
-          width={625}
-          height={125}
-          className="h-9 w-auto"
-          priority
-        />
-        <div className="section-label mt-20 mb-5">Demo tenant</div>
-        <h1 className="text-4xl sm:text-5xl font-semibold font-display max-w-2xl">{TENANT.name}</h1>
-        <p className="mt-6 max-w-xl text-lg">
-          The platform tracker and the first module, purchase orders. Fictional company, fictional data.
-        </p>
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+      <div className="w-full max-w-[400px] bg-pm-surface border border-pm-border rounded-lg shadow-[0_8px_30px_rgba(16,24,40,0.08)] p-8">
+        <Image src="/CoreSentia_Logo_Black_Text.png" alt="CoreSentia" width={625} height={125} className="h-7 w-auto" priority />
+        <h1 className="mt-8 text-[20px] font-semibold">Sign in</h1>
+        <p className="mt-1.5 text-[13px] text-pm-muted">An example project management tool and a first platform module. Fictional data.</p>
         <EntrySignIn wrong={searchParams?.wrong === '1'} configured={expectedToken() !== null} />
       </div>
+      <p className="mt-6 text-[12px] text-pm-muted">
+        <Link href="/" className="hover:text-pm-text">
+          coresentia.com.au
+        </Link>
+      </p>
     </main>
   )
 }

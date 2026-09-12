@@ -1,10 +1,11 @@
 'use client'
 import { useMemo, useState } from 'react'
 import { PROJECTS, SUPPLIERS, useDemo } from '../_lib/store'
-import { PO_STATUSES, type PoLine, type PoStatus, type PurchaseOrder } from '../_lib/types'
+import { PO_STATUSES, type PoLine, type PurchaseOrder } from '../_lib/types'
 import { aud, fmtDate, fmtDateTime, lineTotals, newId } from '../_lib/format'
 import { APPROVAL_THRESHOLD, ROUTING_RULE, routeFor, routeLabel } from '../_lib/routing'
-import { Field, Label, Modal, Tag, btnLink, btnPrimary, btnSecondary, inputClass, selectClass } from './ui'
+import { DECISION_TONE, PO_STATUS_TONE } from '../_lib/tones'
+import { Avatar, Button, Card, Chip, Field, Kicker, Modal, ModalHeader, PageHeader, Person, SectionTitle, StatCard, inputClass, selectClass } from './ui'
 
 const supplierName = (id: string) => SUPPLIERS.find((s) => s.id === id)?.name ?? id
 const project = (id: string) => PROJECTS.find((p) => p.id === id)
@@ -13,126 +14,189 @@ const projectLabel = (id: string) => {
   return p ? `${p.code} ${p.name}` : id
 }
 
-function StatusTag({ status }: { status: PoStatus }) {
-  const tone = status === 'Approved' || status === 'Sent to ERP' ? 'fill' : status === 'Submitted' ? 'accent' : 'line'
-  return <Tag tone={tone}>{status}</Tag>
+function currentApprover(po: PurchaseOrder): { name: string; waiting: boolean } | null {
+  const pending = po.approvals.find((a) => a.decision === 'pending')
+  if (pending) return { name: pending.approver, waiting: true }
+  const last = [...po.approvals].reverse().find((a) => a.decision !== 'pending')
+  return last ? { name: last.approver, waiting: false } : null
 }
 
-function currentApprover(po: PurchaseOrder) {
-  const pending = po.approvals.find((a) => a.decision === 'pending')
-  if (pending) return `${pending.approver} (waiting)`
-  const last = [...po.approvals].reverse().find((a) => a.decision !== 'pending')
-  return last ? last.approver : ''
-}
+const TH = 'px-3 py-2.5 text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted whitespace-nowrap text-left'
 
 export default function PurchaseOrders() {
   const { state } = useDemo()
   const [status, setStatus] = useState('')
+  const [search, setSearch] = useState('')
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [raising, setRaising] = useState(false)
 
-  const visible = state.pos.filter((p) => !status || p.status === status)
+  const q = search.trim().toLowerCase()
+  const visible = state.pos.filter((p) => (!status || p.status === status) && (!q || `${p.number} ${supplierName(p.supplierId)} ${projectLabel(p.projectId)} ${p.raisedBy}`.toLowerCase().includes(q)))
   const selected = state.pos.find((p) => p.id === selectedId) ?? null
-  const committed = useMemo(
-    () => state.pos.filter((p) => p.status === 'Approved' || p.status === 'Sent to ERP').reduce((s, p) => s + lineTotals(p.lines).exGst, 0),
-    [state.pos],
-  )
+  const committed = useMemo(() => state.pos.filter((p) => p.status === 'Approved' || p.status === 'Sent to ERP').reduce((s, p) => s + lineTotals(p.lines).exGst, 0), [state.pos])
   const waiting = state.pos.filter((p) => p.status === 'Submitted').length
 
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <div className="section-label mb-3">Purchase orders</div>
-          <h1 className="text-3xl sm:text-4xl font-semibold font-display">Raise, route, approve, post.</h1>
-          <p className="mt-3 max-w-2xl text-base">
-            One screen from raise to ERP. The routing rule is on the page, and every step is in the audit trail.
-          </p>
-        </div>
-        <button type="button" onClick={() => setRaising(true)} className={btnPrimary}>
-          Raise a PO
-        </button>
-      </div>
+      <PageHeader
+        crumbs={[{ label: 'Platform', href: '/demo/platform' }, { label: 'Purchase orders' }]}
+        title="Purchase orders"
+        subtitle="Raise against a project, route by value, approve, post to the ERP. Every step in the audit trail."
+        actions={
+          <Button variant="primary" onClick={() => setRaising(true)}>
+            Raise a PO
+          </Button>
+        }
+      />
 
-      <div className="mt-8 grid lg:grid-cols-12 gap-4">
-        <div className="lg:col-span-7 border border-line-soft rounded-sm bg-surface-card p-4">
-          <Label className="mb-2">Routing rule</Label>
-          <ul className="space-y-1">
-            {ROUTING_RULE.map((r) => (
-              <li key={r} className="text-sm leading-relaxed">
-                {r}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-          <div className="border border-line-soft rounded-sm bg-surface-card p-4">
-            <Label className="mb-2">Waiting for approval</Label>
-            <div className="text-3xl font-semibold font-display leading-none">{waiting}</div>
-          </div>
-          <div className="border border-line-soft rounded-sm bg-surface-card p-4">
-            <Label className="mb-2">Committed, not yet closed</Label>
-            <div className="text-2xl sm:text-3xl font-semibold font-display leading-none break-words">{aud(committed)}</div>
-            <div className="mt-1 font-mono text-[0.62rem]">ex GST</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-8 flex flex-wrap items-center gap-3">
-        <select value={status} onChange={(e) => setStatus(e.target.value)} className={selectClass + ' min-w-[10rem]'} aria-label="Filter by status">
-          <option value="">All statuses</option>
-          {PO_STATUSES.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
-        <span className="font-mono text-xs">
-          {state.pos.length} purchase orders, {visible.length} shown
-        </span>
-      </div>
-
-      <div className="mt-4 overflow-x-auto border border-line-soft rounded-sm bg-surface-card">
-        <table className="w-full text-sm min-w-[64rem]">
-          <thead>
-            <tr className="border-b border-line-strong text-left">
-              {['PO', 'Supplier', 'Project', 'Amount ex GST', 'Status', 'Raised by', 'Approver', 'Raised', 'Updated'].map((h) => (
-                <th key={h} className="font-mono font-normal text-[0.62rem] uppercase tracking-[0.08em] px-3 py-2.5 whitespace-nowrap">
-                  {h}
-                </th>
+      <div className="px-6 lg:px-8 py-5">
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <Card className="p-4 xl:col-span-2">
+            <Kicker>Routing rule</Kicker>
+            <ul className="mt-1.5 space-y-1 text-[13px]">
+              {ROUTING_RULE.map((r) => (
+                <li key={r}>{r}</li>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {visible.map((po) => (
-              <tr key={po.id} onClick={() => setSelectedId(po.id)} className="border-b border-line-soft last:border-b-0 hover:bg-surface-alt cursor-pointer">
-                <td className="px-3 py-2.5 font-mono text-xs whitespace-nowrap">{po.number}</td>
-                <td className="px-3 py-2.5">{supplierName(po.supplierId)}</td>
-                <td className="px-3 py-2.5">{projectLabel(po.projectId)}</td>
-                <td className="px-3 py-2.5 font-mono text-xs whitespace-nowrap text-right">{aud(lineTotals(po.lines).exGst)}</td>
-                <td className="px-3 py-2.5">
-                  <StatusTag status={po.status} />
-                </td>
-                <td className="px-3 py-2.5 whitespace-nowrap">{po.raisedBy}</td>
-                <td className="px-3 py-2.5 whitespace-nowrap">{currentApprover(po)}</td>
-                <td className="px-3 py-2.5 font-mono text-xs whitespace-nowrap">{fmtDate(po.raisedAt)}</td>
-                <td className="px-3 py-2.5 font-mono text-xs whitespace-nowrap">{fmtDate(po.updatedAt)}</td>
-              </tr>
+            </ul>
+          </Card>
+          <StatCard label="Waiting for approval" value={waiting} hint="Submitted, not yet decided" />
+          <StatCard label="Committed, not yet closed" value={aud(committed)} hint="Approved or sent to ERP, ex GST" />
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-2.5">
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search POs" className={inputClass + ' max-w-[224px]'} aria-label="Search purchase orders" />
+          <select value={status} onChange={(e) => setStatus(e.target.value)} className={selectClass} aria-label="Filter by status">
+            <option value="">All statuses</option>
+            {PO_STATUSES.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
             ))}
-            {visible.length === 0 && (
-              <tr>
-                <td colSpan={9} className="px-3 py-6 font-mono text-xs">
-                  Nothing with that status.
-                </td>
+          </select>
+          {(status || q) && (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setStatus('')
+                setSearch('')
+              }}
+            >
+              Clear
+            </Button>
+          )}
+          <span className="ml-auto text-[12.5px] text-pm-muted">
+            {visible.length} of {state.pos.length} purchase orders
+          </span>
+        </div>
+
+        <Card className="mt-4 overflow-x-auto scrollbar-thin">
+          <table className="w-full min-w-[1080px] text-[13px]">
+            <thead>
+              <tr className="bg-pm-hover border-b border-pm-border">
+                <th className={TH}>PO</th>
+                <th className={TH}>Supplier</th>
+                <th className={TH}>Project</th>
+                <th className={TH + ' text-right'}>Amount ex GST</th>
+                <th className={TH}>Status</th>
+                <th className={TH}>Raised by</th>
+                <th className={TH}>Approver</th>
+                <th className={TH}>Raised</th>
+                <th className={TH}>Updated</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {visible.map((po) => {
+                const appr = currentApprover(po)
+                return (
+                  <tr key={po.id} onClick={() => setSelectedId(po.id)} className="border-b border-pm-border last:border-b-0 hover:bg-pm-hover cursor-pointer">
+                    <td className="px-3 py-2.5 font-pm-mono text-[12.5px] whitespace-nowrap">{po.number}</td>
+                    <td className="px-3 py-2.5 font-medium">{supplierName(po.supplierId)}</td>
+                    <td className="px-3 py-2.5 text-pm-muted">{projectLabel(po.projectId)}</td>
+                    <td className="px-3 py-2.5 text-right font-pm-mono text-[12.5px] whitespace-nowrap">{aud(lineTotals(po.lines).exGst)}</td>
+                    <td className="px-3 py-2.5">
+                      <Chip tone={PO_STATUS_TONE[po.status]} dot>
+                        {po.status}
+                      </Chip>
+                    </td>
+                    <td className="px-3 py-2.5 whitespace-nowrap">
+                      <Person name={po.raisedBy} />
+                    </td>
+                    <td className="px-3 py-2.5 whitespace-nowrap">
+                      {appr ? (
+                        <span className="inline-flex items-center gap-2">
+                          <Person name={appr.name} />
+                          {appr.waiting && <Chip tone="amber">waiting</Chip>}
+                        </span>
+                      ) : (
+                        <span className="text-pm-faint">Not routed</span>
+                      )}
+                    </td>
+                    <td className="px-3 py-2.5 whitespace-nowrap text-pm-muted">{fmtDate(po.raisedAt)}</td>
+                    <td className="px-3 py-2.5 whitespace-nowrap text-pm-muted">{fmtDate(po.updatedAt)}</td>
+                  </tr>
+                )
+              })}
+              {visible.length === 0 && (
+                <tr>
+                  <td colSpan={9} className="px-3 py-8 text-center text-pm-muted">
+                    Nothing matches.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </Card>
       </div>
 
       <PoDetail po={selected} onClose={() => setSelectedId(null)} />
       <RaisePo open={raising} onClose={() => setRaising(false)} />
     </div>
+  )
+}
+
+function LinesTable({ lines }: { lines: PoLine[] }) {
+  const totals = lineTotals(lines)
+  return (
+    <table className="w-full text-[13px]">
+      <thead>
+        <tr className="border-b border-pm-border">
+          <th className={TH + ' pl-0'}>Description</th>
+          <th className={TH + ' text-right'}>Qty</th>
+          <th className={TH + ' text-right'}>Unit ex GST</th>
+          <th className={TH + ' text-right pr-0'}>Line ex GST</th>
+        </tr>
+      </thead>
+      <tbody>
+        {lines.map((l) => (
+          <tr key={l.id} className="border-b border-pm-border">
+            <td className="py-2 pr-3">{l.description}</td>
+            <td className="py-2 px-3 text-right font-pm-mono text-[12.5px]">{l.qty}</td>
+            <td className="py-2 px-3 text-right font-pm-mono text-[12.5px]">{aud(l.unitPrice)}</td>
+            <td className="py-2 pl-3 text-right font-pm-mono text-[12.5px]">{aud(l.qty * l.unitPrice)}</td>
+          </tr>
+        ))}
+      </tbody>
+      <tfoot className="text-[12.5px]">
+        <tr>
+          <td colSpan={3} className="pt-3 text-right text-pm-muted">
+            Subtotal ex GST
+          </td>
+          <td className="pt-3 pl-3 text-right font-pm-mono">{aud(totals.exGst)}</td>
+        </tr>
+        <tr>
+          <td colSpan={3} className="pt-1 text-right text-pm-muted">
+            GST 10%
+          </td>
+          <td className="pt-1 pl-3 text-right font-pm-mono">{aud(totals.gst)}</td>
+        </tr>
+        <tr className="font-semibold">
+          <td colSpan={3} className="pt-1 text-right">
+            Total inc GST
+          </td>
+          <td className="pt-1 pl-3 text-right font-pm-mono">{aud(totals.incGst)}</td>
+        </tr>
+      </tfoot>
+    </table>
   )
 }
 
@@ -154,191 +218,148 @@ function PoDetail({ po, onClose }: { po: PurchaseOrder | null; onClose: () => vo
 
   return (
     <Modal open onClose={onClose}>
-      <div className="flex items-start justify-between gap-6 px-6 lg:px-10 pt-6 pb-5 border-b border-line-soft">
-        <div className="min-w-0">
-          <div className="font-mono text-[0.68rem] uppercase tracking-[0.1em]">{po.number}</div>
-          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold font-display leading-tight">{supplierName(po.supplierId)}</h2>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <StatusTag status={po.status} />
-            {po.erp.synced && <Tag tone="accent">Synced to ERP</Tag>}
-            <Tag>{aud(totals.exGst)} ex GST</Tag>
-          </div>
-        </div>
-        <button type="button" onClick={onClose} className={btnLink + ' shrink-0 pt-1'}>
-          Close
-        </button>
-      </div>
+      <ModalHeader
+        kicker={po.number}
+        title={supplierName(po.supplierId)}
+        subtitle={projectLabel(po.projectId)}
+        onClose={onClose}
+        chips={
+          <>
+            <Chip tone={PO_STATUS_TONE[po.status]} dot>
+              {po.status}
+            </Chip>
+            {po.erp.synced && <Chip tone="teal">Synced to ERP</Chip>}
+            <Chip tone="grey">{aud(totals.exGst)} ex GST</Chip>
+          </>
+        }
+      />
 
       <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-hidden lg:grid lg:grid-cols-12">
-        <div className="lg:col-span-7 lg:overflow-y-auto px-6 lg:px-10 py-6 lg:py-8 lg:border-r border-line-soft">
-          <section className="grid sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-5">
-            <Field label="Project">
-              <div className="text-sm">{projectLabel(po.projectId)}</div>
-            </Field>
+        <div className="lg:col-span-7 lg:overflow-y-auto px-6 lg:px-8 py-6 lg:border-r border-pm-border scrollbar-thin">
+          <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
             <Field label="Project manager">
-              <div className="text-sm">{proj?.manager}</div>
+              <Person name={proj?.manager ?? ''} />
             </Field>
             <Field label="Raised by">
-              <div className="text-sm">
-                {po.raisedBy}, {fmtDateTime(po.raisedAt)}
-              </div>
+              <Person name={po.raisedBy} />
+              <div className="mt-1 text-[12px] text-pm-muted">{fmtDateTime(po.raisedAt)}</div>
             </Field>
             <Field label="Last updated">
-              <div className="text-sm">{fmtDateTime(po.updatedAt)}</div>
+              <div>{fmtDateTime(po.updatedAt)}</div>
             </Field>
           </section>
 
-          <section className="mt-8">
-            <Label className="mb-2">Lines</Label>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-line-strong text-left">
-                  <th className="font-mono font-normal text-[0.62rem] uppercase tracking-[0.08em] py-2 pr-3">Description</th>
-                  <th className="font-mono font-normal text-[0.62rem] uppercase tracking-[0.08em] py-2 px-3 text-right">Qty</th>
-                  <th className="font-mono font-normal text-[0.62rem] uppercase tracking-[0.08em] py-2 px-3 text-right">Unit ex GST</th>
-                  <th className="font-mono font-normal text-[0.62rem] uppercase tracking-[0.08em] py-2 pl-3 text-right">Line ex GST</th>
-                </tr>
-              </thead>
-              <tbody>
-                {po.lines.map((l) => (
-                  <tr key={l.id} className="border-b border-line-soft">
-                    <td className="py-2 pr-3">{l.description}</td>
-                    <td className="py-2 px-3 text-right font-mono text-xs">{l.qty}</td>
-                    <td className="py-2 px-3 text-right font-mono text-xs">{aud(l.unitPrice)}</td>
-                    <td className="py-2 pl-3 text-right font-mono text-xs">{aud(l.qty * l.unitPrice)}</td>
-                  </tr>
-                ))}
-              </tbody>
-              <tfoot className="font-mono text-xs">
-                <tr>
-                  <td colSpan={3} className="pt-3 text-right">
-                    Subtotal ex GST
-                  </td>
-                  <td className="pt-3 pl-3 text-right">{aud(totals.exGst)}</td>
-                </tr>
-                <tr>
-                  <td colSpan={3} className="pt-1 text-right">
-                    GST 10%
-                  </td>
-                  <td className="pt-1 pl-3 text-right">{aud(totals.gst)}</td>
-                </tr>
-                <tr className="font-medium">
-                  <td colSpan={3} className="pt-1 text-right">
-                    Total inc GST
-                  </td>
-                  <td className="pt-1 pl-3 text-right">{aud(totals.incGst)}</td>
-                </tr>
-              </tfoot>
-            </table>
+          <section className="mt-6">
+            <SectionTitle>Lines</SectionTitle>
+            <div className="mt-2">
+              <LinesTable lines={po.lines} />
+            </div>
           </section>
 
-          <section className="mt-8 border border-line-soft rounded-sm bg-surface-card p-4">
-            <Label className="mb-2">Approval routing</Label>
-            <div className="text-sm">{routeLabel(totals.exGst)}</div>
+          <Card className="mt-6 p-4">
+            <SectionTitle>Approval routing</SectionTitle>
+            <div className="mt-1 text-[13px] text-pm-muted">{routeLabel(totals.exGst)}</div>
             {po.approvals.length > 0 ? (
-              <ol className="mt-3 space-y-2">
+              <ol className="mt-3 space-y-2.5">
                 {po.approvals.map((a, i) => (
-                  <li key={a.role} className="flex flex-wrap items-center gap-2 text-sm">
-                    <span className="font-mono text-[0.62rem]">{i + 1}</span>
-                    <span>
-                      {a.approver}, {a.role.toLowerCase()}
-                    </span>
-                    <Tag tone={a.decision === 'approved' ? 'fill' : a.decision === 'pending' ? 'accent' : 'line'}>{a.decision}</Tag>
-                    {a.at && <span className="font-mono text-[0.62rem]">{fmtDateTime(a.at)}</span>}
-                    {a.note && <span className="w-full text-sm pl-5">Note: {a.note}</span>}
+                  <li key={a.role} className="flex flex-wrap items-center gap-2 text-[13px]">
+                    <span className="h-5 w-5 rounded-full bg-pm-hover border border-pm-border text-[11px] font-semibold inline-flex items-center justify-center">{i + 1}</span>
+                    <Person name={a.approver} />
+                    <span className="text-pm-muted">{a.role.toLowerCase()}</span>
+                    <Chip tone={DECISION_TONE[a.decision]} dot>
+                      {a.decision}
+                    </Chip>
+                    {a.at && <span className="text-[12px] text-pm-muted">{fmtDateTime(a.at)}</span>}
+                    {a.note && <span className="w-full pl-7 text-[12.5px] text-pm-muted">Note: {a.note}</span>}
                   </li>
                 ))}
               </ol>
             ) : (
-              <div className="mt-2 font-mono text-xs">Routing is set when the PO is submitted.</div>
+              <div className="mt-2 text-[12.5px] text-pm-muted">Routing is set when the PO is submitted.</div>
             )}
 
             {po.status === 'Draft' && (
-              <button type="button" onClick={() => run({ type: 'submitPo', id: po.id })} className={btnPrimary + ' mt-4'}>
+              <Button variant="primary" className="mt-4" onClick={() => run({ type: 'submitPo', id: po.id })}>
                 Submit for approval
-              </button>
+              </Button>
             )}
-
             {po.status === 'Submitted' && pending && (
               <div className="mt-4">
                 <Field label={`Note from ${pending.approver}`}>
                   <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Optional" className={inputClass + ' max-w-xl'} />
                 </Field>
-                <div className="mt-3 flex flex-wrap gap-3">
-                  <button type="button" onClick={() => act('approvePo')} className={btnPrimary}>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button variant="primary" onClick={() => act('approvePo')}>
                     Approve as {pending.approver}
-                  </button>
-                  <button type="button" onClick={() => act('rejectPo')} className={btnSecondary}>
+                  </Button>
+                  <Button variant="danger" onClick={() => act('rejectPo')}>
                     Reject
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
-
             {po.status === 'Approved' && (
-              <button type="button" onClick={() => run({ type: 'sendToErp', id: po.id })} className={btnPrimary + ' mt-4'}>
+              <Button variant="primary" className="mt-4" onClick={() => run({ type: 'sendToErp', id: po.id })}>
                 Send to ERP
-              </button>
+              </Button>
             )}
-
             {po.status === 'Sent to ERP' && (
-              <button type="button" onClick={() => run({ type: 'closePo', id: po.id })} className={btnSecondary + ' mt-4'}>
+              <Button className="mt-4" onClick={() => run({ type: 'closePo', id: po.id })}>
                 Close PO
-              </button>
+              </Button>
             )}
-          </section>
+          </Card>
 
-          <div className="mt-8 grid md:grid-cols-2 gap-8">
+          <div className="mt-6 grid md:grid-cols-2 gap-6">
             <section>
-              <Label className="mb-2">ERP sync</Label>
+              <SectionTitle>ERP sync</SectionTitle>
               {po.erp.synced && po.erp.at ? (
-                <div>
-                  <div className="text-sm">
-                    Synced {fmtDateTime(po.erp.at)} as <span className="font-mono text-xs">{po.erp.reference}</span>
+                <div className="mt-1.5">
+                  <div className="text-[13px]">
+                    Synced {fmtDateTime(po.erp.at)} as <span className="font-pm-mono text-[12.5px]">{po.erp.reference}</span>
                   </div>
-                  <ul className="mt-2 border-t border-line-soft">
+                  <ul className="mt-2 border-t border-pm-border">
                     {po.erp.log.map((e) => (
-                      <li key={e.at + e.text} className="py-2 border-b border-line-soft font-mono text-xs leading-relaxed">
-                        {fmtDateTime(e.at)} {e.text}
+                      <li key={e.at + e.text} className="py-2 border-b border-pm-border text-[12.5px] text-pm-muted leading-relaxed">
+                        <span className="font-pm-mono">{fmtDateTime(e.at)}</span> {e.text}
                       </li>
                     ))}
                   </ul>
                 </div>
               ) : (
-                <div className="font-mono text-xs">Not synced. Posts to the ERP once approved and sent.</div>
+                <div className="mt-1.5 text-[12.5px] text-pm-muted">Not synced. Posts to the ERP once approved and sent.</div>
               )}
             </section>
             <section>
-              <Label className="mb-2">Attachments</Label>
+              <SectionTitle>Attachments</SectionTitle>
               {po.attachments.length > 0 ? (
-                <ul className="space-y-1">
+                <ul className="mt-1.5 space-y-1">
                   {po.attachments.map((a) => (
-                    <li key={a} className="font-mono text-xs">
+                    <li key={a} className="text-[12.5px] font-pm-mono">
                       {a}
                     </li>
                   ))}
                 </ul>
               ) : (
-                <div className="font-mono text-xs">None attached.</div>
+                <div className="mt-1.5 text-[12.5px] text-pm-muted">None attached.</div>
               )}
             </section>
           </div>
         </div>
 
-        <div className="lg:col-span-5 lg:overflow-y-auto px-6 lg:px-10 py-6 lg:py-8 bg-surface-alt">
-          <div className="flex items-baseline justify-between">
-            <Label>Audit trail</Label>
-            <span className="font-mono text-[0.62rem]">{audit.length} entries</span>
-          </div>
-          <ol className="mt-3 border-t border-line-soft">
-            {audit.map((e) => (
-              <li key={e.id} className="grid grid-cols-[7.5rem_1fr] gap-4 py-3 border-b border-line-soft">
-                <div className="font-mono text-[0.62rem] leading-relaxed pt-0.5">
-                  {fmtDateTime(e.at)}
-                  <br />
-                  {e.who}
+        <div className="lg:col-span-5 lg:overflow-y-auto px-6 lg:px-8 py-6 bg-pm-hover scrollbar-thin">
+          <SectionTitle right={`${audit.length} entries`}>Audit trail</SectionTitle>
+          <ol className="mt-3">
+            {audit.map((e, i) => (
+              <li key={e.id} className="relative flex gap-3 pb-4">
+                {i < audit.length - 1 && <span className="absolute left-[11px] top-6 bottom-0 w-px bg-pm-border" />}
+                <Avatar name={e.who} size={24} className="relative mt-0.5" />
+                <div className="min-w-0">
+                  <div className="text-[13px] leading-relaxed">{e.action}</div>
+                  <div className="mt-0.5 text-[11.5px] text-pm-muted">
+                    {e.who}, {fmtDateTime(e.at)}
+                  </div>
                 </div>
-                <div className="text-sm leading-relaxed">{e.action}</div>
               </li>
             ))}
           </ol>
@@ -365,31 +386,20 @@ function RaisePo({ open, onClose }: { open: boolean; onClose: () => void }) {
     setProjectId('')
     setLines([blankLine()])
   }
-
   const submit = (send: boolean) => {
     const clean = lines.filter((l) => l.description.trim() && l.qty > 0 && l.unitPrice > 0)
     run({ type: 'createPo', supplierId, projectId, lines: clean, submit: send })
     reset()
     onClose()
   }
-
   const setLine = (id: string, patch: Partial<PoLine>) => setLines((ls) => ls.map((l) => (l.id === id ? { ...l, ...patch } : l)))
 
   return (
     <Modal open={open} onClose={onClose}>
-      <div className="flex items-start justify-between gap-6 px-6 lg:px-10 pt-6 pb-5 border-b border-line-soft">
-        <div className="min-w-0">
-          <div className="font-mono text-[0.68rem] uppercase tracking-[0.1em]">New purchase order</div>
-          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold font-display leading-tight">Raise a PO</h2>
-          <p className="mt-2 text-sm">Raised by {actor.name}. Routing is decided by the ex GST total when you submit.</p>
-        </div>
-        <button type="button" onClick={onClose} className={btnLink + ' shrink-0 pt-1'}>
-          Close
-        </button>
-      </div>
+      <ModalHeader kicker="New purchase order" title="Raise a PO" subtitle={`Raised by ${actor.name}. Routing is decided by the ex GST total when you submit.`} onClose={onClose} />
 
       <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-hidden lg:grid lg:grid-cols-12">
-        <div className="lg:col-span-8 lg:overflow-y-auto px-6 lg:px-10 py-6 lg:py-8 lg:border-r border-line-soft">
+        <div className="lg:col-span-8 lg:overflow-y-auto px-6 lg:px-8 py-6 lg:border-r border-pm-border scrollbar-thin">
           <div className="grid sm:grid-cols-2 gap-4 max-w-3xl">
             <Field label="Supplier">
               <select value={supplierId} onChange={(e) => setSupplierId(e.target.value)} className={selectClass + ' w-full'}>
@@ -401,7 +411,7 @@ function RaisePo({ open, onClose }: { open: boolean; onClose: () => void }) {
                 ))}
               </select>
             </Field>
-            <Field label="Project">
+            <Field label="Project" hint={proj ? `Project manager: ${proj.manager}` : undefined}>
               <select value={projectId} onChange={(e) => setProjectId(e.target.value)} className={selectClass + ' w-full'}>
                 <option value="">Choose a project</option>
                 {PROJECTS.map((p) => (
@@ -410,14 +420,13 @@ function RaisePo({ open, onClose }: { open: boolean; onClose: () => void }) {
                   </option>
                 ))}
               </select>
-              {proj && <div className="mt-1.5 font-mono text-[0.62rem]">Project manager: {proj.manager}</div>}
             </Field>
           </div>
 
-          <section className="mt-8">
-            <Label className="mb-2">Line items</Label>
-            <div className="space-y-2">
-              <div className="grid grid-cols-[1fr_4.5rem_7rem_7rem_3rem] gap-2 font-mono text-[0.62rem] uppercase tracking-[0.08em]">
+          <section className="mt-6">
+            <SectionTitle>Line items</SectionTitle>
+            <div className="mt-2 space-y-2">
+              <div className="grid grid-cols-[1fr_4.5rem_7rem_7rem_3.5rem] gap-2 text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted">
                 <span>Description</span>
                 <span className="text-right">Qty</span>
                 <span className="text-right">Unit ex GST</span>
@@ -425,71 +434,70 @@ function RaisePo({ open, onClose }: { open: boolean; onClose: () => void }) {
                 <span />
               </div>
               {lines.map((l) => (
-                <div key={l.id} className="grid grid-cols-[1fr_4.5rem_7rem_7rem_3rem] gap-2 items-center">
+                <div key={l.id} className="grid grid-cols-[1fr_4.5rem_7rem_7rem_3.5rem] gap-2 items-center">
                   <input value={l.description} onChange={(e) => setLine(l.id, { description: e.target.value })} placeholder="What is being bought" className={inputClass} />
                   <input type="number" min={0} step={1} value={l.qty} onChange={(e) => setLine(l.id, { qty: Number(e.target.value) })} className={inputClass + ' text-right'} />
                   <input type="number" min={0} step={0.01} value={l.unitPrice || ''} onChange={(e) => setLine(l.id, { unitPrice: Number(e.target.value) })} placeholder="0.00" className={inputClass + ' text-right'} />
-                  <div className="font-mono text-xs text-right">{aud(l.qty * l.unitPrice)}</div>
-                  <button type="button" onClick={() => setLines((ls) => (ls.length > 1 ? ls.filter((x) => x.id !== l.id) : ls))} className="btn text-right hover:underline underline-offset-4" aria-label="Remove line">
+                  <div className="text-right font-pm-mono text-[12.5px]">{aud(l.qty * l.unitPrice)}</div>
+                  <Button variant="ghost" size="sm" onClick={() => setLines((ls) => (ls.length > 1 ? ls.filter((x) => x.id !== l.id) : ls))} aria-label="Remove line">
                     Del
-                  </button>
+                  </Button>
                 </div>
               ))}
             </div>
-            <button type="button" onClick={() => setLines((ls) => [...ls, blankLine()])} className={btnLink + ' mt-3'}>
+            <Button variant="ghost" size="sm" className="mt-2 -ml-3" onClick={() => setLines((ls) => [...ls, blankLine()])}>
               Add a line
-            </button>
-
-            <div className="mt-6 ml-auto max-w-xs font-mono text-xs space-y-1">
-              <div className="flex justify-between">
+            </Button>
+            <div className="mt-5 ml-auto max-w-xs text-[12.5px] space-y-1">
+              <div className="flex justify-between text-pm-muted">
                 <span>Subtotal ex GST</span>
-                <span>{aud(totals.exGst)}</span>
+                <span className="font-pm-mono">{aud(totals.exGst)}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-pm-muted">
                 <span>GST 10%</span>
-                <span>{aud(totals.gst)}</span>
+                <span className="font-pm-mono">{aud(totals.gst)}</span>
               </div>
-              <div className="flex justify-between font-medium border-t border-line-strong pt-1">
+              <div className="flex justify-between font-semibold border-t border-pm-border pt-1">
                 <span>Total inc GST</span>
-                <span>{aud(totals.incGst)}</span>
+                <span className="font-pm-mono">{aud(totals.incGst)}</span>
               </div>
             </div>
           </section>
         </div>
 
-        <div className="lg:col-span-4 lg:overflow-y-auto px-6 lg:px-10 py-6 lg:py-8 bg-surface-alt">
-          <section className="border border-line-soft rounded-sm bg-surface-card p-4">
-            <Label className="mb-2">This PO will route to</Label>
+        <div className="lg:col-span-4 lg:overflow-y-auto px-6 lg:px-8 py-6 bg-pm-hover scrollbar-thin">
+          <Card className="p-4">
+            <Kicker>This PO will route to</Kicker>
             {proj ? (
-              <ol className="space-y-1 text-sm">
+              <ol className="mt-2 space-y-2 text-[13px]">
                 {routeFor(totals.exGst, proj).map((a, i) => (
-                  <li key={a.role}>
-                    {i + 1}. {a.approver}, {a.role.toLowerCase()}
+                  <li key={a.role} className="flex items-center gap-2">
+                    <span className="h-5 w-5 rounded-full bg-pm-hover border border-pm-border text-[11px] font-semibold inline-flex items-center justify-center">{i + 1}</span>
+                    <Person name={a.approver} />
+                    <span className="text-pm-muted">{a.role.toLowerCase()}</span>
                   </li>
                 ))}
               </ol>
             ) : (
-              <div className="font-mono text-xs">Choose a project to see the route.</div>
+              <div className="mt-2 text-[12.5px] text-pm-muted">Choose a project to see the route.</div>
             )}
-            <div className="mt-2 font-mono text-[0.62rem]">Threshold {aud(APPROVAL_THRESHOLD)} ex GST.</div>
+            <div className="mt-3 text-[12px] text-pm-muted">Threshold {aud(APPROVAL_THRESHOLD)} ex GST.</div>
+          </Card>
+
+          <section className="mt-5">
+            <Kicker className="mb-1.5">Attachments</Kicker>
+            <div className="border border-dashed border-pm-border-strong rounded-md p-6 text-center text-[12.5px] text-pm-muted bg-pm-surface">Drop quotes and supporting documents here. Placeholder in the demo.</div>
           </section>
 
-          <section className="mt-6">
-            <Label className="mb-2">Attachments</Label>
-            <div className="border border-dashed border-line-strong rounded-sm p-6 text-center font-mono text-xs">
-              Drop quotes and supporting documents here. Placeholder in the demo.
-            </div>
-          </section>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <button type="button" disabled={!valid} onClick={() => submit(true)} className={btnPrimary}>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <Button variant="primary" disabled={!valid} onClick={() => submit(true)}>
               Submit for approval
-            </button>
-            <button type="button" disabled={!valid} onClick={() => submit(false)} className={btnSecondary}>
+            </Button>
+            <Button disabled={!valid} onClick={() => submit(false)}>
               Save as draft
-            </button>
+            </Button>
           </div>
-          {!valid && <p className="mt-3 font-mono text-[0.62rem]">Choose a supplier and a project and enter at least one priced line.</p>}
+          {!valid && <p className="mt-3 text-[12px] text-pm-muted">Choose a supplier and a project and enter at least one priced line.</p>}
         </div>
       </div>
     </Modal>

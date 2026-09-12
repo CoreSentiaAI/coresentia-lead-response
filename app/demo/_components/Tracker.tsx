@@ -4,7 +4,7 @@ import { useDemo } from '../_lib/store'
 import { STAGES, type Brief, type Stage, type WorkType } from '../_lib/types'
 import { fmtDate } from '../_lib/format'
 import { PRIORITY_TONE, STAGE_TONE, TONES, WORK_TYPE_TONE } from '../_lib/tones'
-import { Avatar, Button, Card, Chip, PageHeader, Person, Tabs, inputClass, selectClass } from './ui'
+import { Avatar, Button, Card, Chip, Kicker, PageHeader, Person, Tabs, inputClass, selectClass } from './ui'
 import BriefDetail from './BriefDetail'
 import NewRequest from './NewRequest'
 
@@ -16,8 +16,13 @@ const HOW = [
   ['Single intake', 'Every request enters Mapping. Nothing reaches the builder by direct message.'],
   ['Ranked, not first come', 'The change lead sets priority against everything else on the board.'],
   ['Locked before build', 'The approved brief is what gets built. New ideas go back to Mapping.'],
-  ['Hotfix path', 'Production bugs skip the queue, get fixed in hours and stay visible.'],
+  ['Hotfix path', 'Production bugs skip the queue, get fixed in hours, and stay visible.'],
 ]
+
+const IN_MODULE = ['Board, table and calendar views', 'A change log on every move', 'Test feedback and sign-off in one place', 'The hotfix path']
+const NEXT_IN_MODULE = ['Reminders and notifications', 'A question box that reads the briefs for you']
+
+const INTRO_KEY = 'cs-demo-intro'
 
 export function signOffLabel(b: Brief) {
   if (b.signOff === 'signed off') return 'Signed off'
@@ -35,6 +40,25 @@ export default function Tracker() {
   const [integrationCycle, setIntegrationCycle] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [newOpen, setNewOpen] = useState(false)
+  const [introOpen, setIntroOpen] = useState(true)
+
+  useEffect(() => {
+    try {
+      setIntroOpen(localStorage.getItem(INTRO_KEY) !== 'closed')
+    } catch {
+      // ignore
+    }
+  }, [])
+  const toggleIntro = () => {
+    setIntroOpen((o) => {
+      try {
+        localStorage.setItem(INTRO_KEY, o ? 'closed' : 'open')
+      } catch {
+        // ignore
+      }
+      return !o
+    })
+  }
 
   const modules = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.module))).sort(), [state.briefs])
   const owners = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.owner))).sort(), [state.briefs])
@@ -53,8 +77,8 @@ export default function Tracker() {
   return (
     <div>
       <PageHeader
-        title="Tracker"
-        subtitle="Requests come in on the left, get ranked, and move through eight stages to done."
+        title="Internal software project management"
+        subtitle="The one channel between the business and the development team, and the source of truth for the build. Every request, decision and change is recorded here, not in email or chat."
         tabs={
           <Tabs
             value={view}
@@ -74,19 +98,57 @@ export default function Tracker() {
       />
 
       <div className="px-6 lg:px-8 py-5">
-        <Card className="px-5 py-4">
-          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-3">
-            {HOW.map(([title, body], i) => (
-              <div key={title} className="flex gap-3">
-                <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-pm-primary-soft text-pm-primary text-[11px] font-semibold inline-flex items-center justify-center">{i + 1}</span>
+        {introOpen ? (
+          <div className="grid lg:grid-cols-12 gap-4">
+            <Card className="lg:col-span-7 px-5 py-4">
+              <div className="flex items-baseline justify-between gap-4">
+                <Kicker>How it runs</Kicker>
+                <button type="button" onClick={toggleIntro} className="text-[12px] text-pm-muted hover:text-pm-text">
+                  Hide
+                </button>
+              </div>
+              <div className="mt-3 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+                {HOW.map(([title, body], i) => (
+                  <div key={title} className="flex gap-3">
+                    <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-pm-primary-soft text-pm-primary text-[11px] font-semibold inline-flex items-center justify-center">{i + 1}</span>
+                    <div>
+                      <div className="text-[13px] font-semibold">{title}</div>
+                      <div className="text-[12.5px] text-pm-muted leading-snug">{body}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+            <Card className="lg:col-span-5 px-5 py-4 border-pm-primary-soft bg-[#f7f9fe]">
+              <Kicker>Included with the platform</Kicker>
+              <p className="mt-2 text-[13px] leading-relaxed">
+                This tracker is a pre-built CoreSentia module. It drops into the new platform once the foundations are in, styled to match your business, at no cost. It is also the first working example of what the platform will feel like.
+              </p>
+              <div className="mt-3 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[12.5px]">
                 <div>
-                  <div className="text-[13px] font-semibold">{title}</div>
-                  <div className="text-[12.5px] text-pm-muted leading-snug">{body}</div>
+                  <div className="font-semibold">In the module now</div>
+                  <ul className="mt-1 space-y-0.5 text-pm-muted">
+                    {IN_MODULE.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <div className="font-semibold">Next</div>
+                  <ul className="mt-1 space-y-0.5 text-pm-muted">
+                    {NEXT_IN_MODULE.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            ))}
+            </Card>
           </div>
-        </Card>
+        ) : (
+          <button type="button" onClick={toggleIntro} className="text-[12px] text-pm-muted hover:text-pm-text">
+            Show how it runs and what is included
+          </button>
+        )}
 
         <div className="mt-5 flex flex-wrap items-center gap-2.5">
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search briefs" className={inputClass + ' max-w-[224px]'} aria-label="Search briefs" />

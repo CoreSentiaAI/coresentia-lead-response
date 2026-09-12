@@ -10,10 +10,10 @@ export default function MockShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen">
-      <header className="h-14 bg-pm-surface border-b border-pm-border px-6 lg:px-8 flex items-center gap-4">
+      <header className="min-h-14 bg-pm-surface border-b border-pm-border px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-2">
         <span className="text-[14px] font-semibold">Operations platform</span>
         <Chip tone="grey">Production mock-up</Chip>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex flex-wrap items-center gap-2 sm:gap-3">
           <label className="flex items-center gap-2">
             <Avatar name={actor.name} size={24} />
             <span className="sr-only">Acting as</span>

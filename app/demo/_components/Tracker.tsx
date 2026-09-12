@@ -44,7 +44,9 @@ export default function Tracker() {
 
   useEffect(() => {
     try {
-      setIntroOpen(localStorage.getItem(INTRO_KEY) !== 'closed')
+      const saved = localStorage.getItem(INTRO_KEY)
+      if (saved) setIntroOpen(saved !== 'closed')
+      else setIntroOpen(window.innerWidth >= 1024)
     } catch {
       // ignore
     }
@@ -375,11 +377,19 @@ type CalItem = { brief: Brief; kind: 'target' | 'lock' | 'hotfix' }
 
 function CalendarView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) => void }) {
   const [mounted, setMounted] = useState(false)
+  const [narrow, setNarrow] = useState(false)
   const [cursor, setCursor] = useState(() => {
     const d = new Date()
     return { y: d.getFullYear(), m: d.getMonth() }
   })
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    setMounted(true)
+    const mq = window.matchMedia('(max-width: 639px)')
+    const apply = () => setNarrow(mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
 
   const items = useMemo(() => {
     const map = new Map<string, CalItem[]>()
@@ -442,6 +452,37 @@ function CalendarView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string
           </Chip>
         </div>
       </div>
+      {narrow ? (
+        <ol className="divide-y divide-pm-border">
+          {days
+            .filter((d) => d.inMonth && (items.get(d.k) ?? []).length > 0)
+            .map((d) => (
+              <li key={d.k} className="px-4 py-3">
+                <div className={`text-[12px] font-medium ${d.k === todayKey ? 'text-pm-primary' : 'text-pm-muted'}`}>
+                  {WEEKDAYS[(d.date.getDay() + 6) % 7]} {d.date.getDate()}
+                  {d.k === todayKey ? ', today' : ''}
+                </div>
+                <div className="mt-1.5 space-y-1">
+                  {(items.get(d.k) ?? []).map((it) => {
+                    const tone = it.kind === 'hotfix' ? 'red' : it.kind === 'lock' ? 'purple' : STAGE_TONE[it.brief.stage]
+                    const t = TONES[tone]
+                    return (
+                      <button key={it.brief.id + it.kind} type="button" onClick={() => onOpen(it.brief.id)} className="w-full text-left flex items-center gap-2 rounded-[4px] px-2 py-1.5 text-[12.5px] font-medium leading-snug" style={{ background: t.bg, color: t.fg }}>
+                        <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: t.dot }} />
+                        <span>
+                          {it.kind === 'lock' ? 'Lock: ' : it.kind === 'hotfix' ? 'Hotfix: ' : ''}
+                          {it.brief.title}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </li>
+            ))}
+          {days.every((d) => !d.inMonth || (items.get(d.k) ?? []).length === 0) && <li className="px-4 py-6 text-[12.5px] text-pm-muted">Nothing dated this month.</li>}
+        </ol>
+      ) : (
+        <>
       <div className="grid grid-cols-7 border-b border-pm-border">
         {WEEKDAYS.map((d) => (
           <div key={d} className="px-2 py-2 text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted">
@@ -483,6 +524,8 @@ function CalendarView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string
           )
         })}
       </div>
+        </>
+      )}
     </Card>
   )
 }

@@ -162,7 +162,7 @@ export function PageHeader({
         </div>
       )}
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="min-w-0">
+        <div className="min-w-0 max-w-3xl">
           <h1 className="text-[20px] font-semibold leading-tight">{title}</h1>
           {subtitle && <p className="mt-0.5 text-[13px] text-pm-muted">{subtitle}</p>}
         </div>

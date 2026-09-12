@@ -76,16 +76,16 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen lg:flex">
       <aside
-        className={`lg:shrink-0 lg:fixed lg:inset-y-0 lg:left-0 ${collapsed ? 'lg:w-[48px]' : 'lg:w-[232px]'} bg-pm-surface border-b lg:border-b-0 lg:border-r border-pm-border flex flex-col z-20 lg:transition-[width] lg:duration-200 lg:overflow-hidden`}
+        className={`lg:shrink-0 lg:fixed lg:inset-y-0 lg:left-0 ${collapsed ? 'lg:w-[48px]' : 'lg:w-[232px]'} bg-pm-surface border-b lg:border-b-0 lg:border-r border-pm-border flex flex-row flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 lg:flex-col lg:flex-nowrap lg:items-stretch lg:gap-0 lg:px-0 lg:py-0 z-20 lg:transition-[width] lg:duration-200 lg:overflow-hidden`}
         data-collapsed={collapsed || undefined}
       >
 
         {/* Header: logo and the collapse toggle */}
-        <div className={`flex items-start ${collapsed ? 'lg:flex-col lg:items-center lg:px-0' : ''} px-5 pt-5 pb-4 gap-3`}>
+        <div className={`flex items-start ${collapsed ? 'lg:flex-col lg:items-center lg:px-0' : ''} lg:px-5 lg:pt-5 lg:pb-4 gap-3`}>
           {!collapsed ? (
             <div className="min-w-0 flex-1">
               <Image src="/CoreSentia_Logo_Black_Text.png" alt="CoreSentia" width={625} height={125} className="h-6 w-auto" priority />
-              <span className="mt-3 inline-block rounded-[4px] bg-pm-primary-soft text-pm-primary text-[11px] font-medium px-2 py-1 whitespace-nowrap">Example project management tool</span>
+              <span className="hidden lg:inline-block mt-3 rounded-[4px] bg-pm-primary-soft text-pm-primary text-[11px] font-medium px-2 py-1 whitespace-nowrap">Example project management tool</span>
             </div>
           ) : (
             <Image src="/CoreSentia_Original_Logo_Symbol_Cropped.png" alt="CoreSentia" width={120} height={120} className="hidden lg:block h-6 w-6" priority />
@@ -101,7 +101,7 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
           </button>
         </div>
 
-        <nav className={`flex lg:flex-col gap-1 ${collapsed ? 'lg:px-2' : 'px-3'} px-3`}>
+        <nav className={`flex lg:flex-col gap-1 ${collapsed ? 'lg:px-2' : 'lg:px-3'}`}>
           {NAV.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + '/')
             return (
@@ -126,11 +126,11 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
             <Avatar name={actor.name} size={26} />
           </div>
         ) : (
-          <div className="lg:mt-auto px-5 py-4 lg:border-t border-pm-border flex lg:flex-col flex-wrap items-center lg:items-stretch gap-3">
+          <div className="ml-auto lg:ml-0 lg:mt-auto lg:px-5 lg:py-4 lg:border-t border-pm-border flex lg:flex-col flex-wrap items-center lg:items-stretch gap-2 lg:gap-3">
             <label className="flex items-center gap-2 min-w-0">
               <Avatar name={actor.name} size={26} />
               <span className="sr-only">Acting as</span>
-              <select value={state.actingAs} onChange={(e) => run({ type: 'setActingAs', id: e.target.value })} className={selectClass + ' h-8 text-[12.5px] w-full'} aria-label="Acting as">
+              <select value={state.actingAs} onChange={(e) => run({ type: 'setActingAs', id: e.target.value })} className={selectClass + ' h-8 text-[12.5px] lg:w-full'} aria-label="Acting as">
                 {actors.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name}

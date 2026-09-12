@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useDemo } from '../_lib/store'
 import { Avatar, Button, selectClass } from './ui'
 
@@ -13,7 +13,7 @@ const NAV = [
 
 const SIDEBAR_KEY = 'cs-demo-sidebar'
 
-function Icon({ name }: { name: 'board' | 'grid' | 'collapse' | 'expand' }) {
+function Icon({ name }: { name: 'board' | 'grid' | 'collapse' | 'expand' | 'desktop' | 'tablet' | 'phone' }) {
   const common = { width: 16, height: 16, viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true }
   if (name === 'board')
     return (
@@ -30,6 +30,27 @@ function Icon({ name }: { name: 'board' | 'grid' | 'collapse' | 'expand' }) {
         <rect x="9" y="2" width="5" height="5" rx="0.8" />
         <rect x="2" y="9" width="5" height="5" rx="0.8" />
         <rect x="9" y="9" width="5" height="5" rx="0.8" />
+      </svg>
+    )
+  if (name === 'desktop')
+    return (
+      <svg {...common}>
+        <rect x="1.5" y="2.5" width="13" height="8.5" rx="1.2" />
+        <path d="M6 13.5h4M8 11v2.5" />
+      </svg>
+    )
+  if (name === 'tablet')
+    return (
+      <svg {...common}>
+        <rect x="2.5" y="1.5" width="11" height="13" rx="1.6" />
+        <path d="M7 12.5h2" />
+      </svg>
+    )
+  if (name === 'phone')
+    return (
+      <svg {...common}>
+        <rect x="4.5" y="1.5" width="7" height="13" rx="1.6" />
+        <path d="M7 12.5h2" />
       </svg>
     )
   if (name === 'collapse')
@@ -50,9 +71,24 @@ function Icon({ name }: { name: 'board' | 'grid' | 'collapse' | 'expand' }) {
 // App shell: collapsible left sidebar with navigation and the demo controls.
 export default function DemoShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const search = useSearchParams()
   const { state, actor, actors, run } = useDemo()
   const [confirmReset, setConfirmReset] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
+  const [framed, setFramed] = useState(false)
+
+  const previewing = pathname === '/demo/preview'
+  const previewDevice = previewing ? search.get('device') ?? 'phone' : 'desktop'
+  const previewPath = previewing ? search.get('path') ?? '/demo/tracker' : pathname
+  const DEVICES = [
+    { key: 'desktop', label: 'Desktop', href: previewing ? previewPath : pathname, icon: 'desktop' as const },
+    { key: 'tablet', label: 'Tablet', href: `/demo/preview?device=tablet&path=${encodeURIComponent(previewing ? previewPath : pathname)}`, icon: 'tablet' as const },
+    { key: 'phone', label: 'Phone', href: `/demo/preview?device=phone&path=${encodeURIComponent(previewing ? previewPath : pathname)}`, icon: 'phone' as const },
+  ]
+
+  useEffect(() => {
+    setFramed(window.self !== window.top)
+  }, [])
 
   useEffect(() => {
     try {
@@ -120,13 +156,37 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
+        {/* Preview on: desktop, tablet, phone. Desktop only, and never inside the preview frame itself. */}
+        {!framed && (
+          <div className={`hidden lg:block lg:mt-auto ${collapsed ? 'px-2 pb-2' : 'px-3 pb-3'}`}>
+            {!collapsed && <div className="px-3 pb-1.5 text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted">Preview on</div>}
+            <div className={collapsed ? 'flex flex-col items-center gap-1' : 'grid grid-cols-3 gap-1.5'}>
+              {DEVICES.map((d) => {
+                const active = previewDevice === d.key
+                return (
+                  <Link
+                    key={d.key}
+                    href={d.href}
+                    title={d.label}
+                    aria-current={active ? 'page' : undefined}
+                    className={`flex items-center justify-center rounded-md font-medium transition-colors ${collapsed ? 'h-9 w-9' : 'flex-col gap-1 h-[52px] text-[11px]'} ${active ? 'bg-pm-primary text-white shadow-[0_2px_6px_rgba(45,91,209,0.35)]' : 'border border-pm-border text-pm-muted hover:text-pm-text hover:border-pm-border-strong hover:bg-pm-hover'}`}
+                  >
+                    <Icon name={d.icon} />
+                    {!collapsed && <span>{d.label}</span>}
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Footer: acting-as, reset, sign out */}
         {collapsed ? (
-          <div className="hidden lg:flex mt-auto flex-col items-center gap-3 py-4 border-t border-pm-border">
+          <div className={`hidden lg:flex ${framed ? 'mt-auto' : ''} flex-col items-center gap-3 py-4 border-t border-pm-border`}>
             <Avatar name={actor.name} size={26} />
           </div>
         ) : (
-          <div className="ml-auto lg:ml-0 lg:mt-auto lg:px-5 lg:py-4 lg:border-t border-pm-border flex lg:flex-col flex-wrap items-center lg:items-stretch gap-2 lg:gap-3">
+          <div className={`ml-auto lg:ml-0 ${framed ? 'lg:mt-auto' : ''} lg:px-5 lg:py-4 lg:border-t border-pm-border flex lg:flex-col flex-wrap items-center lg:items-stretch gap-2 lg:gap-3`}>
             <label className="flex items-center gap-2 min-w-0">
               <Avatar name={actor.name} size={26} />
               <span className="sr-only">Acting as</span>

@@ -112,7 +112,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                 </Button>
               </div>
               {brief.previewUrl && (
-                <a href={brief.previewUrl} target={brief.previewUrl.startsWith('/') ? undefined : '_blank'} rel="noreferrer" className="mt-2 inline-block text-[12.5px] font-medium text-pm-primary hover:underline underline-offset-4">
+                <a href={brief.previewUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block text-[12.5px] font-medium text-pm-primary hover:underline underline-offset-4">
                   Open preview
                 </a>
               )}

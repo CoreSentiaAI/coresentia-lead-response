@@ -538,7 +538,7 @@ Proprietary - © 2025 CoreSentia
 
 An example project management tool for screen-sharing: a tracker with board, table and calendar views, and a platform section holding a working purchase-orders module. Fictional data for a made-up HV contractor. No client name anywhere.
 
-- **Where**: `app/demo/`. Route group `(app)` holds the gated screens (`/demo/tracker`, `/demo/platform`, `/demo/platform/purchase-orders`); `page.tsx` is the sign-in page.
+- **Where**: `app/demo/`. Route group `(app)` holds the gated screens (`/demo/tracker`, `/demo/platform`); route group `(mock)` holds standalone production mock-ups that open in a new tab (`/demo/purchase-orders`); `page.tsx` is the sign-in page.
 - **Data**: no database. The seed is `app/demo/_lib/seed.ts` (all fictional). State lives in the browser (`localStorage` key `cs-demo-state`) via `app/demo/_lib/store.tsx`.
 - **Reset**: "Reset demo data" in the sidebar, or clear that localStorage key. Editing the seed file changes the starting point for every visitor.
 - **Access**: set `DEMO_PASSWORD` in the environment (Vercel or `.env.local`). Unset, the gate fails closed. The "Sign in with Microsoft" button is inert; `MicrosoftSignInButton.tsx` is where a real Entra ID sign-in gets wired.

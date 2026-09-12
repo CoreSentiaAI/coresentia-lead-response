@@ -1,15 +1,15 @@
 'use client'
-import Link from 'next/link'
 import { useDemo } from '../_lib/store'
 import type { Brief } from '../_lib/types'
-import { Button, Card, Chip, PageHeader } from './ui'
+import { Card, Chip, PageHeader } from './ui'
 import type { Tone } from '../_lib/tones'
 
 // The platform is the thing the client ends up owning: one module at a time.
 // Each card's status is derived from the tracker, so moving a brief moves the card.
+// Live modules open their production mock-up in a new tab, outside this shell.
 
 const MODULE_CARDS: { name: string; title: string; body: string; href?: string }[] = [
-  { name: 'Purchase Orders', title: 'Purchase orders', body: 'Raise against a project, route by value, approve, post to the ERP. Audit trail on every step.', href: '/demo/platform/purchase-orders' },
+  { name: 'Purchase Orders', title: 'Purchase orders', body: 'Raise against a project, route by value, approve, post to the ERP. Audit trail on every step.', href: '/demo/purchase-orders' },
   { name: 'Project Register', title: 'Project register', body: 'One record per project: code, client, contract value, key dates, manager. Everything else hangs off it.' },
   { name: 'Progress Claims', title: 'Progress claims', body: 'Monthly claims built from the register and the schedule of rates. Certified tracked against claimed.' },
   { name: 'Variations Log', title: 'Variations log', body: 'Every variation raised, priced, submitted and approved in one list against the project.' },
@@ -53,20 +53,24 @@ export default function PlatformIndex() {
                   <span>
                     {briefs.length} {briefs.length === 1 ? 'brief' : 'briefs'} on the tracker{open > 0 ? `, ${open} open` : ''}
                   </span>
-                  {s.live && (
-                    <Button variant="primary" size="sm" className="pointer-events-none">
-                      Open
-                    </Button>
+                  {s.live && m.href && (
+                    <a
+                      href={m.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 h-8 px-3 rounded-md bg-pm-primary text-white text-[12.5px] font-medium hover:bg-pm-primary-hover transition-colors"
+                    >
+                      See production mock-up
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2L5.5 6.5" />
+                      </svg>
+                    </a>
                   )}
                   {!s.live && s.label === 'Built' && <span>Not part of this demo</span>}
                 </div>
               </>
             )
-            return m.href && s.live ? (
-              <Link key={m.name} href={m.href} className="block bg-pm-surface border border-pm-border rounded-md p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)] hover:border-pm-border-strong hover:shadow-[0_3px_8px_rgba(16,24,40,0.08)] transition">
-                {inner}
-              </Link>
-            ) : (
+            return (
               <Card key={m.name} className={`p-5 ${s.live ? '' : 'bg-[#fbfbfc]'}`}>
                 {inner}
               </Card>

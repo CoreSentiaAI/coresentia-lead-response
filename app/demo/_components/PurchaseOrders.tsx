@@ -39,7 +39,6 @@ export default function PurchaseOrders() {
   return (
     <div>
       <PageHeader
-        crumbs={[{ label: 'Platform', href: '/demo/platform' }, { label: 'Purchase orders' }]}
         title="Purchase orders"
         subtitle="Raise against a project, route by value, approve, post to the ERP. Every step in the audit trail."
         actions={

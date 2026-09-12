@@ -133,7 +133,7 @@ export const BRIEFS: Brief[] = [
       'PO template in Excel, emailed for signature, re-keyed into the ERP by accounts. About 40 a week. No view of committed cost until the invoice lands.',
     lockDate: '2026-07-28',
     targetDate: '2026-09-18',
-    previewUrl: '/demo/platform/purchase-orders',
+    previewUrl: '/demo/purchase-orders',
     readmeUrl: '#readme-purchase-orders',
     internalOwner: 'Priya Nair',
     feedback: fb([

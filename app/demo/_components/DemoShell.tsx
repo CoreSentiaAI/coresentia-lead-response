@@ -63,14 +63,14 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
       >
 
         {/* Header: logo and the collapse toggle */}
-        <div className={`flex items-start ${collapsed ? 'lg:flex-col lg:items-center lg:px-0' : ''} lg:px-5 lg:pt-5 lg:pb-4 gap-3`}>
+        <div className={`flex items-start ${collapsed ? 'lg:flex-col lg:items-center lg:px-0 lg:gap-2' : 'lg:px-5 gap-3'} lg:pt-5 lg:pb-4`}>
           {!collapsed ? (
             <div className="min-w-0 flex-1">
               <Image src="/CoreSentia_Logo_Black_Text.png" alt="CoreSentia" width={625} height={125} className="h-6 w-auto" priority />
               <span className="hidden lg:inline-block mt-3 rounded-[4px] bg-pm-primary-soft text-pm-primary text-[11px] font-medium px-2 py-1 whitespace-nowrap">Example project management tool</span>
             </div>
           ) : (
-            <Image src="/CoreSentia_Original_Logo_Symbol_Cropped.png" alt="CoreSentia" width={120} height={120} className="hidden lg:block h-6 w-6" priority />
+            <Image src="/CoreSentia_Original_Logo_Symbol_Cropped.png" alt="CoreSentia" width={405} height={421} className="hidden lg:block h-7 w-auto" priority />
           )}
           <button
             type="button"

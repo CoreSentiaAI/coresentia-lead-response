@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useDemo } from '../_lib/store'
 import { Avatar, Button, selectClass } from './ui'
+import { Icon } from './icons'
 
 const NAV = [
   { href: '/demo/tracker', label: 'Tracker', icon: 'board' },
@@ -12,61 +13,6 @@ const NAV = [
 ] as const
 
 const SIDEBAR_KEY = 'cs-demo-sidebar'
-
-function Icon({ name }: { name: 'board' | 'grid' | 'collapse' | 'expand' | 'desktop' | 'tablet' | 'phone' }) {
-  const common = { width: 16, height: 16, viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true }
-  if (name === 'board')
-    return (
-      <svg {...common}>
-        <rect x="2" y="2.5" width="3.5" height="11" rx="0.8" />
-        <rect x="6.25" y="2.5" width="3.5" height="7" rx="0.8" />
-        <rect x="10.5" y="2.5" width="3.5" height="9" rx="0.8" />
-      </svg>
-    )
-  if (name === 'grid')
-    return (
-      <svg {...common}>
-        <rect x="2" y="2" width="5" height="5" rx="0.8" />
-        <rect x="9" y="2" width="5" height="5" rx="0.8" />
-        <rect x="2" y="9" width="5" height="5" rx="0.8" />
-        <rect x="9" y="9" width="5" height="5" rx="0.8" />
-      </svg>
-    )
-  if (name === 'desktop')
-    return (
-      <svg {...common}>
-        <rect x="1.5" y="2.5" width="13" height="8.5" rx="1.2" />
-        <path d="M6 13.5h4M8 11v2.5" />
-      </svg>
-    )
-  if (name === 'tablet')
-    return (
-      <svg {...common}>
-        <rect x="2.5" y="1.5" width="11" height="13" rx="1.6" />
-        <path d="M7 12.5h2" />
-      </svg>
-    )
-  if (name === 'phone')
-    return (
-      <svg {...common}>
-        <rect x="4.5" y="1.5" width="7" height="13" rx="1.6" />
-        <path d="M7 12.5h2" />
-      </svg>
-    )
-  if (name === 'collapse')
-    return (
-      <svg {...common}>
-        <path d="M10 3L5 8l5 5" />
-        <path d="M13 3v10" />
-      </svg>
-    )
-  return (
-    <svg {...common}>
-      <path d="M6 3l5 5-5 5" />
-      <path d="M3 3v10" />
-    </svg>
-  )
-}
 
 // App shell: collapsible left sidebar with navigation and the demo controls.
 export default function DemoShell({ children }: { children: React.ReactNode }) {
@@ -144,6 +90,7 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
+                data-tour={item.href === '/demo/platform' ? 'nav-platform' : undefined}
                 title={collapsed ? item.label : undefined}
                 className={`flex items-center gap-2.5 rounded-md text-[13px] font-medium transition-colors ${collapsed ? 'lg:justify-center lg:px-0 lg:h-9' : ''} px-3 py-2 ${active ? 'bg-pm-primary-soft text-pm-primary' : 'text-pm-text hover:bg-pm-hover'}`}
               >
@@ -160,7 +107,7 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
         {!framed && (
           <div className={`hidden lg:block lg:mt-auto ${collapsed ? 'px-2 pb-2' : 'px-3 pb-3'}`}>
             {!collapsed && <div className="px-3 pb-1.5 text-[11px] font-medium uppercase tracking-[0.04em] text-pm-muted">Preview on</div>}
-            <div className={collapsed ? 'flex flex-col items-center gap-1' : 'grid grid-cols-3 gap-1.5'}>
+            <div className={collapsed ? 'flex flex-col items-center gap-1' : 'grid grid-cols-3 gap-1.5'} data-tour="preview">
               {DEVICES.map((d) => {
                 const active = previewDevice === d.key
                 return (

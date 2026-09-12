@@ -4,7 +4,9 @@ import { useDemo } from '../_lib/store'
 import { STAGES, type Brief, type Stage, type WorkType } from '../_lib/types'
 import { fmtDate } from '../_lib/format'
 import { PRIORITY_TONE, STAGE_TONE, TONES, WORK_TYPE_TONE } from '../_lib/tones'
-import { Avatar, Button, Card, Chip, Kicker, PageHeader, Person, Tabs, inputClass, selectClass } from './ui'
+import { Avatar, Button, Card, Chip, PageHeader, Person, Stat, Tabs, inputClass, selectClass } from './ui'
+import { Icon } from './icons'
+import Tour, { startTour, type TourStep } from './Tour'
 import BriefDetail from './BriefDetail'
 import NewRequest from './NewRequest'
 
@@ -12,17 +14,66 @@ type View = 'board' | 'table' | 'calendar'
 const WORK_TYPES: WorkType[] = ['module', 'integration', 'hotfix']
 const PRIORITY_RANK = { P1: 0, P2: 1, P3: 2 }
 
-const HOW = [
-  ['Single intake', 'Every request enters Mapping. Nothing reaches the builder by direct message.'],
-  ['Ranked, not first come', 'The change lead sets priority against everything else on the board.'],
-  ['Locked before build', 'The approved brief is what gets built. New ideas go back to Mapping.'],
-  ['Hotfix path', 'Production bugs skip the queue, get fixed in hours, and stay visible.'],
+const TOUR: TourStep[] = [
+  {
+    id: 'title',
+    title: 'One channel, one source of truth',
+    body: 'Every request, decision and change between the business and the development team is recorded here, not in email or chat. If it is not on the board, it is not happening.',
+    placement: 'bottom',
+    anchor: 'tl',
+  },
+  {
+    id: 'new-request',
+    title: 'Single intake',
+    body: 'Every request starts here and lands in Mapping. Anyone can raise one. Nothing reaches the builder by direct message.',
+    placement: 'bottom',
+  },
+  {
+    id: 'col-mapping',
+    title: 'Ranked, not first come',
+    body: 'The change lead sets priority against everything else on the board. P1 sits at the top of the column, and the builder takes the top of the ranked backlog.',
+    placement: 'bottom',
+    anchor: 'tl',
+  },
+  {
+    id: 'col-locked',
+    title: 'Locked before build',
+    body: 'The approved brief is what gets built. Ideas raised mid-build go back to Mapping as new requests, ranked against everything else.',
+    placement: 'bottom',
+  },
+  {
+    id: 'card-hotfix',
+    title: 'Hotfix path',
+    body: 'Production bugs skip the queue. Logged, fixed and promoted, usually within hours, and visible on the board so nothing happens in the dark.',
+    placement: 'left',
+  },
+  {
+    id: 'card-example',
+    title: 'Click any card',
+    body: 'Business outcome, current state, test feedback, sign-off and a change log written automatically on every move, with who and when.',
+    placement: 'left',
+  },
+  {
+    id: 'integration-cycle',
+    title: 'Integration cycles',
+    body: 'Cross-module links are filed as their own work type and batched. Every third or fourth cycle builds these and nothing else.',
+    placement: 'bottom',
+  },
+  {
+    id: 'nav-platform',
+    title: 'Included with the platform',
+    body: 'This tracker is a pre-built CoreSentia module. It drops into the new platform once the foundations are in, styled to match your business, at no cost. Reminders, notifications and a question box that reads the briefs come next.',
+    placement: 'right',
+    anchor: 'r',
+  },
+  {
+    id: 'preview',
+    title: 'Built for every screen',
+    body: 'The same build on a phone or a tablet, in a frame you can click around in.',
+    placement: 'right',
+    anchor: 'r',
+  },
 ]
-
-const IN_MODULE = ['Board, table and calendar views', 'A change log on every move', 'Test feedback and sign-off in one place', 'The hotfix path']
-const NEXT_IN_MODULE = ['Reminders and notifications', 'A question box that reads the briefs for you']
-
-const INTRO_KEY = 'cs-demo-intro'
 
 export function signOffLabel(b: Brief) {
   if (b.signOff === 'signed off') return 'Signed off'
@@ -40,27 +91,6 @@ export default function Tracker() {
   const [integrationCycle, setIntegrationCycle] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [newOpen, setNewOpen] = useState(false)
-  const [introOpen, setIntroOpen] = useState(true)
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(INTRO_KEY)
-      if (saved) setIntroOpen(saved !== 'closed')
-      else setIntroOpen(window.innerWidth >= 1024)
-    } catch {
-      // ignore
-    }
-  }, [])
-  const toggleIntro = () => {
-    setIntroOpen((o) => {
-      try {
-        localStorage.setItem(INTRO_KEY, o ? 'closed' : 'open')
-      } catch {
-        // ignore
-      }
-      return !o
-    })
-  }
 
   const modules = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.module))).sort(), [state.briefs])
   const owners = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.owner))).sort(), [state.briefs])
@@ -79,8 +109,11 @@ export default function Tracker() {
   return (
     <div>
       <PageHeader
+        icon={<Icon name="board" size={22} />}
+        kicker="Tracker"
         title="Internal software project management"
         subtitle="The one channel between the business and the development team, and the source of truth for the build. Every request, decision and change is recorded here, not in email or chat."
+        dataTour="title"
         tabs={
           <Tabs
             value={view}
@@ -93,66 +126,30 @@ export default function Tracker() {
           />
         }
         actions={
-          <Button variant="primary" onClick={() => setNewOpen(true)}>
-            New request
-          </Button>
+          <>
+            <Button onClick={startTour} className="gap-2">
+              <Icon name="spark" size={14} className="text-pm-primary" />
+              Tour
+            </Button>
+            <Button variant="primary" onClick={() => setNewOpen(true)} data-tour="new-request">
+              New request
+            </Button>
+          </>
+        }
+        meta={
+          <>
+            <Stat value={state.briefs.length} label="briefs" />
+            <Stat value={state.briefs.filter((b) => b.stage === 'Mapping').length} label="in mapping" />
+            <Stat value={state.briefs.filter((b) => b.stage === 'Build' || b.stage === 'Preview' || b.stage === 'Testing').length} label="in build" tone="amber" />
+            <Stat value={state.briefs.filter((b) => b.stage === 'Production').length} label="in production" tone="green" />
+            <Stat value={state.briefs.filter((b) => b.signOff === 'awaiting').length} label="awaiting sign-off" tone="primary" />
+            <Stat value={state.briefs.filter((b) => b.workType === 'hotfix').length} label="hotfix this month" tone="red" />
+          </>
         }
       />
 
       <div className="px-6 lg:px-8 py-5">
-        {introOpen ? (
-          <div className="grid lg:grid-cols-12 gap-4">
-            <Card className="lg:col-span-7 px-5 py-4">
-              <div className="flex items-baseline justify-between gap-4">
-                <Kicker>How it runs</Kicker>
-                <button type="button" onClick={toggleIntro} className="text-[12px] text-pm-muted hover:text-pm-text">
-                  Hide
-                </button>
-              </div>
-              <div className="mt-3 grid sm:grid-cols-2 gap-x-8 gap-y-3">
-                {HOW.map(([title, body], i) => (
-                  <div key={title} className="flex gap-3">
-                    <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-pm-primary-soft text-pm-primary text-[11px] font-semibold inline-flex items-center justify-center">{i + 1}</span>
-                    <div>
-                      <div className="text-[13px] font-semibold">{title}</div>
-                      <div className="text-[12.5px] text-pm-muted leading-snug">{body}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-            <Card className="lg:col-span-5 px-5 py-4 border-pm-primary-soft bg-[#f7f9fe]">
-              <Kicker>Included with the platform</Kicker>
-              <p className="mt-2 text-[13px] leading-relaxed">
-                This tracker is a pre-built CoreSentia module. It drops into the new platform once the foundations are in, styled to match your business, at no cost. It is also the first working example of what the platform will feel like.
-              </p>
-              <div className="mt-3 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[12.5px]">
-                <div>
-                  <div className="font-semibold">In the module now</div>
-                  <ul className="mt-1 space-y-0.5 text-pm-muted">
-                    {IN_MODULE.map((t) => (
-                      <li key={t}>{t}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <div className="font-semibold">Next</div>
-                  <ul className="mt-1 space-y-0.5 text-pm-muted">
-                    {NEXT_IN_MODULE.map((t) => (
-                      <li key={t}>{t}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </Card>
-          </div>
-        ) : (
-          <button type="button" onClick={toggleIntro} className="text-[12px] text-pm-muted hover:text-pm-text">
-            Show how it runs and what is included
-          </button>
-        )}
-
-        <div className="mt-5 flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search briefs" className={inputClass + ' max-w-[224px]'} aria-label="Search briefs" />
           <select value={module} onChange={(e) => setModule(e.target.value)} className={selectClass} aria-label="Filter by module">
             <option value="">All modules</option>
@@ -178,7 +175,7 @@ export default function Tracker() {
               </option>
             ))}
           </select>
-          <Button variant={integrationCycle ? 'primary' : 'secondary'} onClick={() => setIntegrationCycle((v) => !v)} aria-pressed={integrationCycle}>
+          <Button variant={integrationCycle ? 'primary' : 'secondary'} onClick={() => setIntegrationCycle((v) => !v)} aria-pressed={integrationCycle} data-tour="integration-cycle">
             Integration cycle
           </Button>
           {filtered && (
@@ -210,6 +207,7 @@ export default function Tracker() {
 
       <BriefDetail brief={selected} onClose={() => setSelectedId(null)} />
       <NewRequest open={newOpen} onClose={() => setNewOpen(false)} />
+      {view === 'board' && <Tour steps={TOUR} />}
     </div>
   )
 }
@@ -221,6 +219,7 @@ function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
     <button
       type="button"
       onClick={onOpen}
+      data-tour={brief.workType === 'hotfix' ? 'card-hotfix' : brief.id === 'b03' ? 'card-example' : undefined}
       className="w-full text-left bg-pm-surface border border-pm-border rounded-md p-3 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:border-pm-border-strong hover:shadow-[0_3px_8px_rgba(16,24,40,0.08)] transition"
     >
       <div className="flex items-center justify-between gap-2">
@@ -253,7 +252,7 @@ function BoardView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) =
           const cards = briefs.filter((b) => b.stage === stage).sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority])
           return (
             <div key={stage} className="rounded-md bg-[#eaedf1] p-2 min-h-[26rem]">
-              <div className="flex items-center justify-between px-1 pb-2">
+              <div className="flex items-center justify-between px-1 pb-2" data-tour={stage === 'Mapping' ? 'col-mapping' : stage === 'Locked' ? 'col-locked' : undefined}>
                 <span className="flex items-center gap-2 text-[12.5px] font-semibold">
                   <span className="h-2 w-2 rounded-full" style={{ background: TONES[STAGE_TONE[stage]].dot }} />
                   {stage}

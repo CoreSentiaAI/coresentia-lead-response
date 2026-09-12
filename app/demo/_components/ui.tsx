@@ -136,17 +136,25 @@ export function PageHeader({
   crumbs,
   tabs,
   actions,
+  icon,
+  kicker,
+  meta,
+  dataTour,
 }: {
   title: string
   subtitle?: string
   crumbs?: { label: string; href?: string }[]
   tabs?: ReactNode
   actions?: ReactNode
+  icon?: ReactNode
+  kicker?: string
+  meta?: ReactNode
+  dataTour?: string
 }) {
   return (
-    <div className="bg-pm-surface border-b border-pm-border px-6 lg:px-8 pt-5 pb-4">
+    <div className="bg-pm-surface border-b border-pm-border px-6 lg:px-8 pt-5 pb-5">
       {crumbs && crumbs.length > 0 && (
-        <div className="flex items-center gap-1.5 text-[12px] text-pm-muted mb-2">
+        <div className="flex items-center gap-1.5 text-[12px] text-pm-muted mb-3">
           {crumbs.map((c, i) => (
             <span key={c.label} className="flex items-center gap-1.5">
               {i > 0 && <span className="text-pm-faint">/</span>}
@@ -161,17 +169,33 @@ export function PageHeader({
           ))}
         </div>
       )}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="min-w-0 max-w-3xl">
-          <h1 className="text-[20px] font-semibold leading-tight">{title}</h1>
-          {subtitle && <p className="mt-0.5 text-[13px] text-pm-muted">{subtitle}</p>}
+      <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
+        <div className="flex items-start gap-4 min-w-0 max-w-3xl" data-tour={dataTour}>
+          {icon && <div className="h-11 w-11 shrink-0 rounded-lg bg-pm-primary-soft text-pm-primary flex items-center justify-center">{icon}</div>}
+          <div className="min-w-0">
+            {kicker && <div className="text-[11px] font-semibold uppercase tracking-[0.06em] text-pm-primary">{kicker}</div>}
+            <h1 className="mt-0.5 text-[24px] font-semibold leading-tight tracking-[-0.01em]">{title}</h1>
+            {subtitle && <p className="mt-1.5 text-[13.5px] leading-relaxed text-pm-muted">{subtitle}</p>}
+          </div>
         </div>
-        <div className="ml-auto flex flex-wrap items-center gap-3">
+        <div className="ml-auto flex flex-wrap items-center gap-3 lg:pt-1">
           {tabs}
           {actions}
         </div>
       </div>
+      {meta && <div className="mt-4 flex flex-wrap items-center gap-2">{meta}</div>}
     </div>
+  )
+}
+
+export function Stat({ value, label, tone }: { value: ReactNode; label: string; tone?: 'primary' | 'green' | 'amber' | 'red' }) {
+  const dot = tone === 'green' ? '#1e8e5a' : tone === 'amber' ? '#c77700' : tone === 'red' ? '#c93b3b' : tone === 'primary' ? '#2d5bd1' : undefined
+  return (
+    <span className="inline-flex items-center gap-2 h-8 px-3 rounded-full border border-pm-border bg-pm-surface text-[12.5px]">
+      {dot && <span className="h-2 w-2 rounded-full" style={{ background: dot }} />}
+      <span className="font-semibold">{value}</span>
+      <span className="text-pm-muted">{label}</span>
+    </span>
   )
 }
 

@@ -6,6 +6,7 @@ import { aud, fmtDate, fmtDateTime, lineTotals, newId } from '../_lib/format'
 import { APPROVAL_THRESHOLD, ROUTING_RULE, routeFor, routeLabel } from '../_lib/routing'
 import { DECISION_TONE, PO_STATUS_TONE } from '../_lib/tones'
 import { Avatar, Button, Card, Chip, Field, Kicker, Modal, ModalHeader, PageHeader, Person, SectionTitle, StatCard, inputClass, selectClass } from './ui'
+import { Icon } from './icons'
 
 const supplierName = (id: string) => SUPPLIERS.find((s) => s.id === id)?.name ?? id
 const project = (id: string) => PROJECTS.find((p) => p.id === id)
@@ -39,6 +40,8 @@ export default function PurchaseOrders() {
   return (
     <div>
       <PageHeader
+        icon={<Icon name="receipt" size={22} />}
+        kicker="Platform module"
         title="Purchase orders"
         subtitle="Raise against a project, route by value, approve, post to the ERP. Every step in the audit trail."
         actions={

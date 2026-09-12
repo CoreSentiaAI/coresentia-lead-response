@@ -2,6 +2,7 @@
 import { useDemo } from '../_lib/store'
 import type { Brief } from '../_lib/types'
 import { Card, Chip, PageHeader } from './ui'
+import { Icon } from './icons'
 import type { Tone } from '../_lib/tones'
 
 // The platform is the thing the client ends up owning: one module at a time.
@@ -33,7 +34,7 @@ export default function PlatformIndex() {
   const { state } = useDemo()
   return (
     <div>
-      <PageHeader title="Platform" subtitle="One platform, one module at a time. Each module is live and in use before the next one starts. The tracker decides the order." />
+      <PageHeader icon={<Icon name="grid" size={22} />} kicker="What the business gets" title="Platform" subtitle="One platform, one module at a time. Each module is live and in use before the next one starts. The tracker decides the order." />
       <div className="px-6 lg:px-8 py-5">
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
           {MODULE_CARDS.map((m) => {

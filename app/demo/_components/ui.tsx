@@ -77,3 +77,35 @@ export function SlideOver({ open, onClose, children, width = 'max-w-2xl' }: { op
 export function Empty({ children }: { children: React.ReactNode }) {
   return <div className="font-mono text-xs py-3">{children}</div>
 }
+
+// Centred popout that uses most of the screen. Header stays put; the body
+// is the caller's to lay out (see BriefDetail for a two-column version).
+export function Modal({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) {
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+    }
+  }, [open, onClose])
+
+  if (!open) return null
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-8">
+      <button type="button" aria-label="Close" onClick={onClose} className="absolute inset-0 bg-[rgba(22,22,21,0.45)]" />
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="relative w-full max-w-[1560px] h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-3rem)] lg:h-[calc(100vh-4rem)] bg-surface-base border border-line-strong rounded-sm flex flex-col overflow-hidden"
+      >
+        {children}
+      </div>
+    </div>
+  )
+}

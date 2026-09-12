@@ -446,3 +446,8 @@ html.light .glow-accent {
   border-radius: 50%;
   animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
+
+/* Demo tenant selects: a plain chevron so native arrows do not clash with the flat style */
+.select-arrow {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23161615' stroke-width='1.5'/%3E%3C/svg%3E");
+}

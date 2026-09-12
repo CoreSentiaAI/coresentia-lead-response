@@ -533,3 +533,13 @@ Proprietary - © 2025 CoreSentia
 ---
 
 **Built with:** Next.js • React • TypeScript • Tailwind CSS • Claude AI • Supabase
+
+## Demo tenant (/demo)
+
+A clickable demo of the CoreSentia operating model for screen-sharing: a tracker board and a purchase-orders module for a fictional HV engineering contractor. Two working screens, nothing else.
+
+- **Where**: `app/demo/`. Route group `(app)` holds the gated screens; `page.tsx` is the sign-in page.
+- **Data**: no database. The seed is `app/demo/_lib/seed.ts` (all fictional). State lives in the browser (`localStorage` key `cs-demo-state`) via `app/demo/_lib/store.tsx`.
+- **Reset**: "Reset demo data" in the demo header, or clear that localStorage key. Editing the seed file changes the starting point for every visitor.
+- **Access**: set `DEMO_PASSWORD` in the environment (Vercel or `.env.local`). Unset, the gate fails closed. The "Sign in with Microsoft" button is inert; `MicrosoftSignInButton.tsx` is where a real Entra ID sign-in gets wired.
+- **Theme**: always light. Not indexed, not in the sitemap, disallowed in robots.

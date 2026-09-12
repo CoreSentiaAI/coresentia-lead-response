@@ -124,10 +124,11 @@ export default function RootLayout({
             dashboard, chat, etc.) are always dark, so the light class is skipped there.
             /small-business-websites defaults to light for first-time visitors (no saved
             choice) - that audience reads paper as friendlier than concrete. An explicit
-            toggle either way still wins. */}
+            toggle either way still wins. /demo is always light: it is a screen-share
+            demo and the saved choice does not apply there. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('cs-theme');var p=location.pathname;var guarded=/^\\/(admin|dashboard|chat|login|onboarding|xero-auth)/.test(p);if(guarded)return;if(t==='light'||(!t&&/^\\/small-business-websites(\\/|$)/.test(p))){document.documentElement.classList.add('light')}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem('cs-theme');var p=location.pathname;var guarded=/^\\/(admin|dashboard|chat|login|onboarding|xero-auth)/.test(p);if(guarded)return;if(/^\\/demo(\\/|$)/.test(p)){document.documentElement.classList.add('light');return}if(t==='light'||(!t&&/^\\/small-business-websites(\\/|$)/.test(p))){document.documentElement.classList.add('light')}}catch(e){}})()`,
           }}
         />
       </head>

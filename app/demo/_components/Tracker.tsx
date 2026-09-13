@@ -97,7 +97,6 @@ export default function Tracker() {
   const ws = WORKSTREAMS.some((w) => w.id === params.get('ws')) ? (params.get('ws') as string) : 'all'
   const [lanes, setLanes] = useState(false)
   const [search, setSearch] = useState('')
-  const [module, setModule] = useState('')
   const [workType, setWorkType] = useState('')
   const [owner, setOwner] = useState('')
   const [priority, setPriority] = useState('')
@@ -105,7 +104,6 @@ export default function Tracker() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [newOpen, setNewOpen] = useState(false)
 
-  const modules = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.module))).sort(), [state.briefs])
   const owners = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.owner))).sort(), [state.briefs])
 
   const q = search.trim().toLowerCase()
@@ -114,12 +112,11 @@ export default function Tracker() {
   const visible = scoped.filter(
     (b) =>
       (!q || `${b.title} ${b.module} ${b.owner} ${b.department ?? ''}`.toLowerCase().includes(q)) &&
-      (!module || b.module === module) &&
       (!owner || b.owner === owner) &&
       (!priority || b.priority === priority) &&
       (integrationCycle ? b.workType === 'integration' : !workType || b.workType === workType),
   )
-  const filtered = Boolean(q || module || owner || priority || workType || integrationCycle)
+  const filtered = Boolean(q || owner || priority || workType || integrationCycle)
   const selected = state.briefs.find((b) => b.id === selectedId) ?? null
 
   return (
@@ -193,14 +190,6 @@ export default function Tracker() {
             </span>
           </h2>
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search briefs" className={inputClass + ' max-w-[224px]'} aria-label="Search briefs" />
-          <select value={module} onChange={(e) => setModule(e.target.value)} className={selectClass} aria-label="Filter by module">
-            <option value="">All modules</option>
-            {modules.map((m) => (
-              <option key={m} value={m}>
-                {m}
-              </option>
-            ))}
-          </select>
           <select value={integrationCycle ? 'integration' : workType} onChange={(e) => setWorkType(e.target.value)} disabled={integrationCycle} className={selectClass} aria-label="Filter by work type">
             <option value="">All work types</option>
             {WORK_TYPES.map((t) => (
@@ -231,7 +220,6 @@ export default function Tracker() {
               variant="ghost"
               onClick={() => {
                 setSearch('')
-                setModule('')
                 setOwner('')
                 setPriority('')
                 setWorkType('')

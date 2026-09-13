@@ -32,7 +32,7 @@ export const STAGE_TONE: Record<Stage, Tone> = {
 export const PRIORITY_TONE: Record<Priority, Tone> = { P1: 'red', P2: 'amber', P3: 'grey' }
 
 export const PRIORITY_LABEL: Record<Priority, string> = {
-  P1: 'Priority 1. Blocks the business or the next module. Built first.',
+  P1: 'Priority 1. Top priority, always built first.',
   P2: 'Priority 2. Next in line once P1 work is clear.',
   P3: 'Priority 3. Worth doing when there is room.',
 }

@@ -370,7 +370,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                       </span>
                     )}
                     <span className={i.ok ? '' : 'text-pm-muted'}>{i.label}</span>
-                    {!i.manual && <span className="ml-auto text-[11px] text-pm-faint">automatic</span>}
+                    {!i.manual && <span className="ml-auto text-[11px] text-pm-faint">{i.source}</span>}
                   </li>
                 ))}
               </ul>

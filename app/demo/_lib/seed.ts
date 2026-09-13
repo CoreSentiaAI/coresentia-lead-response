@@ -19,11 +19,11 @@ export const ACTORS = ['ramsay', 'helen', 'tom', 'sarah']
 export const DEFAULT_ACTOR = 'ramsay'
 
 export const SUPPLIERS: Supplier[] = [
-  { id: 's1', name: 'Southern Switchgear Pty Ltd', category: 'HV switchgear' },
+  { id: 's1', name: 'Siebert Switchgear Pty Ltd', category: 'HV switchgear' },
   { id: 's2', name: 'Redgum Crane & Rigging', category: 'Crane hire' },
   { id: 's3', name: 'Hollis Electrical Wholesale', category: 'Cable and consumables' },
   { id: 's4', name: 'Brightwater Civil Contractors', category: 'Civil works' },
-  { id: 's5', name: 'Meridian Transformer Services', category: 'Transformer testing' },
+  { id: 's5', name: 'Nordvik Transformer Services', category: 'Transformer testing' },
 ]
 
 export const PROJECTS: Project[] = [
@@ -619,7 +619,7 @@ export const PURCHASE_ORDERS: PurchaseOrder[] = [
     updatedAt: '2026-09-03T09:05:00+10:00',
     approvals: [approved('Project manager', PM, '2026-09-03T09:05:00+10:00')],
     erp: noSync(),
-    attachments: ['MTS-proposal-0921.pdf'],
+    attachments: ['NTS-proposal-0921.pdf'],
     audit: audit([
       ['2026-09-03T09:00:00+10:00', 'Tom Aldridge', 'Raised.'],
       ['2026-09-03T09:01:00+10:00', 'Tom Aldridge', 'Submitted for approval. Routed to project manager.'],

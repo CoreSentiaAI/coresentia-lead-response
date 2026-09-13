@@ -34,7 +34,7 @@ const TOUR: TourStep[] = [
   {
     id: 'new-request',
     title: 'New requests',
-    body: 'Every request starts here, so nothing gets lost.',
+    body: 'Every request starts here.',
     placement: 'bottom',
   },
   {

@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import MicrosoftSignInButton from './MicrosoftSignInButton'
+import GoogleSignInButton from './GoogleSignInButton'
 import { DEMO_PATH } from '../gate'
 import { Button, Field, inputClass } from './ui'
 
@@ -12,15 +13,28 @@ export default function EntrySignIn({ wrong, configured }: { wrong: boolean; con
 
   return (
     <div className="mt-6">
-      <MicrosoftSignInButton
-        className="w-full justify-center"
-        onClick={() => {
-          setNote(true)
-          setShowForm(true)
-        }}
-      />
+      <div className="space-y-2.5">
+        <MicrosoftSignInButton
+          className="w-full justify-center"
+          onClick={() => {
+            setNote(true)
+            setShowForm(true)
+          }}
+        />
+        <GoogleSignInButton
+          className="w-full justify-center"
+          onClick={() => {
+            setNote(true)
+            setShowForm(true)
+          }}
+        />
+      </div>
 
-      {note && <p className="mt-3 text-[12.5px] text-pm-muted">Entra ID sign-in is configured per client. Use the demo password below.</p>}
+      <p className="mt-4 text-[12px] leading-relaxed text-pm-muted">
+        Sign-in is configured per client: Microsoft Entra ID, Google Workspace, username and password, passkeys and biometrics, two-factor codes.
+      </p>
+
+      {note && <p className="mt-3 text-[12.5px] text-pm-primary">This demo uses a password. Enter it below.</p>}
 
       {!showForm && (
         <button type="button" onClick={() => setShowForm(true)} className="mt-4 text-[13px] font-medium text-pm-primary hover:underline underline-offset-4">

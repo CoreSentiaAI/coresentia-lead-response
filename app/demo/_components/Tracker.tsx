@@ -47,13 +47,13 @@ const TOUR: TourStep[] = [
   {
     id: 'col-locked',
     title: 'Approved for build',
-    body: 'Once approved, the brief is fixed for the build. New ideas go in as new requests.',
+    body: 'The brief is locked and the builder starts. New ideas go in as new requests.',
     placement: 'bottom',
   },
   {
     id: 'card-hotfix',
     title: 'Hotfixes',
-    body: 'Production bugs go straight to the builder and are fixed within hours.',
+    body: 'Bugs are always prioritised and fixed straight away.',
     placement: 'left',
   },
   {

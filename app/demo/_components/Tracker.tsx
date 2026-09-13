@@ -58,7 +58,7 @@ const TOUR: TourStep[] = [
   {
     id: 'card-example',
     title: 'Click any card',
-    body: 'Business outcome, current state, attachments, test feedback, sign-off and a change log written automatically on every move, with who and when.',
+    body: 'Business outcome, current state, attachments, test feedback, sign-off and an audit trail written automatically on every move, with who and when.',
     placement: 'left',
   },
   {

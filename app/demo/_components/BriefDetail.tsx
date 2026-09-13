@@ -27,8 +27,8 @@ type Draft = {
 
 const PEOPLE_NAMES = PEOPLE.filter((p) => p.id !== 'ramsay').map((p) => p.name)
 
-// Brief detail. Left: what it is, the actions, test feedback. Right: the change log.
-// Every field is editable: Edit details, change anything, Save. Changes write to the change log.
+// Brief detail. Left: what it is, the actions, test feedback. Right: the audit trail.
+// Every field is editable: Edit details, change anything, Save. Changes write to the audit trail.
 export default function BriefDetail({ brief, onClose }: { brief: Brief | null; onClose: () => void }) {
   const { run, actor } = useDemo()
   const [target, setTarget] = useState<Stage>('Mapping')
@@ -427,7 +427,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
         </div>
 
         <div className="lg:col-span-5 lg:overflow-y-auto px-6 lg:px-8 py-6 bg-pm-hover scrollbar-thin">
-          <SectionTitle right={`${log.length} entries`}>Change log</SectionTitle>
+          <SectionTitle right={`${log.length} entries`}>Audit trail</SectionTitle>
           <ol className="mt-3">
             {log.map((e, i) => (
               <li key={e.id} className="relative flex gap-3 pb-4">

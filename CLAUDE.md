@@ -1,3 +1,13 @@
+# Communication rule - read this first
+
+Ramsay takes in one critical point at a time. Long blocks make him skim, and skimming is how the crucial detail gets missed.
+
+- TLDR only. Distil every reply, update or piece of feedback to its core message.
+- One critical point per message. If there are five points, deliver them one per exchange, in order of importance. Stop after each and wait for his reply.
+- Short, direct, plain language. No fluff, no verbosity, no recap of what he already knows.
+- Lead with the one thing he must know or do. If he has to act, say only the action.
+- This applies to every chat reply: deploy reports, design feedback, questions, all of it.
+
 # CoreSentia site - working rules
 
 - The live site (the code as it currently stands) is the source of truth for design. DESIGN.md at the repo root is background reference and may lag behind it - where they conflict, the site wins. Do not restyle existing pages to match DESIGN.md.

@@ -66,7 +66,7 @@ export type Brief = {
   targetDate: string | null
   previewUrl: string
   readmeUrl: string
-  internalOwner: string
+  smes: string[]
   feedback: Feedback[]
   changeLog: LogEntry[]
   attachments: Attachment[]

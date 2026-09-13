@@ -79,7 +79,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-06-19',
     previewUrl: '',
     readmeUrl: '#readme-identity',
-    internalOwner: 'Ben Carmichael',
+    smes: ['Ben Carmichael'],
     feedback: fb([['2026-06-17T10:20:00+10:00', 'Ben Carmichael', 'Group to role mapping should be a table IT can edit, not code.', 'addressed']]),
     changeLog: log([
       ['2026-06-09T09:00:00+10:00', 'Ben Carmichael', 'Request raised. Entered Mapping.'],
@@ -112,7 +112,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-06-24',
     previewUrl: '/demo/tracker',
     readmeUrl: '#readme-tracker',
-    internalOwner: 'Helen Marsh',
+    smes: ['Helen Marsh'],
     feedback: fb([['2026-06-22T09:40:00+10:00', 'Helen Marsh', 'Cards need the days estimate on the front, not in the detail.', 'addressed']]),
     changeLog: log([
       ['2026-06-15T08:30:00+10:00', 'Helen Marsh', 'Request raised. Entered Mapping.'],
@@ -122,7 +122,7 @@ export const BRIEFS: Brief[] = [
       ['2026-06-19T16:45:00+10:00', 'Ramsay Hatfield', 'Preview URL added. Moved from Build to Preview.'],
       ['2026-06-22T09:35:00+10:00', 'Helen Marsh', 'Clicked through against the brief. Moved from Preview to Testing.'],
       ['2026-06-23T11:00:00+10:00', 'Ramsay Hatfield', 'Feedback addressed. Promoted to production. Moved from Testing to Production.'],
-      ['2026-06-24T09:15:00+10:00', 'Ramsay Hatfield', 'README written. Internal owner named: Helen Marsh.'],
+      ['2026-06-24T09:15:00+10:00', 'Ramsay Hatfield', 'README written. Business SMEs confirmed: Helen Marsh.'],
       ['2026-06-24T15:30:00+10:00', 'Helen Marsh', 'Signed off. Moved from Production to Done.'],
     ]),
     attachments: [],
@@ -146,7 +146,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-07-24',
     previewUrl: 'https://platform-git-project-record.vercel.app',
     readmeUrl: '#readme-project-record',
-    internalOwner: 'Tom Aldridge',
+    smes: ['Tom Aldridge', 'Kate Donnelly'],
     feedback: fb([
       ['2026-07-14T10:20:00+10:00', 'Kate Donnelly', 'Contract value should be ex GST with the inc GST figure shown beside it.', 'addressed'],
       ['2026-07-15T08:50:00+10:00', 'Tom Aldridge', 'Practical completion date is a target until certified. Show which.', 'addressed'],
@@ -160,7 +160,7 @@ export const BRIEFS: Brief[] = [
       ['2026-07-09T17:10:00+10:00', 'Ramsay Hatfield', 'Preview URL added. Moved from Build to Preview.'],
       ['2026-07-13T09:00:00+10:00', 'Tom Aldridge', 'Testing started. Moved from Preview to Testing.'],
       ['2026-07-17T15:40:00+10:00', 'Ramsay Hatfield', 'Iteration round one complete. Promoted to production. Moved from Testing to Production.'],
-      ['2026-07-21T10:00:00+10:00', 'Ramsay Hatfield', 'README written. Tests on the record to purchase orders path. Internal owner named: Tom Aldridge.'],
+      ['2026-07-21T10:00:00+10:00', 'Ramsay Hatfield', 'README written. Tests on the record to purchase orders path. Business SMEs confirmed: Tom Aldridge.'],
       ['2026-07-24T14:05:00+10:00', 'Tom Aldridge', 'Signed off with Kate Donnelly. Moved from Production to Done.'],
     ]),
     attachments: [],
@@ -184,7 +184,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-09-19',
     previewUrl: '',
     readmeUrl: '#readme-audit',
-    internalOwner: 'Ben Carmichael',
+    smes: ['Ben Carmichael', 'Helen Marsh'],
     feedback: fb([['2026-08-20T11:00:00+10:00', 'Helen Marsh', 'Export needs to be filterable by project and date range for the auditors.', 'addressed']]),
     changeLog: log([
       ['2026-07-28T09:00:00+10:00', 'Ben Carmichael', 'Request raised. Entered Mapping.'],
@@ -218,7 +218,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-02',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Ben Carmichael',
+    smes: ['Ben Carmichael'],
     feedback: [],
     changeLog: log([
       ['2026-09-01T09:00:00+10:00', 'Ben Carmichael', 'Request raised. Entered Mapping.'],
@@ -248,7 +248,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-09-26',
     previewUrl: 'https://platform-git-stages.vercel.app',
     readmeUrl: '#readme-stages',
-    internalOwner: 'Tom Aldridge',
+    smes: ['Tom Aldridge', 'Owen Reilly', 'Liam Pryor'],
     feedback: fb([
       ['2026-08-26T10:00:00+10:00', 'Owen Reilly', 'Grid connection studies can run in parallel with early design. The model needs an overlap, not a hard gate.', 'addressed'],
       ['2026-09-02T14:30:00+10:00', 'Liam Pryor', 'Commissioning has sub-stages: pre-commissioning, energisation, hold point testing. One stage is too coarse.', 'open'],
@@ -285,7 +285,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-09-30',
     previewUrl: 'https://platform-git-stage-gates.vercel.app',
     readmeUrl: '',
-    internalOwner: 'Tom Aldridge',
+    smes: ['Tom Aldridge', 'Helen Marsh'],
     feedback: fb([['2026-09-11T09:30:00+10:00', 'Tom Aldridge', 'Allow an override with a reason, logged, for when the client forces a start.', 'open']]),
     changeLog: log([
       ['2026-08-11T09:00:00+10:00', 'Tom Aldridge', 'Request raised. Entered Mapping.'],
@@ -317,7 +317,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-09',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Owen Reilly',
+    smes: ['Owen Reilly'],
     feedback: [],
     changeLog: log([
       ['2026-08-18T09:00:00+10:00', 'Owen Reilly', 'Request raised. Entered Mapping.'],
@@ -347,7 +347,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-23',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Liam Pryor',
+    smes: ['Liam Pryor'],
     feedback: [],
     changeLog: log([
       ['2026-08-25T09:00:00+10:00', 'Liam Pryor', 'Request raised. Entered Mapping.'],
@@ -376,7 +376,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-30',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Marcus Reid',
+    smes: ['Marcus Reid', 'Tom Aldridge'],
     feedback: [],
     changeLog: log([
       ['2026-09-02T09:00:00+10:00', 'Marcus Reid', 'Request raised. Entered Mapping.'],
@@ -404,7 +404,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-13',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Owen Reilly',
+    smes: ['Owen Reilly'],
     feedback: [],
     changeLog: log([
       ['2026-09-09T09:00:00+10:00', 'Owen Reilly', 'Request raised. Entered Mapping.'],
@@ -433,7 +433,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-09-18',
     previewUrl: '/demo/purchase-orders',
     readmeUrl: '#readme-purchase-orders',
-    internalOwner: 'Sarah Whitfield',
+    smes: ['Sarah Whitfield', 'Helen Marsh'],
     feedback: fb([
       ['2026-08-17T11:15:00+10:00', 'Sarah Whitfield', 'Approver names should show the role as well as the name.', 'addressed'],
       ['2026-08-17T14:00:00+10:00', 'Tom Aldridge', 'Put the routing rule on the raise screen. Nobody reads help pages.', 'addressed'],
@@ -454,14 +454,14 @@ export const BRIEFS: Brief[] = [
       ['2026-08-21T16:00:00+10:00', 'Ramsay Hatfield', 'Iteration round one complete.'],
       ['2026-08-26T16:30:00+10:00', 'Ramsay Hatfield', 'Iteration round two complete.'],
       ['2026-08-28T10:30:00+10:00', 'Ramsay Hatfield', 'Promoted to production. Moved from Testing to Production.'],
-      ['2026-09-01T09:00:00+10:00', 'Ramsay Hatfield', 'README written. Internal owner named: Sarah Whitfield.'],
+      ['2026-09-01T09:00:00+10:00', 'Ramsay Hatfield', 'README written. Business SMEs confirmed: Sarah Whitfield.'],
       ['2026-09-09T13:15:00+10:00', 'Ramsay Hatfield', 'Hotfix promoted: approval threshold and GST-inclusive unit prices. See hotfix brief.'],
       ['2026-09-11T11:00:00+10:00', 'Ramsay Hatfield', 'Awaiting sign-off from Sarah Whitfield and Helen Marsh. Tests on the project record path pass.'],
     ]),
     attachments: [
       { id: 'att-b03-1', name: 'Purchase orders - process map v2.pdf', kind: 'pdf', size: 115804, uploadedBy: 'Sarah Whitfield', at: '2026-07-24T14:55:00+10:00', url: '/demo/purchase-orders-process-map-v2.pdf' },
       { id: 'att-b03-2', name: 'PO approval flow - current state.png', kind: 'image', size: 100629, uploadedBy: 'Sarah Whitfield', at: '2026-07-20T11:10:00+10:00', url: '/demo/po-approval-flow-current-state.png' },
-      { id: 'att-b03-3', name: 'Brief - Purchase orders - raise and approve.docx', kind: 'docx', size: 1799, uploadedBy: 'Sarah Whitfield', at: '2026-07-24T14:58:00+10:00', url: '/demo/brief-purchase-orders-raise-and-approve.docx' },
+      { id: 'att-b03-3', name: 'Brief - Purchase orders - raise and approve.docx', kind: 'docx', size: 1798, uploadedBy: 'Sarah Whitfield', at: '2026-07-24T14:58:00+10:00', url: '/demo/brief-purchase-orders-raise-and-approve.docx' },
     ],
   },
   {
@@ -483,7 +483,7 @@ export const BRIEFS: Brief[] = [
     targetDate: null,
     previewUrl: '',
     readmeUrl: '#readme-purchase-orders',
-    internalOwner: 'Sarah Whitfield',
+    smes: ['Sarah Whitfield'],
     feedback: [],
     changeLog: log([
       ['2026-09-09T10:40:00+10:00', 'Sarah Whitfield', 'Hotfix logged. Bypasses the cycle.'],
@@ -512,7 +512,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-02',
     previewUrl: 'https://platform-git-progress-claims.vercel.app',
     readmeUrl: '',
-    internalOwner: 'Kate Donnelly',
+    smes: ['Kate Donnelly', 'Helen Marsh'],
     feedback: fb([['2026-09-11T10:30:00+10:00', 'Kate Donnelly', 'Retention should show as a running balance per project.', 'open']]),
     changeLog: log([
       ['2026-07-27T09:00:00+10:00', 'Kate Donnelly', 'Request raised. Entered Mapping.'],
@@ -544,7 +544,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-09-30',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Kate Donnelly',
+    smes: ['Kate Donnelly'],
     feedback: [],
     changeLog: log([
       ['2026-08-10T09:00:00+10:00', 'Kate Donnelly', 'Request raised. Entered Mapping.'],
@@ -574,7 +574,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-23',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Ben Carmichael',
+    smes: ['Ben Carmichael', 'Helen Marsh'],
     feedback: [],
     changeLog: log([
       ['2026-08-30T10:00:00+10:00', 'Sarah Whitfield', 'Request raised. Entered Mapping.'],
@@ -601,7 +601,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-23',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Kate Donnelly',
+    smes: ['Kate Donnelly'],
     feedback: [],
     changeLog: log([
       ['2026-09-11T10:20:00+10:00', 'Kate Donnelly', 'Request raised during the claims preview demo. Entered Mapping.'],
@@ -628,7 +628,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-20',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Sarah Whitfield',
+    smes: ['Sarah Whitfield', 'Helen Marsh'],
     feedback: [],
     changeLog: log([
       ['2026-09-02T09:00:00+10:00', 'Sarah Whitfield', 'Request raised. Entered Mapping.'],
@@ -655,7 +655,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-06',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Kate Donnelly',
+    smes: ['Kate Donnelly', 'Helen Marsh'],
     feedback: [],
     changeLog: log([
       ['2026-09-05T09:00:00+10:00', 'Kate Donnelly', 'Request raised. Entered Mapping.'],
@@ -684,7 +684,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-09-25',
     previewUrl: 'https://platform-git-site-diary.vercel.app',
     readmeUrl: '',
-    internalOwner: 'Marcus Reid',
+    smes: ['Marcus Reid'],
     feedback: fb([
       ['2026-09-08T15:10:00+10:00', 'Marcus Reid', 'Crew count needs subcontractor crews split out from our own.', 'addressed'],
       ['2026-09-10T07:50:00+10:00', 'Marcus Reid', 'Weather should default from the nearest BoM station, not a free text field.', 'open'],
@@ -719,7 +719,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-10-16',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Marcus Reid',
+    smes: ['Marcus Reid', 'Helen Marsh'],
     feedback: [],
     changeLog: log([
       ['2026-08-17T09:00:00+10:00', 'Marcus Reid', 'Request raised. Entered Mapping.'],
@@ -748,7 +748,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-06',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Marcus Reid',
+    smes: ['Marcus Reid'],
     feedback: [],
     changeLog: log([
       ['2026-09-04T09:00:00+10:00', 'Marcus Reid', 'Request raised. Entered Mapping.'],
@@ -776,7 +776,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-27',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Marcus Reid',
+    smes: ['Marcus Reid', 'Helen Marsh'],
     feedback: [],
     changeLog: log([
       ['2026-09-10T09:00:00+10:00', 'Marcus Reid', 'Request raised. Entered Mapping.'],
@@ -803,7 +803,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-13',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Marcus Reid',
+    smes: ['Marcus Reid'],
     feedback: [],
     changeLog: log([
       ['2026-09-08T15:30:00+10:00', 'Marcus Reid', 'Request raised during site diary testing. Entered Mapping.'],
@@ -832,7 +832,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-06',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Helen Marsh',
+    smes: ['Helen Marsh'],
     feedback: [],
     changeLog: log([
       ['2026-09-03T09:00:00+10:00', 'Helen Marsh', 'Request raised. Entered Mapping.'],
@@ -860,7 +860,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-11-20',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Helen Marsh',
+    smes: ['Helen Marsh', 'Tom Aldridge'],
     feedback: [],
     changeLog: log([
       ['2026-09-08T09:00:00+10:00', 'Helen Marsh', 'Request raised. Entered Mapping.'],
@@ -887,7 +887,7 @@ export const BRIEFS: Brief[] = [
     targetDate: '2026-12-11',
     previewUrl: '',
     readmeUrl: '',
-    internalOwner: 'Helen Marsh',
+    smes: ['Helen Marsh'],
     feedback: [],
     changeLog: log([
       ['2026-09-11T09:00:00+10:00', 'Helen Marsh', 'Request raised. Entered Mapping.'],

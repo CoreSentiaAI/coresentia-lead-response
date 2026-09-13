@@ -11,7 +11,7 @@ import { lineTotals, newId } from './format'
 import { routeFor } from './routing'
 
 const STORAGE_KEY = 'cs-demo-state'
-const VERSION = 4
+const VERSION = 5
 
 type State = {
   version: number
@@ -35,7 +35,7 @@ type Action =
   | { type: 'reset' }
   | { type: 'hydrate'; state: State }
   | { type: 'setActingAs'; id: string }
-  | ({ type: 'addBrief'; title: string; module: string; workstream: string; department?: string; owner: string; priority: Priority; workType: WorkType; days: number; targetDate: string | null; outcome: string } & Stamp)
+  | ({ type: 'addBrief'; title: string; module: string; workstream: string; department?: string; owner: string; smes: string[]; priority: Priority; workType: WorkType; days: number; targetDate: string | null; outcome: string } & Stamp)
   | ({ type: 'moveBrief'; id: string; stage: Stage } & Stamp)
   | ({ type: 'addFeedback'; id: string; text: string } & Stamp)
   | ({ type: 'toggleFeedback'; id: string; feedbackId: string } & Stamp)
@@ -77,6 +77,7 @@ function reducer(state: State, action: Action): State {
         workstream: action.workstream,
         department: action.department,
         owner: action.owner,
+        smes: action.smes,
         priority: action.priority,
         workType: action.workType,
         days: action.days,
@@ -89,7 +90,6 @@ function reducer(state: State, action: Action): State {
         targetDate: action.targetDate,
         previewUrl: '',
         readmeUrl: '',
-        internalOwner: '',
         feedback: [],
         changeLog: [logEntry(action, 'Request raised. Entered Mapping.')],
         attachments: [],

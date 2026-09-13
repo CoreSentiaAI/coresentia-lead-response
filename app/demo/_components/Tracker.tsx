@@ -196,7 +196,7 @@ export default function Tracker() {
             ))}
           </select>
           <select value={owner} onChange={(e) => setOwner(e.target.value)} className={selectClass} aria-label="Filter by owner">
-            <option value="">All owners</option>
+            <option value="">All brief owners</option>
             {owners.map((o) => (
               <option key={o} value={o}>
                 {o}
@@ -355,7 +355,7 @@ const COLUMNS: { key: SortKey; label: string; align?: 'right' }[] = [
   { key: 'stage', label: 'Stage' },
   { key: 'workType', label: 'Type' },
   { key: 'priority', label: 'Priority' },
-  { key: 'owner', label: 'Owner' },
+  { key: 'owner', label: 'Brief owner' },
   { key: 'days', label: 'Days', align: 'right' },
   { key: 'lockDate', label: 'Locked' },
   { key: 'targetDate', label: 'Target' },

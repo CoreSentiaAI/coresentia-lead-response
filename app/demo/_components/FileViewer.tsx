@@ -57,7 +57,7 @@ function DocPage({ seeded }: { seeded: boolean }) {
             true,
           ],
           ['Out of scope for this brief', ['Receipting and three-way match (separate request).', 'Standing supply agreements.'], true],
-          ['Sign-off', ['Sarah Whitfield (Procurement Manager) and Helen Marsh (Head of Finance) sign off on production. Internal owner: Sarah Whitfield.']],
+          ['Sign-off', ['Sarah Whitfield (Procurement Manager) and Helen Marsh (Head of Finance) sign off on production. Business SMEs: Sarah Whitfield and Helen Marsh.']],
           ['Attachments', ['Process map v2 (PDF). PO approval flow, current state (PNG).']],
         ].map(([h, items, bullets]) => (
           <section key={h as string} style={{ marginTop: 18 }}>

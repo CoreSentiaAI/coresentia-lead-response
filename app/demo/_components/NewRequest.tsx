@@ -12,6 +12,7 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
   const [workstream, setWorkstream] = useState(WORKSTREAMS[0].id)
   const [department, setDepartment] = useState('')
   const [owner, setOwner] = useState(PEOPLE[1].name)
+  const [smes, setSmes] = useState<string[]>([])
   const [priority, setPriority] = useState<Priority>('P2')
   const [workType, setWorkType] = useState<WorkType>('module')
   const [days, setDays] = useState(3)
@@ -21,10 +22,11 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
   const valid = title.trim().length > 2 && outcome.trim().length > 0
 
   const submit = () => {
-    run({ type: 'addBrief', title: title.trim(), module, workstream, department: department || undefined, owner, priority, workType, days, targetDate: targetDate || null, outcome: outcome.trim() })
+    run({ type: 'addBrief', title: title.trim(), module, workstream, department: department || undefined, owner, smes, priority, workType, days, targetDate: targetDate || null, outcome: outcome.trim() })
     setTitle('')
     setOutcome('')
     setTargetDate('')
+    setSmes([])
     onClose()
   }
 
@@ -64,7 +66,7 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
               ))}
             </select>
           </Field>
-          <Field label="Owner (SME)">
+          <Field label="Brief owner">
             <select value={owner} onChange={(e) => setOwner(e.target.value)} className={selectClass + ' w-full'}>
               {PEOPLE.filter((p) => p.id !== 'ramsay').map((p) => (
                 <option key={p.id} value={p.name}>
@@ -72,6 +74,24 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
                 </option>
               ))}
             </select>
+          </Field>
+          <Field label="Business SMEs" hint="Who defines and tests it. Pick as many as apply." className="sm:col-span-2">
+            <div className="flex flex-wrap gap-1.5">
+              {PEOPLE.filter((p) => p.id !== 'ramsay').map((p) => {
+                const on = smes.includes(p.name)
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setSmes((list) => (on ? list.filter((n) => n !== p.name) : [...list, p.name]))}
+                    aria-pressed={on}
+                    className={`h-8 px-3 rounded-full border text-[12.5px] transition-colors ${on ? 'border-pm-primary bg-pm-primary-soft text-pm-primary font-medium' : 'border-pm-border text-pm-text hover:bg-pm-hover'}`}
+                  >
+                    {p.name}
+                  </button>
+                )
+              })}
+            </div>
           </Field>
           <Field label="Priority">
             <select value={priority} onChange={(e) => setPriority(e.target.value as Priority)} className={selectClass + ' w-full'}>

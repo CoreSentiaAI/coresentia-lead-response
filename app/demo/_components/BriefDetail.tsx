@@ -107,11 +107,19 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
             <Field label="Estimate">
               <div>{brief.days} {brief.days === 1 ? 'day' : 'days'}</div>
             </Field>
-            <Field label="Owner (SME)">
+            <Field label="Brief owner">
               <Person name={brief.owner} />
             </Field>
-            <Field label="Internal owner">
-              {brief.internalOwner ? <Person name={brief.internalOwner} /> : <span className="text-pm-muted">Not yet named</span>}
+            <Field label="Business SMEs" className="sm:col-span-2 md:col-span-2">
+              {brief.smes.length > 0 ? (
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                  {brief.smes.map((n) => (
+                    <Person key={n} name={n} />
+                  ))}
+                </div>
+              ) : (
+                <span className="text-pm-muted">None yet</span>
+              )}
             </Field>
             <Field label="Sign-off">
               <div>

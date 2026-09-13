@@ -19,7 +19,7 @@ export const PEOPLE: Person[] = [
 // Per-client configuration. This set is for a high-voltage grid-connection
 // EPC contractor. The next client gets a different five lines.
 export const WORKSTREAMS: Workstream[] = [
-  { id: 'foundations', name: 'Foundations', goal: 'Identity, the project record and the plumbing everything else hangs off.', owner: 'Ben Carmichael', tone: 'blue' },
+  { id: 'foundations', name: 'Foundations', goal: 'Auth, tracker, core modules - the project foundations.', owner: 'Ben Carmichael', tone: 'blue' },
   { id: 'pipeline', name: 'Project pipeline', goal: 'One project record from development to handover, with a gate at every stage.', owner: 'Tom Aldridge', tone: 'purple' },
   { id: 'finance', name: 'Finance & procurement', goal: 'Committed and claimed cost visible the day it happens, posted to the ERP without re-keying.', owner: 'Helen Marsh', tone: 'green' },
   { id: 'site', name: 'Site & HSEQ', goal: 'Site records, inductions and commissioning checks from a phone, audit-ready.', owner: 'Marcus Reid', tone: 'orange' },

@@ -37,6 +37,7 @@ type Action =
   | { type: 'setActingAs'; id: string }
   | ({ type: 'addBrief'; title: string; module: string; workstream: string; department?: string; owner: string; smes: string[]; priority: Priority; workType: WorkType; days: number; targetDate: string | null; outcome: string } & Stamp)
   | ({ type: 'moveBrief'; id: string; stage: Stage } & Stamp)
+  | ({ type: 'updateBrief'; id: string; patch: Partial<Brief>; changed: string[] } & Stamp)
   | ({ type: 'addFeedback'; id: string; text: string } & Stamp)
   | ({ type: 'toggleFeedback'; id: string; feedbackId: string } & Stamp)
   | ({ type: 'setPreviewUrl'; id: string; url: string } & Stamp)
@@ -96,6 +97,13 @@ function reducer(state: State, action: Action): State {
       }
       return { ...state, briefs: [brief, ...state.briefs] }
     }
+
+    case 'updateBrief':
+      return updateBrief(state, action.id, (b) => ({
+        ...b,
+        ...action.patch,
+        changeLog: action.changed.length ? [...b.changeLog, logEntry(action, `Details updated: ${action.changed.join(', ')}.`)] : b.changeLog,
+      }))
 
     case 'moveBrief':
       return updateBrief(state, action.id, (b) => {

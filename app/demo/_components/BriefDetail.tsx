@@ -1,20 +1,85 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { WORKSTREAMS, useDemo } from '../_lib/store'
-import { STAGES, type Attachment, type Brief, type Stage } from '../_lib/types'
+import { DEPARTMENTS, MODULES, PEOPLE, WORKSTREAMS, useDemo } from '../_lib/store'
+import { STAGES, type Attachment, type Brief, type Priority, type Stage, type WorkType } from '../_lib/types'
 import { ACCEPT, fmtBytes, kindOf, newFileId, rememberFile } from '../_lib/files'
 import FileViewer, { KindTile } from './FileViewer'
 import { fmtDate, fmtDateTime } from '../_lib/format'
 import { DECISION_TONE, PRIORITY_LABEL, PRIORITY_TONE, STAGE_LABEL, STAGE_TONE } from '../_lib/tones'
-import { Avatar, Button, Card, Chip, Field, Modal, ModalHeader, Person, SectionTitle, inputClass, selectClass } from './ui'
+import { Avatar, Button, Card, Chip, Field, Modal, ModalHeader, Person, SectionTitle, inputClass, selectClass, textareaClass } from './ui'
+
+type Draft = {
+  title: string
+  outcome: string
+  currentState: string
+  workstream: string
+  department: string
+  module: string
+  workType: WorkType
+  days: number
+  priority: Priority
+  owner: string
+  smes: string[]
+  lockDate: string
+  targetDate: string
+  readmeUrl: string
+}
+
+const PEOPLE_NAMES = PEOPLE.filter((p) => p.id !== 'ramsay').map((p) => p.name)
 
 // Brief detail. Left: what it is, the actions, test feedback. Right: the change log.
+// Every field is editable: Edit details, change anything, Save. Changes write to the change log.
 export default function BriefDetail({ brief, onClose }: { brief: Brief | null; onClose: () => void }) {
   const { run, actor } = useDemo()
   const [target, setTarget] = useState<Stage>('Mapping')
   const [url, setUrl] = useState('')
   const [feedback, setFeedback] = useState('')
   const [viewing, setViewing] = useState<Attachment | null>(null)
+  const [draft, setDraft] = useState<Draft | null>(null)
+  const editing = draft !== null
+  const startEdit = () => {
+    if (!brief) return
+    setDraft({
+      title: brief.title,
+      outcome: brief.outcome,
+      currentState: brief.currentState,
+      workstream: brief.workstream,
+      department: brief.department ?? '',
+      module: brief.module,
+      workType: brief.workType,
+      days: brief.days,
+      priority: brief.priority,
+      owner: brief.owner,
+      smes: brief.smes,
+      lockDate: brief.lockDate ?? '',
+      targetDate: brief.targetDate ?? '',
+      readmeUrl: brief.readmeUrl,
+    })
+  }
+  const saveEdit = () => {
+    if (!brief || !draft) return
+    const patch: Partial<Brief> = {
+      title: draft.title.trim() || brief.title,
+      outcome: draft.outcome.trim(),
+      currentState: draft.currentState.trim(),
+      workstream: draft.workstream,
+      department: draft.department || undefined,
+      module: draft.module,
+      workType: draft.workType,
+      days: draft.days,
+      priority: draft.priority,
+      owner: draft.owner,
+      smes: draft.smes,
+      lockDate: draft.lockDate || null,
+      targetDate: draft.targetDate || null,
+      readmeUrl: draft.readmeUrl.trim(),
+    }
+    const labels: Record<string, string> = { title: 'title', outcome: 'business outcome', currentState: 'current state', workstream: 'workstream', department: 'department', module: 'module', workType: 'work type', days: 'estimate', priority: 'priority', owner: 'brief owner', smes: 'business SMEs', lockDate: 'lock date', targetDate: 'target date', readmeUrl: 'README' }
+    const changed = (Object.keys(patch) as (keyof Brief)[]).filter((k) => JSON.stringify(patch[k] ?? null) !== JSON.stringify(brief[k] ?? null)).map((k) => labels[k])
+    run({ type: 'updateBrief', id: brief.id, patch, changed })
+    setDraft(null)
+  }
+  const set = <K extends keyof Draft>(k: K, v: Draft[K]) => setDraft((d) => (d ? { ...d, [k]: v } : d))
   const [dragging, setDragging] = useState(false)
   const fileInput = useRef<HTMLInputElement>(null)
 
@@ -33,6 +98,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
     setTarget(next)
     setUrl(brief.previewUrl)
     setFeedback('')
+    setDraft(null)
   }, [brief?.id, brief?.stage, brief?.previewUrl]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!brief) return <Modal open={false} onClose={onClose}>{null}</Modal>
@@ -76,9 +142,122 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
               Move
             </Button>
             {canSignOff && <Button onClick={() => run({ type: 'signOffBrief', id: brief.id })}>Sign off as {actor.name}</Button>}
-            <span className="w-full text-[12px] text-pm-muted">Every move writes to the change log as {actor.name}.</span>
+            <span className="ml-auto flex items-center gap-2">
+              {editing ? (
+                <>
+                  <Button variant="primary" onClick={saveEdit}>
+                    Save
+                  </Button>
+                  <Button variant="ghost" onClick={() => setDraft(null)}>
+                    Cancel
+                  </Button>
+                </>
+              ) : (
+                <Button onClick={startEdit}>Edit details</Button>
+              )}
+            </span>
+            <span className="w-full text-[12px] text-pm-muted">Every move and every edit writes to the change log as {actor.name}.</span>
           </Card>
 
+          {editing && draft ? (
+            <div className="mt-6 space-y-5">
+              <Field label="Title">
+                <input value={draft.title} onChange={(e) => set('title', e.target.value)} className={inputClass} />
+              </Field>
+              <div className="grid md:grid-cols-2 gap-5">
+                <Field label="Business outcome">
+                  <textarea value={draft.outcome} onChange={(e) => set('outcome', e.target.value)} className={textareaClass} />
+                </Field>
+                <Field label="Current state">
+                  <textarea value={draft.currentState} onChange={(e) => set('currentState', e.target.value)} className={textareaClass} />
+                </Field>
+              </div>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
+                <Field label="Workstream">
+                  <select value={draft.workstream} onChange={(e) => set('workstream', e.target.value)} className={selectClass + ' w-full'}>
+                    {WORKSTREAMS.map((w) => (
+                      <option key={w.id} value={w.id}>
+                        {w.name}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+                <Field label="Department">
+                  <select value={draft.department} onChange={(e) => set('department', e.target.value)} className={selectClass + ' w-full'}>
+                    <option value="">None</option>
+                    {DEPARTMENTS.map((d) => (
+                      <option key={d} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+                <Field label="Module">
+                  <select value={draft.module} onChange={(e) => set('module', e.target.value)} className={selectClass + ' w-full'}>
+                    {(MODULES.includes(draft.module) ? MODULES : [draft.module, ...MODULES]).map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+                <Field label="Work type">
+                  <select value={draft.workType} onChange={(e) => set('workType', e.target.value as WorkType)} className={selectClass + ' w-full'}>
+                    <option value="module">Module</option>
+                    <option value="integration">Integration</option>
+                    <option value="hotfix">Hotfix</option>
+                  </select>
+                </Field>
+                <Field label="Estimate (days)">
+                  <input type="number" min={0.5} step={0.5} value={draft.days} onChange={(e) => set('days', Number(e.target.value))} className={inputClass} />
+                </Field>
+                <Field label="Priority">
+                  <select value={draft.priority} onChange={(e) => set('priority', e.target.value as Priority)} className={selectClass + ' w-full'}>
+                    <option value="P1">P1</option>
+                    <option value="P2">P2</option>
+                    <option value="P3">P3</option>
+                  </select>
+                </Field>
+                <Field label="Brief owner">
+                  <select value={draft.owner} onChange={(e) => set('owner', e.target.value)} className={selectClass + ' w-full'}>
+                    {(PEOPLE_NAMES.includes(draft.owner) ? PEOPLE_NAMES : [draft.owner, ...PEOPLE_NAMES]).map((n) => (
+                      <option key={n} value={n}>
+                        {n}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+                <Field label="Lock date">
+                  <input type="date" value={draft.lockDate} onChange={(e) => set('lockDate', e.target.value)} className={inputClass} />
+                </Field>
+                <Field label="Target date">
+                  <input type="date" value={draft.targetDate} onChange={(e) => set('targetDate', e.target.value)} className={inputClass} />
+                </Field>
+                <Field label="Business SMEs" className="sm:col-span-2 md:col-span-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    {PEOPLE_NAMES.map((n) => {
+                      const on = draft.smes.includes(n)
+                      return (
+                        <button
+                          key={n}
+                          type="button"
+                          onClick={() => set('smes', on ? draft.smes.filter((x) => x !== n) : [...draft.smes, n])}
+                          aria-pressed={on}
+                          className={`h-8 px-3 rounded-full border text-[12.5px] transition-colors ${on ? 'border-pm-primary bg-pm-primary-soft text-pm-primary font-medium' : 'border-pm-border text-pm-text hover:bg-pm-hover'}`}
+                        >
+                          {n}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </Field>
+                <Field label="README link" className="sm:col-span-2 md:col-span-3">
+                  <input value={draft.readmeUrl} onChange={(e) => set('readmeUrl', e.target.value)} placeholder="https://" className={inputClass + ' max-w-xl'} />
+                </Field>
+              </div>
+            </div>
+          ) : (
+            <>
           <div className="mt-6 grid md:grid-cols-2 gap-6">
             <section>
               <SectionTitle>Business outcome</SectionTitle>
@@ -156,6 +335,9 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
               )}
             </Field>
           </section>
+
+            </>
+          )}
 
           <section className="mt-8">
             <SectionTitle right={`${brief.attachments.length} ${brief.attachments.length === 1 ? 'file' : 'files'}`}>Attachments</SectionTitle>

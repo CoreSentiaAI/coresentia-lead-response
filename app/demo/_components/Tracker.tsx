@@ -9,6 +9,7 @@ import { Avatar, Button, Card, Chip, PageHeader, Person, Stat, Tabs, inputClass,
 import { Icon } from './icons'
 import Tour, { startTour, type TourStep } from './Tour'
 import BriefDetail from './BriefDetail'
+import { dodCount } from '../_lib/dod'
 import NewRequest from './NewRequest'
 
 type View = 'board' | 'table' | 'calendar'
@@ -57,8 +58,8 @@ const TOUR: TourStep[] = [
   },
   {
     id: 'card-example',
-    title: 'Click any card',
-    body: 'Business outcome, current state, attachments, test feedback, sign-off and an audit trail written automatically on every move, with who and when.',
+    title: 'Click any card, or drag it',
+    body: 'Drag a card to the next column to move it. Click it for the business outcome, current state, attachments, test feedback, sign-off, the definition of done and an audit trail written on every move.',
     placement: 'left',
   },
   {
@@ -274,12 +275,20 @@ export default function Tracker() {
 // ---------- Board ----------
 
 function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
+  const [dragging, setDragging] = useState(false)
   return (
     <button
       type="button"
       onClick={onOpen}
+      draggable
+      onDragStart={(e) => {
+        e.dataTransfer.setData('text/brief', brief.id)
+        e.dataTransfer.effectAllowed = 'move'
+        setDragging(true)
+      }}
+      onDragEnd={() => setDragging(false)}
       data-tour={brief.workType === 'hotfix' ? 'card-hotfix' : brief.id === 'b03' ? 'card-example' : undefined}
-      className="w-full text-left bg-pm-surface border border-pm-border rounded-md p-3 pl-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:border-pm-border-strong hover:shadow-[0_3px_8px_rgba(16,24,40,0.08)] transition"
+      className={`w-full text-left bg-pm-surface border border-pm-border rounded-md p-3 pl-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:border-pm-border-strong hover:shadow-[0_3px_8px_rgba(16,24,40,0.08)] transition cursor-grab active:cursor-grabbing ${dragging ? 'opacity-40' : ''}`}
       style={{ boxShadow: `inset 3px 0 0 ${TONES[WORKSTREAMS.find((w) => w.id === brief.workstream)?.tone ?? 'grey'].dot}, 0 1px 2px rgba(16,24,40,0.05)` }}
     >
       <div className="flex items-center justify-between gap-2">
@@ -299,23 +308,51 @@ function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
         </div>
         <Avatar name={brief.owner} size={22} />
       </div>
-      {brief.signOff !== 'not started' && (
-        <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px]" style={{ color: brief.signOff === 'signed off' ? TONES.green.fg : TONES.amber.fg }}>
-          <span className="h-1.5 w-1.5 rounded-full" style={{ background: brief.signOff === 'signed off' ? TONES.green.dot : TONES.amber.dot }} />
-          {signOffLabel(brief)}
+      {brief.stage === 'Production' ? (
+        <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px]" style={{ color: TONES.amber.fg }}>
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: TONES.amber.dot }} />
+          Done {dodCount(brief).done} of {dodCount(brief).total}
         </div>
+      ) : (
+        brief.signOff !== 'not started' && (
+          <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px]" style={{ color: brief.signOff === 'signed off' ? TONES.green.fg : TONES.amber.fg }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: brief.signOff === 'signed off' ? TONES.green.dot : TONES.amber.dot }} />
+            {signOffLabel(brief)}
+          </div>
+        )
       )}
     </button>
   )
 }
 
 function Columns({ briefs, onOpen, compact }: { briefs: Brief[]; onOpen: (id: string) => void; compact?: boolean }) {
+  const { run } = useDemo()
+  const [over, setOver] = useState<Stage | null>(null)
   return (
     <div className="grid grid-flow-col auto-cols-[minmax(150px,1fr)] gap-2">
       {STAGES.map((stage) => {
         const cards = briefs.filter((b) => b.stage === stage).sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority])
         return (
-          <div key={stage} className={`rounded-md bg-[#eaedf1] p-2 ${compact ? 'min-h-[9rem]' : 'min-h-[26rem]'}`}>
+          <div
+            key={stage}
+            onDragOver={(e) => {
+              if (e.dataTransfer.types.includes('text/brief')) {
+                e.preventDefault()
+                e.dataTransfer.dropEffect = 'move'
+                if (over !== stage) setOver(stage)
+              }
+            }}
+            onDragLeave={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOver(null)
+            }}
+            onDrop={(e) => {
+              e.preventDefault()
+              const id = e.dataTransfer.getData('text/brief')
+              setOver(null)
+              if (id) run({ type: 'moveBrief', id, stage })
+            }}
+            className={`rounded-md p-2 transition-colors ${compact ? 'min-h-[9rem]' : 'min-h-[26rem]'} ${over === stage ? 'bg-pm-primary-soft ring-2 ring-pm-primary ring-inset' : 'bg-[#eaedf1]'}`}
+          >
             <div className="flex items-center justify-between px-1 pb-2" data-tour={!compact && stage === 'Mapping' ? 'col-mapping' : !compact && stage === 'Approved for build' ? 'col-locked' : undefined}>
               <span className="flex items-center gap-2 text-[12.5px] font-semibold">
                 <span className="h-2 w-2 rounded-full" style={{ background: TONES[STAGE_TONE[stage]].dot }} />

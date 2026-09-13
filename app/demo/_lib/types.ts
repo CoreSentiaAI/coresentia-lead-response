@@ -69,6 +69,8 @@ export type Brief = {
   feedback: Feedback[]
   changeLog: LogEntry[]
   attachments: Attachment[]
+  // Definition of done: the two items a person has to confirm. The rest are derived.
+  done: { readme: boolean; tests: boolean }
 }
 
 export const PO_STATUSES = [

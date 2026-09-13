@@ -4,6 +4,7 @@ import { DEPARTMENTS, MODULES, PEOPLE, WORKSTREAMS, useDemo } from '../_lib/stor
 import { STAGES, type Attachment, type Brief, type Priority, type Stage, type WorkType } from '../_lib/types'
 import { ACCEPT, fmtBytes, kindOf, newFileId, rememberFile } from '../_lib/files'
 import FileViewer, { KindTile } from './FileViewer'
+import { dod, dodComplete } from '../_lib/dod'
 import { fmtDate, fmtDateTime } from '../_lib/format'
 import { DECISION_TONE, PRIORITY_LABEL, PRIORITY_TONE, STAGE_LABEL, STAGE_TONE } from '../_lib/tones'
 import { Avatar, Button, Card, Chip, Field, Modal, ModalHeader, Person, SectionTitle, inputClass, selectClass, textareaClass } from './ui'
@@ -105,6 +106,9 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
 
   const log = [...brief.changeLog].sort((a, b) => (a.at < b.at ? 1 : -1))
   const canSignOff = brief.stage === 'Production' && brief.signOff !== 'signed off'
+  const items = dod(brief)
+  const complete = dodComplete(brief)
+  const blocked = target === 'Complete' && !complete
   const openFeedback = brief.feedback.filter((f) => f.status === 'open').length
   const ws = WORKSTREAMS.find((w) => w.id === brief.workstream)
 
@@ -138,9 +142,10 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                 ))}
               </select>
             </Field>
-            <Button variant="primary" onClick={() => run({ type: 'moveBrief', id: brief.id, stage: target })} disabled={target === brief.stage}>
+            <Button variant="primary" onClick={() => run({ type: 'moveBrief', id: brief.id, stage: target })} disabled={target === brief.stage || blocked} title={blocked ? 'Complete needs every line of the definition of done' : undefined}>
               Move
             </Button>
+            {blocked && <span className="text-[12px] text-[#9a3f12]">Complete needs every line of the definition of done.</span>}
             {canSignOff && <Button onClick={() => run({ type: 'signOffBrief', id: brief.id })}>Sign off as {actor.name}</Button>}
             <span className="ml-auto flex items-center gap-2">
               {editing ? (
@@ -337,6 +342,40 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
           </section>
 
             </>
+          )}
+
+          {(brief.stage === 'Testing' || brief.stage === 'Production' || brief.stage === 'Complete') && (
+            <section className="mt-8">
+              <SectionTitle right={`${items.filter((i) => i.ok).length} of ${items.length}`}>Definition of done</SectionTitle>
+              <ul className="mt-2 border border-pm-border rounded-md divide-y divide-pm-border bg-pm-surface">
+                {items.map((i) => (
+                  <li key={i.key} className="flex items-center gap-3 px-3 py-2 text-[13px]">
+                    {i.manual ? (
+                      <button type="button" onClick={() => run({ type: 'toggleDone', id: brief.id, key: i.manual! })} aria-pressed={i.ok} className={`h-5 w-5 rounded-[5px] border flex items-center justify-center transition-colors ${i.ok ? 'bg-pm-primary border-pm-primary text-white' : 'border-pm-border-strong bg-pm-surface hover:border-pm-primary'}`} aria-label={i.label}>
+                        {i.ok && (
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+                          </svg>
+                        )}
+                      </button>
+                    ) : (
+                      <span className={`h-5 w-5 rounded-[5px] flex items-center justify-center ${i.ok ? 'bg-[#e3f5ec] text-[#166a42]' : 'bg-pm-hover text-pm-faint'}`} aria-hidden="true">
+                        {i.ok ? (
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+                          </svg>
+                        ) : (
+                          <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                        )}
+                      </span>
+                    )}
+                    <span className={i.ok ? '' : 'text-pm-muted'}>{i.label}</span>
+                    {!i.manual && <span className="ml-auto text-[11px] text-pm-faint">automatic</span>}
+                  </li>
+                ))}
+              </ul>
+              {complete && brief.stage !== 'Complete' && <p className="mt-2 text-[12.5px] text-[#166a42]">Everything is met. Move it to Complete.</p>}
+            </section>
           )}
 
           <section className="mt-8">

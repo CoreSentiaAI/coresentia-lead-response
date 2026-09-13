@@ -92,6 +92,7 @@ export const BRIEFS: Brief[] = [
       ['2026-06-19T11:00:00+10:00', 'Ben Carmichael', 'Signed off. Moved from Production to Complete.'],
     ]),
     attachments: [],
+    done: { readme: true, tests: true },
   },
   {
     id: 'b01',
@@ -126,6 +127,7 @@ export const BRIEFS: Brief[] = [
       ['2026-06-24T15:30:00+10:00', 'Helen Marsh', 'Signed off. Moved from Production to Complete.'],
     ]),
     attachments: [],
+    done: { readme: true, tests: true },
   },
   {
     id: 'b02',
@@ -164,6 +166,7 @@ export const BRIEFS: Brief[] = [
       ['2026-07-24T14:05:00+10:00', 'Tom Aldridge', 'Signed off with Kate Donnelly. Moved from Production to Complete.'],
     ]),
     attachments: [],
+    done: { readme: true, tests: true },
   },
   {
     id: 'f04',
@@ -198,6 +201,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-08T10:00:00+10:00', 'Ramsay Hatfield', 'README written. Awaiting sign-off from Ben Carmichael and Helen Marsh.'],
     ]),
     attachments: [],
+    done: { readme: true, tests: false },
   },
   {
     id: 'f05',
@@ -226,6 +230,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-09T11:00:00+10:00', 'Ben Carmichael', 'API access requested from the ERP vendor. Waiting on the account.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
 
   // ---------- Project pipeline ----------
@@ -265,6 +270,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-10T10:00:00+10:00', 'Ramsay Hatfield', 'README written. Commissioning sub-stages raised as a new request.'],
     ]),
     attachments: [],
+    done: { readme: true, tests: false },
   },
   {
     id: 'p02',
@@ -297,6 +303,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-10T09:00:00+10:00', 'Tom Aldridge', 'Testing started.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'p03',
@@ -327,6 +334,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-09T08:00:00+10:00', 'Ramsay Hatfield', 'Build started. Moved from Approved for build to In build.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'p04',
@@ -356,6 +364,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-10T09:00:00+10:00', 'Helen Marsh', 'Brief approved. Moved from Briefed in to Approved for build. Approval date set. Build starts after the design register.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'p05',
@@ -384,6 +393,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-11T16:00:00+10:00', 'Marcus Reid', 'Brief submitted with the area breakdown attached. Moved from Mapping to Briefed in.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'p06',
@@ -411,6 +421,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-10T10:00:00+10:00', 'Helen Marsh', 'Ranked P2. After the design register.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
 
   // ---------- Finance & procurement ----------
@@ -463,6 +474,7 @@ export const BRIEFS: Brief[] = [
       { id: 'att-b03-2', name: 'PO approval flow - current state.png', kind: 'image', size: 100629, uploadedBy: 'Sarah Whitfield', at: '2026-07-20T11:10:00+10:00', url: '/demo/po-approval-flow-current-state.png' },
       { id: 'att-b03-3', name: 'Brief - Purchase orders - raise and approve.docx', kind: 'docx', size: 1801, uploadedBy: 'Sarah Whitfield', at: '2026-07-24T14:58:00+10:00', url: '/demo/brief-purchase-orders-raise-and-approve.docx' },
     ],
+    done: { readme: true, tests: true },
   },
   {
     id: 'b04',
@@ -492,6 +504,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-09T14:02:00+10:00', 'Sarah Whitfield', 'Confirmed on production. Signed off.'],
     ]),
     attachments: [],
+    done: { readme: true, tests: false },
   },
   {
     id: 'b06',
@@ -524,6 +537,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-11T10:00:00+10:00', 'Ramsay Hatfield', 'Scheduled 15-minute demo on the preview link. One request filed as an integration.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'b07',
@@ -554,6 +568,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-07T08:00:00+10:00', 'Ramsay Hatfield', 'Build started. Moved from Approved for build to In build.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'b10',
@@ -581,6 +596,7 @@ export const BRIEFS: Brief[] = [
       ['2026-08-31T09:00:00+10:00', 'Helen Marsh', 'Ranked P1. Filed as integration. Batched for the next integration cycle, after the ERP connection.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'b11',
@@ -608,6 +624,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-11T10:25:00+10:00', 'Helen Marsh', 'Ranked P2. Filed as integration. Not added to the claims build in flight.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'b13',
@@ -635,6 +652,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-02T14:00:00+10:00', 'Helen Marsh', 'Ranked P2. Waits on the ERP sync.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'fn08',
@@ -662,6 +680,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-05T11:00:00+10:00', 'Helen Marsh', 'Ranked P2. Filed as integration. Needs POs and claims both live.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
 
   // ---------- Site & HSEQ ----------
@@ -699,6 +718,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-08T09:00:00+10:00', 'Marcus Reid', 'Testing started on site.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'b08',
@@ -728,6 +748,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-10T09:00:00+10:00', 'Helen Marsh', 'Brief approved. Moved from Briefed in to Approved for build. Approval date set. Build starts after the variations log.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 's03',
@@ -756,6 +777,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-12T15:00:00+10:00', 'Marcus Reid', 'Brief submitted. Moved from Mapping to Briefed in.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 's04',
@@ -783,6 +805,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-10T11:00:00+10:00', 'Helen Marsh', 'Ranked P2.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'b12',
@@ -810,6 +833,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-09T09:00:00+10:00', 'Helen Marsh', 'Ranked P3. After the diary is done.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
 
   // ---------- Reporting ----------
@@ -840,6 +864,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-11T16:00:00+10:00', 'Helen Marsh', 'Brief submitted with process map attached. Moved from Mapping to Briefed in.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'r02',
@@ -867,6 +892,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-08T09:10:00+10:00', 'Helen Marsh', 'Ranked P2. After cost to complete lands on the record.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
   {
     id: 'r03',
@@ -894,6 +920,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-11T09:05:00+10:00', 'Helen Marsh', 'Ranked P3. Once the data is there to ask about.'],
     ]),
     attachments: [],
+    done: { readme: false, tests: false },
   },
 ]
 

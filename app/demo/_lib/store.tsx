@@ -11,7 +11,7 @@ import { lineTotals, newId } from './format'
 import { routeFor } from './routing'
 
 const STORAGE_KEY = 'cs-demo-state'
-const VERSION = 6
+const VERSION = 7
 
 type State = {
   version: number
@@ -51,6 +51,7 @@ type Action =
   | ({ type: 'addAttachment'; id: string; attachment: Omit<Attachment, 'uploadedBy' | 'at'> } & Stamp)
   | ({ type: 'removeAttachment'; id: string; attachmentId: string } & Stamp)
   | ({ type: 'signOffBrief'; id: string } & Stamp)
+  | ({ type: 'toggleDone'; id: string; key: 'readme' | 'tests' } & Stamp)
   | ({ type: 'createPo'; supplierId: string; projectId: string; lines: PoLine[]; submit: boolean } & Stamp)
   | ({ type: 'submitPo'; id: string } & Stamp)
   | ({ type: 'approvePo'; id: string; note: string } & Stamp)
@@ -117,6 +118,7 @@ function reducer(state: State, action: Action): State {
         feedback: [],
         changeLog: [logEntry(action, 'Request raised. Entered Mapping.')],
         attachments: [],
+        done: { readme: false, tests: false },
       }
       const withBrief = { ...state, briefs: [brief, ...state.briefs] }
       const assigned = notify(withBrief, action, [action.owner, ...action.smes], 'assigned', `${action.who} raised ${action.title} and named you on it.`, brief.id)
@@ -205,6 +207,13 @@ function reducer(state: State, action: Action): State {
           attachments: b.attachments.filter((x) => x.id !== action.attachmentId),
           changeLog: [...b.changeLog, logEntry(action, `Attachment removed: ${a.name}`)],
         }
+      })
+
+    case 'toggleDone':
+      return updateBrief(state, action.id, (b) => {
+        const next = !b.done[action.key]
+        const label = action.key === 'readme' ? 'README written' : 'Tests on cross-module paths'
+        return { ...b, done: { ...b.done, [action.key]: next }, changeLog: [...b.changeLog, logEntry(action, `Definition of done: ${label} ${next ? 'confirmed' : 'unticked'}.`)] }
       })
 
     case 'signOffBrief': {

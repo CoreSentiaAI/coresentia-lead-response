@@ -20,7 +20,7 @@ const TOUR: TourStep[] = [
   {
     id: 'title',
     title: 'The internal software project tracker',
-    body: 'If it is not on the board, it is not happening.',
+    body: 'The tool that organises and manages the whole project.',
     placement: 'bottom',
     anchor: 'tl',
   },

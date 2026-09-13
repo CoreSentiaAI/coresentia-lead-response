@@ -156,7 +156,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                 <Button onClick={startEdit}>Edit details</Button>
               )}
             </span>
-            <span className="w-full text-[12px] text-pm-muted">Every move and every edit writes to the change log as {actor.name}.</span>
+            <span className="w-full text-[12px] text-pm-muted">Every edit, update is logged to the audit trail.</span>
           </Card>
 
           {editing && draft ? (

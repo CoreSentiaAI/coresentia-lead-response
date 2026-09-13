@@ -2,9 +2,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { WORKSTREAMS, useDemo } from '../_lib/store'
-import { STAGES, type Brief, type Stage, type WorkType, type Workstream } from '../_lib/types'
+import { STAGES, type Brief, type Priority, type Stage, type WorkType, type Workstream } from '../_lib/types'
 import { fmtDate } from '../_lib/format'
-import { PRIORITY_TONE, STAGE_TONE, TONES, WORK_TYPE_TONE } from '../_lib/tones'
+import { PRIORITY_LABEL, PRIORITY_TONE, STAGE_TONE, TONES, WORK_TYPE_TONE } from '../_lib/tones'
 import { Avatar, Button, Card, Chip, PageHeader, Person, Stat, Tabs, inputClass, selectClass } from './ui'
 import { Icon } from './icons'
 import Tour, { startTour, type TourStep } from './Tour'
@@ -18,8 +18,8 @@ const PRIORITY_RANK = { P1: 0, P2: 1, P3: 2 }
 const TOUR: TourStep[] = [
   {
     id: 'title',
-    title: 'One channel, one source of truth',
-    body: 'Every request, decision and change between the business and the development team is recorded here, not in email or chat. If it is not on the board, it is not happening.',
+    title: 'The internal software project tracker',
+    body: 'Business requests are briefed in here and follow the development pipeline to production. All work is prioritised by the business. If it is not on the board, it is not happening.',
     placement: 'bottom',
     anchor: 'tl',
   },
@@ -99,6 +99,7 @@ export default function Tracker() {
   const [module, setModule] = useState('')
   const [workType, setWorkType] = useState('')
   const [owner, setOwner] = useState('')
+  const [priority, setPriority] = useState('')
   const [integrationCycle, setIntegrationCycle] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [newOpen, setNewOpen] = useState(false)
@@ -114,9 +115,10 @@ export default function Tracker() {
       (!q || `${b.title} ${b.module} ${b.owner} ${b.department ?? ''}`.toLowerCase().includes(q)) &&
       (!module || b.module === module) &&
       (!owner || b.owner === owner) &&
+      (!priority || b.priority === priority) &&
       (integrationCycle ? b.workType === 'integration' : !workType || b.workType === workType),
   )
-  const filtered = Boolean(q || module || owner || workType || integrationCycle)
+  const filtered = Boolean(q || module || owner || priority || workType || integrationCycle)
   const selected = state.briefs.find((b) => b.id === selectedId) ?? null
 
   return (
@@ -125,7 +127,7 @@ export default function Tracker() {
         icon={<Icon name="board" size={22} />}
         kicker={current ? 'Workstream' : 'Tracker'}
         title={current ? current.name : 'All work'}
-        subtitle={current ? current.goal : 'The one channel between the business and the development team, and the source of truth for the build. Every request, decision and change is recorded here, not in email or chat.'}
+        subtitle={current ? current.goal : 'The internal software project tracker. Business requests are briefed in here and follow the development pipeline to production. All work is prioritised by the business.'}
         dataTour="title"
         tabs={
           <Tabs
@@ -201,6 +203,12 @@ export default function Tracker() {
               </option>
             ))}
           </select>
+          <select value={priority} onChange={(e) => setPriority(e.target.value)} className={selectClass} aria-label="Filter by priority">
+            <option value="">All priorities</option>
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
+          </select>
           <Button variant={integrationCycle ? 'primary' : 'secondary'} onClick={() => setIntegrationCycle((v) => !v)} aria-pressed={integrationCycle} data-tour="integration-cycle">
             Integration cycle
           </Button>
@@ -211,6 +219,7 @@ export default function Tracker() {
                 setSearch('')
                 setModule('')
                 setOwner('')
+                setPriority('')
                 setWorkType('')
                 setIntegrationCycle(false)
               }}
@@ -257,7 +266,9 @@ function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
           {brief.module}
           {brief.department && brief.department !== brief.module ? `, ${brief.department}` : ''}
         </span>
-        <Chip tone={PRIORITY_TONE[brief.priority]}>{brief.priority}</Chip>
+        <Chip tone={PRIORITY_TONE[brief.priority]} tip={PRIORITY_LABEL[brief.priority]}>
+          {brief.priority}
+        </Chip>
       </div>
       <div className="mt-1.5 text-[13.5px] font-medium leading-snug">{brief.title}</div>
       <div className="mt-3 flex items-center justify-between gap-2">
@@ -412,7 +423,9 @@ function TableView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) =
                 <Chip tone={WORK_TYPE_TONE[b.workType]}>{b.workType}</Chip>
               </td>
               <td className="px-3 py-2.5">
-                <Chip tone={PRIORITY_TONE[b.priority]}>{b.priority}</Chip>
+                <Chip tone={PRIORITY_TONE[b.priority]} tip={PRIORITY_LABEL[b.priority]}>
+                  {b.priority}
+                </Chip>
               </td>
               <td className="px-3 py-2.5 whitespace-nowrap">
                 <Person name={b.owner} />

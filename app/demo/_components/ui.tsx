@@ -28,12 +28,13 @@ export function Button({ variant = 'secondary', size = 'md', className = '', typ
   )
 }
 
-export function Chip({ tone, children, dot = false, className = '' }: { tone: Tone; children: ReactNode; dot?: boolean; className?: string }) {
+export function Chip({ tone, children, dot = false, className = '', tip }: { tone: Tone; children: ReactNode; dot?: boolean; className?: string; tip?: string }) {
   const t = TONES[tone]
   return (
     <span
-      className={`inline-flex items-center gap-1.5 h-[22px] px-2 rounded-[4px] text-[12px] font-medium leading-none whitespace-nowrap ${className}`}
+      className={`inline-flex items-center gap-1.5 h-[22px] px-2 rounded-[4px] text-[12px] font-medium leading-none whitespace-nowrap ${tip ? 'pm-tip' : ''} ${className}`}
       style={{ background: t.bg, color: t.fg }}
+      data-tip={tip}
     >
       {dot && <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: t.dot }} />}
       {children}

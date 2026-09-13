@@ -5,7 +5,7 @@ import { STAGES, type Attachment, type Brief, type Stage } from '../_lib/types'
 import { ACCEPT, fmtBytes, kindOf, newFileId, rememberFile } from '../_lib/files'
 import FileViewer, { KindTile } from './FileViewer'
 import { fmtDate, fmtDateTime } from '../_lib/format'
-import { DECISION_TONE, PRIORITY_TONE, STAGE_TONE, WORK_TYPE_TONE } from '../_lib/tones'
+import { DECISION_TONE, PRIORITY_LABEL, PRIORITY_TONE, STAGE_TONE, WORK_TYPE_TONE } from '../_lib/tones'
 import { Avatar, Button, Card, Chip, Field, Modal, ModalHeader, Person, SectionTitle, inputClass, selectClass } from './ui'
 import { signOffLabel } from './Tracker'
 
@@ -57,7 +57,9 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
             {ws && <Chip tone={ws.tone}>{ws.name}</Chip>}
             {brief.department && <Chip tone="grey">{brief.department}</Chip>}
             <Chip tone={WORK_TYPE_TONE[brief.workType]}>{brief.workType}</Chip>
-            <Chip tone={PRIORITY_TONE[brief.priority]}>{brief.priority}</Chip>
+            <Chip tone={PRIORITY_TONE[brief.priority]} tip={PRIORITY_LABEL[brief.priority]}>
+              {brief.priority}
+            </Chip>
             <Chip tone="grey">{brief.days} days</Chip>
             <Chip tone={brief.signOff === 'signed off' ? 'green' : brief.signOff === 'awaiting' ? 'amber' : 'grey'} dot>
               {signOffLabel(brief)}

@@ -33,14 +33,15 @@ export default function TipLayer() {
   }, [])
 
   if (!tip) return null
+  const root = document.querySelector('.pm') ?? document.body
   return createPortal(
     <div
-      className="pm fixed z-[70] pointer-events-none max-w-[280px] w-max rounded-md px-2.5 py-1.5 text-[12px] leading-snug text-white bg-[#1c2430] shadow-[0_6px_20px_rgba(16,24,40,0.2)]"
-      style={{ left: tip.x, top: tip.y, transform: `translate(-50%, ${tip.below ? '0' : '-100%'})`, background: '#1c2430' }}
+      className="fixed z-[70] pointer-events-none max-w-[280px] w-max rounded-md px-2.5 py-1.5 text-[12px] leading-snug shadow-[0_6px_20px_rgba(16,24,40,0.2)]"
+      style={{ left: tip.x, top: tip.y, transform: `translate(-50%, ${tip.below ? '0' : '-100%'})`, background: '#1c2430', color: '#ffffff' }}
       role="tooltip"
     >
       {tip.text}
     </div>,
-    document.body,
+    root,
   )
 }

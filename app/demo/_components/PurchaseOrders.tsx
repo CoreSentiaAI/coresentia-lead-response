@@ -43,7 +43,7 @@ export default function PurchaseOrders() {
         icon={<Icon name="receipt" size={22} />}
         kicker="Platform module"
         title="Purchase orders"
-        subtitle="Raise against a project, route by value, approve, post to the ERP. Every step in the audit trail."
+        subtitle="Raise, route by value, approve, post to the ERP."
         actions={
           <Button variant="primary" onClick={() => setRaising(true)}>
             Raise a PO
@@ -61,7 +61,7 @@ export default function PurchaseOrders() {
               ))}
             </ul>
           </Card>
-          <StatCard label="Waiting for approval" value={waiting} hint="Submitted, not yet decided" />
+          <StatCard label="Waiting for approval" value={waiting} hint="Submitted" />
           <StatCard label="Committed, not yet closed" value={aud(committed)} hint="Approved or sent to ERP, ex GST" />
         </div>
 
@@ -277,7 +277,7 @@ function PoDetail({ po, onClose }: { po: PurchaseOrder | null; onClose: () => vo
                 ))}
               </ol>
             ) : (
-              <div className="mt-2 text-[12.5px] text-pm-muted">Routing is set when the PO is submitted.</div>
+              <div className="mt-2 text-[12.5px] text-pm-muted">Set when submitted.</div>
             )}
 
             {po.status === 'Draft' && (
@@ -329,7 +329,7 @@ function PoDetail({ po, onClose }: { po: PurchaseOrder | null; onClose: () => vo
                   </ul>
                 </div>
               ) : (
-                <div className="mt-1.5 text-[12.5px] text-pm-muted">Not synced. Posts to the ERP once approved and sent.</div>
+                <div className="mt-1.5 text-[12.5px] text-pm-muted">Not synced.</div>
               )}
             </section>
             <section>
@@ -343,7 +343,7 @@ function PoDetail({ po, onClose }: { po: PurchaseOrder | null; onClose: () => vo
                   ))}
                 </ul>
               ) : (
-                <div className="mt-1.5 text-[12.5px] text-pm-muted">None attached.</div>
+                <div className="mt-1.5 text-[12.5px] text-pm-muted">None.</div>
               )}
             </section>
           </div>
@@ -398,7 +398,7 @@ function RaisePo({ open, onClose }: { open: boolean; onClose: () => void }) {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <ModalHeader kicker="New purchase order" title="Raise a PO" subtitle={`Raised by ${actor.name}. Routing is decided by the ex GST total when you submit.`} onClose={onClose} />
+      <ModalHeader kicker="New purchase order" title="Raise a PO" subtitle={`Raised by ${actor.name}. Routing follows the ex GST total.`} onClose={onClose} />
 
       <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-hidden lg:grid lg:grid-cols-12">
         <div className="lg:col-span-8 lg:overflow-y-auto px-6 lg:px-8 py-6 lg:border-r border-pm-border scrollbar-thin">
@@ -488,7 +488,7 @@ function RaisePo({ open, onClose }: { open: boolean; onClose: () => void }) {
 
           <section className="mt-5">
             <Kicker className="mb-1.5">Attachments</Kicker>
-            <div className="border border-dashed border-pm-border-strong rounded-md p-6 text-center text-[12.5px] text-pm-muted bg-pm-surface">Drop quotes and supporting documents here. Placeholder in the demo.</div>
+            <div className="border border-dashed border-pm-border-strong rounded-md p-6 text-center text-[12.5px] text-pm-muted bg-pm-surface">Drop quotes here.</div>
           </section>
 
           <div className="mt-6 flex flex-wrap gap-2">
@@ -499,7 +499,7 @@ function RaisePo({ open, onClose }: { open: boolean; onClose: () => void }) {
               Save as draft
             </Button>
           </div>
-          {!valid && <p className="mt-3 text-[12px] text-pm-muted">Choose a supplier and a project and enter at least one priced line.</p>}
+          {!valid && <p className="mt-3 text-[12px] text-pm-muted">Supplier, project and one priced line needed.</p>}
         </div>
       </div>
     </Modal>

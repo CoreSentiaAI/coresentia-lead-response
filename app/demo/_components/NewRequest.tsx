@@ -32,7 +32,7 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
 
   return (
     <Modal open={open} onClose={onClose} size="md">
-      <ModalHeader kicker="New request" title="Raise a request" subtitle={`Raised by ${actor.name}. It enters Mapping and waits for the change lead to rank it.`} onClose={onClose} />
+      <ModalHeader kicker="New request" title="Raise a request" subtitle={`Raised by ${actor.name}. Enters Mapping for ranking.`} onClose={onClose} />
       <div className="px-6 lg:px-8 py-6 overflow-y-auto">
         <Field label="Title">
           <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="What needs to exist" className={inputClass} autoFocus />
@@ -75,7 +75,7 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
               ))}
             </select>
           </Field>
-          <Field label="Business SMEs" hint="Who defines and tests it. Pick as many as apply." className="sm:col-span-2">
+          <Field label="Business SMEs" hint="Who defines and tests it." className="sm:col-span-2">
             <div className="flex flex-wrap gap-1.5">
               {PEOPLE.filter((p) => p.id !== 'ramsay').map((p) => {
                 const on = smes.includes(p.name)
@@ -110,7 +110,7 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
           <Field label="Days estimate">
             <input type="number" min={0.5} step={0.5} value={days} onChange={(e) => setDays(Number(e.target.value))} className={inputClass} />
           </Field>
-          <Field label="Target date" hint="Optional. Shows on the calendar.">
+          <Field label="Target date" hint="Optional.">
             <input type="date" value={targetDate} onChange={(e) => setTargetDate(e.target.value)} className={inputClass} />
           </Field>
         </div>

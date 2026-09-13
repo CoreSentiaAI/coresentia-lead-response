@@ -20,79 +20,79 @@ const TOUR: TourStep[] = [
   {
     id: 'title',
     title: 'The internal software project tracker',
-    body: 'Business requests are briefed in here and follow the development pipeline to production. All work is prioritised by the business. If it is not on the board, it is not happening.',
+    body: 'If it is not on the board, it is not happening.',
     placement: 'bottom',
     anchor: 'tl',
   },
   {
     id: 'workstreams',
     title: 'Workstreams',
-    body: 'The build is organised into workstreams. Pick one and its briefs are the board. All work is the whole backlog, ranked once, so the change lead still has one list.',
+    body: 'Pick a workstream and its briefs are the board. All work is the whole backlog, ranked once.',
     placement: 'right',
     anchor: 'r',
   },
   {
     id: 'new-request',
     title: 'Single intake',
-    body: 'Every request starts here and lands in Mapping. Anyone can raise one. Nothing reaches the builder by direct message.',
+    body: 'Every request starts here. Nothing reaches the builder by direct message.',
     placement: 'bottom',
   },
   {
     id: 'col-mapping',
     title: 'Ranked, not first come',
-    body: 'The change lead sets priority against everything else on the board. P1 sits at the top of the column, and the builder takes the top of the ranked backlog.',
+    body: 'The change lead sets priority. The builder takes the top of the list.',
     placement: 'bottom',
     anchor: 'tl',
   },
   {
     id: 'col-locked',
     title: 'Approved before build',
-    body: 'The approved brief is what gets built. Ideas raised mid-build go back to Mapping as new requests, ranked against everything else.',
+    body: 'The approved brief is what gets built. New ideas go back to Mapping.',
     placement: 'bottom',
   },
   {
     id: 'card-hotfix',
     title: 'Hotfix path',
-    body: 'Production bugs skip the queue. Logged, fixed and promoted, usually within hours, and visible on the board so nothing happens in the dark.',
+    body: 'Production bugs skip the queue. Logged, fixed, live within hours, visible here.',
     placement: 'left',
   },
   {
     id: 'card-example',
     title: 'Click any card, or drag it',
-    body: 'Drag a card to the next column to move it. Click it for the business outcome, current state, attachments, test feedback, sign-off, the definition of done and an audit trail written on every move.',
+    body: 'Drag to move. Click for the brief, attachments, feedback, sign-off, definition of done and audit trail.',
     placement: 'left',
   },
   {
     id: 'integration-cycle',
     title: 'Integration cycles',
-    body: 'Cross-module links are filed as their own work type and batched. Every third or fourth cycle builds these and nothing else.',
+    body: 'Cross-module links are batched. Every third or fourth cycle builds only these.',
     placement: 'bottom',
   },
   {
     id: 'nav-platform',
     title: 'Included with the platform',
-    body: 'This tracker is a pre-built CoreSentia module. It drops into the new platform once the foundations are in, styled to match your business, at no cost. Reminders, notifications and a question box that reads the briefs come next.',
+    body: 'A pre-built CoreSentia module. It drops into the new platform, styled to match your business, at no cost.',
     placement: 'right',
     anchor: 'r',
   },
   {
     id: 'notifications',
     title: 'Notifications',
-    body: 'Everyone gets their own centre. Named on a brief, a stage moves, feedback lands, a PO needs you: it shows here, and by email immediately, daily or not at all.',
+    body: 'Named on a brief, a stage moves, feedback lands, a PO needs you: it shows here and by email.',
     placement: 'right',
     anchor: 'r',
   },
   {
     id: 'ask',
     title: 'Ask the tracker',
-    body: 'Instead of reading through briefs, ask. What is waiting on me, what changed this week, who owns the site diary. Answers show the briefs they came from.',
+    body: 'Ask instead of reading. What is waiting on me, what changed this week, who owns the site diary.',
     placement: 'right',
     anchor: 'r',
   },
   {
     id: 'preview',
     title: 'Built for every screen',
-    body: 'The same build on a phone or a tablet, in a frame you can click around in.',
+    body: 'The same build on a phone or tablet.',
     placement: 'right',
     anchor: 'r',
   },
@@ -256,7 +256,7 @@ export default function Tracker() {
           )}
 
         </div>
-        {integrationCycle && <p className="mt-2 text-[12.5px] text-pm-muted">Integration cycle: cross-module links only. Every third or fourth cycle builds these and nothing else.</p>}
+        {integrationCycle && <p className="mt-2 text-[12.5px] text-pm-muted">Cross-module links only. Every third or fourth cycle builds only these.</p>}
 
         <div className="mt-4">
           {view === 'board' && <BoardView briefs={visible} onOpen={setSelectedId} lanes={ws === 'all' && lanes ? WORKSTREAMS : undefined} />}
@@ -497,7 +497,7 @@ function TableView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) =
           {rows.length === 0 && (
             <tr>
               <td colSpan={COLUMNS.length} className="px-3 py-8 text-center text-pm-muted">
-                Nothing matches those filters.
+                Nothing matches.
               </td>
             </tr>
           )}

@@ -104,7 +104,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
 
   if (!brief) return <Modal open={false} onClose={onClose}>{null}</Modal>
 
-  const log = [...brief.changeLog].sort((a, b) => (a.at < b.at ? 1 : -1))
+  const log = brief.changeLog.map((e, i) => ({ e, i })).sort((x, y) => (x.e.at < y.e.at ? 1 : x.e.at > y.e.at ? -1 : y.i - x.i)).map((x) => x.e)
   const canSignOff = brief.stage === 'Production' && brief.signOff !== 'signed off'
   const items = dod(brief)
   const complete = dodComplete(brief)
@@ -142,10 +142,10 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                 ))}
               </select>
             </Field>
-            <Button variant="primary" onClick={() => run({ type: 'moveBrief', id: brief.id, stage: target })} disabled={target === brief.stage || blocked} title={blocked ? 'Complete needs every line of the definition of done' : undefined}>
+            <Button variant="primary" onClick={() => run({ type: 'moveBrief', id: brief.id, stage: target })} disabled={target === brief.stage || blocked} title={blocked ? 'Complete needs all six lines' : undefined}>
               Move
             </Button>
-            {blocked && <span className="text-[12px] text-[#9a3f12]">Complete needs every line of the definition of done.</span>}
+            {blocked && <span className="text-[12px] text-[#9a3f12]">Complete needs all six lines.</span>}
             {canSignOff && <Button onClick={() => run({ type: 'signOffBrief', id: brief.id })}>Sign off as {actor.name}</Button>}
             <span className="ml-auto flex items-center gap-2">
               {editing ? (
@@ -374,14 +374,14 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                   </li>
                 ))}
               </ul>
-              {complete && brief.stage !== 'Complete' && <p className="mt-2 text-[12.5px] text-[#166a42]">Everything is met. Move it to Complete.</p>}
+              {complete && brief.stage !== 'Complete' && <p className="mt-2 text-[12.5px] text-[#166a42]">All met. Move to Complete.</p>}
             </section>
           )}
 
           <section className="mt-8">
             <SectionTitle right={`${brief.attachments.length} ${brief.attachments.length === 1 ? 'file' : 'files'}`}>Attachments</SectionTitle>
             <ul className="mt-2 divide-y divide-pm-border border-t border-b border-pm-border">
-              {brief.attachments.length === 0 && <li className="py-3 text-[12.5px] text-pm-muted">No files yet. Process maps, quotes, screenshots and the brief itself go here.</li>}
+              {brief.attachments.length === 0 && <li className="py-3 text-[12.5px] text-pm-muted">No files yet.</li>}
               {brief.attachments.map((a) => (
                 <li key={a.id} className="py-2.5 flex items-center gap-3">
                   <button type="button" onClick={() => setViewing(a)} className="flex items-center gap-3 min-w-0 flex-1 text-left group">
@@ -422,14 +422,14 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                   choose files
                 </button>
               </div>
-              <div className="mt-1 text-[11.5px] text-pm-muted">PDF, Word, PNG, JPEG. Kept in this browser for the demo.</div>
+              <div className="mt-1 text-[11.5px] text-pm-muted">PDF, Word, PNG, JPEG.</div>
             </div>
           </section>
 
           <section className="mt-8">
             <SectionTitle right={`${openFeedback} open`}>Test feedback</SectionTitle>
             <ul className="mt-2 divide-y divide-pm-border border-t border-b border-pm-border">
-              {brief.feedback.length === 0 && <li className="py-3 text-[12.5px] text-pm-muted">No feedback yet. It goes here, never in chat.</li>}
+              {brief.feedback.length === 0 && <li className="py-3 text-[12.5px] text-pm-muted">No feedback yet.</li>}
               {brief.feedback.map((f) => (
                 <li key={f.id} className="py-3 flex items-start gap-3">
                   <Avatar name={f.author} size={24} className="mt-0.5" />

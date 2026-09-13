@@ -14,7 +14,7 @@ export default function DemoEntryPage({ searchParams }: { searchParams?: { wrong
       <div className="w-full max-w-[400px] bg-pm-surface border border-pm-border rounded-lg shadow-[0_8px_30px_rgba(16,24,40,0.08)] p-8">
         <Image src="/CoreSentia_Logo_Black_Text.png" alt="CoreSentia" width={625} height={125} className="h-7 w-auto" priority />
         <h1 className="mt-8 text-[20px] font-semibold">Sign in</h1>
-        <p className="mt-1.5 text-[13px] text-pm-muted">An example project management tool and a first platform module. Fictional data.</p>
+        <p className="mt-1.5 text-[13px] text-pm-muted">Example project management tool. Fictional data.</p>
         <EntrySignIn wrong={searchParams?.wrong === '1'} configured={expectedToken() !== null} />
       </div>
       <p className="mt-6 text-[12px] text-pm-muted">

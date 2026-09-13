@@ -116,7 +116,7 @@ function reducer(state: State, action: Action): State {
         previewUrl: '',
         readmeUrl: '',
         feedback: [],
-        changeLog: [logEntry(action, 'Request raised. Entered Mapping.')],
+        changeLog: [logEntry(action, 'Request raised.')],
         attachments: [],
         done: { readme: false, tests: false },
       }
@@ -142,14 +142,8 @@ function reducer(state: State, action: Action): State {
       const target = state.briefs.find((b) => b.id === action.id)
       const moved = updateBrief(state, action.id, (b) => {
         if (b.stage === action.stage) return b
-        const notes: string[] = [`Moved from ${b.stage} to ${action.stage}.`]
-        let lockDate = b.lockDate
-        if (action.stage === 'Approved for build' && !lockDate) {
-          lockDate = action.at.slice(0, 10)
-          notes.push('Approval date set.')
-        }
-        if (action.stage === 'Production') notes.push('Promoted to production.')
-        return { ...b, stage: action.stage, lockDate, changeLog: [...b.changeLog, logEntry(action, notes.join(' '))] }
+        const lockDate = action.stage === 'Approved for build' && !b.lockDate ? action.at.slice(0, 10) : b.lockDate
+        return { ...b, stage: action.stage, lockDate, changeLog: [...b.changeLog, logEntry(action, `Moved from ${b.stage} to ${action.stage}.`)] }
       })
       if (!target || target.stage === action.stage) return moved
       const kind = action.stage === 'Production' ? 'signoff' : 'stage'
@@ -180,7 +174,7 @@ function reducer(state: State, action: Action): State {
         return {
           ...b,
           feedback: b.feedback.map((f) => (f.id === action.feedbackId ? { ...f, status } : f)),
-          changeLog: [...b.changeLog, logEntry(action, status === 'addressed' ? 'Feedback marked addressed.' : 'Feedback reopened.')],
+          changeLog: [...b.changeLog, logEntry(action, status === 'addressed' ? 'Feedback addressed.' : 'Feedback reopened.')],
         }
       })
 
@@ -213,7 +207,7 @@ function reducer(state: State, action: Action): State {
       return updateBrief(state, action.id, (b) => {
         const next = !b.done[action.key]
         const label = action.key === 'readme' ? 'README written' : 'Tests on cross-module paths'
-        return { ...b, done: { ...b.done, [action.key]: next }, changeLog: [...b.changeLog, logEntry(action, `Definition of done: ${label} ${next ? 'confirmed' : 'unticked'}.`)] }
+        return { ...b, done: { ...b.done, [action.key]: next }, changeLog: [...b.changeLog, logEntry(action, next ? `${label}.` : `${label}: unticked.`)] }
       })
 
     case 'signOffBrief': {
@@ -221,7 +215,7 @@ function reducer(state: State, action: Action): State {
       const next = updateBrief(state, action.id, (b) => ({
         ...b,
         signOff: 'signed off',
-        changeLog: [...b.changeLog, logEntry(action, `Signed off by ${action.who}.`)],
+        changeLog: [...b.changeLog, logEntry(action, 'Signed off.')],
       }))
       return target ? notify(next, action, [BUILDER, target.owner, ...target.smes], 'signoff', `${action.who} signed off ${target.title}.`, target.id) : next
     }

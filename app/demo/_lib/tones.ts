@@ -19,13 +19,13 @@ export const TONES: Record<Tone, { bg: string; fg: string; dot: string }> = {
 }
 
 export const STAGE_LABEL: Record<Stage, string> = {
-  Mapping: 'Stage 1 of 7. Request raised, current state being mapped, waiting to be ranked.',
-  'Briefed in': 'Stage 2 of 7. Brief submitted with the process map attached.',
-  'Approved for build': 'Stage 3 of 7. Approved by the change lead. Scope is fixed. This is what gets built.',
-  'In build': 'Stage 4 of 7. Being built. Nothing is added mid-build.',
-  Testing: 'Stage 5 of 7. On a preview link. The business clicks through and feedback is captured against the brief.',
-  Production: 'Stage 6 of 7. Live. Waiting on README, tests and sign-off.',
-  Complete: 'Stage 7 of 7. Live, signed off, documented, tested.',
+  Mapping: '1 of 7. Raised, being mapped, waiting to be ranked.',
+  'Briefed in': '2 of 7. Brief submitted with the process map.',
+  'Approved for build': '3 of 7. Approved by the change lead. Scope is fixed.',
+  'In build': '4 of 7. Being built. Nothing is added mid-build.',
+  Testing: '5 of 7. On a preview link. Feedback captured against the brief.',
+  Production: '6 of 7. Live. Waiting on README, tests and sign-off.',
+  Complete: '7 of 7. Live, signed off, documented, tested.',
 }
 
 export const STAGE_TONE: Record<Stage, Tone> = {
@@ -42,8 +42,8 @@ export const PRIORITY_TONE: Record<Priority, Tone> = { P1: 'red', P2: 'amber', P
 
 export const PRIORITY_LABEL: Record<Priority, string> = {
   P1: 'Priority 1. Top priority, always built first.',
-  P2: 'Priority 2. Next in line once P1 work is clear.',
-  P3: 'Priority 3. Worth doing when there is room.',
+  P2: 'Priority 2. Next once P1 is clear.',
+  P3: 'Priority 3. When there is room.',
 }
 
 export const WORK_TYPE_TONE: Record<WorkType, Tone> = { module: 'blue', integration: 'purple', hotfix: 'red' }

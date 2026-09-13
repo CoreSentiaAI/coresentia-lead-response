@@ -43,7 +43,7 @@ export default function PlatformIndex() {
   const { state } = useDemo()
   return (
     <div>
-      <PageHeader icon={<Icon name="grid" size={22} />} kicker="What the business gets" title="Platform" subtitle="One platform, one module at a time. Each module is live and in use before the next one starts. The tracker decides the order." />
+      <PageHeader icon={<Icon name="grid" size={22} />} kicker="What the business gets" title="Platform" subtitle="One module at a time. Each is live before the next starts. The tracker decides the order." />
       <div className="px-6 lg:px-8 py-5 space-y-8">
         {WORKSTREAMS.map((w) => {
           const cards = MODULE_CARDS.filter((m) => {

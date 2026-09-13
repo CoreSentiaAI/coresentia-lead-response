@@ -53,7 +53,7 @@ export default function NotificationsPanel({ open, onClose }: { open: boolean; o
         </div>
 
         <ul className="flex-1 overflow-y-auto scrollbar-thin divide-y divide-pm-border">
-          {mine.length === 0 && <li className="px-5 py-8 text-[13px] text-pm-muted">Nothing yet. You will hear about briefs and purchase orders you are named on.</li>}
+          {mine.length === 0 && <li className="px-5 py-8 text-[13px] text-pm-muted">Nothing yet.</li>}
           {mine.map((n) => (
             <li key={n.id} className={`px-5 py-3.5 ${n.read ? '' : 'bg-pm-primary-soft/40'}`}>
               <Link href={hrefFor(n)} onClick={() => { run({ type: 'markRead', id: n.id }); onClose() }} className="block group">
@@ -77,7 +77,7 @@ export default function NotificationsPanel({ open, onClose }: { open: boolean; o
               </button>
             ))}
           </div>
-          <div className="mt-2 text-[12px] text-pm-muted">{pref === 'off' ? 'No emails. Everything still lands here.' : pref === 'daily' ? 'One email each morning with what changed.' : 'An email the moment something needs you.'}</div>
+          <div className="mt-2 text-[12px] text-pm-muted">{pref === 'off' ? 'No emails.' : pref === 'daily' ? 'One email each morning.' : 'An email when something needs you.'}</div>
         </div>
       </div>
     </div>

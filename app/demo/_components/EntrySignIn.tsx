@@ -31,10 +31,10 @@ export default function EntrySignIn({ wrong, configured }: { wrong: boolean; con
       </div>
 
       <p className="mt-4 text-[12px] leading-relaxed text-pm-muted">
-        Sign-in is configured per client: Microsoft Entra ID, Google Workspace, username and password, passkeys and biometrics, two-factor codes.
+        Configured per client: Entra ID, Google Workspace, username and password, passkeys, two-factor.
       </p>
 
-      {note && <p className="mt-3 text-[12.5px] text-pm-primary">This demo uses a password. Enter it below.</p>}
+      {note && <p className="mt-3 text-[12.5px] text-pm-primary">This demo uses a password.</p>}
 
       {!showForm && (
         <button type="button" onClick={() => setShowForm(true)} className="mt-4 text-[13px] font-medium text-pm-primary hover:underline underline-offset-4">

@@ -41,7 +41,7 @@ export default function AskPanel({ open, onClose }: { open: boolean; onClose: ()
           </span>
           <div>
             <div className="text-[15px] font-semibold">Ask the tracker</div>
-            <div className="text-[12px] text-pm-muted">Answers come from the briefs, with the source shown.</div>
+            <div className="text-[12px] text-pm-muted">Answers come from the briefs.</div>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose} className="ml-auto" aria-label="Close">
             <Icon name="close" size={14} />
@@ -51,7 +51,7 @@ export default function AskPanel({ open, onClose }: { open: boolean; onClose: ()
         <div ref={listRef} className="flex-1 overflow-y-auto scrollbar-thin px-5 py-4 space-y-4">
           {msgs.length === 0 && (
             <div>
-              <p className="text-[13px] text-pm-muted">Try one of these, or type your own.</p>
+              <p className="text-[13px] text-pm-muted">Try one, or type your own.</p>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {SUGGESTIONS.map((s) => (
                   <button key={s} type="button" onClick={() => ask(s)} className="h-8 px-3 rounded-full border border-pm-border text-[12.5px] hover:bg-pm-hover hover:border-pm-border-strong transition-colors">
@@ -103,7 +103,7 @@ export default function AskPanel({ open, onClose }: { open: boolean; onClose: ()
             Ask
           </Button>
         </form>
-        <div className="px-5 pb-3 text-[11.5px] text-pm-muted">Demo answers come from the seed data. In the platform build this runs over the live data with an AI model.</div>
+        <div className="px-5 pb-3 text-[11.5px] text-pm-muted">Demo answers come from the seed. The real build uses live data and an AI model.</div>
       </div>
     </div>
   )

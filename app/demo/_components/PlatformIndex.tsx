@@ -34,8 +34,8 @@ type Status = { label: string; tone: Tone; live: boolean }
 function statusFor(briefs: Brief[], hasPage: boolean): Status {
   const stages = new Set(briefs.filter((b) => b.workType !== 'hotfix').map((b) => b.stage))
   if (stages.has('Done') || stages.has('Production')) return hasPage ? { label: 'Live', tone: 'green', live: true } : { label: 'Built', tone: 'slate', live: false }
-  if (stages.has('Testing') || stages.has('Preview') || stages.has('Build')) return { label: 'In build', tone: 'amber', live: false }
-  if (stages.has('Locked') || stages.has('Briefed in') || stages.has('Mapping')) return { label: 'Next cycle', tone: 'grey', live: false }
+  if (stages.has('Testing') || stages.has('Preview') || stages.has('In build')) return { label: 'In build', tone: 'amber', live: false }
+  if (stages.has('Approved for build') || stages.has('Briefed in') || stages.has('Mapping')) return { label: 'Next cycle', tone: 'grey', live: false }
   return { label: 'Planned', tone: 'grey', live: false }
 }
 

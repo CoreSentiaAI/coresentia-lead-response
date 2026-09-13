@@ -227,7 +227,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                     ))}
                   </select>
                 </Field>
-                <Field label="Lock date">
+                <Field label="Approved on">
                   <input type="date" value={draft.lockDate} onChange={(e) => set('lockDate', e.target.value)} className={inputClass} />
                 </Field>
                 <Field label="Target date">
@@ -306,8 +306,8 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
                 {brief.signOffBy.length > 0 ? `, by ${brief.signOffBy.join(' and ')}` : ''}
               </div>
             </Field>
-            <Field label="Lock date">
-              <div>{brief.lockDate ? fmtDate(brief.lockDate) : brief.workType === 'hotfix' ? 'Hotfix path, no lock' : 'Not locked'}</div>
+            <Field label="Approved on">
+              <div>{brief.lockDate ? fmtDate(brief.lockDate) : brief.workType === 'hotfix' ? 'Hotfix path, no approval gate' : 'Not yet approved'}</div>
             </Field>
             <Field label="Target date">
               <div>{brief.targetDate ? fmtDate(brief.targetDate) : 'Not set'}</div>

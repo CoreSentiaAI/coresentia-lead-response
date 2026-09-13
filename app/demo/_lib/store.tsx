@@ -110,9 +110,9 @@ function reducer(state: State, action: Action): State {
         if (b.stage === action.stage) return b
         const notes: string[] = [`Moved from ${b.stage} to ${action.stage}.`]
         let lockDate = b.lockDate
-        if (action.stage === 'Locked' && !lockDate) {
+        if (action.stage === 'Approved for build' && !lockDate) {
           lockDate = action.at.slice(0, 10)
-          notes.push('Lock date set.')
+          notes.push('Approval date set.')
         }
         if (action.stage === 'Production') notes.push('Promoted to production.')
         return { ...b, stage: action.stage, lockDate, changeLog: [...b.changeLog, logEntry(action, notes.join(' '))] }

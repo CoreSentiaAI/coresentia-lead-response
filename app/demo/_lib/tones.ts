@@ -21,8 +21,8 @@ export const TONES: Record<Tone, { bg: string; fg: string; dot: string }> = {
 export const STAGE_LABEL: Record<Stage, string> = {
   Mapping: 'Stage 1 of 8. Request raised, current state being mapped, waiting to be ranked.',
   'Briefed in': 'Stage 2 of 8. Brief submitted with the process map attached.',
-  Locked: 'Stage 3 of 8. Brief approved by the change lead. This is what gets built.',
-  Build: 'Stage 4 of 8. Being built. Nothing is added to a build in flight.',
+  'Approved for build': 'Stage 3 of 8. Approved by the change lead. Scope is fixed. This is what gets built.',
+  'In build': 'Stage 4 of 8. Being built. Nothing is added mid-build.',
   Preview: 'Stage 5 of 8. On a preview link for the business to click through.',
   Testing: 'Stage 6 of 8. Feedback captured against the brief. One iteration round.',
   Production: 'Stage 7 of 8. Live. Waiting on README, owner and sign-off.',
@@ -32,8 +32,8 @@ export const STAGE_LABEL: Record<Stage, string> = {
 export const STAGE_TONE: Record<Stage, Tone> = {
   Mapping: 'grey',
   'Briefed in': 'blue',
-  Locked: 'purple',
-  Build: 'amber',
+  'Approved for build': 'purple',
+  'In build': 'amber',
   Preview: 'teal',
   Testing: 'orange',
   Production: 'green',

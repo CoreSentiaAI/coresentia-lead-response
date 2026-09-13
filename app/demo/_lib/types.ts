@@ -4,8 +4,8 @@
 export const STAGES = [
   'Mapping',
   'Briefed in',
-  'Locked',
-  'Build',
+  'Approved for build',
+  'In build',
   'Preview',
   'Testing',
   'Production',

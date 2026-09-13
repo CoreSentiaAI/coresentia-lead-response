@@ -45,7 +45,7 @@ const TOUR: TourStep[] = [
   },
   {
     id: 'col-locked',
-    title: 'Locked before build',
+    title: 'Approved before build',
     body: 'The approved brief is what gets built. Ideas raised mid-build go back to Mapping as new requests, ranked against everything else.',
     placement: 'bottom',
   },
@@ -159,7 +159,7 @@ export default function Tracker() {
             )}
             <Stat value={scoped.length} label="briefs" />
             <Stat value={scoped.filter((b) => b.stage === 'Mapping').length} label="in mapping" />
-            <Stat value={scoped.filter((b) => b.stage === 'Build' || b.stage === 'Preview' || b.stage === 'Testing').length} label="in build" tone="amber" />
+            <Stat value={scoped.filter((b) => b.stage === 'In build' || b.stage === 'Preview' || b.stage === 'Testing').length} label="in build" tone="amber" />
             <Stat value={scoped.filter((b) => b.stage === 'Production').length} label="in production" tone="green" />
             <Stat value={scoped.filter((b) => b.signOff === 'awaiting').length} label="awaiting sign-off" tone="primary" />
             <Stat value={scoped.filter((b) => b.stage === 'Done').length} label="done" />
@@ -297,7 +297,7 @@ function Columns({ briefs, onOpen, compact }: { briefs: Brief[]; onOpen: (id: st
         const cards = briefs.filter((b) => b.stage === stage).sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority])
         return (
           <div key={stage} className={`rounded-md bg-[#eaedf1] p-2 ${compact ? 'min-h-[9rem]' : 'min-h-[26rem]'}`}>
-            <div className="flex items-center justify-between px-1 pb-2" data-tour={!compact && stage === 'Mapping' ? 'col-mapping' : !compact && stage === 'Locked' ? 'col-locked' : undefined}>
+            <div className="flex items-center justify-between px-1 pb-2" data-tour={!compact && stage === 'Mapping' ? 'col-mapping' : !compact && stage === 'Approved for build' ? 'col-locked' : undefined}>
               <span className="flex items-center gap-2 text-[12.5px] font-semibold">
                 <span className="h-2 w-2 rounded-full" style={{ background: TONES[STAGE_TONE[stage]].dot }} />
                 {stage}
@@ -359,7 +359,7 @@ const COLUMNS: { key: SortKey; label: string; align?: 'right' }[] = [
   { key: 'priority', label: 'Priority' },
   { key: 'owner', label: 'Brief owner' },
   { key: 'days', label: 'Days', align: 'right' },
-  { key: 'lockDate', label: 'Locked' },
+  { key: 'lockDate', label: 'Approved for build' },
   { key: 'targetDate', label: 'Target' },
   { key: 'signOff', label: 'Sign-off' },
 ]
@@ -529,7 +529,7 @@ function CalendarView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string
             Target production date
           </Chip>
           <Chip tone="purple" dot>
-            Brief locked
+            Brief approved
           </Chip>
           <Chip tone="red" dot>
             Hotfix logged
@@ -554,7 +554,7 @@ function CalendarView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string
                       <button key={it.brief.id + it.kind} type="button" onClick={() => onOpen(it.brief.id)} className="w-full text-left flex items-center gap-2 rounded-[4px] px-2 py-1.5 text-[12.5px] font-medium leading-snug" style={{ background: t.bg, color: t.fg }}>
                         <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: t.dot }} />
                         <span>
-                          {it.kind === 'lock' ? 'Lock: ' : it.kind === 'hotfix' ? 'Hotfix: ' : ''}
+                          {it.kind === 'lock' ? 'Approved: ' : it.kind === 'hotfix' ? 'Hotfix: ' : ''}
                           {it.brief.title}
                         </span>
                       </button>
@@ -597,7 +597,7 @@ function CalendarView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string
                     >
                       <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: t.dot }} />
                       <span className="truncate">
-                        {it.kind === 'lock' ? 'Lock: ' : it.kind === 'hotfix' ? 'Hotfix: ' : ''}
+                        {it.kind === 'lock' ? 'Approved: ' : it.kind === 'hotfix' ? 'Hotfix: ' : ''}
                         {it.brief.title}
                       </span>
                     </button>

@@ -27,45 +27,45 @@ const TOUR: TourStep[] = [
   {
     id: 'workstreams',
     title: 'Workstreams',
-    body: 'Pick a workstream and its briefs are the board. All work is the whole backlog, ranked once.',
+    body: 'Pick a workstream and its briefs populate the board.',
     placement: 'right',
     anchor: 'r',
   },
   {
     id: 'new-request',
-    title: 'Single intake',
-    body: 'Every request starts here. Nothing reaches the builder by direct message.',
+    title: 'New requests',
+    body: 'Every request starts here, so nothing gets lost.',
     placement: 'bottom',
   },
   {
     id: 'col-mapping',
-    title: 'Ranked, not first come',
-    body: 'The change lead sets priority. The builder takes the top of the list.',
+    title: 'Priority',
+    body: 'The change lead and the business set the priorities. The builder works through them from the top.',
     placement: 'bottom',
     anchor: 'tl',
   },
   {
     id: 'col-locked',
-    title: 'Approved before build',
-    body: 'The approved brief is what gets built. New ideas go back to Mapping.',
+    title: 'Approved for build',
+    body: 'Once approved, the brief is fixed for the build. New ideas go in as new requests.',
     placement: 'bottom',
   },
   {
     id: 'card-hotfix',
-    title: 'Hotfix path',
-    body: 'Production bugs skip the queue. Logged, fixed, live within hours, visible here.',
+    title: 'Hotfixes',
+    body: 'Production bugs go straight to the builder and are fixed within hours.',
     placement: 'left',
   },
   {
     id: 'card-example',
-    title: 'Click any card, or drag it',
-    body: 'Drag to move. Click for the brief, attachments, feedback, sign-off, definition of done and audit trail.',
+    title: 'Cards',
+    body: 'Drag to move, or click to open. The brief page holds the summary, attachments, feedback, sign-off, completion steps and audit trail.',
     placement: 'left',
   },
   {
     id: 'integration-cycle',
-    title: 'Integration cycles',
-    body: 'Cross-module links are batched. Every third or fourth cycle builds only these.',
+    title: 'Integrations',
+    body: 'The connections between departmental modules. Filed as their own work type so they can be planned together.',
     placement: 'bottom',
   },
   {
@@ -78,14 +78,14 @@ const TOUR: TourStep[] = [
   {
     id: 'notifications',
     title: 'Notifications',
-    body: 'Named on a brief, a stage moves, feedback lands, a PO needs you: it shows here and by email.',
+    body: 'Anything that involves you shows here and goes to your email.',
     placement: 'right',
     anchor: 'r',
   },
   {
     id: 'ask',
     title: 'Ask the tracker',
-    body: 'Ask instead of reading. What is waiting on me, what changed this week, who owns the site diary.',
+    body: 'Do not want to scroll through endless briefs? Ask the AI tracker bot instead.',
     placement: 'right',
     anchor: 'r',
   },
@@ -233,7 +233,7 @@ export default function Tracker() {
             <option value="P3">P3</option>
           </select>
           <Button variant={integrationCycle ? 'primary' : 'secondary'} onClick={() => setIntegrationCycle((v) => !v)} aria-pressed={integrationCycle} data-tour="integration-cycle">
-            Integration cycle
+            Integrations
           </Button>
           {filtered && (
             <Button
@@ -256,7 +256,7 @@ export default function Tracker() {
           )}
 
         </div>
-        {integrationCycle && <p className="mt-2 text-[12.5px] text-pm-muted">Cross-module links only. Every third or fourth cycle builds only these.</p>}
+        {integrationCycle && <p className="mt-2 text-[12.5px] text-pm-muted">Connections between departmental modules.</p>}
 
         <div className="mt-4">
           {view === 'board' && <BoardView briefs={visible} onOpen={setSelectedId} lanes={ws === 'all' && lanes ? WORKSTREAMS : undefined} />}

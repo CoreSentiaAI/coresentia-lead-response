@@ -22,7 +22,7 @@ export const STAGE_LABEL: Record<Stage, string> = {
   Mapping: '1 of 7. Raised, being mapped, waiting to be ranked.',
   'Briefed in': '2 of 7. Brief submitted with the process map.',
   'Approved for build': '3 of 7. Approved by the change lead. Scope is fixed.',
-  'In build': '4 of 7. Being built. Nothing is added mid-build.',
+  'In build': '4 of 7. Being built.',
   Testing: '5 of 7. On a preview link. Feedback captured against the brief.',
   Production: '6 of 7. Live. Waiting on README, tests and sign-off.',
   Complete: '7 of 7. Live, signed off, documented, tested.',

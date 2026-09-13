@@ -41,7 +41,7 @@ function DocPage({ seeded }: { seeded: boolean }) {
     <div className="h-full overflow-y-auto bg-[#e9ebef] py-8 px-4 scrollbar-thin">
       <div className="mx-auto bg-white shadow-[0_8px_30px_rgba(16,24,40,0.12)]" style={{ width: 'min(100%, 760px)', padding: '64px 72px', fontFamily: 'Calibri, Carlito, "Helvetica Neue", Arial, sans-serif', color: '#1c2430' }}>
         <h1 style={{ fontSize: 26, fontWeight: 700, margin: 0 }}>Brief: Purchase orders - raise and approve</h1>
-        <p style={{ fontSize: 12.5, color: '#5b6675', margin: '6px 0 22px' }}>Version 2. Submitted 24 July 2026 by Priya Nair. Locked 28 July 2026 by Helen Marsh.</p>
+        <p style={{ fontSize: 12.5, color: '#5b6675', margin: '6px 0 22px' }}>Version 2. Submitted 24 July 2026 by Sarah Whitfield. Locked 28 July 2026 by Helen Marsh.</p>
         {[
           ['Business outcome', ['Raise a PO against a project, route it by value, approve it on a phone, post it to the ERP. Audit trail on every step.']],
           ['Current state', ['PO template in Excel, emailed for signature, re-keyed into the ERP by accounts. About 40 a week. No view of committed cost until the invoice lands.']],
@@ -57,7 +57,7 @@ function DocPage({ seeded }: { seeded: boolean }) {
             true,
           ],
           ['Out of scope for this brief', ['Receipting and three-way match (separate request).', 'Standing supply agreements.'], true],
-          ['Sign-off', ['Priya Nair (Procurement Manager) and Helen Marsh (Head of Finance) sign off on production. Internal owner: Priya Nair.']],
+          ['Sign-off', ['Sarah Whitfield (Procurement Manager) and Helen Marsh (Head of Finance) sign off on production. Internal owner: Sarah Whitfield.']],
           ['Attachments', ['Process map v2 (PDF). PO approval flow, current state (PNG).']],
         ].map(([h, items, bullets]) => (
           <section key={h as string} style={{ marginTop: 18 }}>

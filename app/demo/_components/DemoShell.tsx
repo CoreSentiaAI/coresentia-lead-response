@@ -7,6 +7,8 @@ import { WORKSTREAMS, useDemo } from '../_lib/store'
 import { TONES } from '../_lib/tones'
 import { Avatar, Button, selectClass } from './ui'
 import { Icon } from './icons'
+import NotificationsPanel from './NotificationsPanel'
+import AskPanel from './AskPanel'
 
 const NAV = [
   { href: '/demo/tracker', label: 'Tracker', icon: 'board' },
@@ -23,6 +25,9 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
   const [confirmReset, setConfirmReset] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const [framed, setFramed] = useState(false)
+  const [notifOpen, setNotifOpen] = useState(false)
+  const [askOpen, setAskOpen] = useState(false)
+  const unread = state.notifications.filter((n) => n.to === actor.name && !n.read).length
 
   const previewing = pathname === '/demo/preview'
   const previewDevice = previewing ? search.get('device') ?? 'phone' : 'desktop'
@@ -133,6 +138,36 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
+        {/* Notifications and Ask */}
+        <div className={`flex lg:flex-col gap-1 ${collapsed ? 'lg:px-2 lg:items-center' : 'lg:px-3'} lg:mt-3`}>
+          <button
+            type="button"
+            onClick={() => setNotifOpen(true)}
+            data-tour="notifications"
+            title="Notifications"
+            className={`relative flex items-center gap-2.5 rounded-md text-[13px] font-medium transition-colors text-pm-text hover:bg-pm-hover ${collapsed ? 'lg:justify-center lg:px-0 lg:h-9 lg:w-9' : 'px-3 py-2'}`}
+          >
+            <span className="text-pm-muted relative">
+              <Icon name="bell" />
+              {unread > 0 && <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#c93b3b] text-white text-[10px] font-semibold flex items-center justify-center">{unread}</span>}
+            </span>
+            {!collapsed && <span>Notifications</span>}
+            {!collapsed && unread > 0 && <span className="ml-auto text-[11px] text-pm-muted">{unread} new</span>}
+          </button>
+          <button
+            type="button"
+            onClick={() => setAskOpen(true)}
+            data-tour="ask"
+            title="Ask the tracker"
+            className={`flex items-center gap-2.5 rounded-md text-[13px] font-medium transition-colors text-pm-text hover:bg-pm-hover ${collapsed ? 'lg:justify-center lg:px-0 lg:h-9 lg:w-9' : 'px-3 py-2'}`}
+          >
+            <span className="text-pm-primary">
+              <Icon name="spark" />
+            </span>
+            {!collapsed && <span>Ask the tracker</span>}
+          </button>
+        </div>
+
         {/* Preview on: desktop, tablet, phone. Desktop only, and never inside the preview frame itself. */}
         {!framed && (
           <div className={`hidden lg:block lg:mt-auto ${collapsed ? 'px-2 pb-2' : 'px-3 pb-3'}`}>
@@ -209,6 +244,8 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div className={`flex-1 min-w-0 ${collapsed ? 'lg:pl-[48px]' : 'lg:pl-[232px]'} lg:transition-[padding] lg:duration-200`}>{children}</div>
+      <NotificationsPanel open={notifOpen} onClose={() => setNotifOpen(false)} />
+      <AskPanel open={askOpen} onClose={() => setAskOpen(false)} />
     </div>
   )
 }

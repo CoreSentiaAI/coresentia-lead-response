@@ -5,13 +5,13 @@
 // returns everything to the seed.
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer } from 'react'
-import type { Attachment, Brief, Person, PoLine, Priority, PurchaseOrder, Stage, WorkType } from './types'
-import { ACTORS, BRIEFS, DEFAULT_ACTOR, DEPARTMENTS, MODULES, NEXT_PO_SEQUENCE, PEOPLE, PROJECTS, PURCHASE_ORDERS, SUPPLIERS, WORKSTREAMS } from './seed'
+import type { Attachment, Brief, Notification, NotifyPref, Person, PoLine, Priority, PurchaseOrder, Stage, WorkType } from './types'
+import { ACTORS, BRIEFS, DEFAULT_ACTOR, DEPARTMENTS, MODULES, NEXT_PO_SEQUENCE, NOTIFICATIONS, PEOPLE, PROJECTS, PURCHASE_ORDERS, SUPPLIERS, WORKSTREAMS } from './seed'
 import { lineTotals, newId } from './format'
 import { routeFor } from './routing'
 
 const STORAGE_KEY = 'cs-demo-state'
-const VERSION = 5
+const VERSION = 6
 
 type State = {
   version: number
@@ -19,6 +19,8 @@ type State = {
   pos: PurchaseOrder[]
   actingAs: string
   poSeq: number
+  notifications: Notification[]
+  notifyPrefs: Record<string, NotifyPref>
 }
 
 const seedState = (): State => ({
@@ -27,6 +29,8 @@ const seedState = (): State => ({
   pos: PURCHASE_ORDERS,
   actingAs: DEFAULT_ACTOR,
   poSeq: NEXT_PO_SEQUENCE,
+  notifications: NOTIFICATIONS,
+  notifyPrefs: {},
 })
 
 type Stamp = { at: string; who: string }
@@ -35,6 +39,9 @@ type Action =
   | { type: 'reset' }
   | { type: 'hydrate'; state: State }
   | { type: 'setActingAs'; id: string }
+  | { type: 'markRead'; id: string }
+  | { type: 'markAllRead'; who: string }
+  | { type: 'setNotifyPref'; who: string; pref: NotifyPref }
   | ({ type: 'addBrief'; title: string; module: string; workstream: string; department?: string; owner: string; smes: string[]; priority: Priority; workType: WorkType; days: number; targetDate: string | null; outcome: string } & Stamp)
   | ({ type: 'moveBrief'; id: string; stage: Stage } & Stamp)
   | ({ type: 'updateBrief'; id: string; patch: Partial<Brief>; changed: string[] } & Stamp)
@@ -53,6 +60,16 @@ type Action =
 
 const logEntry = (s: Stamp, action: string) => ({ id: newId('log'), at: s.at, who: s.who, action })
 
+const BUILDER = 'Ramsay Hatfield'
+
+// Fan a notification out to everyone on the list except whoever did the thing.
+function notify(state: State, s: Stamp, to: string[], kind: Notification['kind'], text: string, briefId?: string): State {
+  const recipients = Array.from(new Set(to)).filter((n) => n && n !== s.who)
+  if (recipients.length === 0) return state
+  const fresh = recipients.map((n) => ({ id: newId('n'), to: n, kind, text, briefId, at: s.at, read: false }))
+  return { ...state, notifications: [...fresh, ...state.notifications] }
+}
+
 function updateBrief(state: State, id: string, fn: (b: Brief) => Brief): State {
   return { ...state, briefs: state.briefs.map((b) => (b.id === id ? fn(b) : b)) }
 }
@@ -69,6 +86,12 @@ function reducer(state: State, action: Action): State {
       return action.state
     case 'setActingAs':
       return { ...state, actingAs: action.id }
+    case 'markRead':
+      return { ...state, notifications: state.notifications.map((n) => (n.id === action.id ? { ...n, read: true } : n)) }
+    case 'markAllRead':
+      return { ...state, notifications: state.notifications.map((n) => (n.to === action.who ? { ...n, read: true } : n)) }
+    case 'setNotifyPref':
+      return { ...state, notifyPrefs: { ...state.notifyPrefs, [action.who]: action.pref } }
 
     case 'addBrief': {
       const brief: Brief = {
@@ -95,18 +118,27 @@ function reducer(state: State, action: Action): State {
         changeLog: [logEntry(action, 'Request raised. Entered Mapping.')],
         attachments: [],
       }
-      return { ...state, briefs: [brief, ...state.briefs] }
+      const withBrief = { ...state, briefs: [brief, ...state.briefs] }
+      const assigned = notify(withBrief, action, [action.owner, ...action.smes], 'assigned', `${action.who} raised ${action.title} and named you on it.`, brief.id)
+      return notify(assigned, action, [BUILDER, 'Helen Marsh'], action.workType === 'hotfix' ? 'hotfix' : 'assigned', action.workType === 'hotfix' ? `Hotfix logged by ${action.who}: ${action.title}.` : `New request to rank: ${action.title}, raised by ${action.who}.`, brief.id)
     }
 
-    case 'updateBrief':
-      return updateBrief(state, action.id, (b) => ({
+    case 'updateBrief': {
+      const before = state.briefs.find((b) => b.id === action.id)
+      const next = updateBrief(state, action.id, (b) => ({
         ...b,
         ...action.patch,
         changeLog: action.changed.length ? [...b.changeLog, logEntry(action, `Details updated: ${action.changed.join(', ')}.`)] : b.changeLog,
       }))
+      if (!before) return next
+      const after = next.briefs.find((b) => b.id === action.id)!
+      const newlyNamed = [after.owner, ...after.smes].filter((n) => n !== before.owner && !before.smes.includes(n))
+      return notify(next, action, newlyNamed, 'assigned', `${action.who} named you on ${after.title}.`, after.id)
+    }
 
-    case 'moveBrief':
-      return updateBrief(state, action.id, (b) => {
+    case 'moveBrief': {
+      const target = state.briefs.find((b) => b.id === action.id)
+      const moved = updateBrief(state, action.id, (b) => {
         if (b.stage === action.stage) return b
         const notes: string[] = [`Moved from ${b.stage} to ${action.stage}.`]
         let lockDate = b.lockDate
@@ -117,13 +149,26 @@ function reducer(state: State, action: Action): State {
         if (action.stage === 'Production') notes.push('Promoted to production.')
         return { ...b, stage: action.stage, lockDate, changeLog: [...b.changeLog, logEntry(action, notes.join(' '))] }
       })
+      if (!target || target.stage === action.stage) return moved
+      const kind = action.stage === 'Production' ? 'signoff' : 'stage'
+      const text =
+        action.stage === 'Production'
+          ? `Sign-off requested: ${target.title} is in production.`
+          : action.stage === 'Testing'
+            ? `${target.title} moved to Testing. Your click-through is due.`
+            : `${action.who} moved ${target.title} to ${action.stage}.`
+      return notify(moved, action, [target.owner, ...target.smes, BUILDER], kind, text, target.id)
+    }
 
-    case 'addFeedback':
-      return updateBrief(state, action.id, (b) => ({
+    case 'addFeedback': {
+      const target = state.briefs.find((b) => b.id === action.id)
+      const next = updateBrief(state, action.id, (b) => ({
         ...b,
         feedback: [...b.feedback, { id: newId('fb'), author: action.who, text: action.text, status: 'open', at: action.at }],
         changeLog: [...b.changeLog, logEntry(action, 'Test feedback added.')],
       }))
+      return target ? notify(next, action, [BUILDER, target.owner], 'feedback', `${action.who} added test feedback on ${target.title}.`, target.id) : next
+    }
 
     case 'toggleFeedback':
       return updateBrief(state, action.id, (b) => {
@@ -162,12 +207,15 @@ function reducer(state: State, action: Action): State {
         }
       })
 
-    case 'signOffBrief':
-      return updateBrief(state, action.id, (b) => ({
+    case 'signOffBrief': {
+      const target = state.briefs.find((b) => b.id === action.id)
+      const next = updateBrief(state, action.id, (b) => ({
         ...b,
         signOff: 'signed off',
         changeLog: [...b.changeLog, logEntry(action, `Signed off by ${action.who}.`)],
       }))
+      return target ? notify(next, action, [BUILDER, target.owner, ...target.smes], 'signoff', `${action.who} signed off ${target.title}.`, target.id) : next
+    }
 
     case 'createPo': {
       const project = PROJECTS.find((p) => p.id === action.projectId)
@@ -212,8 +260,9 @@ function reducer(state: State, action: Action): State {
         }
       })
 
-    case 'approvePo':
-      return updatePo(state, action.id, (p) => {
+    case 'approvePo': {
+      const po = state.pos.find((p) => p.id === action.id)
+      const next = updatePo(state, action.id, (p) => {
         const idx = p.approvals.findIndex((a) => a.decision === 'pending')
         if (p.status !== 'Submitted' || idx === -1) return p
         const step = p.approvals[idx]
@@ -228,9 +277,18 @@ function reducer(state: State, action: Action): State {
           audit: [...p.audit, { id: newId('aud'), at: action.at, who: step.approver, action: `Approved as ${step.role.toLowerCase()}.${note}` }],
         }
       })
+      if (!po) return next
+      const after = next.pos.find((p) => p.id === action.id)!
+      const step = po.approvals.find((a) => a.decision === 'pending')
+      const pendingNext = after.approvals.find((a) => a.decision === 'pending')
+      const stamp = { at: action.at, who: step?.approver ?? action.who }
+      const told = notify(next, stamp, [po.raisedBy], 'po', after.status === 'Approved' ? `${po.number} approved. Ready to send to the ERP.` : `${po.number} approved by ${step?.approver}. Waiting on ${pendingNext?.approver}.`)
+      return pendingNext ? notify(told, stamp, [pendingNext.approver], 'po', `${po.number} is waiting for your approval.`) : told
+    }
 
-    case 'rejectPo':
-      return updatePo(state, action.id, (p) => {
+    case 'rejectPo': {
+      const po = state.pos.find((p) => p.id === action.id)
+      const next = updatePo(state, action.id, (p) => {
         const idx = p.approvals.findIndex((a) => a.decision === 'pending')
         if (p.status !== 'Submitted' || idx === -1) return p
         const step = p.approvals[idx]
@@ -244,6 +302,10 @@ function reducer(state: State, action: Action): State {
           audit: [...p.audit, { id: newId('aud'), at: action.at, who: step.approver, action: `Rejected as ${step.role.toLowerCase()}.${note}` }],
         }
       })
+      if (!po) return next
+      const step = po.approvals.find((a) => a.decision === 'pending')
+      return notify(next, { at: action.at, who: step?.approver ?? action.who }, [po.raisedBy], 'po', `${po.number} rejected by ${step?.approver}.${action.note ? ` Note: ${action.note}` : ''}`)
+    }
 
     case 'sendToErp':
       return updatePo(state, action.id, (p) => {
@@ -330,7 +392,7 @@ export function DemoProvider({ children }: { children: React.ReactNode }) {
         dispatch({ type: 'reset' })
         return
       }
-      if (command.type === 'hydrate' || command.type === 'setActingAs') {
+      if (command.type === 'hydrate' || command.type === 'setActingAs' || command.type === 'markRead' || command.type === 'markAllRead' || command.type === 'setNotifyPref') {
         dispatch(command)
         return
       }

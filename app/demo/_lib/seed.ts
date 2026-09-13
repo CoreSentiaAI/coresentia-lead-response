@@ -2,7 +2,7 @@
 // Every person, supplier, project and number here is made up. Nothing is
 // drawn from any client.
 
-import type { Brief, Person, Project, PurchaseOrder, Supplier, Workstream } from './types'
+import type { Brief, Notification, Person, Project, PurchaseOrder, Supplier, Workstream } from './types'
 
 export const PEOPLE: Person[] = [
   { id: 'helen', name: 'Helen Marsh', role: 'Head of Finance - change lead' },
@@ -1235,3 +1235,23 @@ export const NEXT_PO_SEQUENCE = 416
 
 // Module names offered when a new request is raised.
 export const MODULES = ['Identity', 'Tracker', 'Project Record', 'Audit', 'Engineering', 'Construction', 'Commissioning', 'Purchase Orders', 'Progress Claims', 'Variations Log', 'ERP Sync', 'Site Diary', 'Subcontractor Onboarding', 'HSEQ', 'Board Reporting', 'Dashboards']
+
+// ---------- Notifications (per person) ----------
+
+export const NOTIFICATIONS: Notification[] = [
+  { id: 'n01', to: 'Ramsay Hatfield', kind: 'feedback', text: 'Sarah Whitfield added test feedback on Purchase orders - raise and approve.', briefId: 'b03', at: '2026-09-04T16:20:00+10:00', read: true },
+  { id: 'n02', to: 'Ramsay Hatfield', kind: 'hotfix', text: 'Hotfix logged by Sarah Whitfield: Approval threshold ignores GST-inclusive unit prices.', briefId: 'b04', at: '2026-09-09T10:40:00+10:00', read: true },
+  { id: 'n03', to: 'Ramsay Hatfield', kind: 'stage', text: 'Helen Marsh approved Subcontractor onboarding for build.', briefId: 'b08', at: '2026-09-10T09:00:00+10:00', read: false },
+  { id: 'n04', to: 'Ramsay Hatfield', kind: 'feedback', text: 'Kate Donnelly added test feedback on Progress claims - claim builder.', briefId: 'b06', at: '2026-09-11T10:30:00+10:00', read: false },
+  { id: 'n05', to: 'Ramsay Hatfield', kind: 'assigned', text: 'Marcus Reid briefed in Site inductions and competencies.', briefId: 's03', at: '2026-09-12T15:00:00+10:00', read: false },
+  { id: 'n06', to: 'Helen Marsh', kind: 'signoff', text: 'Sign-off requested: Purchase orders - raise and approve is in production.', briefId: 'b03', at: '2026-09-11T11:00:00+10:00', read: false },
+  { id: 'n07', to: 'Helen Marsh', kind: 'signoff', text: 'Sign-off requested: Audit log on every record is in production.', briefId: 'f04', at: '2026-09-08T10:00:00+10:00', read: true },
+  { id: 'n08', to: 'Helen Marsh', kind: 'assigned', text: 'New request to rank: Ask the platform a question, raised by you.', briefId: 'r03', at: '2026-09-11T09:00:00+10:00', read: true },
+  { id: 'n09', to: 'Helen Marsh', kind: 'po', text: 'PO-2026-0407 is waiting for your approval: Siebert Switchgear, $58,800 ex GST.', at: '2026-09-09T16:20:00+10:00', read: false },
+  { id: 'n10', to: 'Tom Aldridge', kind: 'assigned', text: 'You are brief owner for Stage gates and sign-offs.', briefId: 'p02', at: '2026-08-11T09:05:00+10:00', read: true },
+  { id: 'n11', to: 'Tom Aldridge', kind: 'stage', text: 'Stage gates and sign-offs moved to Testing. Your click-through is due.', briefId: 'p02', at: '2026-09-10T09:00:00+10:00', read: false },
+  { id: 'n12', to: 'Tom Aldridge', kind: 'po', text: 'PO-2026-0414 is waiting for your approval: Brightwater Civil Contractors, $21,600 ex GST.', at: '2026-09-11T15:02:00+10:00', read: false },
+  { id: 'n13', to: 'Sarah Whitfield', kind: 'hotfix', text: 'Your hotfix is on production: Approval threshold ignores GST-inclusive unit prices.', briefId: 'b04', at: '2026-09-09T13:15:00+10:00', read: true },
+  { id: 'n14', to: 'Sarah Whitfield', kind: 'po', text: 'PO-2026-0407 approved by Tom Aldridge. Waiting on Helen Marsh.', at: '2026-09-09T16:20:00+10:00', read: false },
+  { id: 'n15', to: 'Sarah Whitfield', kind: 'signoff', text: 'Sign-off requested: Purchase orders - raise and approve is in production.', briefId: 'b03', at: '2026-09-11T11:00:00+10:00', read: false },
+]

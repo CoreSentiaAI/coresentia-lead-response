@@ -120,3 +120,17 @@ export type PurchaseOrder = {
 
 export type Supplier = { id: string; name: string; category: string }
 export type Project = { id: string; code: string; name: string; manager: string }
+
+export type NotificationKind = 'assigned' | 'stage' | 'feedback' | 'signoff' | 'hotfix' | 'po'
+
+export type Notification = {
+  id: string
+  to: string
+  kind: NotificationKind
+  text: string
+  briefId?: string
+  at: string
+  read: boolean
+}
+
+export type NotifyPref = 'immediate' | 'daily' | 'off'

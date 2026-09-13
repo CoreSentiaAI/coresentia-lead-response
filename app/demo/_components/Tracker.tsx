@@ -75,6 +75,20 @@ const TOUR: TourStep[] = [
     anchor: 'r',
   },
   {
+    id: 'notifications',
+    title: 'Notifications',
+    body: 'Everyone gets their own centre. Named on a brief, a stage moves, feedback lands, a PO needs you: it shows here, and by email immediately, daily or not at all.',
+    placement: 'right',
+    anchor: 'r',
+  },
+  {
+    id: 'ask',
+    title: 'Ask the tracker',
+    body: 'Instead of reading through briefs, ask. What is waiting on me, what changed this week, who owns the site diary. Answers show the briefs they came from.',
+    placement: 'right',
+    anchor: 'r',
+  },
+  {
     id: 'preview',
     title: 'Built for every screen',
     body: 'The same build on a phone or a tablet, in a frame you can click around in.',
@@ -94,6 +108,7 @@ export default function Tracker() {
   const [view, setView] = useState<View>('board')
   const params = useSearchParams()
   const router = useRouter()
+  const briefParam = params.get('brief')
   const ws = WORKSTREAMS.some((w) => w.id === params.get('ws')) ? (params.get('ws') as string) : 'all'
   const [lanes, setLanes] = useState(false)
   const [search, setSearch] = useState('')
@@ -105,6 +120,10 @@ export default function Tracker() {
   const [newOpen, setNewOpen] = useState(false)
 
   const owners = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.owner))).sort(), [state.briefs])
+
+  useEffect(() => {
+    if (briefParam && state.briefs.some((b) => b.id === briefParam)) setSelectedId(briefParam)
+  }, [briefParam]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const q = search.trim().toLowerCase()
   const scoped = ws === 'all' ? state.briefs : state.briefs.filter((b) => b.workstream === ws)

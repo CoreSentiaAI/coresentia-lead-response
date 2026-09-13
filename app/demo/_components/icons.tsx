@@ -1,6 +1,6 @@
 'use client'
 
-export type IconName = 'board' | 'grid' | 'collapse' | 'expand' | 'desktop' | 'tablet' | 'phone' | 'receipt' | 'chevron' | 'spark' | 'close'
+export type IconName = 'board' | 'grid' | 'collapse' | 'expand' | 'desktop' | 'tablet' | 'phone' | 'receipt' | 'chevron' | 'spark' | 'close' | 'bell'
 
 // Small stroke icons, 16px grid, drawn inline so nothing loads.
 export function Icon({ name, size = 16, className = '' }: { name: IconName; size?: number; className?: string }) {
@@ -62,6 +62,13 @@ export function Icon({ name, size = 16, className = '' }: { name: IconName; size
         <svg {...common}>
           <path d="M8 1.8l1.5 3.9 3.9 1.5-3.9 1.5L8 12.6 6.5 8.7 2.6 7.2l3.9-1.5L8 1.8Z" />
           <path d="M12.8 11.2l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6.6-1.4Z" />
+        </svg>
+      )
+    case 'bell':
+      return (
+        <svg {...common}>
+          <path d="M4 11.5V7.8a4 4 0 0 1 8 0v3.7l1.2 1.4H2.8L4 11.5Z" />
+          <path d="M6.6 14.2a1.5 1.5 0 0 0 2.8 0" />
         </svg>
       )
     case 'close':

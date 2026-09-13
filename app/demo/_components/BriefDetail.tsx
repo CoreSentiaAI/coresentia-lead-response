@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { useDemo } from '../_lib/store'
+import { WORKSTREAMS, useDemo } from '../_lib/store'
 import { STAGES, type Attachment, type Brief, type Stage } from '../_lib/types'
 import { ACCEPT, fmtBytes, kindOf, newFileId, rememberFile } from '../_lib/files'
 import FileViewer, { KindTile } from './FileViewer'
@@ -41,6 +41,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
   const log = [...brief.changeLog].sort((a, b) => (a.at < b.at ? 1 : -1))
   const canSignOff = brief.stage === 'Production' && brief.signOff !== 'signed off'
   const openFeedback = brief.feedback.filter((f) => f.status === 'open').length
+  const ws = WORKSTREAMS.find((w) => w.id === brief.workstream)
 
   return (
     <Modal open onClose={onClose}>
@@ -53,6 +54,8 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
             <Chip tone={STAGE_TONE[brief.stage]} dot>
               {brief.stage}
             </Chip>
+            {ws && <Chip tone={ws.tone}>{ws.name}</Chip>}
+            {brief.department && <Chip tone="grey">{brief.department}</Chip>}
             <Chip tone={WORK_TYPE_TONE[brief.workType]}>{brief.workType}</Chip>
             <Chip tone={PRIORITY_TONE[brief.priority]}>{brief.priority}</Chip>
             <Chip tone="grey">{brief.days} days</Chip>
@@ -94,6 +97,16 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
           </div>
 
           <section className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
+            <Field label="Workstream">
+              <div>{ws ? ws.name : brief.workstream}</div>
+              {ws && <div className="mt-0.5 text-[12px] text-pm-muted">{ws.goal}</div>}
+            </Field>
+            <Field label="Department">
+              <div>{brief.department ?? 'Not tagged'}</div>
+            </Field>
+            <Field label="Module">
+              <div>{brief.module}</div>
+            </Field>
             <Field label="Owner (SME)">
               <Person name={brief.owner} />
             </Field>

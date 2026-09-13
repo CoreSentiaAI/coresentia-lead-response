@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { useDemo } from '../_lib/store'
-import { STAGES, type Brief, type Stage, type WorkType } from '../_lib/types'
+import { WORKSTREAMS, useDemo } from '../_lib/store'
+import { STAGES, type Brief, type Stage, type WorkType, type Workstream } from '../_lib/types'
 import { fmtDate } from '../_lib/format'
 import { PRIORITY_TONE, STAGE_TONE, TONES, WORK_TYPE_TONE } from '../_lib/tones'
 import { Avatar, Button, Card, Chip, PageHeader, Person, Stat, Tabs, inputClass, selectClass } from './ui'
@@ -19,6 +19,13 @@ const TOUR: TourStep[] = [
     id: 'title',
     title: 'One channel, one source of truth',
     body: 'Every request, decision and change between the business and the development team is recorded here, not in email or chat. If it is not on the board, it is not happening.',
+    placement: 'bottom',
+    anchor: 'tl',
+  },
+  {
+    id: 'workstreams',
+    title: 'Workstreams',
+    body: 'Briefs cluster around a capability, so the build is organised into workstreams. The tabs filter one board. Ranking stays global, so the change lead still has one list.',
     placement: 'bottom',
     anchor: 'tl',
   },
@@ -84,6 +91,8 @@ export function signOffLabel(b: Brief) {
 export default function Tracker() {
   const { state } = useDemo()
   const [view, setView] = useState<View>('board')
+  const [ws, setWs] = useState<string>('all')
+  const [lanes, setLanes] = useState(false)
   const [search, setSearch] = useState('')
   const [module, setModule] = useState('')
   const [workType, setWorkType] = useState('')
@@ -96,9 +105,11 @@ export default function Tracker() {
   const owners = useMemo(() => Array.from(new Set(state.briefs.map((b) => b.owner))).sort(), [state.briefs])
 
   const q = search.trim().toLowerCase()
-  const visible = state.briefs.filter(
+  const scoped = ws === 'all' ? state.briefs : state.briefs.filter((b) => b.workstream === ws)
+  const current = WORKSTREAMS.find((w) => w.id === ws)
+  const visible = scoped.filter(
     (b) =>
-      (!q || `${b.title} ${b.module} ${b.owner}`.toLowerCase().includes(q)) &&
+      (!q || `${b.title} ${b.module} ${b.owner} ${b.department ?? ''}`.toLowerCase().includes(q)) &&
       (!module || b.module === module) &&
       (!owner || b.owner === owner) &&
       (integrationCycle ? b.workType === 'integration' : !workType || b.workType === workType),
@@ -138,15 +149,26 @@ export default function Tracker() {
         }
         meta={
           <>
-            <Stat value={state.briefs.length} label="briefs" />
-            <Stat value={state.briefs.filter((b) => b.stage === 'Mapping').length} label="in mapping" />
-            <Stat value={state.briefs.filter((b) => b.stage === 'Build' || b.stage === 'Preview' || b.stage === 'Testing').length} label="in build" tone="amber" />
-            <Stat value={state.briefs.filter((b) => b.stage === 'Production').length} label="in production" tone="green" />
-            <Stat value={state.briefs.filter((b) => b.signOff === 'awaiting').length} label="awaiting sign-off" tone="primary" />
-            <Stat value={state.briefs.filter((b) => b.workType === 'hotfix').length} label="hotfix this month" tone="red" />
+            <Stat value={scoped.length} label="briefs" />
+            <Stat value={scoped.filter((b) => b.stage === 'Mapping').length} label="in mapping" />
+            <Stat value={scoped.filter((b) => b.stage === 'Build' || b.stage === 'Preview' || b.stage === 'Testing').length} label="in build" tone="amber" />
+            <Stat value={scoped.filter((b) => b.stage === 'Production').length} label="in production" tone="green" />
+            <Stat value={scoped.filter((b) => b.signOff === 'awaiting').length} label="awaiting sign-off" tone="primary" />
+            <Stat value={scoped.filter((b) => b.stage === 'Done').length} label="done" />
+            <Stat value={scoped.filter((b) => b.workType === 'hotfix').length} label="hotfix this month" tone="red" />
           </>
         }
       />
+
+      <WorkstreamBar value={ws} onChange={setWs} briefs={state.briefs} />
+      {current && (
+        <div className="px-6 lg:px-8 py-2.5 border-b border-pm-border bg-pm-surface flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px]">
+          <span className="text-pm-muted">{current.goal}</span>
+          <span className="ml-auto inline-flex items-center gap-2 text-pm-muted">
+            Owner <Person name={current.owner} size={20} className="text-pm-text" />
+          </span>
+        </div>
+      )}
 
       <div className="px-6 lg:px-8 py-5">
         <div className="flex flex-wrap items-center gap-2.5">
@@ -192,14 +214,19 @@ export default function Tracker() {
               Clear
             </Button>
           )}
+          {view === 'board' && ws === 'all' && (
+            <Button variant={lanes ? 'primary' : 'secondary'} onClick={() => setLanes((v) => !v)} aria-pressed={lanes}>
+              Swimlanes
+            </Button>
+          )}
           <span className="ml-auto text-[12.5px] text-pm-muted">
-            {visible.length} of {state.briefs.length} briefs
+            {visible.length} of {scoped.length} briefs
           </span>
         </div>
         {integrationCycle && <p className="mt-2 text-[12.5px] text-pm-muted">Integration cycle: cross-module links only. Every third or fourth cycle builds these and nothing else.</p>}
 
         <div className="mt-4">
-          {view === 'board' && <BoardView briefs={visible} onOpen={setSelectedId} />}
+          {view === 'board' && <BoardView briefs={visible} onOpen={setSelectedId} lanes={ws === 'all' && lanes ? WORKSTREAMS : undefined} />}
           {view === 'table' && <TableView briefs={visible} onOpen={setSelectedId} />}
           {view === 'calendar' && <CalendarView briefs={visible} onOpen={setSelectedId} />}
         </div>
@@ -212,6 +239,49 @@ export default function Tracker() {
   )
 }
 
+// ---------- Workstreams ----------
+
+function Ring({ done, total, color }: { done: number; total: number; color: string }) {
+  const r = 9
+  const c = 2 * Math.PI * r
+  const pct = total ? done / total : 0
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0">
+      <circle cx="12" cy="12" r={r} fill="none" stroke="#e1e4e8" strokeWidth="3" />
+      <circle cx="12" cy="12" r={r} fill="none" stroke={color} strokeWidth="3" strokeDasharray={`${c * pct} ${c}`} strokeLinecap="round" transform="rotate(-90 12 12)" />
+    </svg>
+  )
+}
+
+function WorkstreamBar({ value, onChange, briefs }: { value: string; onChange: (v: string) => void; briefs: Brief[] }) {
+  const tab = (active: boolean) =>
+    `flex items-center gap-2.5 h-11 px-3.5 rounded-md border text-left whitespace-nowrap transition-colors ${active ? 'border-pm-primary bg-pm-primary-soft' : 'border-transparent hover:bg-pm-hover'}`
+  return (
+    <div className="bg-pm-surface border-b border-pm-border px-6 lg:px-8 py-2.5 overflow-x-auto scrollbar-thin" data-tour="workstreams">
+      <div className="flex items-center gap-1.5 min-w-max">
+        <button type="button" onClick={() => onChange('all')} className={tab(value === 'all')} aria-pressed={value === 'all'}>
+          <span className="text-[13px] font-medium">All work</span>
+          <span className="text-[12px] text-pm-muted">{briefs.length}</span>
+        </button>
+        <span className="mx-1 h-6 w-px bg-pm-border" />
+        {WORKSTREAMS.map((w) => {
+          const mine = briefs.filter((b) => b.workstream === w.id)
+          const done = mine.filter((b) => b.stage === 'Done').length
+          return (
+            <button key={w.id} type="button" onClick={() => onChange(w.id)} className={tab(value === w.id)} aria-pressed={value === w.id}>
+              <Ring done={done} total={mine.length} color={TONES[w.tone].dot} />
+              <span className="text-[13px] font-medium">{w.name}</span>
+              <span className="text-[12px] text-pm-muted">
+                {done}/{mine.length}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 // ---------- Board ----------
 
 function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
@@ -220,10 +290,14 @@ function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
       type="button"
       onClick={onOpen}
       data-tour={brief.workType === 'hotfix' ? 'card-hotfix' : brief.id === 'b03' ? 'card-example' : undefined}
-      className="w-full text-left bg-pm-surface border border-pm-border rounded-md p-3 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:border-pm-border-strong hover:shadow-[0_3px_8px_rgba(16,24,40,0.08)] transition"
+      className="w-full text-left bg-pm-surface border border-pm-border rounded-md p-3 pl-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:border-pm-border-strong hover:shadow-[0_3px_8px_rgba(16,24,40,0.08)] transition"
+      style={{ boxShadow: `inset 3px 0 0 ${TONES[WORKSTREAMS.find((w) => w.id === brief.workstream)?.tone ?? 'grey'].dot}, 0 1px 2px rgba(16,24,40,0.05)` }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[11px] font-medium text-pm-muted truncate">{brief.module}</span>
+        <span className="text-[11px] font-medium text-pm-muted truncate">
+          {brief.module}
+          {brief.department ? `, ${brief.department}` : ''}
+        </span>
         <Chip tone={PRIORITY_TONE[brief.priority]}>{brief.priority}</Chip>
       </div>
       <div className="mt-1.5 text-[13.5px] font-medium leading-snug">{brief.title}</div>
@@ -244,40 +318,69 @@ function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
   )
 }
 
-function BoardView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) => void }) {
+function Columns({ briefs, onOpen, compact }: { briefs: Brief[]; onOpen: (id: string) => void; compact?: boolean }) {
   return (
-    <div className="overflow-x-auto pb-3 scrollbar-thin">
-      <div className="grid grid-flow-col auto-cols-[minmax(150px,1fr)] gap-2">
-        {STAGES.map((stage) => {
-          const cards = briefs.filter((b) => b.stage === stage).sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority])
-          return (
-            <div key={stage} className="rounded-md bg-[#eaedf1] p-2 min-h-[26rem]">
-              <div className="flex items-center justify-between px-1 pb-2" data-tour={stage === 'Mapping' ? 'col-mapping' : stage === 'Locked' ? 'col-locked' : undefined}>
-                <span className="flex items-center gap-2 text-[12.5px] font-semibold">
-                  <span className="h-2 w-2 rounded-full" style={{ background: TONES[STAGE_TONE[stage]].dot }} />
-                  {stage}
-                </span>
-                <span className="text-[12px] text-pm-muted">{cards.length}</span>
-              </div>
-              <div className="space-y-2">
-                {cards.map((b) => (
-                  <BoardCard key={b.id} brief={b} onOpen={() => onOpen(b.id)} />
-                ))}
-              </div>
+    <div className="grid grid-flow-col auto-cols-[minmax(150px,1fr)] gap-2">
+      {STAGES.map((stage) => {
+        const cards = briefs.filter((b) => b.stage === stage).sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority])
+        return (
+          <div key={stage} className={`rounded-md bg-[#eaedf1] p-2 ${compact ? 'min-h-[9rem]' : 'min-h-[26rem]'}`}>
+            <div className="flex items-center justify-between px-1 pb-2" data-tour={!compact && stage === 'Mapping' ? 'col-mapping' : !compact && stage === 'Locked' ? 'col-locked' : undefined}>
+              <span className="flex items-center gap-2 text-[12.5px] font-semibold">
+                <span className="h-2 w-2 rounded-full" style={{ background: TONES[STAGE_TONE[stage]].dot }} />
+                {stage}
+              </span>
+              <span className="text-[12px] text-pm-muted">{cards.length}</span>
             </div>
-          )
-        })}
+            <div className="space-y-2">
+              {cards.map((b) => (
+                <BoardCard key={b.id} brief={b} onOpen={() => onOpen(b.id)} />
+              ))}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function BoardView({ briefs, onOpen, lanes }: { briefs: Brief[]; onOpen: (id: string) => void; lanes?: Workstream[] }) {
+  if (!lanes) {
+    return (
+      <div className="overflow-x-auto pb-3 scrollbar-thin">
+        <Columns briefs={briefs} onOpen={onOpen} />
       </div>
+    )
+  }
+  return (
+    <div className="overflow-x-auto pb-3 scrollbar-thin space-y-4">
+      {lanes.map((w) => {
+        const mine = briefs.filter((b) => b.workstream === w.id)
+        if (mine.length === 0) return null
+        return (
+          <section key={w.id}>
+            <div className="flex items-center gap-2.5 mb-2">
+              <span className="h-5 w-1.5 rounded-full" style={{ background: TONES[w.tone].dot }} />
+              <h3 className="text-[13.5px] font-semibold">{w.name}</h3>
+              <span className="text-[12px] text-pm-muted">{mine.length} briefs</span>
+              <span className="text-[12px] text-pm-muted hidden md:inline">{w.goal}</span>
+            </div>
+            <Columns briefs={mine} onOpen={onOpen} compact />
+          </section>
+        )
+      })}
     </div>
   )
 }
 
 // ---------- Table ----------
 
-type SortKey = 'title' | 'module' | 'stage' | 'workType' | 'priority' | 'owner' | 'days' | 'lockDate' | 'targetDate' | 'signOff'
+type SortKey = 'title' | 'workstream' | 'department' | 'module' | 'stage' | 'workType' | 'priority' | 'owner' | 'days' | 'lockDate' | 'targetDate' | 'signOff'
 
 const COLUMNS: { key: SortKey; label: string; align?: 'right' }[] = [
   { key: 'title', label: 'Brief' },
+  { key: 'workstream', label: 'Workstream' },
+  { key: 'department', label: 'Department' },
   { key: 'module', label: 'Module' },
   { key: 'stage', label: 'Stage' },
   { key: 'workType', label: 'Type' },
@@ -291,6 +394,7 @@ const COLUMNS: { key: SortKey; label: string; align?: 'right' }[] = [
 
 function sortValue(b: Brief, key: SortKey): string | number {
   if (key === 'stage') return STAGES.indexOf(b.stage)
+  if (key === 'workstream') return WORKSTREAMS.findIndex((w) => w.id === b.workstream)
   if (key === 'priority') return PRIORITY_RANK[b.priority]
   if (key === 'days') return b.days
   const v = b[key]
@@ -315,7 +419,7 @@ function TableView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) =
   }
   return (
     <Card className="overflow-x-auto scrollbar-thin">
-      <table className="w-full min-w-[1040px] text-[13px]">
+      <table className="w-full min-w-[1240px] text-[13px]">
         <thead>
           <tr className="bg-pm-hover border-b border-pm-border">
             {COLUMNS.map((c) => (
@@ -332,6 +436,13 @@ function TableView({ briefs, onOpen }: { briefs: Brief[]; onOpen: (id: string) =
           {rows.map((b) => (
             <tr key={b.id} onClick={() => onOpen(b.id)} className="border-b border-pm-border last:border-b-0 hover:bg-pm-hover cursor-pointer">
               <td className="px-3 py-2.5 font-medium max-w-[26rem]">{b.title}</td>
+              <td className="px-3 py-2.5 whitespace-nowrap">
+                {(() => {
+                  const w = WORKSTREAMS.find((x) => x.id === b.workstream)
+                  return w ? <Chip tone={w.tone}>{w.name}</Chip> : null
+                })()}
+              </td>
+              <td className="px-3 py-2.5 text-pm-muted whitespace-nowrap">{b.department ?? ''}</td>
               <td className="px-3 py-2.5 text-pm-muted whitespace-nowrap">{b.module}</td>
               <td className="px-3 py-2.5">
                 <Chip tone={STAGE_TONE[b.stage]} dot>

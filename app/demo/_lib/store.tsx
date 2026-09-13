@@ -6,12 +6,12 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer } from 'react'
 import type { Attachment, Brief, Person, PoLine, Priority, PurchaseOrder, Stage, WorkType } from './types'
-import { ACTORS, BRIEFS, DEFAULT_ACTOR, MODULES, NEXT_PO_SEQUENCE, PEOPLE, PROJECTS, PURCHASE_ORDERS, SUPPLIERS } from './seed'
+import { ACTORS, BRIEFS, DEFAULT_ACTOR, DEPARTMENTS, MODULES, NEXT_PO_SEQUENCE, PEOPLE, PROJECTS, PURCHASE_ORDERS, SUPPLIERS, WORKSTREAMS } from './seed'
 import { lineTotals, newId } from './format'
 import { routeFor } from './routing'
 
 const STORAGE_KEY = 'cs-demo-state'
-const VERSION = 3
+const VERSION = 4
 
 type State = {
   version: number
@@ -35,7 +35,7 @@ type Action =
   | { type: 'reset' }
   | { type: 'hydrate'; state: State }
   | { type: 'setActingAs'; id: string }
-  | ({ type: 'addBrief'; title: string; module: string; owner: string; priority: Priority; workType: WorkType; days: number; targetDate: string | null; outcome: string } & Stamp)
+  | ({ type: 'addBrief'; title: string; module: string; workstream: string; department?: string; owner: string; priority: Priority; workType: WorkType; days: number; targetDate: string | null; outcome: string } & Stamp)
   | ({ type: 'moveBrief'; id: string; stage: Stage } & Stamp)
   | ({ type: 'addFeedback'; id: string; text: string } & Stamp)
   | ({ type: 'toggleFeedback'; id: string; feedbackId: string } & Stamp)
@@ -74,6 +74,8 @@ function reducer(state: State, action: Action): State {
         id: newId('brief'),
         title: action.title,
         module: action.module,
+        workstream: action.workstream,
+        department: action.department,
         owner: action.owner,
         priority: action.priority,
         workType: action.workType,
@@ -338,4 +340,4 @@ export function useDemo(): Ctx {
   return ctx
 }
 
-export { PEOPLE, SUPPLIERS, PROJECTS, MODULES }
+export { PEOPLE, SUPPLIERS, PROJECTS, MODULES, WORKSTREAMS, DEPARTMENTS }

@@ -19,6 +19,10 @@ export type SignOff = 'not started' | 'awaiting' | 'signed off'
 
 export type Person = { id: string; name: string; role: string }
 
+// Workstreams are per-client configuration: the capability areas the build
+// is organised around. Every brief belongs to exactly one.
+export type Workstream = { id: string; name: string; goal: string; owner: string; tone: 'blue' | 'purple' | 'green' | 'orange' | 'teal' | 'amber' | 'red' | 'grey' }
+
 export type Feedback = {
   id: string
   author: string
@@ -47,6 +51,8 @@ export type Brief = {
   id: string
   title: string
   module: string
+  workstream: string
+  department?: string
   owner: string
   priority: Priority
   workType: WorkType

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { MODULES, PEOPLE, useDemo } from '../_lib/store'
+import { DEPARTMENTS, MODULES, PEOPLE, WORKSTREAMS, useDemo } from '../_lib/store'
 import type { Priority, WorkType } from '../_lib/types'
 import { Button, Field, Modal, ModalHeader, inputClass, selectClass, textareaClass } from './ui'
 
@@ -9,6 +9,8 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
   const { run, actor } = useDemo()
   const [title, setTitle] = useState('')
   const [module, setModule] = useState(MODULES[2])
+  const [workstream, setWorkstream] = useState(WORKSTREAMS[0].id)
+  const [department, setDepartment] = useState('')
   const [owner, setOwner] = useState(PEOPLE[1].name)
   const [priority, setPriority] = useState<Priority>('P2')
   const [workType, setWorkType] = useState<WorkType>('module')
@@ -19,7 +21,7 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
   const valid = title.trim().length > 2 && outcome.trim().length > 0
 
   const submit = () => {
-    run({ type: 'addBrief', title: title.trim(), module, owner, priority, workType, days, targetDate: targetDate || null, outcome: outcome.trim() })
+    run({ type: 'addBrief', title: title.trim(), module, workstream, department: department || undefined, owner, priority, workType, days, targetDate: targetDate || null, outcome: outcome.trim() })
     setTitle('')
     setOutcome('')
     setTargetDate('')
@@ -34,6 +36,25 @@ export default function NewRequest({ open, onClose }: { open: boolean; onClose: 
           <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="What needs to exist" className={inputClass} autoFocus />
         </Field>
         <div className="mt-4 grid sm:grid-cols-2 gap-4">
+          <Field label="Workstream">
+            <select value={workstream} onChange={(e) => setWorkstream(e.target.value)} className={selectClass + ' w-full'}>
+              {WORKSTREAMS.map((w) => (
+                <option key={w.id} value={w.id}>
+                  {w.name}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Department" hint="Optional tag.">
+            <select value={department} onChange={(e) => setDepartment(e.target.value)} className={selectClass + ' w-full'}>
+              <option value="">None</option>
+              {DEPARTMENTS.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </Field>
           <Field label="Module">
             <select value={module} onChange={(e) => setModule(e.target.value)} className={selectClass + ' w-full'}>
               {MODULES.map((m) => (

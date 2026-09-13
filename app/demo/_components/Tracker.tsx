@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { WORKSTREAMS, useDemo } from '../_lib/store'
 import { STAGES, type Brief, type Stage, type WorkType, type Workstream } from '../_lib/types'
 import { fmtDate } from '../_lib/format'
@@ -25,9 +26,9 @@ const TOUR: TourStep[] = [
   {
     id: 'workstreams',
     title: 'Workstreams',
-    body: 'Briefs cluster around a capability, so the build is organised into workstreams. The tabs filter one board. Ranking stays global, so the change lead still has one list.',
-    placement: 'bottom',
-    anchor: 'tl',
+    body: 'The build is organised into workstreams. Pick one and its briefs are the board. All work is the whole backlog, ranked once, so the change lead still has one list.',
+    placement: 'right',
+    anchor: 'r',
   },
   {
     id: 'new-request',
@@ -91,7 +92,8 @@ export function signOffLabel(b: Brief) {
 export default function Tracker() {
   const { state } = useDemo()
   const [view, setView] = useState<View>('board')
-  const [ws, setWs] = useState<string>('all')
+  const params = useSearchParams()
+  const ws = WORKSTREAMS.some((w) => w.id === params.get('ws')) ? (params.get('ws') as string) : 'all'
   const [lanes, setLanes] = useState(false)
   const [search, setSearch] = useState('')
   const [module, setModule] = useState('')
@@ -121,9 +123,9 @@ export default function Tracker() {
     <div>
       <PageHeader
         icon={<Icon name="board" size={22} />}
-        kicker="Tracker"
-        title="Internal software project management"
-        subtitle="The one channel between the business and the development team, and the source of truth for the build. Every request, decision and change is recorded here, not in email or chat."
+        kicker="Internal software project management"
+        title={current ? current.name : 'All work'}
+        subtitle={current ? current.goal : 'The one channel between the business and the development team, and the source of truth for the build. Every request, decision and change is recorded here, not in email or chat.'}
         dataTour="title"
         tabs={
           <Tabs
@@ -149,6 +151,12 @@ export default function Tracker() {
         }
         meta={
           <>
+            {current && (
+              <span className="inline-flex items-center gap-2 h-8 px-3 rounded-full border border-pm-border bg-pm-surface text-[12.5px]">
+                <span className="text-pm-muted">Owner</span>
+                <Person name={current.owner} size={20} />
+              </span>
+            )}
             <Stat value={scoped.length} label="briefs" />
             <Stat value={scoped.filter((b) => b.stage === 'Mapping').length} label="in mapping" />
             <Stat value={scoped.filter((b) => b.stage === 'Build' || b.stage === 'Preview' || b.stage === 'Testing').length} label="in build" tone="amber" />
@@ -159,16 +167,6 @@ export default function Tracker() {
           </>
         }
       />
-
-      <WorkstreamBar value={ws} onChange={setWs} briefs={state.briefs} />
-      {current && (
-        <div className="px-6 lg:px-8 py-2.5 border-b border-pm-border bg-pm-surface flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px]">
-          <span className="text-pm-muted">{current.goal}</span>
-          <span className="ml-auto inline-flex items-center gap-2 text-pm-muted">
-            Owner <Person name={current.owner} size={20} className="text-pm-text" />
-          </span>
-        </div>
-      )}
 
       <div className="px-6 lg:px-8 py-5">
         <div className="flex flex-wrap items-center gap-2.5">
@@ -239,49 +237,6 @@ export default function Tracker() {
   )
 }
 
-// ---------- Workstreams ----------
-
-function Ring({ done, total, color }: { done: number; total: number; color: string }) {
-  const r = 9
-  const c = 2 * Math.PI * r
-  const pct = total ? done / total : 0
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0">
-      <circle cx="12" cy="12" r={r} fill="none" stroke="#e1e4e8" strokeWidth="3" />
-      <circle cx="12" cy="12" r={r} fill="none" stroke={color} strokeWidth="3" strokeDasharray={`${c * pct} ${c}`} strokeLinecap="round" transform="rotate(-90 12 12)" />
-    </svg>
-  )
-}
-
-function WorkstreamBar({ value, onChange, briefs }: { value: string; onChange: (v: string) => void; briefs: Brief[] }) {
-  const tab = (active: boolean) =>
-    `flex items-center gap-2.5 h-11 px-3.5 rounded-md border text-left whitespace-nowrap transition-colors ${active ? 'border-pm-primary bg-pm-primary-soft' : 'border-transparent hover:bg-pm-hover'}`
-  return (
-    <div className="bg-pm-surface border-b border-pm-border px-6 lg:px-8 py-2.5 overflow-x-auto scrollbar-thin" data-tour="workstreams">
-      <div className="flex items-center gap-1.5 min-w-max">
-        <button type="button" onClick={() => onChange('all')} className={tab(value === 'all')} aria-pressed={value === 'all'}>
-          <span className="text-[13px] font-medium">All work</span>
-          <span className="text-[12px] text-pm-muted">{briefs.length}</span>
-        </button>
-        <span className="mx-1 h-6 w-px bg-pm-border" />
-        {WORKSTREAMS.map((w) => {
-          const mine = briefs.filter((b) => b.workstream === w.id)
-          const done = mine.filter((b) => b.stage === 'Done').length
-          return (
-            <button key={w.id} type="button" onClick={() => onChange(w.id)} className={tab(value === w.id)} aria-pressed={value === w.id}>
-              <Ring done={done} total={mine.length} color={TONES[w.tone].dot} />
-              <span className="text-[13px] font-medium">{w.name}</span>
-              <span className="text-[12px] text-pm-muted">
-                {done}/{mine.length}
-              </span>
-            </button>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
-
 // ---------- Board ----------
 
 function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
@@ -296,7 +251,7 @@ function BoardCard({ brief, onOpen }: { brief: Brief; onOpen: () => void }) {
       <div className="flex items-center justify-between gap-2">
         <span className="text-[11px] font-medium text-pm-muted truncate">
           {brief.module}
-          {brief.department ? `, ${brief.department}` : ''}
+          {brief.department && brief.department !== brief.module ? `, ${brief.department}` : ''}
         </span>
         <Chip tone={PRIORITY_TONE[brief.priority]}>{brief.priority}</Chip>
       </div>

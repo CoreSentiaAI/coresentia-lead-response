@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useDemo } from '../_lib/store'
+import { WORKSTREAMS, useDemo } from '../_lib/store'
+import { TONES } from '../_lib/tones'
 import { Avatar, Button, selectClass } from './ui'
 import { Icon } from './icons'
 
@@ -85,20 +86,48 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
 
         <nav className={`flex lg:flex-col gap-1 ${collapsed ? 'lg:px-2' : 'lg:px-3'}`}>
           {NAV.map((item) => {
+            const onTracker = item.href === '/demo/tracker'
             const active = pathname === item.href || pathname.startsWith(item.href + '/')
+            const wsParam = onTracker && pathname === '/demo/tracker' ? search.get('ws') ?? 'all' : null
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                data-tour={item.href === '/demo/platform' ? 'nav-platform' : undefined}
-                title={collapsed ? item.label : undefined}
-                className={`flex items-center gap-2.5 rounded-md text-[13px] font-medium transition-colors ${collapsed ? 'lg:justify-center lg:px-0 lg:h-9' : ''} px-3 py-2 ${active ? 'bg-pm-primary-soft text-pm-primary' : 'text-pm-text hover:bg-pm-hover'}`}
-              >
-                <span className={active ? 'text-pm-primary' : 'text-pm-muted'}>
-                  <Icon name={item.icon} />
-                </span>
-                {!collapsed && <span>{item.label}</span>}
-              </Link>
+              <div key={item.href} className="lg:contents">
+                <Link
+                  href={item.href}
+                  data-tour={item.href === '/demo/platform' ? 'nav-platform' : undefined}
+                  title={collapsed ? item.label : undefined}
+                  className={`flex items-center gap-2.5 rounded-md text-[13px] font-medium transition-colors ${collapsed ? 'lg:justify-center lg:px-0 lg:h-9' : ''} px-3 py-2 ${active && !(onTracker && wsParam && wsParam !== 'all') ? 'bg-pm-primary-soft text-pm-primary' : active ? 'text-pm-primary' : 'text-pm-text hover:bg-pm-hover'}`}
+                >
+                  <span className={active ? 'text-pm-primary' : 'text-pm-muted'}>
+                    <Icon name={item.icon} />
+                  </span>
+                  {!collapsed && <span>{item.label}</span>}
+                </Link>
+                {onTracker && !collapsed && (
+                  <div className="hidden lg:block pl-4 pb-1" data-tour="workstreams">
+                    <div className="border-l border-pm-border pl-2 space-y-0.5">
+                      <Link href="/demo/tracker" className={`flex items-center gap-2 h-8 rounded-md px-2 text-[12.5px] transition-colors ${wsParam === 'all' ? 'bg-pm-primary-soft text-pm-primary font-medium' : 'text-pm-text hover:bg-pm-hover'}`}>
+                        <span className="h-2 w-2 rounded-full border border-pm-border-strong" />
+                        <span className="truncate">All work</span>
+                        <span className="ml-auto text-[11px] text-pm-muted">{state.briefs.length}</span>
+                      </Link>
+                      {WORKSTREAMS.map((w) => {
+                        const mine = state.briefs.filter((b) => b.workstream === w.id)
+                        const done = mine.filter((b) => b.stage === 'Done').length
+                        const on = wsParam === w.id
+                        return (
+                          <Link key={w.id} href={`/demo/tracker?ws=${w.id}`} className={`flex items-center gap-2 h-8 rounded-md px-2 text-[12.5px] transition-colors ${on ? 'bg-pm-primary-soft text-pm-primary font-medium' : 'text-pm-text hover:bg-pm-hover'}`}>
+                          <span className="h-2 w-2 rounded-full shrink-0" style={{ background: TONES[w.tone].dot }} />
+                          <span className="truncate">{w.name}</span>
+                          <span className="ml-auto text-[11px] text-pm-muted whitespace-nowrap">
+                            {done}/{mine.length}
+                          </span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             )
           })}
         </nav>

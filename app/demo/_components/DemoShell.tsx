@@ -113,7 +113,7 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
                       </Link>
                       {WORKSTREAMS.map((w) => {
                         const mine = state.briefs.filter((b) => b.workstream === w.id)
-                        const done = mine.filter((b) => b.stage === 'Done').length
+                        const done = mine.filter((b) => b.stage === 'Complete').length
                         const on = wsParam === w.id
                         return (
                           <Link key={w.id} href={`/demo/tracker?ws=${w.id}`} className={`flex items-center gap-2 h-8 rounded-md px-2 text-[12.5px] transition-colors ${on ? 'bg-pm-primary-soft text-pm-primary font-medium' : 'text-pm-text hover:bg-pm-hover'}`}>

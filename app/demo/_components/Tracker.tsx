@@ -159,10 +159,10 @@ export default function Tracker() {
             )}
             <Stat value={scoped.length} label="briefs" />
             <Stat value={scoped.filter((b) => b.stage === 'Mapping').length} label="in mapping" />
-            <Stat value={scoped.filter((b) => b.stage === 'In build' || b.stage === 'Preview' || b.stage === 'Testing').length} label="in build" tone="amber" />
+            <Stat value={scoped.filter((b) => b.stage === 'In build' || b.stage === 'Testing').length} label="in build" tone="amber" />
             <Stat value={scoped.filter((b) => b.stage === 'Production').length} label="in production" tone="green" />
             <Stat value={scoped.filter((b) => b.signOff === 'awaiting').length} label="awaiting sign-off" tone="primary" />
-            <Stat value={scoped.filter((b) => b.stage === 'Done').length} label="done" />
+            <Stat value={scoped.filter((b) => b.stage === 'Complete').length} label="complete" />
             <Stat value={scoped.filter((b) => b.workType === 'hotfix').length} label="hotfix this month" tone="red" />
           </>
         }

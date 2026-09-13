@@ -6,10 +6,9 @@ export const STAGES = [
   'Briefed in',
   'Approved for build',
   'In build',
-  'Preview',
   'Testing',
   'Production',
-  'Done',
+  'Complete',
 ] as const
 export type Stage = (typeof STAGES)[number]
 

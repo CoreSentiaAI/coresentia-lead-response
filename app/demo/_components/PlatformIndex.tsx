@@ -33,8 +33,8 @@ type Status = { label: string; tone: Tone; live: boolean }
 
 function statusFor(briefs: Brief[], hasPage: boolean): Status {
   const stages = new Set(briefs.filter((b) => b.workType !== 'hotfix').map((b) => b.stage))
-  if (stages.has('Done') || stages.has('Production')) return hasPage ? { label: 'Live', tone: 'green', live: true } : { label: 'Built', tone: 'slate', live: false }
-  if (stages.has('Testing') || stages.has('Preview') || stages.has('In build')) return { label: 'In build', tone: 'amber', live: false }
+  if (stages.has('Complete') || stages.has('Production')) return hasPage ? { label: 'Live', tone: 'green', live: true } : { label: 'Built', tone: 'slate', live: false }
+  if (stages.has('Testing') || stages.has('In build')) return { label: 'In build', tone: 'amber', live: false }
   if (stages.has('Approved for build') || stages.has('Briefed in') || stages.has('Mapping')) return { label: 'Next cycle', tone: 'grey', live: false }
   return { label: 'Planned', tone: 'grey', live: false }
 }
@@ -54,7 +54,7 @@ export default function PlatformIndex() {
             return Array.from(counts.entries()).sort((a, b) => b[1] - a[1])[0][0] === w.id
           })
           if (cards.length === 0) return null
-          const done = state.briefs.filter((b) => b.workstream === w.id && b.stage === 'Done').length
+          const done = state.briefs.filter((b) => b.workstream === w.id && b.stage === 'Complete').length
           const total = state.briefs.filter((b) => b.workstream === w.id).length
           return (
             <section key={w.id}>
@@ -63,14 +63,14 @@ export default function PlatformIndex() {
                 <h2 className="text-[15px] font-semibold">{w.name}</h2>
                 <span className="text-[12.5px] text-pm-muted">{w.goal}</span>
                 <span className="ml-auto text-[12px] text-pm-muted">
-                  {done} of {total} briefs done
+                  {done} of {total} briefs complete
                 </span>
               </div>
               <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {cards.map((m) => {
                   const briefs = state.briefs.filter((b) => b.module === m.name)
                   const s = statusFor(briefs, Boolean(m.href))
-                  const open = briefs.filter((b) => b.stage !== 'Done').length
+                  const open = briefs.filter((b) => b.stage !== 'Complete').length
                   return (
                     <Card key={m.name} className={`p-5 ${s.live ? '' : 'bg-[#fbfbfc]'}`}>
                       <div className="flex items-start justify-between gap-3">

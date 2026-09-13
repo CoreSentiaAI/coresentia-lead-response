@@ -19,14 +19,13 @@ export const TONES: Record<Tone, { bg: string; fg: string; dot: string }> = {
 }
 
 export const STAGE_LABEL: Record<Stage, string> = {
-  Mapping: 'Stage 1 of 8. Request raised, current state being mapped, waiting to be ranked.',
-  'Briefed in': 'Stage 2 of 8. Brief submitted with the process map attached.',
-  'Approved for build': 'Stage 3 of 8. Approved by the change lead. Scope is fixed. This is what gets built.',
-  'In build': 'Stage 4 of 8. Being built. Nothing is added mid-build.',
-  Preview: 'Stage 5 of 8. On a preview link for the business to click through.',
-  Testing: 'Stage 6 of 8. Feedback captured against the brief. One iteration round.',
-  Production: 'Stage 7 of 8. Live. Waiting on README, owner and sign-off.',
-  Done: 'Stage 8 of 8. On production, signed off, documented, owned.',
+  Mapping: 'Stage 1 of 7. Request raised, current state being mapped, waiting to be ranked.',
+  'Briefed in': 'Stage 2 of 7. Brief submitted with the process map attached.',
+  'Approved for build': 'Stage 3 of 7. Approved by the change lead. Scope is fixed. This is what gets built.',
+  'In build': 'Stage 4 of 7. Being built. Nothing is added mid-build.',
+  Testing: 'Stage 5 of 7. On a preview link. The business clicks through and feedback is captured against the brief.',
+  Production: 'Stage 6 of 7. Live. Waiting on README, tests and sign-off.',
+  Complete: 'Stage 7 of 7. Live, signed off, documented, tested.',
 }
 
 export const STAGE_TONE: Record<Stage, Tone> = {
@@ -34,10 +33,9 @@ export const STAGE_TONE: Record<Stage, Tone> = {
   'Briefed in': 'blue',
   'Approved for build': 'purple',
   'In build': 'amber',
-  Preview: 'teal',
   Testing: 'orange',
   Production: 'green',
-  Done: 'slate',
+  Complete: 'slate',
 }
 
 export const PRIORITY_TONE: Record<Priority, Tone> = { P1: 'red', P2: 'amber', P3: 'grey' }

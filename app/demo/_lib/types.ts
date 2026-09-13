@@ -29,6 +29,20 @@ export type Feedback = {
 
 export type LogEntry = { id: string; at: string; who: string; action: string }
 
+export type AttachmentKind = 'pdf' | 'docx' | 'image' | 'file'
+
+export type Attachment = {
+  id: string
+  name: string
+  kind: AttachmentKind
+  size: number
+  uploadedBy: string
+  at: string
+  // Seeded files live under /public/demo and have a url. Files added in the
+  // browser are held in memory for the session (see files.ts) and have none.
+  url?: string
+}
+
 export type Brief = {
   id: string
   title: string
@@ -49,6 +63,7 @@ export type Brief = {
   internalOwner: string
   feedback: Feedback[]
   changeLog: LogEntry[]
+  attachments: Attachment[]
 }
 
 export const PO_STATUSES = [

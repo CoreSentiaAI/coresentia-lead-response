@@ -67,6 +67,7 @@ export const BRIEFS: Brief[] = [
     feedback: fb([
       ['2026-06-22T09:40:00+10:00', 'Helen Marsh', 'Cards need the days estimate on the front, not in the detail.', 'addressed'],
     ]),
+    attachments: [],
     changeLog: log([
       ['2026-06-15T08:30:00+10:00', 'Helen Marsh', 'Request raised. Entered Mapping.'],
       ['2026-06-16T10:05:00+10:00', 'Helen Marsh', 'Ranked P1. Moved from Mapping to Briefed in.'],
@@ -103,6 +104,7 @@ export const BRIEFS: Brief[] = [
       ['2026-07-14T10:20:00+10:00', 'Dana Kowalski', 'Contract value should be ex GST with the inc GST figure shown beside it.', 'addressed'],
       ['2026-07-15T08:50:00+10:00', 'Tom Aldridge', 'Practical completion date is a target until certified. Show which.', 'addressed'],
     ]),
+    attachments: [],
     changeLog: log([
       ['2026-06-18T09:00:00+10:00', 'Tom Aldridge', 'Request raised. Entered Mapping.'],
       ['2026-06-19T11:30:00+10:00', 'Helen Marsh', 'Ranked P1.'],
@@ -142,6 +144,11 @@ export const BRIEFS: Brief[] = [
       ['2026-08-18T09:30:00+10:00', 'Helen Marsh', 'The threshold is ex GST. Say so on screen.', 'addressed'],
       ['2026-09-04T16:20:00+10:00', 'Priya Nair', 'Supplier list needs an inactive flag so retired suppliers drop out of the select.', 'open'],
     ]),
+    attachments: [
+      { id: 'att-b03-1', name: 'Purchase orders - process map v2.pdf', kind: 'pdf', size: 115509, uploadedBy: 'Priya Nair', at: '2026-07-24T14:55:00+10:00', url: '/demo/purchase-orders-process-map-v2.pdf' },
+      { id: 'att-b03-2', name: 'PO approval flow - current state.png', kind: 'image', size: 100629, uploadedBy: 'Priya Nair', at: '2026-07-20T11:10:00+10:00', url: '/demo/po-approval-flow-current-state.png' },
+      { id: 'att-b03-3', name: 'Brief - Purchase orders - raise and approve.docx', kind: 'docx', size: 1793, uploadedBy: 'Priya Nair', at: '2026-07-24T14:58:00+10:00', url: '/demo/brief-purchase-orders-raise-and-approve.docx' },
+    ],
     changeLog: log([
       ['2026-07-06T09:20:00+10:00', 'Priya Nair', 'Request raised. Entered Mapping.'],
       ['2026-07-07T08:45:00+10:00', 'Helen Marsh', 'Ranked P1. First module after the register.'],
@@ -182,6 +189,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '#readme-purchase-orders',
     internalOwner: 'Priya Nair',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-09-09T10:40:00+10:00', 'Priya Nair', 'Hotfix logged. Bypasses the cycle.'],
       ['2026-09-09T11:05:00+10:00', 'Ramsay Hatfield', 'Reproduced on preview. Cause found.'],
@@ -213,6 +221,7 @@ export const BRIEFS: Brief[] = [
       ['2026-09-08T15:10:00+10:00', 'Marcus Reid', 'Crew count needs subcontractor crews split out from our own.', 'addressed'],
       ['2026-09-10T07:50:00+10:00', 'Marcus Reid', 'Weather should default from the nearest BoM station, not a free text field.', 'open'],
     ]),
+    attachments: [],
     changeLog: log([
       ['2026-08-03T09:00:00+10:00', 'Marcus Reid', 'Request raised. Entered Mapping.'],
       ['2026-08-04T10:30:00+10:00', 'Helen Marsh', 'Ranked P2.'],
@@ -246,6 +255,7 @@ export const BRIEFS: Brief[] = [
     feedback: fb([
       ['2026-09-11T10:30:00+10:00', 'Dana Kowalski', 'Retention should show as a running balance per project.', 'open'],
     ]),
+    attachments: [],
     changeLog: log([
       ['2026-07-27T09:00:00+10:00', 'Dana Kowalski', 'Request raised. Entered Mapping.'],
       ['2026-07-28T10:00:00+10:00', 'Helen Marsh', 'Ranked P1.'],
@@ -277,6 +287,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '',
     internalOwner: 'Dana Kowalski',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-08-10T09:00:00+10:00', 'Dana Kowalski', 'Request raised. Entered Mapping.'],
       ['2026-08-11T10:00:00+10:00', 'Helen Marsh', 'Ranked P2.'],
@@ -306,6 +317,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '',
     internalOwner: 'Marcus Reid',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-08-17T09:00:00+10:00', 'Marcus Reid', 'Request raised. Entered Mapping.'],
       ['2026-08-18T10:00:00+10:00', 'Helen Marsh', 'Ranked P2.'],
@@ -334,6 +346,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '',
     internalOwner: 'Helen Marsh',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-09-03T09:00:00+10:00', 'Helen Marsh', 'Request raised. Entered Mapping.'],
       ['2026-09-03T09:05:00+10:00', 'Helen Marsh', 'Ranked P2. Depends on claims and the register.'],
@@ -361,6 +374,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '',
     internalOwner: 'Sam Okafor',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-08-30T10:00:00+10:00', 'Priya Nair', 'Request raised. Entered Mapping.'],
       ['2026-08-31T09:00:00+10:00', 'Helen Marsh', 'Ranked P1. Filed as integration. Batched for the next integration cycle.'],
@@ -388,6 +402,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '',
     internalOwner: 'Dana Kowalski',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-09-11T10:20:00+10:00', 'Dana Kowalski', 'Request raised during the claims preview demo. Entered Mapping.'],
       ['2026-09-11T10:25:00+10:00', 'Helen Marsh', 'Ranked P2. Filed as integration. Not added to the claims build in flight.'],
@@ -412,6 +427,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '',
     internalOwner: 'Marcus Reid',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-09-08T15:30:00+10:00', 'Marcus Reid', 'Request raised during site diary testing. Entered Mapping.'],
       ['2026-09-09T09:00:00+10:00', 'Helen Marsh', 'Ranked P3. After the diary is done.'],
@@ -438,6 +454,7 @@ export const BRIEFS: Brief[] = [
     readmeUrl: '',
     internalOwner: 'Priya Nair',
     feedback: [],
+    attachments: [],
     changeLog: log([
       ['2026-09-02T09:00:00+10:00', 'Priya Nair', 'Request raised. Entered Mapping.'],
       ['2026-09-02T14:00:00+10:00', 'Helen Marsh', 'Ranked P2. Waits on the ERP sync.'],

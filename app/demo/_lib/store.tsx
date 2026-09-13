@@ -5,13 +5,13 @@
 // returns everything to the seed.
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer } from 'react'
-import type { Brief, Person, PoLine, Priority, PurchaseOrder, Stage, WorkType } from './types'
+import type { Attachment, Brief, Person, PoLine, Priority, PurchaseOrder, Stage, WorkType } from './types'
 import { ACTORS, BRIEFS, DEFAULT_ACTOR, MODULES, NEXT_PO_SEQUENCE, PEOPLE, PROJECTS, PURCHASE_ORDERS, SUPPLIERS } from './seed'
 import { lineTotals, newId } from './format'
 import { routeFor } from './routing'
 
 const STORAGE_KEY = 'cs-demo-state'
-const VERSION = 2
+const VERSION = 3
 
 type State = {
   version: number
@@ -40,6 +40,8 @@ type Action =
   | ({ type: 'addFeedback'; id: string; text: string } & Stamp)
   | ({ type: 'toggleFeedback'; id: string; feedbackId: string } & Stamp)
   | ({ type: 'setPreviewUrl'; id: string; url: string } & Stamp)
+  | ({ type: 'addAttachment'; id: string; attachment: Omit<Attachment, 'uploadedBy' | 'at'> } & Stamp)
+  | ({ type: 'removeAttachment'; id: string; attachmentId: string } & Stamp)
   | ({ type: 'signOffBrief'; id: string } & Stamp)
   | ({ type: 'createPo'; supplierId: string; projectId: string; lines: PoLine[]; submit: boolean } & Stamp)
   | ({ type: 'submitPo'; id: string } & Stamp)
@@ -88,6 +90,7 @@ function reducer(state: State, action: Action): State {
         internalOwner: '',
         feedback: [],
         changeLog: [logEntry(action, 'Request raised. Entered Mapping.')],
+        attachments: [],
       }
       return { ...state, briefs: [brief, ...state.briefs] }
     }
@@ -130,6 +133,24 @@ function reducer(state: State, action: Action): State {
         previewUrl: action.url,
         changeLog: [...b.changeLog, logEntry(action, action.url ? 'Preview URL added.' : 'Preview URL removed.')],
       }))
+
+    case 'addAttachment':
+      return updateBrief(state, action.id, (b) => ({
+        ...b,
+        attachments: [...b.attachments, { ...action.attachment, uploadedBy: action.who, at: action.at }],
+        changeLog: [...b.changeLog, logEntry(action, `Attachment added: ${action.attachment.name}`)],
+      }))
+
+    case 'removeAttachment':
+      return updateBrief(state, action.id, (b) => {
+        const a = b.attachments.find((x) => x.id === action.attachmentId)
+        if (!a) return b
+        return {
+          ...b,
+          attachments: b.attachments.filter((x) => x.id !== action.attachmentId),
+          changeLog: [...b.changeLog, logEntry(action, `Attachment removed: ${a.name}`)],
+        }
+      })
 
     case 'signOffBrief':
       return updateBrief(state, action.id, (b) => ({

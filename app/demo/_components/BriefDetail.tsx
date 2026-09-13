@@ -1,7 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDemo } from '../_lib/store'
-import { STAGES, type Brief, type Stage } from '../_lib/types'
+import { STAGES, type Attachment, type Brief, type Stage } from '../_lib/types'
+import { ACCEPT, fmtBytes, kindOf, newFileId, rememberFile } from '../_lib/files'
+import FileViewer, { KindTile } from './FileViewer'
 import { fmtDate, fmtDateTime } from '../_lib/format'
 import { DECISION_TONE, PRIORITY_TONE, STAGE_TONE, WORK_TYPE_TONE } from '../_lib/tones'
 import { Avatar, Button, Card, Chip, Field, Modal, ModalHeader, Person, SectionTitle, inputClass, selectClass } from './ui'
@@ -13,6 +15,18 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
   const [target, setTarget] = useState<Stage>('Mapping')
   const [url, setUrl] = useState('')
   const [feedback, setFeedback] = useState('')
+  const [viewing, setViewing] = useState<Attachment | null>(null)
+  const [dragging, setDragging] = useState(false)
+  const fileInput = useRef<HTMLInputElement>(null)
+
+  const addFiles = (files: FileList | File[]) => {
+    if (!brief) return
+    for (const file of Array.from(files)) {
+      const id = newFileId()
+      rememberFile(id, file)
+      run({ type: 'addAttachment', id: brief.id, attachment: { id, name: file.name, kind: kindOf(file.name), size: file.size } })
+    }
+  }
 
   useEffect(() => {
     if (!brief) return
@@ -120,6 +134,54 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
           </section>
 
           <section className="mt-8">
+            <SectionTitle right={`${brief.attachments.length} ${brief.attachments.length === 1 ? 'file' : 'files'}`}>Attachments</SectionTitle>
+            <ul className="mt-2 divide-y divide-pm-border border-t border-b border-pm-border">
+              {brief.attachments.length === 0 && <li className="py-3 text-[12.5px] text-pm-muted">No files yet. Process maps, quotes, screenshots and the brief itself go here.</li>}
+              {brief.attachments.map((a) => (
+                <li key={a.id} className="py-2.5 flex items-center gap-3">
+                  <button type="button" onClick={() => setViewing(a)} className="flex items-center gap-3 min-w-0 flex-1 text-left group">
+                    <KindTile kind={a.kind} />
+                    <span className="min-w-0">
+                      <span className="block text-[13px] font-medium truncate group-hover:text-pm-primary">{a.name}</span>
+                      <span className="block text-[11.5px] text-pm-muted">
+                        {fmtBytes(a.size)}, {a.uploadedBy}, {fmtDateTime(a.at)}
+                      </span>
+                    </span>
+                  </button>
+                  <Button size="sm" variant="ghost" onClick={() => setViewing(a)}>
+                    Preview
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => run({ type: 'removeAttachment', id: brief.id, attachmentId: a.id })} aria-label={`Remove ${a.name}`}>
+                    Remove
+                  </Button>
+                </li>
+              ))}
+            </ul>
+            <div
+              onDragOver={(e) => {
+                e.preventDefault()
+                setDragging(true)
+              }}
+              onDragLeave={() => setDragging(false)}
+              onDrop={(e) => {
+                e.preventDefault()
+                setDragging(false)
+                addFiles(e.dataTransfer.files)
+              }}
+              className={`mt-3 rounded-md border border-dashed px-4 py-4 text-center transition-colors ${dragging ? 'border-pm-primary bg-pm-primary-soft' : 'border-pm-border-strong bg-pm-hover'}`}
+            >
+              <input ref={fileInput} type="file" multiple accept={ACCEPT} className="sr-only" onChange={(e) => e.target.files && addFiles(e.target.files)} data-testid="attachment-input" />
+              <div className="text-[13px]">
+                Drop files here, or{' '}
+                <button type="button" onClick={() => fileInput.current?.click()} className="font-medium text-pm-primary hover:underline underline-offset-4">
+                  choose files
+                </button>
+              </div>
+              <div className="mt-1 text-[11.5px] text-pm-muted">PDF, Word, PNG, JPEG. Kept in this browser for the demo.</div>
+            </div>
+          </section>
+
+          <section className="mt-8">
             <SectionTitle right={`${openFeedback} open`}>Test feedback</SectionTitle>
             <ul className="mt-2 divide-y divide-pm-border border-t border-b border-pm-border">
               {brief.feedback.length === 0 && <li className="py-3 text-[12.5px] text-pm-muted">No feedback yet. It goes here, never in chat.</li>}
@@ -176,6 +238,7 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
           </ol>
         </div>
       </div>
+      <FileViewer attachment={viewing} onClose={() => setViewing(null)} />
     </Modal>
   )
 }

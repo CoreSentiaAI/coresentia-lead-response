@@ -184,7 +184,7 @@ export function PageHeader({
           {actions}
         </div>
       </div>
-      {meta && <div className="mt-4 flex flex-wrap items-center gap-2">{meta}</div>}
+      {meta && <div className="hidden sm:flex mt-3 flex-wrap items-center gap-x-5 gap-y-1.5">{meta}</div>}
     </div>
   )
 }
@@ -192,8 +192,8 @@ export function PageHeader({
 export function Stat({ value, label, tone }: { value: ReactNode; label: string; tone?: 'primary' | 'green' | 'amber' | 'red' }) {
   const dot = tone === 'green' ? '#1e8e5a' : tone === 'amber' ? '#c77700' : tone === 'red' ? '#c93b3b' : tone === 'primary' ? '#2d5bd1' : undefined
   return (
-    <span className="inline-flex items-center gap-2 h-8 px-3 rounded-full border border-pm-border bg-pm-surface text-[12.5px]">
-      {dot && <span className="h-2 w-2 rounded-full" style={{ background: dot }} />}
+    <span className="inline-flex items-center gap-1.5 text-[12.5px] whitespace-nowrap">
+      {dot && <span className="h-1.5 w-1.5 rounded-full" style={{ background: dot }} />}
       <span className="font-semibold">{value}</span>
       <span className="text-pm-muted">{label}</span>
     </span>

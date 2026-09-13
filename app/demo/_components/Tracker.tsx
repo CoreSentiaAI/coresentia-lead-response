@@ -155,9 +155,9 @@ export default function Tracker() {
         meta={
           <>
             {current && (
-              <span className="inline-flex items-center gap-2 h-8 px-3 rounded-full border border-pm-border bg-pm-surface text-[12.5px]">
+              <span className="inline-flex items-center gap-2 text-[12.5px] whitespace-nowrap">
                 <span className="text-pm-muted">Owner</span>
-                <Person name={current.owner} size={20} />
+                <Person name={current.owner} size={18} />
               </span>
             )}
             <Stat value={scoped.length} label="briefs" />

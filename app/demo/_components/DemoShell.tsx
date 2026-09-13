@@ -104,6 +104,7 @@ export default function DemoShell({ children }: { children: React.ReactNode }) {
                 </Link>
                 {onTracker && !collapsed && (
                   <div className="hidden lg:block pl-4 pb-1" data-tour="workstreams">
+                    <div className="pl-4 pt-1.5 pb-1 text-[10.5px] font-semibold uppercase tracking-[0.06em] text-pm-muted">Workstreams</div>
                     <div className="border-l border-pm-border pl-2 space-y-0.5">
                       <Link href="/demo/tracker" className={`flex items-center gap-2 h-8 rounded-md px-2 text-[12.5px] transition-colors ${wsParam === 'all' ? 'bg-pm-primary-soft text-pm-primary font-medium' : 'text-pm-text hover:bg-pm-hover'}`}>
                         <span className="h-2 w-2 rounded-full border border-pm-border-strong" />

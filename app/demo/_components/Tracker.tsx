@@ -123,7 +123,7 @@ export default function Tracker() {
     <div>
       <PageHeader
         icon={<Icon name="board" size={22} />}
-        kicker="Internal software project management"
+        kicker={current ? 'Workstream' : 'Tracker'}
         title={current ? current.name : 'All work'}
         subtitle={current ? current.goal : 'The one channel between the business and the development team, and the source of truth for the build. Every request, decision and change is recorded here, not in email or chat.'}
         dataTour="title"
@@ -170,6 +170,12 @@ export default function Tracker() {
 
       <div className="px-6 lg:px-8 py-5">
         <div className="flex flex-wrap items-center gap-2.5">
+          <h2 className="text-[16px] font-semibold mr-2 flex items-baseline gap-2">
+            Briefs
+            <span className="text-[12.5px] font-normal text-pm-muted">
+              {filtered ? `${visible.length} of ${scoped.length}` : scoped.length}
+            </span>
+          </h2>
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search briefs" className={inputClass + ' max-w-[224px]'} aria-label="Search briefs" />
           <select value={module} onChange={(e) => setModule(e.target.value)} className={selectClass} aria-label="Filter by module">
             <option value="">All modules</option>
@@ -217,9 +223,7 @@ export default function Tracker() {
               Swimlanes
             </Button>
           )}
-          <span className="ml-auto text-[12.5px] text-pm-muted">
-            {visible.length} of {scoped.length} briefs
-          </span>
+
         </div>
         {integrationCycle && <p className="mt-2 text-[12.5px] text-pm-muted">Integration cycle: cross-module links only. Every third or fourth cycle builds these and nothing else.</p>}
 

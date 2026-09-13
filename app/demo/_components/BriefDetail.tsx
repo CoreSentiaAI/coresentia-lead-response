@@ -5,9 +5,8 @@ import { STAGES, type Attachment, type Brief, type Stage } from '../_lib/types'
 import { ACCEPT, fmtBytes, kindOf, newFileId, rememberFile } from '../_lib/files'
 import FileViewer, { KindTile } from './FileViewer'
 import { fmtDate, fmtDateTime } from '../_lib/format'
-import { DECISION_TONE, PRIORITY_LABEL, PRIORITY_TONE, STAGE_TONE, WORK_TYPE_TONE } from '../_lib/tones'
+import { DECISION_TONE, PRIORITY_LABEL, PRIORITY_TONE, STAGE_LABEL, STAGE_TONE } from '../_lib/tones'
 import { Avatar, Button, Card, Chip, Field, Modal, ModalHeader, Person, SectionTitle, inputClass, selectClass } from './ui'
-import { signOffLabel } from './Tracker'
 
 // Brief detail. Left: what it is, the actions, test feedback. Right: the change log.
 export default function BriefDetail({ brief, onClose }: { brief: Brief | null; onClose: () => void }) {
@@ -46,23 +45,16 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
   return (
     <Modal open onClose={onClose}>
       <ModalHeader
-        kicker={brief.module}
+        kicker="Brief"
         title={brief.title}
         onClose={onClose}
         chips={
           <>
-            <Chip tone={STAGE_TONE[brief.stage]} dot>
+            <Chip tone={STAGE_TONE[brief.stage]} dot tip={STAGE_LABEL[brief.stage]}>
               {brief.stage}
             </Chip>
-            {ws && <Chip tone={ws.tone}>{ws.name}</Chip>}
-            {brief.department && <Chip tone="grey">{brief.department}</Chip>}
-            <Chip tone={WORK_TYPE_TONE[brief.workType]}>{brief.workType}</Chip>
             <Chip tone={PRIORITY_TONE[brief.priority]} tip={PRIORITY_LABEL[brief.priority]}>
               {brief.priority}
-            </Chip>
-            <Chip tone="grey">{brief.days} days</Chip>
-            <Chip tone={brief.signOff === 'signed off' ? 'green' : brief.signOff === 'awaiting' ? 'amber' : 'grey'} dot>
-              {signOffLabel(brief)}
             </Chip>
           </>
         }
@@ -109,14 +101,23 @@ export default function BriefDetail({ brief, onClose }: { brief: Brief | null; o
             <Field label="Module">
               <div>{brief.module}</div>
             </Field>
+            <Field label="Work type">
+              <div className="capitalize">{brief.workType}</div>
+            </Field>
+            <Field label="Estimate">
+              <div>{brief.days} {brief.days === 1 ? 'day' : 'days'}</div>
+            </Field>
             <Field label="Owner (SME)">
               <Person name={brief.owner} />
             </Field>
             <Field label="Internal owner">
               {brief.internalOwner ? <Person name={brief.internalOwner} /> : <span className="text-pm-muted">Not yet named</span>}
             </Field>
-            <Field label="Sign-off by">
-              <div>{brief.signOffBy.join(', ') || 'Not set'}</div>
+            <Field label="Sign-off">
+              <div>
+                {brief.signOff === 'signed off' ? 'Signed off' : brief.signOff === 'awaiting' ? 'Awaiting' : 'Not started'}
+                {brief.signOffBy.length > 0 ? `, by ${brief.signOffBy.join(' and ')}` : ''}
+              </div>
             </Field>
             <Field label="Lock date">
               <div>{brief.lockDate ? fmtDate(brief.lockDate) : brief.workType === 'hotfix' ? 'Hotfix path, no lock' : 'Not locked'}</div>

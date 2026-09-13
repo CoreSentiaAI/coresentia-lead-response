@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { WORKSTREAMS, useDemo } from '../_lib/store'
 import { STAGES, type Brief, type Priority, type Stage, type WorkType, type Workstream } from '../_lib/types'
 import { fmtDate } from '../_lib/format'
@@ -93,6 +93,7 @@ export default function Tracker() {
   const { state } = useDemo()
   const [view, setView] = useState<View>('board')
   const params = useSearchParams()
+  const router = useRouter()
   const ws = WORKSTREAMS.some((w) => w.id === params.get('ws')) ? (params.get('ws') as string) : 'all'
   const [lanes, setLanes] = useState(false)
   const [search, setSearch] = useState('')
@@ -169,6 +170,19 @@ export default function Tracker() {
           </>
         }
       />
+
+      {/* Small screens have no sidebar list, so the workstream switch lives here */}
+      <div className="lg:hidden px-6 py-3 border-b border-pm-border bg-pm-surface flex items-center gap-3">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.06em] text-pm-muted">Workstream</span>
+        <select value={ws} onChange={(e) => router.push(e.target.value === 'all' ? '/demo/tracker' : `/demo/tracker?ws=${e.target.value}`)} className={selectClass + ' flex-1'} aria-label="Workstream">
+          <option value="all">All work</option>
+          {WORKSTREAMS.map((w) => (
+            <option key={w.id} value={w.id}>
+              {w.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className="px-6 lg:px-8 py-5">
         <div className="flex flex-wrap items-center gap-2.5">
